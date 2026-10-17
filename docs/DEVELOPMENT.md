@@ -39,3 +39,14 @@
 - 真实 PostgreSQL 全套：99 passed，1 skipped（未启用真实 LLM API）；SQLite 在新增分析测试中发现 naive/aware UTC 时间差，已统一 API 时间序列化。追加修复后相关 80 项测试通过。
 - Alembic `upgrade head` 和 `check` 成功（ORM 与迁移无差异）。SQL、Provider、DuckDB 专项已实际执行；HTTP MockTransport 测试不代表真实模型已验证。
 - 原生 Excel 日期类型推断修复并加入回归；CSV/DuckDB 大整数以字符串跨 JSON 边界，避免前端丢失精度。
+
+## 2026-10-18 · 图表、历史、导出与清理验收
+
+- Next.js 接入完整提问链路、SQL 展示、真实结果表格、ECharts 柱/线/饼/表格策略、事实/推测/局限性、历史恢复和 CSV 下载。
+- 图表直接使用 SQL 返回列和行；缺值、重复类别、精度敏感大整数或行数不足时保留表格。新增图表选择回归用例。
+- 浏览器回归暴露首次加载/上传及历史异步加载时的时序假设：加载期间禁用上传，测试显式等上传响应，并通过“分析历史”语义区域定位历史操作，不使用盲目延时或重试。
+- 加入数据集删除：running 状态拒绝删除、失败恢复文件、成功清理历史/快照；添加审计与可恢复的 retention CLI（默认 dry-run）。
+- 数据集列表只返回轻量元信息，详情按需加载，避免批量传送所有预览。
+- 最终后端真实 PostgreSQL：113 passed / 1 skipped（真实 LLM）；默认临时 SQLite：112 passed / 2 skipped（PostgreSQL、真实 LLM）；Ruff、迁移 check、pip check 通过。
+- 前端 ESLint、TypeScript/生产构建通过；生产依赖 `npm audit --omit=dev` 为 0 vulnerabilities。Edge Playwright 覆盖上传、错误恢复、移动布局、Mock+真实 SQL/图表/导出/历史、显式删除。最终结果见后续部署记录。
+- 已查看真实查询图表截图，核对 East=40、West=20 与表格、CSV 相同。

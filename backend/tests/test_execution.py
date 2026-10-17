@@ -60,3 +60,13 @@ def test_worker_blocks_filesystem_even_if_guard_is_accidentally_skipped(data_pat
     with pytest.raises(AppError) as caught:
         execute_query(data_path, "SELECT * FROM read_csv('/etc/passwd')", settings)
     assert caught.value.detail["code"] == "query_failed"
+
+
+def test_real_cpu_bound_query_is_terminated(data_path, settings):
+    # Internal executor test deliberately bypasses the guard to force sustained computation.
+    # The production route rejects range() before execution.
+    settings.query_timeout_seconds = 1.5
+    with pytest.raises(AppError) as caught:
+        execute_query(data_path, "SELECT SUM(i) FROM range(1000000000000) AS t(i)", settings)
+    assert caught.value.detail["code"] == "query_timeout"
+    assert not mp.active_children()

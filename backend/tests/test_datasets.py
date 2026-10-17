@@ -41,6 +41,7 @@ def test_csv_real_import_profile_and_persistence(client, settings):
         assert db.execute('SELECT SUM(revenue) FROM "data"').fetchone()[0] == 40
     assert client.get(f"/api/datasets/{dataset['id']}").json() == dataset
     assert client.get("/api/datasets").json()[0]["id"] == dataset["id"]
+    assert "profile" not in client.get("/api/datasets").json()[0]
 
 
 def test_xlsx_real_import_and_sheet_selection(client):
@@ -81,8 +82,11 @@ def test_size_rows_and_columns_limits(client, settings):
     settings.max_upload_bytes = 1024
     settings.max_dataset_rows = 2
     assert upload(client, b"a\n1\n2\n3\n").status_code == 422
+    settings.max_upload_bytes = 16 * 1024
+    assert upload(client, xlsx_bytes([["a"], [1], [2], [3]]), "too-many.xlsx").status_code == 422
     settings.max_dataset_columns = 1
     assert upload(client, b"a,b\n1,2\n").status_code == 422
+    assert upload(client, xlsx_bytes([["a", "b"], [1, 2]]), "too-wide.xlsx").status_code == 422
 
 
 def test_zip_masquerading_as_xlsx(client):

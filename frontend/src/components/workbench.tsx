@@ -5,10 +5,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/data-table";
-import { api, ApiError, Dataset, display } from "@/lib/api";
+import { AnalysisPanel } from "@/components/analysis-panel";
+import { api, ApiError, Dataset, DatasetSummary, display } from "@/lib/api";
 
 export function Workbench() {
-  const [datasets, setDatasets] = useState<Dataset[]>([]);
+  const [datasets, setDatasets] = useState<DatasetSummary[]>([]);
   const [selected, setSelected] = useState<Dataset | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [sheets, setSheets] = useState<string[]>([]);
@@ -17,17 +18,22 @@ export function Workbench() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [ready, setReady] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     let active = true;
     Promise.all([
-      api<Dataset[]>("/datasets"),
+      api<DatasetSummary[]>("/datasets"),
       api<{ status: string }>("/health/ready"),
     ])
-      .then(([list]) => {
+      .then(async ([list]) => {
+        const first = list[0]
+          ? await api<Dataset>(`/datasets/${list[0].id}`)
+          : null;
         if (active) {
           setDatasets(list);
-          setSelected(list[0] ?? null);
+          setSelected(first);
           setReady(true);
         }
       })
@@ -44,7 +50,7 @@ export function Workbench() {
 
   async function upload(event: FormEvent) {
     event.preventDefault();
-    if (!file || busy) return;
+    if (!file || busy || loading) return;
     setBusy(true);
     setError("");
     const body = new FormData();
@@ -54,6 +60,7 @@ export function Workbench() {
       const dataset = await api<Dataset>("/datasets", { method: "POST", body });
       setDatasets((current) => [dataset, ...current]);
       setSelected(dataset);
+      setConfirmDelete(false);
       setReady(true);
       setSheets([]);
       setSheet("");
@@ -65,8 +72,43 @@ export function Workbench() {
     }
   }
 
+  async function chooseDataset(dataset: DatasetSummary) {
+    if (busy || loading) return;
+    setLoading(true);
+    setError("");
+    setConfirmDelete(false);
+    try {
+      setSelected(await api<Dataset>(`/datasets/${dataset.id}`));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "数据集加载失败。");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   const missing =
     selected?.profile.fields.reduce((sum, f) => sum + f.missing, 0) ?? 0;
+
+  async function deleteSelected() {
+    if (!selected || busy) return;
+    setBusy(true);
+    setDeleting(true);
+    setError("");
+    try {
+      await api<void>(`/datasets/${selected.id}`, { method: "DELETE" });
+      const remaining = datasets.filter((d) => d.id !== selected.id);
+      setDatasets(remaining);
+      setSelected(null);
+      if (remaining[0])
+        setSelected(await api<Dataset>(`/datasets/${remaining[0].id}`));
+      setConfirmDelete(false);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "删除失败。");
+    } finally {
+      setBusy(false);
+      setDeleting(false);
+    }
+  }
   return (
     <div className="min-h-screen bg-[#f5f7fa] text-slate-900 lg:grid lg:grid-cols-[260px_1fr]">
       <aside className="flex flex-col border-r border-slate-200 bg-[#101e2c] p-6 text-white lg:min-h-screen">
@@ -95,11 +137,8 @@ export function Workbench() {
           {datasets.map((d) => (
             <button
               key={d.id}
-              disabled={busy}
-              onClick={() => {
-                setSelected(d);
-                setError("");
-              }}
+              disabled={busy || loading}
+              onClick={() => chooseDataset(d)}
               className={`rounded-lg px-3 py-3 text-left text-sm transition-colors ${selected?.id === d.id ? "bg-white/10 text-emerald-300" : "text-slate-300 hover:bg-white/5"}`}
             >
               <span className="block max-w-48 truncate font-medium">
@@ -194,9 +233,15 @@ export function Workbench() {
               )}
               <Button
                 type="submit"
-                disabled={!file || busy || (sheets.length > 0 && !sheet)}
+                disabled={
+                  !file || busy || loading || (sheets.length > 0 && !sheet)
+                }
               >
-                {busy ? "正在解析并导入…" : "上传并分析字段 ↗"}
+                {busy
+                  ? deleting
+                    ? "正在删除…"
+                    : "正在解析并导入…"
+                  : "上传并分析字段 ↗"}
               </Button>
             </form>
           </CardContent>
@@ -231,6 +276,39 @@ export function Workbench() {
                 </div>
               ))}
             </section>
+            <AnalysisPanel key={selected.id} dataset={selected} />
+            <div className="mb-5 flex flex-wrap items-center justify-end gap-3 text-xs text-slate-500">
+              {confirmDelete ? (
+                <>
+                  <span>将删除当前数据集、分析历史及结果文件。</span>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    disabled={busy}
+                    onClick={() => setConfirmDelete(false)}
+                  >
+                    取消
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    disabled={busy}
+                    onClick={deleteSelected}
+                  >
+                    确认删除
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  disabled={busy}
+                  onClick={() => setConfirmDelete(true)}
+                >
+                  删除当前数据集
+                </Button>
+              )}
+            </div>
             <Card className="mb-7 shadow-none">
               <CardHeader>
                 <CardTitle className="text-base">字段与数据质量</CardTitle>

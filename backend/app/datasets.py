@@ -3,23 +3,23 @@ import uuid
 from pathlib import Path
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, File, Form, UploadFile
+from fastapi import APIRouter, Depends, File, Form, Response, UploadFile
 from pydantic import BaseModel, ConfigDict
-from sqlalchemy import select
+from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 
 from app.config import Settings, get_settings
 from app.db import get_session
 from app.errors import AppError
 from app.ingestion import import_dataset
-from app.models import Dataset
+from app.models import Analysis, AuditEvent, Dataset
 
 router = APIRouter(prefix="/api/datasets", tags=["datasets"])
 SessionDep = Annotated[Session, Depends(get_session)]
 SettingsDep = Annotated[Settings, Depends(get_settings)]
 
 
-class DatasetView(BaseModel):
+class DatasetSummary(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: str
@@ -28,6 +28,9 @@ class DatasetView(BaseModel):
     sheet_name: str | None
     row_count: int
     column_count: int
+
+
+class DatasetView(DatasetSummary):
     profile: dict
 
 
@@ -42,7 +45,7 @@ def find_dataset(dataset_id: uuid.UUID, session: Session) -> Dataset:
     return dataset
 
 
-@router.get("", response_model=list[DatasetView])
+@router.get("", response_model=list[DatasetSummary])
 def list_datasets(session: SessionDep):
     return session.scalars(select(Dataset).order_by(Dataset.created_at.desc()).limit(100)).all()
 
@@ -82,6 +85,13 @@ def upload_dataset(
         )
         os.replace(temporary, target)
         session.add(dataset)
+        session.add(
+            AuditEvent(
+                event="dataset_uploaded",
+                dataset_id=dataset_id,
+                details={"rows": dataset.row_count, "columns": dataset.column_count},
+            )
+        )
         session.commit()
         session.refresh(dataset)
         return dataset
@@ -92,3 +102,50 @@ def upload_dataset(
         raise
     finally:
         file.file.close()
+
+
+def remove_dataset(session: Session, settings: Settings, dataset: Dataset):
+    running = session.scalar(
+        select(func.count())
+        .select_from(Analysis)
+        .where(
+            Analysis.dataset_id == dataset.id,
+            Analysis.status == "running",
+        )
+    )
+    if running:
+        raise AppError(409, "dataset_busy", "数据集仍有分析在执行，请稍后删除。")
+    analysis_ids = session.scalars(
+        select(Analysis.id).where(Analysis.dataset_id == dataset.id)
+    ).all()
+    target = dataset_path(settings, dataset.id)
+    trash = target.with_suffix(".deleting")
+    moved = False
+    try:
+        if target.exists():
+            target.replace(trash)
+            moved = True
+        session.execute(delete(Analysis).where(Analysis.dataset_id == dataset.id))
+        session.add(AuditEvent(event="dataset_deleted", dataset_id=dataset.id))
+        session.delete(dataset)
+        session.commit()
+    except Exception:
+        session.rollback()
+        if moved:
+            trash.replace(target)
+        raise
+    # Unreferenced files left after DB commit can be retried by maintenance.
+    for path in [trash, *[settings.data_dir / "results" / f"{item}.json" for item in analysis_ids]]:
+        try:
+            path.unlink(missing_ok=True)
+        except OSError:
+            pass
+
+
+@router.delete("/{dataset_id}", status_code=204)
+def delete_dataset(dataset_id: uuid.UUID, session: SessionDep, settings: SettingsDep):
+    dataset = session.scalar(select(Dataset).where(Dataset.id == str(dataset_id)).with_for_update())
+    if dataset is None:
+        raise AppError(404, "dataset_not_found", "数据集不存在。")
+    remove_dataset(session, settings, dataset)
+    return Response(status_code=204)
