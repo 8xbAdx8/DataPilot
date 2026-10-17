@@ -31,6 +31,7 @@ def cleanup(session: Session, settings: Settings, *, apply: bool = False, now=No
         )
     ).all()
     counts["stale_requests"] = len(stale)
+    stale_ids = {item.id for item in stale}
     if apply:
         for item in stale:
             item.status, item.error_code = "error", "request_interrupted"
@@ -45,7 +46,8 @@ def cleanup(session: Session, settings: Settings, *, apply: bool = False, now=No
         select(Analysis).where(Analysis.created_at < now - timedelta(days=7))
     ).all():
         path = result_path(settings, item.id)
-        if path.exists() and item.status != "running":
+        eligible = item.status != "running" or item.id in stale_ids
+        if path.exists() and eligible:
             counts["snapshots"] += 1
             if apply:
                 path.unlink(missing_ok=True)
@@ -54,7 +56,7 @@ def cleanup(session: Session, settings: Settings, *, apply: bool = False, now=No
             if item.created_at.tzinfo is None
             else item.created_at.astimezone(UTC)
         )
-        if created < now - timedelta(days=30) and item.status != "running":
+        if created < now - timedelta(days=30) and eligible:
             counts["histories"] += 1
             if apply:
                 session.delete(item)
@@ -63,12 +65,12 @@ def cleanup(session: Session, settings: Settings, *, apply: bool = False, now=No
     for dataset in session.scalars(
         select(Dataset).where(Dataset.created_at < now - timedelta(days=30))
     ).all():
-        running = session.scalar(
-            select(Analysis.id)
-            .where(Analysis.dataset_id == dataset.id, Analysis.status == "running")
-            .limit(1)
-        )
-        if running:
+        running = session.scalars(
+            select(Analysis.id).where(
+                Analysis.dataset_id == dataset.id, Analysis.status == "running"
+            )
+        ).all()
+        if any(item_id not in stale_ids for item_id in running):
             continue
         counts["datasets"] += 1
         if apply:

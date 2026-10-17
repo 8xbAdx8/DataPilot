@@ -50,3 +50,11 @@
 - 最终后端真实 PostgreSQL：113 passed / 1 skipped（真实 LLM）；默认临时 SQLite：112 passed / 2 skipped（PostgreSQL、真实 LLM）；Ruff、迁移 check、pip check 通过。
 - 前端 ESLint、TypeScript/生产构建通过；生产依赖 `npm audit --omit=dev` 为 0 vulnerabilities。Edge Playwright 覆盖上传、错误恢复、移动布局、Mock+真实 SQL/图表/导出/历史、显式删除。最终结果见后续部署记录。
 - 已查看真实查询图表截图，核对 East=40、West=20 与表格、CSV 相同。
+
+## 2026-10-18 · 最终数据准确性复核
+
+- CSV 的字段数完整全空记录现在保留，并计入行数/缺失率；物理空白行跳过，Excel 全空行策略在画像中说明。
+- 整数导入改用 nullable dtype，避免带空值时先转换 float 导致精度丢失；超出 int64 的整数字符串保留文本。新增 9007199254740993 和超大整数回归。描述统计采用浮点计算的限制在画像中说明。
+- retention 的 dry-run 现在预测中断请求恢复后的删除候选，避免预览未显示的过期数据集在 apply 时被删除；加入回归。
+- 最新真实 PostgreSQL：117 passed / 1 skipped；默认 SQLite：116 passed / 2 skipped。Ruff check、format --check 均通过。
+- 环境命令复核发现普通 `py -3.12` 无法选择本机 Astral 发行版；已验证 `py -V:Astral/CPython3.12.14 --version`，README 启动命令改为完整标签（3.12.14）。

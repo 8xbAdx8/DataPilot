@@ -2,6 +2,7 @@ import csv
 import io
 import re
 import zipfile
+from datetime import date, datetime
 from pathlib import Path
 
 import duckdb
@@ -46,7 +47,7 @@ def read_csv(content: bytes, settings: Settings) -> pd.DataFrame:
         headers = validate_headers(next(reader, []), settings)
         rows = []
         for row in reader:
-            if not row or all(not value.strip() for value in row):
+            if not row:
                 continue
             if len(row) != len(headers):
                 raise invalid(f"CSV 第 {reader.line_num} 行的字段数与表头不一致。")
@@ -55,7 +56,7 @@ def read_csv(content: bytes, settings: Settings) -> pd.DataFrame:
                 raise invalid(f"行数超过限制 {settings.max_dataset_rows}。")
     except csv.Error as exc:
         raise invalid("CSV 格式无效或单个字段过长。") from exc
-    return pd.DataFrame(rows, columns=headers)
+    return pd.DataFrame(rows, columns=headers, dtype=object)
 
 
 def read_xlsx(content: bytes, sheet: str | None, settings: Settings):
@@ -111,7 +112,7 @@ def read_xlsx(content: bytes, sheet: str | None, settings: Settings):
                 rows.append(values)
                 if len(rows) > settings.max_dataset_rows:
                     raise invalid(f"行数超过限制 {settings.max_dataset_rows}。")
-            return pd.DataFrame(rows, columns=headers), selected
+            return pd.DataFrame(rows, columns=headers, dtype=object), selected
         finally:
             workbook.close()
     except AppError:
@@ -125,8 +126,10 @@ def normalize(frame: pd.DataFrame) -> pd.DataFrame:
     for name in frame:
         series = frame[name].map(lambda v: None if isinstance(v, str) and not v.strip() else v)
         nonnull = series.dropna()
-        if pd.api.types.is_datetime64_any_dtype(series):
-            frame[name] = series
+        if pd.api.types.is_datetime64_any_dtype(series) or (
+            not nonnull.empty and all(isinstance(value, (date, datetime)) for value in nonnull)
+        ):
+            frame[name] = pd.to_datetime(series)
             continue
         if nonnull.empty:
             frame[name] = series.astype("string")
@@ -134,11 +137,17 @@ def normalize(frame: pd.DataFrame) -> pd.DataFrame:
         strings = nonnull.astype(str)
         # Leading zero codes (e.g. 00123) are identifiers, not numbers.
         leading_zero = strings.str.match(r"^[+-]?0\d+$").any()
+        if strings.str.fullmatch(r"[+-]?\d+").all() and (
+            strings.str.len().gt(20).any()
+            or any(not -(2**63) <= int(value) <= 2**63 - 1 for value in strings)
+        ):
+            frame[name] = series.astype("string")
+            continue
         numeric = pd.to_numeric(nonnull, errors="coerce")
         if not leading_zero and numeric.notna().all():
-            frame[name] = pd.to_numeric(series, errors="coerce").replace(
-                [float("inf"), float("-inf")], pd.NA
-            )
+            frame[name] = pd.to_numeric(
+                series, errors="coerce", dtype_backend="numpy_nullable"
+            ).replace([float("inf"), float("-inf")], pd.NA)
         elif strings.str.lower().isin(["true", "false"]).all():
             frame[name] = series.map(
                 lambda v: None if pd.isna(v) else str(v).lower() == "true"
@@ -205,5 +214,9 @@ def import_dataset(content: bytes, suffix: str, sheet: str | None, path: Path, s
         "column_count": len(frame.columns),
         "fields": fields,
         "preview": preview,
-        "notes": ["预览最多 20 行，文本最多 500 字符；类型由整列保守推断，空白视为缺失。"],
+        "notes": [
+            "预览最多 20 行，文本最多 500 字符；类型由整列保守推断，空白视为缺失。",
+            "CSV 保留字段数完整的全空记录并跳过空白行；Excel 跳过全空白行。",
+            "超出 int64 的整数保留文本；描述统计采用浮点计算，原始整数和查询结果保留精度。",
+        ],
     }, selected

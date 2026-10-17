@@ -112,6 +112,31 @@ def test_native_excel_dates_remain_temporal(client):
     assert "TIMESTAMP" in response.json()["profile"]["fields"][0]["type"]
 
 
+def test_csv_all_null_record_contributes_to_row_count_and_missingness(client):
+    response = upload(client, b"a,b\n1,2\n,\n3,4\n\n")
+    assert response.status_code == 201
+    dataset = response.json()
+    assert dataset["row_count"] == 3
+    assert [field["missing"] for field in dataset["profile"]["fields"]] == [1, 1]
+    assert dataset["profile"]["preview"][1] == {"a": None, "b": None}
+
+
+def test_nullable_large_integer_import_preserves_exact_value(client, settings):
+    response = upload(client, b"value,group\n9007199254740993,a\n,b\n")
+    assert response.status_code == 201
+    dataset = response.json()
+    assert dataset["profile"]["preview"][0]["value"] == "9007199254740993"
+    with duckdb.connect(str(dataset_path(settings, dataset["id"])), read_only=True) as db:
+        assert db.execute('SELECT MAX(value) FROM "data"').fetchone()[0] == 9007199254740993
+
+
+def test_integer_outside_int64_remains_text(client):
+    value = "123456789012345678901234567890"
+    dataset = upload(client, f"value\n{value}\n".encode()).json()
+    assert dataset["profile"]["fields"][0]["type"] == "VARCHAR"
+    assert dataset["profile"]["preview"][0]["value"] == value
+
+
 def test_not_found_and_path_rejection(client):
     assert client.get("/api/datasets/00000000-0000-0000-0000-000000000000").status_code == 404
     assert client.get("/api/datasets/not-a-uuid").status_code == 422
