@@ -29,3 +29,13 @@
 - Edge / Playwright：3 项通过，覆盖真实上传及刷新持久化、重复列错误后恢复、390px 移动布局。已查看桌面/移动截图并修正文件选择区布局。
 - 浏览器测试首次失败是 Next.js 路由播报器也具有 alert 角色，已将错误断言限定到包含实际错误内容的 alert；产品正确返回了重复列拒绝信息。
 - 原始数据与结果仅在忽略目录中；样例 sales.csv 为本项目合成数据。下一阶段：Provider、AST 安全校验与隔离执行。
+
+## 2026-10-18 · 安全 Text-to-SQL 后端
+
+- 加入 Provider 协议、严格 SqlProposal、可替换的 OpenAI 兼容适配器和确定性 Mock；缺 Key/错误 JSON/超时/HTTP 错误明确失败，无隐式降级、重试或修复。
+- SQLGlot AST 节点与函数白名单、Schema 语义验证、规范化 SQL；拒绝跨表、多语句、文件/网络读取等。专项回归曾发现 EXCLUDE 未知字段被解析器忽略，已显式拒绝所有星号修饰并加入回归。
+- DuckDB 子进程只读执行，外部访问/扩展/Python replacement scan 关闭；截止时间、进程回收、并发/内存/行数/字节限制已测试。
+- 新迁移 0002 保存分析元信息与审计；结果快照有界写本地，历史/详情/CSV API 已接通；导出对公式文本转义。
+- 真实 PostgreSQL 全套：99 passed，1 skipped（未启用真实 LLM API）；SQLite 在新增分析测试中发现 naive/aware UTC 时间差，已统一 API 时间序列化。追加修复后相关 80 项测试通过。
+- Alembic `upgrade head` 和 `check` 成功（ORM 与迁移无差异）。SQL、Provider、DuckDB 专项已实际执行；HTTP MockTransport 测试不代表真实模型已验证。
+- 原生 Excel 日期类型推断修复并加入回归；CSV/DuckDB 大整数以字符串跨 JSON 边界，避免前端丢失精度。

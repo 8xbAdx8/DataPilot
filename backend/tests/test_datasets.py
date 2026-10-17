@@ -1,5 +1,6 @@
 import io
 import zipfile
+from datetime import datetime
 
 import duckdb
 import pytest
@@ -95,6 +96,16 @@ def test_utf8_bom_single_column_and_mixed_types(client):
     response = upload(client, "\ufeffvalue\n10\nunknown\n".encode())
     assert response.status_code == 201
     assert response.json()["profile"]["fields"][0]["type"] == "VARCHAR"
+
+
+def test_native_excel_dates_remain_temporal(client):
+    response = upload(
+        client,
+        xlsx_bytes([["date", "value"], [datetime(2026, 1, 1), 10], [datetime(2026, 2, 1), 20]]),
+        "dates.xlsx",
+    )
+    assert response.status_code == 201
+    assert "TIMESTAMP" in response.json()["profile"]["fields"][0]["type"]
 
 
 def test_not_found_and_path_rejection(client):

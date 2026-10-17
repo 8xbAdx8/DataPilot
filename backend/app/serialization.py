@@ -17,6 +17,8 @@ def json_value(value):
         value = value.item()
     if isinstance(value, float) and not math.isfinite(value):
         return None
+    if isinstance(value, int) and not isinstance(value, bool) and abs(value) > 2**53 - 1:
+        return str(value)  # Preserve integer precision across JavaScript's JSON boundary.
     if isinstance(value, (str, bool, int, float)):
         return value
     return str(value)

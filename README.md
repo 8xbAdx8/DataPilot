@@ -4,7 +4,7 @@
 
 ## 开发状态
 
-按可验证的垂直切片开发，见 [实施计划](docs/PLAN.md) 和 [开发记录](docs/DEVELOPMENT.md)。已跑通：真实 PostgreSQL 元信息、CSV/XLSX → DuckDB → 画像 → Next.js 展示。正在接入安全 Text-to-SQL。真实 LLM API 和 Docker 部署尚未验证。
+按可验证的垂直切片开发，见 [实施计划](docs/PLAN.md) 和 [开发记录](docs/DEVELOPMENT.md)。已跑通：真实 PostgreSQL 元信息、CSV/XLSX → DuckDB → 画像 → Next.js 展示。安全 Text-to-SQL、历史与导出后端已实现；正在接入分析界面。真实 LLM API 和 Docker 部署尚未验证。
 
 ## 本地启动（PowerShell）
 
@@ -43,6 +43,16 @@ npm run test:e2e # 先启动后端；本机使用 Edge，CI 使用 Playwright Ch
 ```
 
 默认 `LLM_PROVIDER=mock`，无需 API Key。真实模型调用将在对应阶段单独记录；不要把密钥放进前端或提交到 Git。本项目当前面向本机单用户演示，鉴权和所有权校验属于后续阶段。
+
+## 安全分析 API
+
+`POST /api/datasets/{id}/analyses`，JSON 为 `{"question":"按 region 统计 revenue 总和"}`。Mock 还支持“这个数据集有多少行？”、“预览数据”、“revenue 平均值”。它只支持明确模板；复杂问题会返回错误。生成 SQL 必须通过 [安全策略](docs/SECURITY.md)，实际结果由 DuckDB 计算。
+
+`GET /api/analyses?dataset_id={id}` 返回历史元信息；`GET /api/analyses/{id}` 读取有界结果快照；`GET /api/analyses/{id}/export` 导出相同结果的 CSV。超限、失败和安全拒绝都不会生成虚假的成功结果。
+
+真实模型：在根目录 `.env` 设置 `LLM_PROVIDER=deepseek`（也支持 `openai`、`openai_compatible`）、`LLM_MODEL`、`LLM_BASE_URL` 和 `LLM_API_KEY` 后重启后端。DeepSeek 的 Base URL 使用 `https://api.deepseek.com`，OpenAI 使用 `https://api.openai.com/v1`。后端会追加 `/chat/completions`。真实模式缺 Key 返回 503，不会降级 Mock。
+
+显式启用真实 API 测试（会消耗配置服务的 Token）：设置 `$env:RUN_LIVE_LLM='1'` 后运行 `pytest -m live_llm`。默认跳过；HTTP MockTransport 合同测试不能替代真实 API 验证。
 
 ## 上传约定
 

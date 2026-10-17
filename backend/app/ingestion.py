@@ -69,7 +69,14 @@ def read_xlsx(content: bytes, sheet: str | None, settings: Settings):
                 raise invalid("缺少 XLSX 必需的文件结构。")
             if len(members) > 1000 or sum(info.file_size for info in members) > 50 * 1024**2:
                 raise invalid("XLSX 解压后超过资源限制（50 MiB / 1000 个条目）。")
-            if any("vbaProject" in name or name.startswith("xl/externalLinks/") for name in names):
+            if (
+                any(
+                    "vbaproject" in name.casefold()
+                    or name.casefold().startswith("xl/externallinks/")
+                    for name in names
+                )
+                or b"macroenabled" in archive.read("[Content_Types].xml").lower()
+            ):
                 raise invalid("不接受宏或外部工作簿链接。")
         workbook = load_workbook(
             io.BytesIO(content), read_only=True, data_only=False, keep_links=False
@@ -118,6 +125,9 @@ def normalize(frame: pd.DataFrame) -> pd.DataFrame:
     for name in frame:
         series = frame[name].map(lambda v: None if isinstance(v, str) and not v.strip() else v)
         nonnull = series.dropna()
+        if pd.api.types.is_datetime64_any_dtype(series):
+            frame[name] = series
+            continue
         if nonnull.empty:
             frame[name] = series.astype("string")
             continue
