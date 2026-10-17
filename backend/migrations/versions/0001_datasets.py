@@ -1,4 +1,5 @@
 """Create platform dataset metadata. Uploaded rows live only in DuckDB."""
+
 import sqlalchemy as sa
 from alembic import op
 

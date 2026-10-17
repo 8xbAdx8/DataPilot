@@ -1,7 +1,7 @@
 from functools import lru_cache
 from pathlib import Path
 
-from pydantic import Field
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -24,6 +24,11 @@ class Settings(BaseSettings):
     max_result_rows: int = Field(default=1000, gt=0, le=10_000)
     max_result_bytes: int = Field(default=1024 * 1024, gt=0)
     query_timeout_seconds: float = Field(default=5, gt=0, le=60)
+
+    @field_validator("data_dir")
+    @classmethod
+    def resolve_data_dir(cls, value: Path) -> Path:
+        return value if value.is_absolute() else ROOT / value
 
 
 @lru_cache
