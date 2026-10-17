@@ -58,3 +58,14 @@
 - retention 的 dry-run 现在预测中断请求恢复后的删除候选，避免预览未显示的过期数据集在 apply 时被删除；加入回归。
 - 最新真实 PostgreSQL：117 passed / 1 skipped；默认 SQLite：116 passed / 2 skipped。Ruff check、format --check 均通过。
 - 环境命令复核发现普通 `py -3.12` 无法选择本机 Astral 发行版；已验证 `py -V:Astral/CPython3.12.14 --version`，README 启动命令改为完整标签（3.12.14）。
+
+## 2026-10-18 · 部署配置与交接
+
+- 加入前后端多阶段/非 root Dockerfile、Compose 的 PostgreSQL → migrate → backend → frontend 依赖链、健康检查、独立卷和本机端口绑定。
+- 加入 GitHub Actions（固定官方 Action commit）：应用检查/真实 PostgreSQL/Mock E2E 与独立 Compose 冒烟两个作业；YAML 结构验证通过，尚未推送或运行 CI。
+- `docker compose config --quiet` 通过；实际 `compose up --build --wait` 停留在失效 Docker 引擎连接，主动终止客户端。没有声称镜像构建/容器启动成功，未重置 Docker 或其数据。
+- 本机 FastAPI + Next.js 同源 HTTP 冒烟通过：上传 → Mock SQL → 实际 DuckDB East=40 / West=20 → 删除测试数据。
+- Next 代理缓冲设为 11 MiB，给 10 MiB 文件的 multipart 封装留空间；通过同源代理实测恰好 10 MiB CSV（20,127 行）导入完整，超出 1 字节返回 413，测试数据已删除。
+- 最新前端 ESLint、生产构建（含 TypeScript）、5 项 Edge E2E 均通过；可用 E2E_BASE_URL 复用已启动的 Next dev。
+- 本地服务运行于 127.0.0.1:3000 / :8000，保留合成 sales.csv（8 行）与一次真实分组分析作为演示。原生 PostgreSQL 位于忽略目录，密钥 .env 未提交。
+- 未解决的验收项：Docker 引擎恢复后的容器验收、用户配置真实 API 后的模型测试、推送后实际 CI。当前不具备鉴权/租户隔离，边界见 SECURITY.md。

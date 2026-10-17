@@ -1,0 +1,58 @@
+name: DataPilot CI
+on: [push, pull_request]
+permissions:
+  contents: read
+
+jobs:
+  application:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: datapilot
+          POSTGRES_PASSWORD: test_local
+          POSTGRES_DB: datapilot_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U datapilot -d datapilot_test"
+          --health-interval 5s --health-timeout 3s --health-retries 15
+    env:
+      DATABASE_URL: postgresql+psycopg://datapilot:test_local@127.0.0.1:5432/datapilot_test
+      TEST_DATABASE_URL: postgresql+psycopg://datapilot:test_local@127.0.0.1:5432/datapilot_test
+      TEST_POSTGRES_URL: postgresql+psycopg://datapilot:test_local@127.0.0.1:5432/datapilot_test
+      LLM_PROVIDER: mock
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: pip install -r backend/requirements.lock && pip install --no-deps -e './backend[dev]'
+      - run: ruff check backend && ruff format --check backend
+      - run: alembic -c backend/alembic.ini upgrade head && alembic -c backend/alembic.ini check
+      - run: python -m pytest backend/tests -q
+      - run: npm ci && npm run lint && npm run build
+        working-directory: frontend
+      - run: npx playwright install --with-deps chromium
+        working-directory: frontend
+      - run: |
+          uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000 > /tmp/datapilot-api.log 2>&1 &
+          python infra/wait-for-api.py
+          npm --prefix frontend run test:e2e
+
+  compose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - run: docker compose config --quiet
+      - run: docker compose up --build --wait --wait-timeout 240
+      - run: python3 infra/compose-smoke.py
+      - if: always()
+        run: docker compose logs --no-color --tail 80
+      - if: always()
+        run: docker compose down
