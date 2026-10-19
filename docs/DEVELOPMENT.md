@@ -69,3 +69,14 @@
 - 最新前端 ESLint、生产构建（含 TypeScript）、5 项 Edge E2E 均通过；可用 E2E_BASE_URL 复用已启动的 Next dev。
 - 本地服务运行于 127.0.0.1:3000 / :8000，保留合成 sales.csv（8 行）与一次真实分组分析作为演示。原生 PostgreSQL 位于忽略目录，密钥 .env 未提交。
 - 未解决的验收项：Docker 引擎恢复后的容器验收、用户配置真实 API 后的模型测试、推送后实际 CI。当前不具备鉴权/租户隔离，边界见 SECURITY.md。
+
+## 2026-10-19 · GitHub CI 复核与历史检索
+
+- 复核首轮 GitHub Actions 运行 `39051736631`（提交 `da76f81`）：`application` 和 `compose` 均成功。日志确认真实 PostgreSQL 后端 117 passed / 1 skipped、Chromium E2E 5 passed；Linux 镜像构建、全部容器健康和 HTTP 真实查询冒烟通过。Windows 本机引擎问题仍未修复，真实 LLM 仍无凭据；已更新 README / PLAN / OPERATIONS，保留此前开发记录的历史状态。
+- 增加 `GET /api/analyses` 的问题/SQL 关键词与状态组合筛选。关键词最多 200 字符，使用 ORM 绑定参数并转义 LIKE 通配符；排序增加 ID，保证相同创建时间下的顺序。保持列表响应兼容，无需数据库迁移。
+- 拆出前端 AnalysisHistory：每页 20 条，请求 21 条判断后页；支持搜索、状态筛选、翻页、重置、空结果和错误重试。过期请求不覆盖新筛选结果；分析详情与历史请求分别处理。
+- 新增 18 项后端历史用例。初次真实 PostgreSQL 回归暴露测试默认假设数据库为空，已有演示历史导致 2 项失败；修正测试数据集范围，并创建独立 `datapilot_test` 库后重跑，未删除演示记录。
+- 完整后端：真实 PostgreSQL **135 passed / 1 skipped**（真实 LLM）；默认临时 SQLite **134 passed / 2 skipped**（PostgreSQL、真实 LLM）。Ruff check / format、Alembic check、pip check 通过。
+- 前端 lint、TypeScript/生产构建、7 项 Edge E2E 通过。新增真实持久化 SQL 搜索/组合筛选/跨 20 条分页/历史加载失败恢复。失败注入仅用于验证 503 恢复，不替代真实上传与查询。
+- 移动截图复核发现关键词框被其他控件挤窄，改为窄屏独占一行，并补充 390px 视口下输入框至少 200px 的可用性断言。
+- 新增 DEMO.md，给出可复现的五分钟演示、真实期望数值、面试讲解及尚未验证的边界。下一重点：真实 API 凭据验收与登录/所有权，不将 Mock 测试当作真实模型评测。

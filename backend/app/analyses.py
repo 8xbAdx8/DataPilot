@@ -7,12 +7,12 @@ import time
 import uuid
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Literal
 
 from fastapi import APIRouter, Depends, Query
 from fastapi.responses import Response
 from pydantic import BaseModel, ConfigDict, StringConstraints, field_validator
-from sqlalchemy import select
+from sqlalchemy import or_, select
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.datasets import SessionDep, SettingsDep, dataset_path, find_dataset
@@ -183,12 +183,24 @@ def analyze(
 def history(
     session: SessionDep,
     dataset_id: uuid.UUID | None = None,
+    q: Annotated[str, Query(max_length=200)] = "",
+    status: Literal["running", "success", "rejected", "error"] | None = None,
     limit: Annotated[int, Query(ge=1, le=100)] = 20,
     offset: Annotated[int, Query(ge=0)] = 0,
 ):
-    query = select(Analysis).order_by(Analysis.created_at.desc())
+    query = select(Analysis).order_by(Analysis.created_at.desc(), Analysis.id.desc())
     if dataset_id:
         query = query.where(Analysis.dataset_id == str(dataset_id))
+    if term := q.strip():
+        # Bound parameters and literal LIKE escaping; '%' and '_' are user text.
+        query = query.where(
+            or_(
+                Analysis.question.icontains(term, autoescape=True),
+                Analysis.sql.icontains(term, autoescape=True),
+            )
+        )
+    if status:
+        query = query.where(Analysis.status == status)
     return session.scalars(query.limit(limit).offset(offset)).all()
 
 

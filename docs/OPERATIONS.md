@@ -23,7 +23,7 @@ docker compose down # 停止，不删除命名卷
 
 不要随意执行 `down -v`，它会删除数据库与分析数据。所有发布端口仅绑定本机；当前没有鉴权。数据库默认密码只用于本地演示。修改密码时，连接 URL 中的保留字符需 URL 编码。
 
-**本次实际状态：** 配置解析通过。Docker Desktop 在 Windows 的 `dockerInference` 套接字初始化时退出，因此尚未验证镜像构建和容器启动。应用已用原生 PostgreSQL / Python / Node 完成验证。仓库没有自动推送，GitHub Actions 也尚未运行。
+**实际验收状态（2026-10-19 复核）：** [GitHub Actions 首轮运行](https://github.com/8xbAdx8/DataPilot/actions/runs/39051736631) 的 `application` 与 `compose` 作业均成功。Linux runner 已完成镜像构建、PostgreSQL/后端/前端健康检查和同源真实查询冒烟。Windows 本机 Docker Desktop 在 `dockerInference` 套接字初始化时退出的问题仍未修复；本机使用原生 PostgreSQL / Python / Node。Linux 验收成功不代表 Windows 引擎恢复，也不代表真实模型 API 已验证。
 
 ## 当前机器的原生 PostgreSQL
 

@@ -6,30 +6,23 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/data-table";
 import { ResultChart } from "@/components/result-chart";
-
-const statuses = {
-  running: "执行中",
-  success: "成功",
-  rejected: "安全拒绝",
-  error: "失败",
-};
+import {
+  AnalysisHistory,
+  analysisStatuses,
+} from "@/components/analysis-history";
 
 export function AnalysisPanel({ dataset }: { dataset: Dataset }) {
   const [question, setQuestion] = useState("");
   const [active, setActive] = useState<Analysis | null>(null);
-  const [history, setHistory] = useState<Analysis[]>([]);
+  const [historyVersion, setHistoryVersion] = useState(0);
   const [provider, setProvider] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   useEffect(() => {
     let mounted = true;
-    Promise.all([
-      api<Analysis[]>(`/analyses?dataset_id=${dataset.id}`),
-      api<{ provider: string }>("/config"),
-    ])
-      .then(([items, config]) => {
+    api<{ provider: string }>("/config")
+      .then((config) => {
         if (mounted) {
-          setHistory(items);
           setProvider(config.provider);
         }
       })
@@ -40,10 +33,6 @@ export function AnalysisPanel({ dataset }: { dataset: Dataset }) {
       mounted = false;
     };
   }, [dataset.id]);
-
-  async function refreshHistory() {
-    setHistory(await api<Analysis[]>(`/analyses?dataset_id=${dataset.id}`));
-  }
 
   async function analyze(event: FormEvent) {
     event.preventDefault();
@@ -68,11 +57,7 @@ export function AnalysisPanel({ dataset }: { dataset: Dataset }) {
         }
       }
     } finally {
-      try {
-        await refreshHistory();
-      } catch {
-        setError((current) => current || "无法刷新历史，请稍后重试。");
-      }
+      setHistoryVersion((version) => version + 1);
       setBusy(false);
     }
   }
@@ -177,7 +162,7 @@ export function AnalysisPanel({ dataset }: { dataset: Dataset }) {
               <span
                 className={`rounded-full px-3 py-1 text-xs ${active.status === "success" ? "bg-emerald-50 text-emerald-800" : "bg-red-50 text-red-800"}`}
               >
-                {statuses[active.status]} · {active.duration_ms} ms ·{" "}
+                {analysisStatuses[active.status]} · {active.duration_ms} ms ·{" "}
                 {active.provider}
               </span>
             </div>
@@ -267,43 +252,13 @@ export function AnalysisPanel({ dataset }: { dataset: Dataset }) {
           </CardContent>
         </Card>
       )}
-      {history.length > 0 && (
-        <Card role="region" aria-label="分析历史" className="shadow-none">
-          <CardHeader>
-            <CardTitle className="text-base">分析历史</CardTitle>
-            <p className="text-xs text-slate-500">
-              最近 20 次分析，包含成功、失败和安全拒绝。
-            </p>
-          </CardHeader>
-          <CardContent>
-            <div className="max-h-64 space-y-1 overflow-auto">
-              {history.map((item) => (
-                <button
-                  key={item.id}
-                  disabled={busy}
-                  onClick={() => loadHistory(item)}
-                  className={`flex w-full items-center justify-between gap-4 rounded-lg p-3 text-left text-sm hover:bg-slate-50 ${item.id === active?.id ? "bg-slate-50" : ""}`}
-                >
-                  <span className="min-w-0">
-                    <span className="block truncate font-medium">
-                      {item.question}
-                    </span>
-                    <span className="mt-1 block text-xs text-slate-400">
-                      {new Date(item.created_at).toLocaleString("zh-CN")} ·{" "}
-                      {item.duration_ms} ms
-                    </span>
-                  </span>
-                  <span
-                    className={`whitespace-nowrap text-xs ${item.status === "success" ? "text-emerald-700" : "text-red-700"}`}
-                  >
-                    {statuses[item.status]}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      <AnalysisHistory
+        datasetId={dataset.id}
+        revision={historyVersion}
+        activeId={active?.id}
+        disabled={busy}
+        onSelect={loadHistory}
+      />
     </section>
   );
 }

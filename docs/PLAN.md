@@ -31,6 +31,10 @@
 | Mock Text-to-SQL、AST、防护执行与失败审计 | 通过 |
 | 真实结果、ECharts、事实总结、历史与导出 | 通过 |
 | 删除、保留清理、原生环境端到端 | 通过 |
-| Docker 镜像与容器运行 | 配置已写并解析；本机引擎异常，尚未验收 |
+| Docker 镜像与容器运行 | GitHub Actions Linux 实际构建/健康/真实查询冒烟通过；Windows 本机引擎问题仍在 |
 | 真实 LLM API | 无凭据，专项测试跳过 |
-| GitHub Actions | 配置已写，未推送、未运行 |
+| GitHub Actions | 首轮 application / compose 均通过，见运行 39051736631 |
+
+## 当前增强切片
+
+历史搜索、执行状态组合筛选、每页 20 条分页和错误重试。沿用单用户范围；后端对 PostgreSQL 元信息执行绑定参数查询，搜索不调用模型，也不执行用户输入的 SQL。验收覆盖字面通配符、同时间排序、跨数据集筛选、分页边界和真实浏览器交互。后端 PostgreSQL 135 passed / 1 skipped，前端 7 项 E2E 通过；真实模型验收继续单独保留。

@@ -25,7 +25,9 @@ PostgreSQL 是平台数据库：保存数据集字段画像、问题、SQL、状
 4. `sql_guard.py` → `execution.py`：提示词指导生成，AST 判断授权范围，真实 Schema 解决未知字段，独立进程负责执行截止时间与隔离配置。
 5. `analyses.py`：先写 running 历史与审计，再执行完整分析；成功保存快照，失败保存状态与原因。数据库保存元信息，不保存整份查询行。
 6. `presentation.py`：仅从真实行选择图表和生成事实。不能画图时保留表格，不补零、不重排时间、不宣称因果。
-7. `frontend/src/components/analysis-panel.tsx`：提问和历史状态；`result-chart.tsx` 的标签与值直接取同一份 SQL 结果，表格与 CSV 也使用这份快照。
+7. `frontend/src/components/analysis-panel.tsx`：提问和结果状态；`analysis-history.tsx` 单独请求历史元信息，处理搜索、状态筛选、分页、请求过期和重试。`result-chart.tsx` 的标签与值直接取同一份 SQL 结果，表格与 CSV 也使用这份快照。
+
+历史搜索对应 `analyses.py` 的 `history()`：SQLAlchemy 将关键词绑定为参数，并转义 LIKE 通配符；用户输入不会变成 SQL 语法。按 `created_at DESC, id DESC` 排序，即使创建时间相同也有确定顺序。界面一次请求 21 条，仅显示 20 条，用额外一条判断下一页；无需加载大快照或执行全表计数。offset 分页适用于当前单用户规模，跨翻页期间插入/清理记录可能导致位置移动，不保证数据库快照一致性。
 
 ## 怎样验证，不只看绿色输出
 
@@ -35,4 +37,4 @@ PostgreSQL 是平台数据库：保存数据集字段画像、问题、SQL、状
 - Playwright 上传文件、等实际响应、核对结果与下载内容、刷新恢复历史；同时检查图表画布、浏览器异常和移动宽度。
 - Docker 配置解析不是部署成功。只有镜像构建、容器就绪和 `compose-smoke.py` 都通过，才能宣布容器验收完成。
 
-下一步增强顺序：真实模型验收与 Docker 环境恢复 → 登录/所有权 → 历史筛选与限流/观测 → 有限 SQL 修复 → 确有多步需求时再考虑 LangGraph。当前不需要 Agent 编排来完成单条分析。
+Linux Docker 验收已完成。真实模型仍需后端凭据；后续重点为登录/所有权、限流与观测，再评估有限 SQL 修复；确有多步需求时再考虑 LangGraph。当前不需要 Agent 编排来完成单条分析。
