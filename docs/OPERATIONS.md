@@ -51,6 +51,7 @@ docker compose down # 停止，不删除命名卷
 | 分析历史元信息 | 分析后 30 天 | 删除历史，避免 PostgreSQL 持续增长 |
 | 审计记录 | 90 天 | 独立保留事件、ID、原因；不复制整份问题和结果 |
 | 会话与登录失败窗口 | 过期后 | 请求立即拒绝过期会话；清理命令删除到期会话及超过 15 分钟的失败窗口 |
+| 用户操作配额 | 窗口到期后 | 到期自动允许新窗口，清理命令删除过期计数行 |
 | 中断的 running 请求 | 10 分钟 | 清理时标记失败，不伪造结果 |
 | 无元信息的 UUID 孤立文件 | 24 小时 | 只处理应用目录中的已知格式文件，不递归删除目录 |
 
@@ -91,3 +92,5 @@ docker compose exec backend python -m app.accounts create-user --username alice
 `SESSION_HOURS` 默认为 24，最多 168；每个账户最多 10 个会话，登录轮换浏览器原会话，退出只撤销当前会话。`SESSION_COOKIE_SECURE=false` 仅用于本机 HTTP；HTTPS 环境须设为 `true`。`AUTH_TRUSTED_ORIGINS` 为精确 Origin 列表；本地默认含 localhost / 127.0.0.1 的 3000 和测试 3001 端口，部署时改成实际 HTTPS 域名，避免通配或多余测试 Origin。CORS 配置不是身份认证。
 
 所有写请求必须同时满足自定义 CSRF 头和来源校验。无 Origin 的非浏览器客户端仍需自定义头；携带未知 Origin、`Origin: null` 或 `Sec-Fetch-Site: cross-site` 的写请求拒绝。GET 导出依靠会话与所有权检查，不需要 CSRF 头。API 响应 `Cache-Control: no-store`，浏览器不在 localStorage 保存会话令牌或密码。
+
+0004 迁移增加共享配额表及分析 `request_id` / `telemetry`，旧历史回填空诊断，不编造数据。升级后重新启动后端；配额、JSON 日志、请求 ID、Token 与日志轮转的配置见 [OBSERVABILITY](OBSERVABILITY.md)。所有实例须一致设置配额参数。Docker backend 日志默认按 `max-size=10m`、`max-file=3` 轮转；本机日志保留由操作者管理。

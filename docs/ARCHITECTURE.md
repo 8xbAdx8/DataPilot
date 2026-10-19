@@ -42,4 +42,6 @@ PostgreSQL 是平台数据库：保存账户、会话摘要、数据集归属/�
 - Playwright 上传文件、等实际响应、核对结果与下载内容、刷新恢复历史；同时检查图表画布、浏览器异常和移动宽度。
 - Docker 配置解析不是部署成功。只有镜像构建、容器就绪和 `compose-smoke.py` 都通过，才能宣布容器验收完成。
 
-登录与 owner 校验已实现，Linux Docker 验收按提交查看 Actions。真实模型仍需后端凭据；后续重点为请求限流与观测、密码生命周期，再评估有限 SQL 修复；确有多步需求时再考虑 LangGraph。当前不需要 Agent 编排来完成单条分析。
+`rate_limits.py` 使用 PostgreSQL 条件 UPSERT 检查计数并递增，避免多个 API 进程分别计数而放大额度。分析配额与创建 running 历史一起提交，上传配额在解析前提交。`observability.py` 生成请求 ID 和固定字段日志，`analyses.py` 保存分段耗时，`providers.py` 仅从响应外层 usage 采集用量；前端以“执行详情”展示，旧历史无指标时保持缺失。
+
+登录、owner、配额与基础观测已实现，Linux Docker 验收按提交查看 Actions。真实模型仍需后端凭据；后续评估密码生命周期、可用性与有限 SQL 修复，确有多步需求时再考虑 LangGraph。当前不需要 Agent 编排来完成单条分析。

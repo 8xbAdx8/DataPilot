@@ -37,6 +37,9 @@ class Settings(BaseSettings):
     max_result_rows: int = Field(default=1000, gt=0, le=10_000)
     max_result_bytes: int = Field(default=1024 * 1024, gt=0)
     query_timeout_seconds: float = Field(default=5, gt=0, le=60)
+    analysis_requests_per_window: int = Field(default=30, ge=1, le=1000)
+    upload_requests_per_window: int = Field(default=10, ge=1, le=1000)
+    rate_limit_window_seconds: int = Field(default=60, ge=1, le=3600)
 
     @field_validator("data_dir")
     @classmethod

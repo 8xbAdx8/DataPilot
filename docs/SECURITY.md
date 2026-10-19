@@ -30,6 +30,8 @@
 
 实现参考：[OWASP 密码存储](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)、[会话管理](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html)、[CSRF 防护](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)。
 
+分析和上传增加 PostgreSQL 原子请求配额，限流存储不可用时拒绝执行。它覆盖已认证用户的重操作，不能代替所有入口的网关/IP 限流。每个响应生成新的请求 ID；业务 JSON 日志使用白名单，不包含 URL 参数、密码、Cookie、问题、SQL、数据行或异常正文。原始 Uvicorn 访问日志默认关闭，细节与日志保留见 [诊断说明](OBSERVABILITY.md)。
+
 ## 验证入口
 
 `test_sql_guard.py` 是 AST 回归集；`test_execution.py` 验证真实执行、超时回收、行/字节限制与执行环境外部访问禁用；`test_providers.py` 使用 HTTP MockTransport 测试 API 合同；`test_analyses.py` 覆盖完整 API、失败审计和导出。`test_live_llm.py` 只有显式启用才访问真实模型。

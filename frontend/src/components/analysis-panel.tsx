@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/data-table";
 import { ResultChart } from "@/components/result-chart";
+import { AnalysisDiagnostics } from "@/components/analysis-diagnostics";
 import {
   AnalysisHistory,
   analysisStatuses,
@@ -48,7 +49,13 @@ export function AnalysisPanel({ dataset }: { dataset: Dataset }) {
       });
       setActive(item);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "分析失败。");
+      setError(
+        e instanceof ApiError && e.requestId
+          ? `${e.message}（请求 ID：${e.requestId}）`
+          : e instanceof Error
+            ? e.message
+            : "分析失败。",
+      );
       if (e instanceof ApiError && e.analysisId) {
         try {
           setActive(await api<Analysis>(`/analyses/${e.analysisId}`));
@@ -168,6 +175,7 @@ export function AnalysisPanel({ dataset }: { dataset: Dataset }) {
             </div>
           </CardHeader>
           <CardContent className="space-y-5">
+            <AnalysisDiagnostics analysis={active} />
             {active.sql && (
               <div>
                 <p className="mb-2 text-xs font-medium text-slate-500">

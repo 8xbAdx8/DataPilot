@@ -5,7 +5,7 @@ import pytest
 
 from app.config import Settings
 from app.errors import AppError
-from app.providers import CompatibleProvider, MockProvider
+from app.providers import CompatibleProvider, MockProvider, parse_usage
 
 FIELDS = [{"name": "region", "type": "VARCHAR"}, {"name": "revenue", "type": "BIGINT"}]
 
@@ -99,3 +99,48 @@ def test_llm_timeout():
     with pytest.raises(AppError) as caught:
         CompatibleProvider(settings(), httpx.MockTransport(timeout)).generate("行数", FIELDS)
     assert caught.value.detail["code"] == "llm_timeout"
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        None,
+        {},
+        "bad",
+        {"prompt_tokens": True},
+        {"total_tokens": -1},
+        {"total_tokens": "10"},
+        {"prompt_tokens": 10, "total_tokens": 1},
+        {"prompt_tokens": 1, "completion_tokens": 2, "total_tokens": 9},
+    ],
+)
+def test_invalid_or_missing_usage_is_unknown_not_zero(value):
+    usage = parse_usage(value)
+    assert usage.source == "unavailable" and usage.total_tokens is None
+
+
+def test_usage_comes_from_response_envelope_even_when_model_json_is_invalid():
+    provider = CompatibleProvider(
+        settings(),
+        httpx.MockTransport(
+            lambda _: httpx.Response(
+                200,
+                json={
+                    "choices": [{"message": {"content": "not valid JSON"}}],
+                    "usage": {
+                        "prompt_tokens": 10,
+                        "completion_tokens": 3,
+                        "total_tokens": 13,
+                        "prompt_cache_hit_tokens": 2,
+                    },
+                },
+            )
+        ),
+    )
+    with pytest.raises(AppError):
+        provider.generate("行数", FIELDS)
+    assert provider.usage.source == "provider" and provider.usage.total_tokens == 13
+    partial = parse_usage({"prompt_tokens": 0})
+    assert (
+        partial.source == "provider" and partial.prompt_tokens == 0 and partial.total_tokens is None
+    )

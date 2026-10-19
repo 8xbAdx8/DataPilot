@@ -118,6 +118,7 @@ test("Mock analysis runs real SQL, renders chart, restores history and exports a
   const response = await responsePromise;
   expect(response.status()).toBe(201);
   const analysis = await response.json();
+  expect(analysis.request_id).toBe(response.headers()["x-request-id"]);
   expect(analysis.result.rows).toEqual([
     { region: "East", metric: 40 },
     { region: "West", metric: 20 },
@@ -128,6 +129,12 @@ test("Mock analysis runs real SQL, renders chart, restores history and exports a
     page.getByRole("img", { name: /查询结果柱状图/ }).locator("canvas"),
   ).toHaveCount(1);
   await expect(page.getByText("实际返回 2 行", { exact: true })).toBeVisible();
+  await page.getByText("执行详情", { exact: true }).click();
+  await expect(page.getByLabel("执行诊断")).toContainText(analysis.request_id);
+  await expect(page.getByLabel("执行诊断")).toContainText("查询执行");
+  await expect(page.getByLabel("执行诊断")).toContainText(
+    "Mock 模板未调用模型 API（Token 0）",
+  );
   const downloadPromise = page.waitForEvent("download");
   await page.getByRole("link", { name: "导出结果 CSV" }).click();
   const download = await downloadPromise;

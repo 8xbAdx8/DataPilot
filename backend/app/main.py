@@ -13,7 +13,9 @@ from app.auth import router as auth_router
 from app.config import get_settings
 from app.datasets import router as dataset_router
 from app.db import get_session
+from app.errors import AppError
 from app.middleware import BodyLimitMiddleware, SecurityMiddleware
+from app.observability import RequestTelemetryMiddleware
 
 app = FastAPI(title="DataPilot API", version="0.1.0")
 app.add_middleware(BodyLimitMiddleware, max_bytes=get_settings().max_upload_bytes + 65536)
@@ -24,13 +26,15 @@ app.add_middleware(
     allow_methods=["GET", "POST", "DELETE"],
     allow_headers=["Content-Type", "X-DataPilot-CSRF"],
 )
+app.add_middleware(RequestTelemetryMiddleware)
 app.include_router(auth_router)
 app.include_router(dataset_router)
 app.include_router(analysis_router)
 
 
 @app.exception_handler(RequestValidationError)
-async def invalid_request(_, error):
+async def invalid_request(request, error):
+    request.state.error_code = "invalid_request"
     # Pydantic's default error payload includes input values, potentially passwords.
     return JSONResponse(
         status_code=422,
@@ -44,10 +48,19 @@ async def invalid_request(_, error):
 
 
 @app.exception_handler(SQLAlchemyError)
-async def database_error(_, __):
+async def database_error(request, __):
+    request.state.error_code = "storage_unavailable"
     return JSONResponse(
         status_code=503,
         content={"detail": {"code": "storage_unavailable", "message": "业务数据库暂不可用。"}},
+    )
+
+
+@app.exception_handler(AppError)
+async def application_error(request, error):
+    request.state.error_code = error.detail["code"]
+    return JSONResponse(
+        status_code=error.status_code, content={"detail": error.detail}, headers=error.headers
     )
 
 
@@ -67,6 +80,9 @@ def public_config():
         "limits": {
             "upload_bytes": settings.max_upload_bytes,
             "result_rows": settings.max_result_rows,
+            "analyses_per_window": settings.analysis_requests_per_window,
+            "uploads_per_window": settings.upload_requests_per_window,
+            "window_seconds": settings.rate_limit_window_seconds,
         },
     }
 
@@ -83,6 +99,8 @@ def ready(session: Annotated[Session, Depends(get_session)]):
         session.execute(text("SELECT token_hash FROM auth_sessions LIMIT 0"))
         session.execute(text("SELECT key FROM login_attempts LIMIT 0"))
         session.execute(text("SELECT owner_id FROM datasets LIMIT 0"))
+        session.execute(text("SELECT user_id FROM rate_limit_buckets LIMIT 0"))
+        session.execute(text("SELECT request_id, telemetry FROM analyses LIMIT 0"))
     except SQLAlchemyError:
         return JSONResponse(
             status_code=503, content={"status": "not_ready", "database": "unavailable"}

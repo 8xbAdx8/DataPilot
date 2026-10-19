@@ -18,5 +18,7 @@ def test_postgres_migrations_and_connection():
             connection.execute(
                 text("SELECT token_hash, user_id, expires_at FROM auth_sessions LIMIT 0")
             )
+            connection.execute(text("SELECT request_id, telemetry FROM analyses LIMIT 0"))
+            connection.execute(text("SELECT count, expires_at FROM rate_limit_buckets LIMIT 0"))
     finally:
         engine.dispose()

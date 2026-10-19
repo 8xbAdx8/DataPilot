@@ -82,6 +82,7 @@ def current_user(request: Request, session: SessionDep) -> User:
         if saved and utc(saved.expires_at) > datetime.now(UTC):
             user = session.get(User, saved.user_id)
             if user:
+                request.state.user_id = user.id
                 return user
     raise AppError(401, "authentication_required", "请登录后继续。")
 

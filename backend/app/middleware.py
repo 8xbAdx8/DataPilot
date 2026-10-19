@@ -22,6 +22,7 @@ class SecurityMiddleware:
                 or (origin is not None and origin not in get_settings().auth_trusted_origins)
                 or headers.get("sec-fetch-site") == "cross-site"
             ):
+                scope.setdefault("state", {})["error_code"] = "csrf_rejected"
                 return await JSONResponse(
                     {"detail": {"code": "csrf_rejected", "message": "请求来源校验失败。"}},
                     status_code=403,
@@ -75,6 +76,7 @@ class BodyLimitMiddleware:
         try:
             await self.app(scope, bounded_receive, tracked_send)
         except RequestTooLarge:
+            scope.setdefault("state", {})["error_code"] = "request_too_large"
             if not started:
                 await JSONResponse(
                     {"detail": {"code": "request_too_large", "message": "请求体超过大小限制。"}},

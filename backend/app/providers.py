@@ -18,6 +18,35 @@ class SqlProposal(BaseModel):
     chart: Literal["auto", "table", "bar", "line", "pie"] = "auto"
 
 
+class TokenUsage(BaseModel):
+    model_config = ConfigDict(strict=True, extra="ignore")
+    source: Literal["provider", "mock", "unavailable"] = "unavailable"
+    prompt_tokens: int | None = Field(default=None, ge=0, le=10**9)
+    completion_tokens: int | None = Field(default=None, ge=0, le=10**9)
+    total_tokens: int | None = Field(default=None, ge=0, le=10**9)
+
+
+def parse_usage(value) -> TokenUsage:
+    if not isinstance(value, dict):
+        return TokenUsage()
+    try:
+        usage = TokenUsage.model_validate(
+            {key: value.get(key) for key in ("prompt_tokens", "completion_tokens", "total_tokens")}
+        )
+        counts = [usage.prompt_tokens, usage.completion_tokens, usage.total_tokens]
+        if usage.total_tokens is not None and any(
+            count is not None and count > usage.total_tokens for count in counts[:2]
+        ):
+            return TokenUsage()
+        if all(count is not None for count in counts) and counts[0] + counts[1] != counts[2]:
+            return TokenUsage()
+        if any(count is not None for count in counts):
+            usage.source = "provider"
+        return usage
+    except ValidationError:
+        return TokenUsage()
+
+
 class LLMProvider(Protocol):
     def generate(self, question: str, fields: list[dict]) -> SqlProposal: ...
 
@@ -28,6 +57,8 @@ def quote(name: str):
 
 class MockProvider:
     """Schema-aware deterministic templates; unsupported intent fails explicitly."""
+
+    usage = TokenUsage(source="mock", prompt_tokens=0, completion_tokens=0, total_tokens=0)
 
     def generate(self, question: str, fields: list[dict]) -> SqlProposal:
         q = question.casefold()
@@ -98,9 +129,11 @@ class CompatibleProvider:
     def __init__(self, settings: Settings, transport: httpx.BaseTransport | None = None):
         self.settings = settings
         self.transport = transport
+        self.usage = TokenUsage()
 
     def generate(self, question: str, fields: list[dict]) -> SqlProposal:
         settings = self.settings
+        self.usage = TokenUsage()
         if not settings.llm_api_key:
             raise AppError(503, "llm_not_configured", "当前模型提供商未配置 API Key。")
         deadline = time.monotonic() + settings.llm_timeout_seconds
@@ -149,6 +182,7 @@ class CompatibleProvider:
                         if len(content) > 128 * 1024:
                             raise AppError(502, "llm_invalid_response", "模型响应超过大小限制。")
             body = json.loads(content)
+            self.usage = parse_usage(body.get("usage") if isinstance(body, dict) else None)
             proposal = body["choices"][0]["message"]["content"]
             return SqlProposal.model_validate_json(proposal)
         except httpx.TimeoutException as exc:

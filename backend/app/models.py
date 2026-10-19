@@ -36,6 +36,17 @@ class LoginAttempt(Base):
     window_started: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
 
 
+class RateLimitBucket(Base):
+    __tablename__ = "rate_limit_buckets"
+
+    user_id: Mapped[str] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), primary_key=True
+    )
+    scope: Mapped[str] = mapped_column(String(16), primary_key=True)
+    count: Mapped[int] = mapped_column(Integer)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+
+
 class Dataset(Base):
     __tablename__ = "datasets"
 
@@ -71,6 +82,8 @@ class Analysis(Base):
     error_code: Mapped[str | None] = mapped_column(String(64), nullable=True)
     error_message: Mapped[str | None] = mapped_column(String(1000), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now, index=True)
+    request_id: Mapped[str | None] = mapped_column(String(36), nullable=True, index=True)
+    telemetry: Mapped[dict] = mapped_column(JSON, default=dict)
 
 
 class AuditEvent(Base):

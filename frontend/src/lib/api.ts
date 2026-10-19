@@ -31,6 +31,8 @@ export class ApiError extends Error {
     public code?: string,
     public sheets?: string[],
     public analysisId?: string,
+    public requestId?: string,
+    public retryAfter?: number,
   ) {
     super(message);
   }
@@ -66,6 +68,10 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
       detail?.code,
       detail?.sheets,
       detail?.analysis_id,
+      response.headers.get("X-Request-ID") ?? undefined,
+      /^\d+$/.test(response.headers.get("Retry-After") ?? "")
+        ? Number(response.headers.get("Retry-After"))
+        : undefined,
     );
   }
   return body as T;
@@ -103,6 +109,16 @@ export type Analysis = {
   error_code: string | null;
   error_message: string | null;
   created_at: string;
+  request_id?: string | null;
+  telemetry?: {
+    timings_ms?: Record<string, number>;
+    usage?: {
+      source: "provider" | "mock" | "unavailable";
+      prompt_tokens: number | null;
+      completion_tokens: number | null;
+      total_tokens: number | null;
+    };
+  };
   result?: QueryResult | null;
   result_expired?: boolean;
 };

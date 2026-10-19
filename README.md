@@ -6,7 +6,7 @@
 
 已跑通完整 Mock 闭环：账户登录 → CSV/XLSX → DuckDB → 字段画像 → 自然语言生成 SQL → AST 安全校验 → 真实查询 → 表格/ECharts/事实总结 → 历史搜索与 CSV 导出。PostgreSQL 保存账户、会话和业务元信息，后端强制数据集所有权校验，提供删除与保留清理。GitHub Actions 已验证此前版本的应用检查与 Linux Compose 冒烟；新提交按对应 Actions 结果验收。真实 LLM API 仍待配置凭据后验证。
 
-文档：[实施计划](docs/PLAN.md) · [架构与学习入口](docs/ARCHITECTURE.md) · [安全策略](docs/SECURITY.md) · [运行与保留策略](docs/OPERATIONS.md) · [演示与验收](docs/DEMO.md) · [实际开发记录](docs/DEVELOPMENT.md)。
+文档：[实施计划](docs/PLAN.md) · [架构与学习入口](docs/ARCHITECTURE.md) · [安全策略](docs/SECURITY.md) · [运行与保留策略](docs/OPERATIONS.md) · [配额与执行诊断](docs/OBSERVABILITY.md) · [演示与验收](docs/DEMO.md) · [实际开发记录](docs/DEVELOPMENT.md)。
 
 ## 本地启动（PowerShell）
 
@@ -21,7 +21,7 @@ docker compose up -d postgres
 Set-Location backend
 ..\.venv\Scripts\alembic upgrade head
 ..\.venv\Scripts\python -m app.accounts create-user --username alice # 交互输入并确认密码，至少 12 字符
-..\.venv\Scripts\uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+..\.venv\Scripts\uvicorn app.main:app --reload --host 127.0.0.1 --port 8000 --no-access-log
 ```
 
 另开终端：
@@ -56,6 +56,8 @@ npm run test:e2e # 先启动后端；本机使用 Edge，CI 使用 Playwright Ch
 `POST /api/datasets/{id}/analyses`，JSON 为 `{"question":"按 region 统计 revenue 总和"}`。Mock 还支持“这个数据集有多少行？”、“预览数据”、“revenue 平均值”。它只支持明确模板；复杂问题会返回错误。生成 SQL 必须通过 [安全策略](docs/SECURITY.md)，实际结果由 DuckDB 计算。
 
 数据 API 需要登录 Cookie。先向 `POST /api/auth/login` 提交 `username` / `password`，Cookie 由 HttpOnly 响应设置；`GET /api/auth/me` 返回当前用户，`POST /api/auth/logout` 撤销当前会话。所有 `/api` 写请求（包括登录/退出）必须带 `X-DataPilot-CSRF: 1`；浏览器通过内置客户端自动发送。不要把密码放进 URL、命令行参数或前端存储。
+
+默认每用户每 60 秒允许 30 次分析、10 次上传，PostgreSQL 原子计数使配额跨 API 进程共享。超限返回 429 和 `Retry-After`，前端显示等待建议，不自动重试。每个响应的 `X-Request-ID` 可关联脱敏 JSON 日志；分析“执行详情”展示真实分段耗时和提供商上报的 Token。未知用量不记为 0，不估算账单费用，详见[诊断说明](docs/OBSERVABILITY.md)。
 
 `GET /api/analyses?dataset_id={id}` 返回历史元信息；`GET /api/analyses/{id}` 读取有界结果快照；`GET /api/analyses/{id}/export` 导出相同结果的 CSV。超限、失败和安全拒绝都不会生成虚假的成功结果。
 

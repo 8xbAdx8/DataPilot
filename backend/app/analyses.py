@@ -9,7 +9,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Annotated, Literal
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Request
 from fastapi.responses import Response
 from pydantic import BaseModel, ConfigDict, StringConstraints, field_validator
 from sqlalchemy import or_, select
@@ -20,8 +20,10 @@ from app.datasets import SessionDep, SettingsDep, dataset_path, find_dataset
 from app.errors import AppError
 from app.execution import execute_query
 from app.models import Analysis, AuditEvent, Dataset
+from app.observability import emit, timed
 from app.presentation import describe_result
-from app.providers import LLMProvider, get_provider
+from app.providers import LLMProvider, TokenUsage, get_provider
+from app.rate_limits import consume
 from app.sql_guard import validate_sql
 
 router = APIRouter(prefix="/api", tags=["analyses"])
@@ -51,6 +53,8 @@ class AnalysisView(BaseModel):
     error_code: str | None
     error_message: str | None
     created_at: datetime
+    request_id: str | None
+    telemetry: dict
 
     @field_validator("created_at")
     @classmethod
@@ -92,6 +96,7 @@ def detail(analysis: Analysis, settings) -> AnalysisDetail:
 @router.post("/datasets/{dataset_id}/analyses", response_model=AnalysisDetail, status_code=201)
 def analyze(
     dataset_id: uuid.UUID,
+    request: Request,
     body: Question,
     session: SessionDep,
     settings: SettingsDep,
@@ -106,10 +111,12 @@ def analyze(
     )
     if dataset is None:
         find_dataset(dataset_id, session, user.id)  # Same 404 for absent or foreign IDs.
+    consume(session, user.id, "analysis", settings)
     analysis = Analysis(
         id=str(uuid.uuid4()),
         dataset_id=str(dataset_id),
         question=body.question,
+        request_id=request.state.request_id,
         provider=settings.llm_provider,
         model="deterministic-templates-v1"
         if settings.llm_provider == "mock"
@@ -123,23 +130,52 @@ def analyze(
     started = time.perf_counter()
     path = result_path(settings, analysis.id)
     temporary = path.with_suffix(".tmp")
+    timings = {}
+    identifiers = {
+        "request_id": analysis.request_id,
+        "analysis_id": analysis.id,
+        "user_id": user.id,
+    }
+
+    def telemetry():
+        usage = getattr(provider, "usage", None)
+        return {
+            "timings_ms": timings.copy(),
+            "usage": (usage if isinstance(usage, TokenUsage) else TokenUsage()).model_dump(),
+        }
+
+    def log_completion(status, error_code, duration_ms):
+        emit(
+            "analysis_completed",
+            **identifiers,
+            status=status,
+            error_code=error_code,
+            duration_ms=duration_ms,
+            **telemetry(),
+        )
+
     try:
-        proposal = provider.generate(body.question, dataset.profile["fields"])
+        with timed(timings, "provider"):
+            proposal = provider.generate(body.question, dataset.profile["fields"])
         analysis.sql, analysis.explanation = proposal.sql, proposal.explanation
-        sql = validate_sql(proposal.sql, dataset.profile["fields"])
+        with timed(timings, "sql_guard"):
+            sql = validate_sql(proposal.sql, dataset.profile["fields"])
         analysis.sql = sql
-        result = execute_query(dataset_path(settings, str(dataset_id)), sql, settings)
-        chart, summary = describe_result(result, settings.llm_provider, proposal.chart)
-        result.update(chart=chart, summary=summary)
-        encoded = json.dumps(result, ensure_ascii=False, allow_nan=False)
-        if len(encoded.encode("utf-8")) > settings.max_result_bytes:
-            raise AppError(413, "result_too_large", "序列化后的结果超过字节限制，请缩小查询。")
-        path.parent.mkdir(parents=True, exist_ok=True)
-        temporary.write_text(encoded, encoding="utf-8")
-        os.replace(temporary, path)
+        with timed(timings, "query"):
+            result = execute_query(dataset_path(settings, str(dataset_id)), sql, settings)
+        with timed(timings, "persist"):
+            chart, summary = describe_result(result, settings.llm_provider, proposal.chart)
+            result.update(chart=chart, summary=summary)
+            encoded = json.dumps(result, ensure_ascii=False, allow_nan=False)
+            if len(encoded.encode("utf-8")) > settings.max_result_bytes:
+                raise AppError(413, "result_too_large", "序列化后的结果超过字节限制，请缩小查询。")
+            path.parent.mkdir(parents=True, exist_ok=True)
+            temporary.write_text(encoded, encoding="utf-8")
+            os.replace(temporary, path)
         analysis.status, analysis.summary = "success", summary
         analysis.returned_rows, analysis.truncated = len(result["rows"]), result["truncated"]
         analysis.duration_ms = int((time.perf_counter() - started) * 1000)
+        analysis.telemetry = telemetry()
         session.add(
             AuditEvent(
                 event="analysis_succeeded",
@@ -149,10 +185,12 @@ def analyze(
             )
         )
         session.commit()
+        log_completion(analysis.status, analysis.error_code, analysis.duration_ms)
         return detail(analysis, settings)
     except SQLAlchemyError:
         session.rollback()
         path.unlink(missing_ok=True)
+        log_completion("error", "storage_unavailable", int((time.perf_counter() - started) * 1000))
         raise
     except Exception as error:
         path.unlink(missing_ok=True)
@@ -169,6 +207,7 @@ def analyze(
             failure.detail["message"],
         )
         analysis.duration_ms = int((time.perf_counter() - started) * 1000)
+        analysis.telemetry = telemetry()
         session.add(
             AuditEvent(
                 event="analysis_rejected" if analysis.status == "rejected" else "analysis_failed",
@@ -181,6 +220,7 @@ def analyze(
             )
         )
         session.commit()
+        log_completion(analysis.status, analysis.error_code, analysis.duration_ms)
         raise AppError(
             failure.status_code,
             analysis.error_code,

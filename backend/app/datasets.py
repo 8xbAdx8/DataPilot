@@ -14,6 +14,7 @@ from app.db import get_session
 from app.errors import AppError
 from app.ingestion import import_dataset
 from app.models import Analysis, AuditEvent, Dataset
+from app.rate_limits import consume
 
 router = APIRouter(prefix="/api/datasets", tags=["datasets"])
 SessionDep = Annotated[Session, Depends(get_session)]
@@ -75,6 +76,8 @@ def upload_dataset(
     suffix = Path(name).suffix.lower()
     if suffix not in {".csv", ".xlsx"}:
         raise AppError(415, "unsupported_format", "仅支持 .csv 和 .xlsx。")
+    consume(session, user.id, "upload", settings)
+    session.commit()  # Parsing failures still consume upload capacity.
     # Never trust Content-Type or Content-Length supplied by a client.
     content = file.file.read(settings.max_upload_bytes + 1)
     dataset_id = str(uuid.uuid4())

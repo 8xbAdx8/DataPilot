@@ -12,7 +12,7 @@ from app.analyses import result_path
 from app.config import Settings, get_settings
 from app.datasets import remove_dataset
 from app.db import get_engine
-from app.models import Analysis, AuditEvent, AuthSession, Dataset, LoginAttempt
+from app.models import Analysis, AuditEvent, AuthSession, Dataset, LoginAttempt, RateLimitBucket
 
 
 def cleanup(session: Session, settings: Settings, *, apply: bool = False, now=None):
@@ -26,9 +26,11 @@ def cleanup(session: Session, settings: Settings, *, apply: bool = False, now=No
         "orphans": 0,
         "sessions": 0,
         "login_attempts": 0,
+        "rate_limits": 0,
     }
     for model, field, cutoff, key in [
         (AuthSession, AuthSession.expires_at, now, "sessions"),
+        (RateLimitBucket, RateLimitBucket.expires_at, now, "rate_limits"),
         (LoginAttempt, LoginAttempt.window_started, now - timedelta(minutes=15), "login_attempts"),
     ]:
         expired = session.scalars(select(model).where(field <= cutoff)).all()
@@ -36,7 +38,9 @@ def cleanup(session: Session, settings: Settings, *, apply: bool = False, now=No
         if apply:
             # Recheck the expiry predicate after any concurrent login row lock.
             # Deleting only by primary key could erase a newly reset failure window.
-            counts[key] = session.execute(delete(model).where(field <= cutoff)).rowcount
+            counts[key] = session.execute(
+                delete(model).where(field <= cutoff).execution_options(synchronize_session="fetch")
+            ).rowcount
     if apply:
         session.commit()
     stale = session.scalars(
