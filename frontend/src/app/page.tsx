@@ -1,5 +1,5 @@
-import { Workbench } from "@/components/workbench";
+import { AuthWorkspace } from "@/components/auth-workspace";
 
 export default function Home() {
-  return <Workbench />;
+  return <AuthWorkspace />;
 }

@@ -15,6 +15,7 @@ from pydantic import BaseModel, ConfigDict, StringConstraints, field_validator
 from sqlalchemy import or_, select
 from sqlalchemy.exc import SQLAlchemyError
 
+from app.auth import UserDep
 from app.datasets import SessionDep, SettingsDep, dataset_path, find_dataset
 from app.errors import AppError
 from app.execution import execute_query
@@ -66,8 +67,12 @@ def result_path(settings, analysis_id: str) -> Path:
     return settings.data_dir / "results" / f"{uuid.UUID(analysis_id)}.json"
 
 
-def find_analysis(session, analysis_id: uuid.UUID):
-    analysis = session.get(Analysis, str(analysis_id))
+def find_analysis(session, analysis_id: uuid.UUID, owner_id: str):
+    analysis = session.scalar(
+        select(Analysis)
+        .join(Dataset)
+        .where(Analysis.id == str(analysis_id), Dataset.owner_id == owner_id)
+    )
     if analysis is None:
         raise AppError(404, "analysis_not_found", "分析历史不存在。")
     return analysis
@@ -90,12 +95,17 @@ def analyze(
     body: Question,
     session: SessionDep,
     settings: SettingsDep,
+    user: UserDep,
     provider: Annotated[LLMProvider, Depends(get_provider)],
 ):
     # Serialize analysis creation against deletion of the same dataset.
-    dataset = session.scalar(select(Dataset).where(Dataset.id == str(dataset_id)).with_for_update())
+    dataset = session.scalar(
+        select(Dataset)
+        .where(Dataset.id == str(dataset_id), Dataset.owner_id == user.id)
+        .with_for_update()
+    )
     if dataset is None:
-        find_dataset(dataset_id, session)  # Consistent 404.
+        find_dataset(dataset_id, session, user.id)  # Same 404 for absent or foreign IDs.
     analysis = Analysis(
         id=str(uuid.uuid4()),
         dataset_id=str(dataset_id),
@@ -182,13 +192,19 @@ def analyze(
 @router.get("/analyses", response_model=list[AnalysisView])
 def history(
     session: SessionDep,
+    user: UserDep,
     dataset_id: uuid.UUID | None = None,
     q: Annotated[str, Query(max_length=200)] = "",
     status: Literal["running", "success", "rejected", "error"] | None = None,
     limit: Annotated[int, Query(ge=1, le=100)] = 20,
     offset: Annotated[int, Query(ge=0)] = 0,
 ):
-    query = select(Analysis).order_by(Analysis.created_at.desc(), Analysis.id.desc())
+    query = (
+        select(Analysis)
+        .join(Dataset)
+        .where(Dataset.owner_id == user.id)
+        .order_by(Analysis.created_at.desc(), Analysis.id.desc())
+    )
     if dataset_id:
         query = query.where(Analysis.dataset_id == str(dataset_id))
     if term := q.strip():
@@ -205,8 +221,8 @@ def history(
 
 
 @router.get("/analyses/{analysis_id}", response_model=AnalysisDetail)
-def get_analysis(analysis_id: uuid.UUID, session: SessionDep, settings: SettingsDep):
-    return detail(find_analysis(session, analysis_id), settings)
+def get_analysis(analysis_id: uuid.UUID, session: SessionDep, settings: SettingsDep, user: UserDep):
+    return detail(find_analysis(session, analysis_id, user.id), settings)
 
 
 def csv_cell(value):
@@ -216,8 +232,8 @@ def csv_cell(value):
 
 
 @router.get("/analyses/{analysis_id}/export")
-def export_csv(analysis_id: uuid.UUID, session: SessionDep, settings: SettingsDep):
-    analysis = find_analysis(session, analysis_id)
+def export_csv(analysis_id: uuid.UUID, session: SessionDep, settings: SettingsDep, user: UserDep):
+    analysis = find_analysis(session, analysis_id, user.id)
     view = detail(analysis, settings)
     if analysis.status != "success":
         raise AppError(409, "analysis_not_successful", "该分析没有成功结果可导出。")

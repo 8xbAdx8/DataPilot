@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures";
 
 test.afterEach(async ({ request }) => {
   const datasets = await (await request.get("/api/datasets")).json();

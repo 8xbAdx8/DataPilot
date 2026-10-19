@@ -4,7 +4,7 @@
 
 ## 开发状态
 
-已跑通完整 Mock 闭环：CSV/XLSX → DuckDB → 字段画像 → 自然语言生成 SQL → AST 安全校验 → 真实查询 → 表格/ECharts/事实总结 → 历史搜索与 CSV 导出。PostgreSQL 保存业务元信息，提供删除与保留清理。GitHub Actions 的应用检查和 Linux Docker Compose 全栈冒烟均已通过；真实 LLM API 仍待配置凭据后验收。
+已跑通完整 Mock 闭环：账户登录 → CSV/XLSX → DuckDB → 字段画像 → 自然语言生成 SQL → AST 安全校验 → 真实查询 → 表格/ECharts/事实总结 → 历史搜索与 CSV 导出。PostgreSQL 保存账户、会话和业务元信息，后端强制数据集所有权校验，提供删除与保留清理。GitHub Actions 已验证此前版本的应用检查与 Linux Compose 冒烟；新提交按对应 Actions 结果验收。真实 LLM API 仍待配置凭据后验证。
 
 文档：[实施计划](docs/PLAN.md) · [架构与学习入口](docs/ARCHITECTURE.md) · [安全策略](docs/SECURITY.md) · [运行与保留策略](docs/OPERATIONS.md) · [演示与验收](docs/DEMO.md) · [实际开发记录](docs/DEVELOPMENT.md)。
 
@@ -20,6 +20,7 @@ py -V:Astral/CPython3.12.14 -m venv .venv # 当前机器的发行版标签
 docker compose up -d postgres
 Set-Location backend
 ..\.venv\Scripts\alembic upgrade head
+..\.venv\Scripts\python -m app.accounts create-user --username alice # 交互输入并确认密码，至少 12 字符
 ..\.venv\Scripts\uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
@@ -46,11 +47,15 @@ npm run build
 npm run test:e2e # 先启动后端；本机使用 Edge，CI 使用 Playwright Chromium
 ```
 
-默认 `LLM_PROVIDER=mock`，无需 API Key。真实模型调用将在对应阶段单独记录；不要把密钥放进前端或提交到 Git。本项目当前面向本机单用户演示，鉴权和所有权校验属于后续阶段。
+默认 `LLM_PROVIDER=mock`，无需 API Key。真实模型调用将在对应阶段单独记录；不要把密钥放进前端或提交到 Git。工作台需要管理员创建的账户，没有默认账户或公开注册接口。用户名为 3–64 位英文/数字/点/下划线/短横线（首位英文或数字，不区分大小写），密码为 12–128 字符。已存在账户不要重复创建；命令会拒绝覆盖。
+
+登录、退出、24 小时会话与所有权由后端执行。升级前的旧数据保留但默认不可访问；按[账户与迁移说明](docs/OPERATIONS.md#账户与旧数据归属)显式分配。当前是基础多账户演示版本，尚未提供密码重置、MFA 或公网部署所需的完整网关防护。
 
 ## 安全分析 API
 
 `POST /api/datasets/{id}/analyses`，JSON 为 `{"question":"按 region 统计 revenue 总和"}`。Mock 还支持“这个数据集有多少行？”、“预览数据”、“revenue 平均值”。它只支持明确模板；复杂问题会返回错误。生成 SQL 必须通过 [安全策略](docs/SECURITY.md)，实际结果由 DuckDB 计算。
+
+数据 API 需要登录 Cookie。先向 `POST /api/auth/login` 提交 `username` / `password`，Cookie 由 HttpOnly 响应设置；`GET /api/auth/me` 返回当前用户，`POST /api/auth/logout` 撤销当前会话。所有 `/api` 写请求（包括登录/退出）必须带 `X-DataPilot-CSRF: 1`；浏览器通过内置客户端自动发送。不要把密码放进 URL、命令行参数或前端存储。
 
 `GET /api/analyses?dataset_id={id}` 返回历史元信息；`GET /api/analyses/{id}` 读取有界结果快照；`GET /api/analyses/{id}/export` 导出相同结果的 CSV。超限、失败和安全拒绝都不会生成虚假的成功结果。
 

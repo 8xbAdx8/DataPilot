@@ -5,14 +5,14 @@ import json
 import uuid
 from datetime import UTC, datetime, timedelta
 
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
 from app.analyses import result_path
 from app.config import Settings, get_settings
 from app.datasets import remove_dataset
 from app.db import get_engine
-from app.models import Analysis, AuditEvent, Dataset
+from app.models import Analysis, AuditEvent, AuthSession, Dataset, LoginAttempt
 
 
 def cleanup(session: Session, settings: Settings, *, apply: bool = False, now=None):
@@ -24,7 +24,21 @@ def cleanup(session: Session, settings: Settings, *, apply: bool = False, now=No
         "datasets": 0,
         "audits": 0,
         "orphans": 0,
+        "sessions": 0,
+        "login_attempts": 0,
     }
+    for model, field, cutoff, key in [
+        (AuthSession, AuthSession.expires_at, now, "sessions"),
+        (LoginAttempt, LoginAttempt.window_started, now - timedelta(minutes=15), "login_attempts"),
+    ]:
+        expired = session.scalars(select(model).where(field <= cutoff)).all()
+        counts[key] = len(expired)
+        if apply:
+            # Recheck the expiry predicate after any concurrent login row lock.
+            # Deleting only by primary key could erase a newly reset failure window.
+            counts[key] = session.execute(delete(model).where(field <= cutoff)).rowcount
+    if apply:
+        session.commit()
     stale = session.scalars(
         select(Analysis).where(
             Analysis.status == "running", Analysis.created_at < now - timedelta(minutes=10)

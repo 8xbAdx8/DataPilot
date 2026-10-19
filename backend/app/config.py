@@ -12,7 +12,20 @@ class Settings(BaseSettings):
 
     database_url: str = "postgresql+psycopg://datapilot:datapilot_local@localhost:5432/datapilot"
     data_dir: Path = ROOT / "data" / "runtime"
-    cors_origins: list[str] = ["http://localhost:3000"]
+    cors_origins: list[str] = [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:3001",
+        "http://127.0.0.1:3001",
+    ]
+    session_cookie_secure: bool = False
+    session_hours: int = Field(default=24, ge=1, le=168)
+    auth_trusted_origins: list[str] = [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:3001",
+        "http://127.0.0.1:3001",
+    ]
     llm_provider: str = "mock"
     llm_model: str = "deepseek-chat"
     llm_base_url: str = "https://api.deepseek.com"

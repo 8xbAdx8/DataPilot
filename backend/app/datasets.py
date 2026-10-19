@@ -8,6 +8,7 @@ from pydantic import BaseModel, ConfigDict
 from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 
+from app.auth import UserDep
 from app.config import Settings, get_settings
 from app.db import get_session
 from app.errors import AppError
@@ -38,27 +39,35 @@ def dataset_path(settings: Settings, dataset_id: str) -> Path:
     return settings.data_dir / "datasets" / f"{uuid.UUID(dataset_id)}.duckdb"
 
 
-def find_dataset(dataset_id: uuid.UUID, session: Session) -> Dataset:
-    dataset = session.get(Dataset, str(dataset_id))
+def find_dataset(dataset_id: uuid.UUID, session: Session, owner_id: str) -> Dataset:
+    dataset = session.scalar(
+        select(Dataset).where(Dataset.id == str(dataset_id), Dataset.owner_id == owner_id)
+    )
     if dataset is None:
         raise AppError(404, "dataset_not_found", "数据集不存在。")
     return dataset
 
 
 @router.get("", response_model=list[DatasetSummary])
-def list_datasets(session: SessionDep):
-    return session.scalars(select(Dataset).order_by(Dataset.created_at.desc()).limit(100)).all()
+def list_datasets(session: SessionDep, user: UserDep):
+    return session.scalars(
+        select(Dataset)
+        .where(Dataset.owner_id == user.id)
+        .order_by(Dataset.created_at.desc())
+        .limit(100)
+    ).all()
 
 
 @router.get("/{dataset_id}", response_model=DatasetView)
-def get_dataset(dataset_id: uuid.UUID, session: SessionDep):
-    return find_dataset(dataset_id, session)
+def get_dataset(dataset_id: uuid.UUID, session: SessionDep, user: UserDep):
+    return find_dataset(dataset_id, session, user.id)
 
 
 @router.post("", response_model=DatasetView, status_code=201)
 def upload_dataset(
     session: SessionDep,
     settings: SettingsDep,
+    user: UserDep,
     file: Annotated[UploadFile, File()],
     sheet: Annotated[str | None, Form()] = None,
 ):
@@ -76,6 +85,7 @@ def upload_dataset(
         profile, selected = import_dataset(content, suffix, sheet, temporary, settings)
         dataset = Dataset(
             id=dataset_id,
+            owner_id=user.id,
             name=name,
             file_type=suffix[1:],
             sheet_name=selected,
@@ -143,8 +153,14 @@ def remove_dataset(session: Session, settings: Settings, dataset: Dataset):
 
 
 @router.delete("/{dataset_id}", status_code=204)
-def delete_dataset(dataset_id: uuid.UUID, session: SessionDep, settings: SettingsDep):
-    dataset = session.scalar(select(Dataset).where(Dataset.id == str(dataset_id)).with_for_update())
+def delete_dataset(
+    dataset_id: uuid.UUID, session: SessionDep, settings: SettingsDep, user: UserDep
+):
+    dataset = session.scalar(
+        select(Dataset)
+        .where(Dataset.id == str(dataset_id), Dataset.owner_id == user.id)
+        .with_for_update()
+    )
     if dataset is None:
         raise AppError(404, "dataset_not_found", "数据集不存在。")
     remove_dataset(session, settings, dataset)

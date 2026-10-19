@@ -4,7 +4,8 @@
 flowchart LR
   User[浏览器] --> Next[Next.js App Router]
   Next --> API[FastAPI]
-  API --> Metadata[SQLAlchemy / PostgreSQL 元信息]
+  API --> Auth[Cookie 会话 / owner 检查]
+  Auth --> Metadata[SQLAlchemy / PostgreSQL 元信息]
   API --> Provider[Mock / 兼容 LLM Provider]
   Provider --> Guard[SQLGlot AST 与真实 Schema 校验]
   Guard --> Worker[受限 DuckDB 子进程]
@@ -15,7 +16,11 @@ flowchart LR
 
 Next.js 与 FastAPI 分开后，React 状态和 Python 数据执行可独立测试。Next 的同源代理解决浏览器连接问题，不能替代后端安全检查。上传、模型、SQL 和资源限制都集中在 FastAPI。
 
-PostgreSQL 是平台数据库：保存数据集字段画像、问题、SQL、状态和审计。DuckDB 是分析引擎：每份上传数据一个文件，固定表名 `data`。LLM 只接收 Schema 与问题，SQL 执行器只接收经过校验的查询和当前 DuckDB 路径，没有平台连接参数。
+PostgreSQL 是平台数据库：保存账户、会话摘要、数据集归属/字段画像、问题、SQL、状态和审计。DuckDB 是分析引擎：每份上传数据一个文件，固定表名 `data`。LLM 只接收 Schema 与问题，SQL 执行器只接收经过校验的查询和当前 DuckDB 路径，没有平台连接参数。
+
+`auth.py` 的 `current_user` 作为 FastAPI 依赖，读取 Cookie 摘要对应的未过期会话；datasets / analyses 的每条业务查询再约束 `Dataset.owner_id == user.id`。认证回答“你是谁”，所有权回答“你能访问哪份数据”，二者都不能只依赖前端隐藏按钮。分析结果通过数据集继承归属，读文件之前就拒绝非所有者。
+
+使用不透明服务端会话而非 JWT，是因为本项目已有 PostgreSQL，退出可直接撤销行，无需额外维护 JWT 黑名单。HttpOnly Cookie 避免前端持久保存令牌；同源 Next 代理继续转发 Cookie / Set-Cookie。`AuthWorkspace` 管理登录状态，退出或会话失效会卸载 Workbench，清除前一个用户的界面状态。写请求另经 CSRF 头与 Origin 校验。
 
 ## 建议按这条代码路径阅读
 
@@ -27,7 +32,7 @@ PostgreSQL 是平台数据库：保存数据集字段画像、问题、SQL、状
 6. `presentation.py`：仅从真实行选择图表和生成事实。不能画图时保留表格，不补零、不重排时间、不宣称因果。
 7. `frontend/src/components/analysis-panel.tsx`：提问和结果状态；`analysis-history.tsx` 单独请求历史元信息，处理搜索、状态筛选、分页、请求过期和重试。`result-chart.tsx` 的标签与值直接取同一份 SQL 结果，表格与 CSV 也使用这份快照。
 
-历史搜索对应 `analyses.py` 的 `history()`：SQLAlchemy 将关键词绑定为参数，并转义 LIKE 通配符；用户输入不会变成 SQL 语法。按 `created_at DESC, id DESC` 排序，即使创建时间相同也有确定顺序。界面一次请求 21 条，仅显示 20 条，用额外一条判断下一页；无需加载大快照或执行全表计数。offset 分页适用于当前单用户规模，跨翻页期间插入/清理记录可能导致位置移动，不保证数据库快照一致性。
+历史搜索对应 `analyses.py` 的 `history()`：SQLAlchemy 将关键词绑定为参数，并转义 LIKE 通配符；用户输入不会变成 SQL 语法。按 `created_at DESC, id DESC` 排序，即使创建时间相同也有确定顺序。界面一次请求 21 条，仅显示 20 条，用额外一条判断下一页；无需加载大快照或执行全表计数。offset 分页适用于当前小规模元信息检索，跨翻页期间插入/清理记录可能导致位置移动，不保证数据库快照一致性。
 
 ## 怎样验证，不只看绿色输出
 
@@ -37,4 +42,4 @@ PostgreSQL 是平台数据库：保存数据集字段画像、问题、SQL、状
 - Playwright 上传文件、等实际响应、核对结果与下载内容、刷新恢复历史；同时检查图表画布、浏览器异常和移动宽度。
 - Docker 配置解析不是部署成功。只有镜像构建、容器就绪和 `compose-smoke.py` 都通过，才能宣布容器验收完成。
 
-Linux Docker 验收已完成。真实模型仍需后端凭据；后续重点为登录/所有权、限流与观测，再评估有限 SQL 修复；确有多步需求时再考虑 LangGraph。当前不需要 Agent 编排来完成单条分析。
+登录与 owner 校验已实现，Linux Docker 验收按提交查看 Actions。真实模型仍需后端凭据；后续重点为请求限流与观测、密码生命周期，再评估有限 SQL 修复；确有多步需求时再考虑 LangGraph。当前不需要 Agent 编排来完成单条分析。

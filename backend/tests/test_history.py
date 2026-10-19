@@ -7,10 +7,11 @@ from app.models import Analysis, Dataset
 
 
 @pytest.fixture
-def histories(session):
+def histories(session, auth_user):
     datasets = [
         Dataset(
             id=str(uuid.uuid4()),
+            owner_id=auth_user.id,
             name=f"history-{i}.csv",
             file_type="csv",
             row_count=1,

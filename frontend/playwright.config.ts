@@ -7,7 +7,8 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   reporter: "list",
-  use: { baseURL, trace: "retain-on-failure" },
+  // Authentication payloads must not be captured in traces or network attachments.
+  use: { baseURL, trace: "off", extraHTTPHeaders: { "X-DataPilot-CSRF": "1" } },
   projects: [
     {
       name: "chromium",

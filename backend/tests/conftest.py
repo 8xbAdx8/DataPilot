@@ -1,13 +1,17 @@
 import os
+import secrets
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
+from app.auth import COOKIE, token_hash
 from app.config import Settings, get_settings
 from app.db import Base, get_session
 from app.main import app
+from app.models import AuthSession, User
 
 
 @pytest.fixture
@@ -32,9 +36,29 @@ def session(tmp_path):
 
 
 @pytest.fixture
-def client(settings, session):
+def auth_user(session):
+    user = User(username="test-" + secrets.token_hex(8), password_hash="unused-in-session-fixture")
+    session.add(user)
+    session.commit()
+    return user
+
+
+@pytest.fixture
+def client(settings, session, auth_user):
     app.dependency_overrides[get_settings] = lambda: settings
     app.dependency_overrides[get_session] = lambda: session
-    with TestClient(app, raise_server_exceptions=False) as client:
+    token = secrets.token_urlsafe(32)
+    session.add(
+        AuthSession(
+            token_hash=token_hash(token),
+            user_id=auth_user.id,
+            expires_at=datetime.now(UTC) + timedelta(hours=1),
+        )
+    )
+    session.commit()
+    with TestClient(
+        app, raise_server_exceptions=False, headers={"X-DataPilot-CSRF": "1"}
+    ) as client:
+        client.cookies.set(COOKIE, token)
         yield client
     app.dependency_overrides.clear()

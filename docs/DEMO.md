@@ -2,7 +2,7 @@
 
 ## 启动与演示
 
-按 README 启动原生服务，或按 OPERATIONS 运行 Docker Compose。保持 `LLM_PROVIDER=mock` 即可离线演示，无需申请 Key。工作台默认端口 3000。
+按 README 启动原生服务，或按 OPERATIONS 运行 Docker Compose。管理员创建自己的账户，登录后演示；保持 `LLM_PROVIDER=mock` 无需申请 Key。工作台默认端口 3000。旧版演示数据需显式分配归属，或登录后重新上传合成样例。
 
 1. 上传项目自带的合成数据 `data/examples/sales.csv`。核对 8 行、字段类型、缺失值和预览。
 2. 问“这个数据集有多少行？”，SQL 的 COUNT 与实际结果应为 8。
@@ -10,6 +10,7 @@
 4. 下载 CSV，核对数值；刷新后通过分析历史恢复结果。用 `SUM` 搜索 SQL，再筛选“成功”。清空或重置筛选可恢复全部记录。
 5. 问一个 Mock 不支持的问题，例如“预测下个月的销售额”。应显示明确失败，并能筛选到失败历史；不生成预测或成功图表。
 6. 展示 SQL 安全回归测试中的恶意输入及“执行器从未被调用”的断言。Mock 不会生成危险 SQL，不能用聊天窗口里的拒绝回答代替 AST 安全验证证据。
+7. 退出后使用另一个账户登录，原数据集和历史不应出现。展示双用户回归中对已知数据集、分析和导出 UUID 的访问均返回 404；这验证后端授权，不只是侧栏隐藏。
 
 ## 面试中解释设计
 
@@ -23,6 +24,6 @@
 
 [首轮 GitHub Actions](https://github.com/8xbAdx8/DataPilot/actions/runs/39051736631) 在提交 `da76f81` 验证了真实 PostgreSQL 后端 117 passed / 1 skipped（真实 LLM）、5 项 Chromium E2E、静态检查/构建，以及 Linux Compose 构建/健康/HTTP 冒烟。后续功能的验证见 DEVELOPMENT 与对应提交的 Actions，不能把旧提交的绿色结果套用到新代码。
 
-尚无真实模型 API 验证；当前没有登录、鉴权和租户隔离，适合本机单用户求职演示。没有测量线上容量、并发吞吐或真实模型准确率，不应在简历中编造这些指标。Windows Docker 引擎问题仍未修复，Linux 容器验收已通过。
+尚无真实模型 API 验证。当前支持基础账户、服务端会话和用户数据所有权，尚未提供密码重置、MFA、组织共享或完整公网防滥用措施。没有测量线上容量、并发吞吐或真实模型准确率，不应在简历中编造这些指标。Windows Docker 引擎问题仍未修复，Linux 容器验收按提交查看 CI。
 
 可据实描述项目：实现支持 CSV/XLSX 的自然语言分析平台，使用 SQL AST 校验和受限 DuckDB 执行真实查询，提供结果可视化、历史检索和 CSV 导出，并通过 PostgreSQL 集成测试及 Docker Compose CI 验证。

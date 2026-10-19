@@ -23,6 +23,7 @@ export type Dataset = {
 };
 
 export type DatasetSummary = Omit<Dataset, "profile">;
+export type User = { id: string; username: string };
 
 export class ApiError extends Error {
   constructor(
@@ -38,12 +39,26 @@ export class ApiError extends Error {
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   let response: Response;
   try {
-    response = await fetch(`/api${path}`, { cache: "no-store", ...init });
+    const headers = new Headers(init?.headers);
+    if (
+      init?.method &&
+      !["GET", "HEAD", "OPTIONS"].includes(init.method.toUpperCase())
+    ) {
+      headers.set("X-DataPilot-CSRF", "1");
+    }
+    response = await fetch(`/api${path}`, {
+      cache: "no-store",
+      ...init,
+      headers,
+    });
   } catch {
     throw new ApiError("无法连接后端，请检查服务是否启动。", "network_error");
   }
   const body = await response.json().catch(() => null);
   if (!response.ok) {
+    if (response.status === 401 && !path.startsWith("/auth/")) {
+      window.dispatchEvent(new Event("datapilot-session-expired"));
+    }
     const detail = body?.detail;
     const message = typeof detail === "string" ? detail : detail?.message;
     throw new ApiError(
