@@ -47,6 +47,27 @@ class Settings(BaseSettings):
     rag_top_k: int = Field(default=4, ge=1, le=8)
     rag_min_similarity: float = Field(default=0.20, ge=0, le=1)
     knowledge_requests_per_window: int = Field(default=10, ge=1, le=120)
+    datapilot_langsmith_enabled: bool = False
+    langsmith_api_key: str = Field(default="", repr=False)
+    langsmith_project: str = Field(default="datapilot-metadata", pattern=r"^[a-zA-Z0-9_-]{1,64}$")
+    langsmith_endpoint: str = "https://api.smith.langchain.com"
+
+    @field_validator("langsmith_endpoint")
+    @classmethod
+    def safe_trace_endpoint(cls, value):
+        from urllib.parse import urlparse
+
+        url = urlparse(value)
+        if (
+            url.scheme != "https"
+            or not url.hostname
+            or url.username
+            or url.password
+            or url.query
+            or url.fragment
+        ):
+            raise ValueError("LangSmith 地址必须使用 HTTPS，且不能包含凭据、查询参数或片段。")
+        return value.rstrip("/")
 
     @field_validator("embedding_dimensions")
     @classmethod

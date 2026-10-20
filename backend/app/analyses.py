@@ -27,6 +27,7 @@ from app.observability import emit, timed
 from app.presentation import describe_result
 from app.providers import LLMProvider, get_provider
 from app.rate_limits import consume
+from app.tracing import export_trace
 
 router = APIRouter(prefix="/api", tags=["analyses"])
 
@@ -173,6 +174,7 @@ def analyze(
                 return plan.model_dump()
             finally:
                 run.agent_metrics = planner.metadata()
+                run.agent_spans = planner.spans.copy()
 
         run.planner = make_plan
     run.retriever = lambda: retrieve_knowledge(
@@ -192,6 +194,7 @@ def analyze(
         }
 
     def log_completion(status, error_code, duration_ms):
+        export_trace(settings, run, status, duration_ms)
         emit(
             "analysis_completed",
             **identifiers,

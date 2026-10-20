@@ -3,6 +3,7 @@
 import json
 import time
 from dataclasses import dataclass, field
+from datetime import UTC, datetime
 from threading import RLock
 from typing import Annotated, Literal
 from uuid import UUID
@@ -76,6 +77,7 @@ class PlannerContext:
     reserved_tokens: int = 0
     tools_used: list[str] = field(default_factory=list)
     usage: dict = field(default_factory=dict)
+    spans: list[dict] = field(default_factory=list)
     lock: RLock = field(default_factory=RLock)
 
     def dataset(self):
@@ -184,14 +186,20 @@ class AgentBudget(AgentMiddleware):
             raise AppError(422, "agent_token_limit", "Agent 输入及输出预留量超过 Token 上限。")
         context.reserved_tokens += reserve
         context.model_calls += 1
-        result = handler(
-            request.override(
-                model_settings={
-                    **request.model_settings,
-                    "timeout": max(0.01, context.deadline - time.monotonic()),
-                }
+        span = {"name": "agent_model", "start": datetime.now(UTC), "status": "error"}
+        try:
+            result = handler(
+                request.override(
+                    model_settings={
+                        **request.model_settings,
+                        "timeout": max(0.01, context.deadline - time.monotonic()),
+                    }
+                )
             )
-        )
+            span["status"] = "success"
+        finally:
+            span["end"] = datetime.now(UTC)
+            context.spans.append(span)
         for message in result.result:
             usage = getattr(message, "usage_metadata", None)
             if usage:
@@ -214,11 +222,18 @@ class AgentBudget(AgentMiddleware):
             context.tool_calls += 1
             context.tools_used.append(name)
         try:
-            return handler(request)
+            span = {"name": name, "start": datetime.now(UTC), "status": "error"}
+            result = handler(request)
+            span["status"] = "success"
+            return result
         except AppError:
             raise
         except Exception as error:
             raise AppError(422, "agent_tool_error", "Agent 工具参数或执行失败。") from error
+        finally:
+            span["end"] = datetime.now(UTC)
+            with context.lock:
+                context.spans.append(span)
 
 
 class FakePlanningModel(BaseChatModel):

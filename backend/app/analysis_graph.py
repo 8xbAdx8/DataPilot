@@ -5,6 +5,7 @@ import time
 from collections.abc import Callable
 from contextlib import contextmanager
 from dataclasses import dataclass, field
+from datetime import UTC, datetime
 from typing import TypedDict
 
 from langgraph.graph import END, START, StateGraph
@@ -45,6 +46,9 @@ class AnalysisRun:
     deadline: float = field(init=False)
     nodes: list[str] = field(default_factory=list)
     node_timings: dict = field(default_factory=dict)
+    started_at: datetime = field(default_factory=lambda: datetime.now(UTC))
+    node_spans: list[dict] = field(default_factory=list)
+    agent_spans: list[dict] = field(default_factory=list)
     validations: list[dict] = field(default_factory=list)
     repairs: int = 0
     sql_calls: int = 0
@@ -108,11 +112,15 @@ def build_graph(run: AnalysisRun):
             run.budget()
             run.nodes.append(name)
             started = time.perf_counter()
+            span = {"name": name, "start": datetime.now(UTC), "status": "error"}
             try:
                 update = function(state)
                 run.budget()
+                span["status"] = "rejected" if update.get("status") == "rejected" else "success"
                 return update
             finally:
+                span["end"] = datetime.now(UTC)
+                run.node_spans.append(span)
                 run.node_timings[name] = run.node_timings.get(name, 0) + int(
                     (time.perf_counter() - started) * 1000
                 )
