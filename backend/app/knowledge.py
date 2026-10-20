@@ -18,6 +18,7 @@ from app.embeddings import get_embedding_provider, validate_vectors
 from app.errors import AppError
 from app.models import AuditEvent, KnowledgeChunk, KnowledgeDocument, User
 from app.rate_limits import consume
+from app.retrieval import select_candidates
 
 router = APIRouter(prefix="/api", tags=["knowledge"])
 SourceType = Literal[
@@ -386,15 +387,18 @@ def retrieve_knowledge(session, owner_id, dataset_id, question, settings, *, dea
             result["status"] = "space_mismatch"
             return result
         vector = validate_vectors(provider.embed([question]), 1)[0]
-        distance = allowed.c.embedding.cosine_distance(vector)
-        rows = session.execute(
-            select(allowed, distance.label("distance"))
-            .where(distance <= 1 - settings.rag_min_similarity)
-            .order_by(distance, allowed.c.chunk_id)
-            .limit(settings.rag_top_k)
-        ).all()
-        result["citations"] = [citation(row, max(0.0, min(1.0, 1 - row.distance))) for row in rows]
-        result["status"] = "retrieved" if rows else "no_match"
+        if deadline is not None:
+            settings = settings.model_copy(
+                update={
+                    "reranker_timeout_seconds": min(
+                        settings.reranker_timeout_seconds, max(0.001, deadline - time.monotonic())
+                    )
+                }
+            )
+        result["citations"] = select_candidates(
+            session, allowed, vector, question, settings, citation
+        )
+        result["status"] = "retrieved" if result["citations"] else "no_match"
         return result
     except AppError as error:
         result["status"] = (

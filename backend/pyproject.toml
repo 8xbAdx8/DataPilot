@@ -21,6 +21,10 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8.3,<10", "ruff>=0.12,<1"]
+eval = [
+  "ragas==0.4.3", "flashrank==0.2.10", "openai==2.54.0", "instructor==1.17.0",
+  "langchain-community==0.3.31",
+]
 
 [tool.setuptools.packages.find]
 include = ["app*"]

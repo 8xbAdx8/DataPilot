@@ -11,6 +11,7 @@ import httpx
 
 from app.config import Settings
 from app.errors import AppError
+from app.providers import TokenUsage, parse_usage
 
 DIMENSIONS = 1536
 
@@ -79,6 +80,7 @@ class CompatibleEmbeddingProvider:
     def __init__(self, settings: Settings, transport=None):
         self.settings, self.transport = settings, transport
         self.model = settings.embedding_model
+        self.usage = TokenUsage()
         # Endpoint participates in identity: equal model names at different services
         # do not establish equal semantic spaces. Never put URL credentials in DB.
         identity = hashlib.sha256(settings.embedding_base_url.rstrip("/").encode()).hexdigest()[:16]
@@ -88,6 +90,7 @@ class CompatibleEmbeddingProvider:
 
     def embed(self, texts):
         s = self.settings
+        self.usage = TokenUsage()
         deadline = time.monotonic() + s.embedding_timeout_seconds
         if not s.embedding_api_key:
             raise AppError(503, "embedding_not_configured", "尚未独立配置 Embedding API Key。")
@@ -132,6 +135,7 @@ class CompatibleEmbeddingProvider:
                 raise ValueError("embedding envelope is not an object")
             if body.get("model") != self.model:
                 raise ValueError("embedding model mismatch")
+            self.usage = parse_usage(body.get("usage"))
             data = body["data"]
             if (
                 any(type(item["index"]) is not int for item in data)

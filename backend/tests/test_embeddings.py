@@ -29,6 +29,26 @@ def config():
     )
 
 
+def test_embedding_usage_is_bounded_provider_data_and_resets_on_failure():
+    response = {
+        "model": "text-embedding-3-small",
+        "usage": {"prompt_tokens": 5, "total_tokens": 5},
+        "data": [{"index": 0, "embedding": vector()}],
+    }
+    provider = CompatibleEmbeddingProvider(
+        config(), httpx.MockTransport(lambda _: httpx.Response(200, json=response))
+    )
+    provider.embed(["a"])
+    assert provider.usage.total_tokens == 5
+    response["usage"] = {"total_tokens": "not-a-number"}
+    provider.embed(["a"])
+    assert provider.usage.total_tokens is None
+    provider.transport = httpx.MockTransport(lambda _: httpx.Response(500))
+    with pytest.raises(AppError):
+        provider.embed(["a"])
+    assert provider.usage.total_tokens is None
+
+
 def test_fake_is_explicit_deterministic_and_separate_from_real_semantic_space():
     provider = FakeEmbeddingProvider()
     first = provider.embed(["销售额 revenue"])[0]

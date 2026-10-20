@@ -73,11 +73,17 @@ def load_corpus():
 class EmbeddingObservation:
     """Instrument the original real HTTP provider; never supply canned responses."""
 
-    def __init__(self):
+    def __init__(self, cached=None):
         self.requests, self.vectors = [], {}
+        self.cached = cached
         self.original = CompatibleEmbeddingProvider.embed
 
     def embed(self, provider, texts):
+        if self.cached is not None:
+            if any(text not in self.cached for text in texts):
+                raise ValueError("Missing real cached vector; no implicit network fallback")
+            self.vectors.update({text: self.cached[text] for text in texts})
+            return validate_vectors([self.cached[text] for text in texts], len(texts))
         if provider.transport is not None or len(self.requests) >= 120:
             raise ValueError("Live evaluation forbids injected transports and unbounded requests")
         start = time.perf_counter()
@@ -86,6 +92,7 @@ class EmbeddingObservation:
             vectors = self.original(provider, texts)
             self.vectors.update(zip(texts, vectors, strict=True))
             record["status"] = "success"
+            record["usage"] = provider.usage.model_dump()
             return vectors
         except AppError as error:
             record["code"] = error.detail["code"]
@@ -169,6 +176,8 @@ def seed(session, corpus, settings):
 
 
 def downstream(client, session, corpus, case, settings, retrieval):
+    # A fresh provider avoids carrying previous request usage into clarification-only cases.
+    app.dependency_overrides[get_provider] = dependency(CompatibleProvider(settings))
     token = secrets.token_urlsafe(32)
     session.add(
         AuthSession(
@@ -192,6 +201,7 @@ def downstream(client, session, corpus, case, settings, retrieval):
     workflow = body.get("telemetry", {}).get("workflow", {})
     evidence = case_evidence(body, workflow.get("rag", retrieval))
     evidence.update(
+        sql_model_calls=workflow.get("sql_model_calls"),
         status=body.get("status"),
         error_code=body.get("error_code"),
         adopted_ids=workflow.get("plan", {}).get("knowledge_chunk_ids", []),
@@ -207,10 +217,22 @@ def downstream(client, session, corpus, case, settings, retrieval):
         if behavior == "safe_refusal"
         else body.get("status") == "success"
     )
+    if workflow.get("sql_model_calls") == 0:
+        evidence["usage"]["sql"] = {"source": "not_called", "total_tokens": 0}
     return evidence
 
 
-def evaluate(database_url, split, output, *, run_downstream=False, cache=None, updates=None):
+def evaluate(
+    database_url,
+    split,
+    output,
+    *,
+    run_downstream=False,
+    cache=None,
+    updates=None,
+    cached=None,
+    case_ids=None,
+):
     if os.environ.get("RUN_LIVE_RAG_EVAL") != "1":
         raise ValueError("Live acceptance requires RUN_LIVE_RAG_EVAL=1 and --live")
     original = Settings()
@@ -227,22 +249,40 @@ def evaluate(database_url, split, output, *, run_downstream=False, cache=None, u
     if run_downstream and (not original.llm_api_key or original.llm_provider == "mock"):
         raise ValueError("Explicit real chat configuration is required")
     corpus, hashes = load_corpus()
-    cases = [c for c in corpus["queries"] if c["split"] == split]
-    observation = EmbeddingObservation()
+    cases = [
+        c
+        for c in corpus["queries"]
+        if c["split"] == split and (case_ids is None or c["id"] in case_ids)
+    ]
+    if not cases or (case_ids is not None and {c["id"] for c in cases} != set(case_ids)):
+        raise ValueError("Unknown evaluation case IDs")
+    observation = EmbeddingObservation(cached)
     head = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode().strip()
     report = {
         "mode": "real-embedding-real-agent" if run_downstream else "real-embedding",
         "created_at": datetime.now(UTC).isoformat(),
         "head": head,
+        "working_tree_dirty": bool(subprocess.check_output(["git", "status", "--porcelain"])),
         "split": split,
         "corpus": hashes,
         "records": [],
         "embedding_requests": observation.requests,
         "embedding_tokens": None,
+        "embedding_transport": "cached-real-vectors-no-HTTP" if cached else "real-HTTP",
         "cost": None,
         "source_sha256": {
             p: hashlib.sha256((ROOT / "backend/app" / p).read_bytes()).hexdigest()
-            for p in ("knowledge.py", "embeddings.py", "analysis_agent.py")
+            for p in (
+                "knowledge.py",
+                "embeddings.py",
+                "analysis_agent.py",
+                "analysis_graph.py",
+                "providers.py",
+                "retrieval.py",
+                "reranking.py",
+                "config.py",
+                "rag_evaluate.py",
+            )
         },
     }
     # Exclusive output protects historical measurements from accidental replacement.
@@ -271,6 +311,9 @@ def evaluate(database_url, split, output, *, run_downstream=False, cache=None, u
                     "llm_model",
                     "rag_top_k",
                     "rag_min_similarity",
+                    "rag_strategy",
+                    "rag_reranker",
+                    "reranker_min_score",
                 )
             }
             report["configuration"]["langsmith_enabled"] = False
@@ -376,15 +419,51 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--embedding-cache", type=Path)
     parser.add_argument("--downstream", action="store_true")
+    parser.add_argument("--config", type=Path, help="JSON retrieval configuration only")
+    parser.add_argument("--freeze", type=Path, help="Frozen manifest required for holdout")
     args = parser.parse_args()
     if not args.live or not args.database_url:
         parser.error("Explicit --live and independent EVAL_DATABASE_URL required")
+    updates = json.loads(args.config.read_bytes()) if args.config else {}
+    allowed = {"rag_strategy", "rag_reranker", "rag_min_similarity", "reranker_min_score"}
+    if set(updates) - allowed:
+        parser.error("Only retrieval settings may be overridden")
+    if args.split == "holdout":
+        if not args.freeze:
+            parser.error("Holdout requires a frozen manifest before the first run")
+        frozen = json.loads(args.freeze.read_bytes())
+        _, hashes = load_corpus()
+        if frozen["corpus_sha256"] != hashes["sha256"] or updates not in (
+            frozen["selected"],
+            frozen["baseline"],
+        ):
+            parser.error("Frozen corpus/config mismatch")
+        prompt_sha = hashlib.sha256(
+            (Path(__file__).parent / "analysis_agent.py").read_bytes()
+        ).hexdigest()
+        if frozen["agent_source_sha256"] != prompt_sha:
+            parser.error("Frozen Agent source mismatch")
+        for name, sha in frozen.get("implementation_sha256", {}).items():
+            if name not in {
+                "knowledge.py",
+                "embeddings.py",
+                "analysis_agent.py",
+                "analysis_graph.py",
+                "providers.py",
+                "retrieval.py",
+                "reranking.py",
+                "config.py",
+            }:
+                parser.error("Invalid frozen implementation path")
+            if hashlib.sha256((Path(__file__).parent / name).read_bytes()).hexdigest() != sha:
+                parser.error("Frozen retrieval implementation mismatch")
     report = evaluate(
         args.database_url,
         args.split,
         args.output,
         run_downstream=args.downstream,
         cache=args.embedding_cache,
+        updates=updates,
     )
     print(json.dumps(report["summary"], indent=2))
 

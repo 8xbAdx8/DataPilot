@@ -1,5 +1,7 @@
 # 架构与学习入口
 
+阶段 14 增加可选的授权后候选融合：PostgreSQL materialized owner/dataset/space CTE → 向量与中文片段词法两路 → RRF → 可选本地 FlashRank → 阈值与 top-k。候选带来源、名次与分数，任何重排错误都不提供未排序知识。生产默认 vector/0.70/none，Ragas 仅在独立评测环境导入。配置、冻结对照及未通过的留出 SQL 见 [RAG 评测](RAG_EVALUATION.md)。
+
 ```mermaid
 flowchart LR
   User[浏览器] --> Next[Next.js App Router]

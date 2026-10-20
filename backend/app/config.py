@@ -1,7 +1,8 @@
 from functools import lru_cache
 from pathlib import Path
+from typing import Literal
 
-from pydantic import Field, field_validator
+from pydantic import Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -45,7 +46,25 @@ class Settings(BaseSettings):
     embedding_dimensions: int = 1536
     embedding_timeout_seconds: float = Field(default=20, gt=0, le=60)
     rag_top_k: int = Field(default=4, ge=1, le=8)
-    rag_min_similarity: float = Field(default=0.20, ge=0, le=1)
+    rag_min_similarity: float = Field(default=0.70, ge=0, le=1)
+    rag_strategy: Literal["vector", "hybrid"] = "vector"
+    rag_reranker: Literal["none", "flashrank"] = "none"
+    reranker_min_score: float = Field(default=0.5, ge=0, le=1)
+    reranker_timeout_seconds: float = Field(default=15, gt=0, le=60)
+    reranker_cache_dir: Path = ROOT / "data/runtime/flashrank"
+    reranker_python: Path | None = None
+
+    @field_validator("reranker_python", mode="before")
+    @classmethod
+    def optional_python(cls, value):
+        return None if value == "" else value
+
+    @model_validator(mode="after")
+    def compatible_ranking(self):
+        if self.rag_reranker == "flashrank" and self.rag_strategy != "hybrid":
+            raise ValueError("FlashRank requires RAG_STRATEGY=hybrid")
+        return self
+
     knowledge_requests_per_window: int = Field(default=10, ge=1, le=120)
     datapilot_langsmith_enabled: bool = False
     langsmith_api_key: str = Field(default="", repr=False)
@@ -86,7 +105,7 @@ class Settings(BaseSettings):
     upload_requests_per_window: int = Field(default=10, ge=1, le=1000)
     rate_limit_window_seconds: int = Field(default=60, ge=1, le=3600)
 
-    @field_validator("data_dir")
+    @field_validator("data_dir", "reranker_cache_dir")
     @classmethod
     def resolve_data_dir(cls, value: Path) -> Path:
         return value if value.is_absolute() else ROOT / value
