@@ -357,11 +357,13 @@ def evaluate(database_url, *, live=False, cases=None):
                                     session.commit()
                                     target = foreign.id
                                 start = time.perf_counter()
+                                started_at = datetime.now(UTC).isoformat()
                                 response = client.post(
                                     f"/api/datasets/{target}/analyses",
                                     json={"question": case["question"]},
                                 )
                                 elapsed = round((time.perf_counter() - start) * 1000, 3)
+                                ended_at = datetime.now(UTC).isoformat()
                                 body = response.json()
                                 if response.status_code >= 400:
                                     failure = body.get("detail", {})
@@ -375,7 +377,12 @@ def evaluate(database_url, *, live=False, cases=None):
                                             "error_code": failure.get("code"),
                                         }
                                 scored = score_case(case, body, retrieval=retrieval)
-                                scored.update(latency_ms=elapsed, http_status=response.status_code)
+                                scored.update(
+                                    latency_ms=elapsed,
+                                    http_status=response.status_code,
+                                    started_at=started_at,
+                                    ended_at=ended_at,
+                                )
                                 records[mode].append(scored)
             finally:
                 transaction.rollback()
@@ -413,14 +420,38 @@ def main():
     parser.add_argument("--database-url", default=os.environ.get("EVAL_DATABASE_URL"))
     parser.add_argument("--output", type=Path, default=ROOT / "data/runtime/evaluation.json")
     parser.add_argument("--live", action="store_true")
+    parser.add_argument(
+        "--publish-metrics",
+        action="store_true",
+        help="Explicitly upload content-free LangSmith evaluation scores",
+    )
     args = parser.parse_args()
     if not args.database_url:
         parser.error("Set EVAL_DATABASE_URL to an independent migrated pgvector test database")
+    if args.publish_metrics:
+        from app.evaluation_cloud import require_publish_config
+
+        try:
+            require_publish_config(Settings())
+        except AppError as error:
+            parser.error(error.detail["message"])
     report = evaluate(args.database_url, live=args.live)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(
         json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False), encoding="utf-8"
     )
+    if args.publish_metrics:
+        from app.evaluation_cloud import publish_report
+
+        try:
+            report["langsmith_publish"] = publish_report(report, load_cases(), Settings())
+        except AppError as error:
+            report["langsmith_publish"] = {"status": "not_confirmed", "code": error.detail["code"]}
+        args.output.write_text(
+            json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False), encoding="utf-8"
+        )
+        if report["langsmith_publish"]["status"] != "acknowledged":
+            raise SystemExit("LangSmith upload not confirmed; local evaluation report preserved")
     print(
         json.dumps(
             {

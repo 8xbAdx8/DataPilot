@@ -38,7 +38,7 @@ export function AnalysisWorkflow({ analysis }: { analysis: Analysis }) {
       </p>
       <p className="text-xs text-slate-500">
         SQL 生成 {workflow.sql_model_calls} 次 · 修复 {workflow.repair_attempts}{" "}
-        次 · Agent 工具调用 {workflow.agent?.tool_calls ?? 0} 次
+        次 · Agent 模型调用 {workflow.agent?.model_calls ?? 0} 次 · 工具调用 {workflow.agent?.tool_calls ?? 0} 次
       </p>
       {rag && (
         <>

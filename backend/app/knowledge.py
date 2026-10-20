@@ -46,7 +46,11 @@ class KnowledgeInput(BaseModel):
     @classmethod
     def safe_text(cls, value):
         value = value.replace("\r\n", "\n").strip()
-        if not value or "\x00" in value or len(value.encode()) > 32768:
+        if (
+            not value
+            or any(ord(c) < 32 and c not in "\n\t" for c in value)
+            or len(value.encode()) > 32768
+        ):
             raise ValueError("知识内容为空、含控制字符或超过大小限制。")
         if SECRET.search(value):
             raise ValueError("知识条目疑似包含凭据，请去除密钥、密码和会话令牌。")

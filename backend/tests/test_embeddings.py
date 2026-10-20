@@ -99,6 +99,7 @@ def test_real_http_contract_checks_indices_dimensions_model_and_independent_key(
         [],
         {},
         {"data": []},
+        {"data": [{"index": 0, "embedding": vector()}]},
         {"data": [{"index": True, "embedding": vector()}]},
         {"model": "wrong-model", "data": [{"index": 0, "embedding": vector()}]},
         {"data": [{"index": 0, "embedding": [1, 2]}]},

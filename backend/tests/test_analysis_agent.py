@@ -8,6 +8,7 @@ from langchain_core.outputs import ChatGeneration, ChatResult
 from langchain_openai import ChatOpenAI
 
 from app.analysis_agent import (
+    AgentBudget,
     AnalysisPlan,
     FakePlanningModel,
     PlannerContext,
@@ -165,3 +166,30 @@ def test_native_chat_adapter_tool_contract_uses_controlled_http(context):
         plan = plan_analysis(context, "revenue 总和", model)
     assert plan.metrics == ["revenue"] and len(calls) == 2
     assert context.tool_calls == 1 and context.usage["total_tokens"] == 30
+
+
+def test_model_call_timeout_obeys_provider_limit_and_workflow_deadline(context):
+    from types import SimpleNamespace
+
+    class Request:
+        messages = []
+        system_message = None
+        tools = []
+        model_settings = {}
+
+        def override(self, **values):
+            return values
+
+    context.settings.llm_timeout_seconds = 2
+    middleware = AgentBudget(context, set())
+    timeouts = []
+
+    def handler(request):
+        timeouts.append(request["model_settings"]["timeout"])
+        return SimpleNamespace(result=[])
+
+    middleware.wrap_model_call(Request(), handler)
+    assert 0 < timeouts[-1] <= 2
+    context.deadline = time.monotonic() + 0.5
+    middleware.wrap_model_call(Request(), handler)
+    assert 0 < timeouts[-1] <= 0.5

@@ -4,6 +4,10 @@
 
 ## 开发状态
 
+AI 升级已实现：**LangGraph** 编排检索/规划/生成/校验/执行与最多一次字段修复；**LangChain Agent** 在限定的只读工具中选择 Schema、画像、业务知识、指标口径与澄清；**pgvector + 独立 Embedding** 保存并按用户/数据集过滤知识；**RAG** 将实际来源提供给 SQL 生成并在界面展示引用；**LangSmith** 默认关闭，只在显式启用后导出白名单性能元数据。详细交付和当前验证状态见 [升级验收](docs/UPGRADE_ACCEPTANCE.md)、[阶段记录](docs/AI_UPGRADE.md)、[评估报告](docs/EVALUATION.md) 和 [追踪隐私](docs/LANGSMITH.md)。
+
+本升级在本地分支 `codex/agent-rag-upgrade` 分阶段提交，尚未推送，远程 Actions 尚未验证这些升级提交。原有真实 DeepSeek 单题记录只证明基础 SQL 生成能力；新增真实原生工具、Embedding、完整真实模型评估与 LangSmith 云端尚未启用。无需付费服务即可运行 Mock 分析；`EMBEDDING_PROVIDER=none` 默认明确禁用知识索引，演示 RAG 须显式使用 `fake`，不能当作语义检索模型。
+
 已跑通完整 Mock 闭环：账户登录 → CSV/XLSX → DuckDB → 字段画像 → 自然语言生成 SQL → AST 安全校验 → 真实查询 → 表格/ECharts/事实总结 → 历史搜索与 CSV 导出。PostgreSQL 保存账户、会话和业务元信息，后端强制数据集所有权校验，提供删除与保留清理。GitHub Actions 已验证应用检查与 Linux Compose 冒烟；新提交按对应 Actions 结果验收。2026-10-20 已通过 DeepSeek `deepseek-flash` 真实 API 专项：生成 SQL → AST 校验 → DuckDB 执行，合成数据行数为 3；该单用例不代表整体模型准确率或真实模型浏览器全套验收。
 
 文档：[实施计划](docs/PLAN.md) · [架构与学习入口](docs/ARCHITECTURE.md) · [安全策略](docs/SECURITY.md) · [运行与保留策略](docs/OPERATIONS.md) · [真实模型接入](docs/REAL_MODEL.md) · [配额与执行诊断](docs/OBSERVABILITY.md) · [演示与验收](docs/DEMO.md) · [实际开发记录](docs/DEVELOPMENT.md)。
@@ -63,7 +67,7 @@ npm run test:e2e # 先启动后端；本机使用 Edge，CI 使用 Playwright Ch
 
 `GET /api/analyses?dataset_id={id}` 返回历史元信息；`GET /api/analyses/{id}` 读取有界结果快照；`GET /api/analyses/{id}/export` 导出相同结果的 CSV。超限、失败和安全拒绝都不会生成虚假的成功结果。
 
-历史列表支持组合参数：`q` 搜索问题或 SQL（去除首尾空格、最多 200 字符、英文不区分大小写，`%` / `_` 按文字匹配），`status` 为 `running` / `success` / `rejected` / `error`，`limit` 为 1–100（默认 20），`offset` 为非负整数。界面每页 20 条，可搜索、筛选、翻页和重置；只请求元信息，不批量加载结果快照。
+历史列表支持组合参数：`q` 搜索问题或 SQL（去除首尾空格、最多 200 字符、英文不区分大小写，`%` / `_` 按文字匹配），`status` 为 `running` / `success` / `clarification` / `rejected` / `error`，`limit` 为 1–100（默认 20），`offset` 为非负整数。界面每页 20 条，可搜索、筛选、翻页和重置；只请求元信息，不批量加载结果快照。
 
 真实模型：在根目录 `.env` 设置 `LLM_PROVIDER=deepseek`（也支持 `openai`、`openai_compatible`）、`LLM_MODEL`、`LLM_BASE_URL` 和 `LLM_API_KEY` 后重启后端。DeepSeek 的 Base URL 使用 `https://api.deepseek.com`，OpenAI 使用 `https://api.openai.com/v1`。后端会追加 `/chat/completions`。真实模式缺 Key 返回 503，不会降级 Mock。
 
@@ -73,7 +77,7 @@ DeepSeek 当前示例模型为 `deepseek-flash`，适配器显式关闭其默认
 
 PostgreSQL 专项：设置 `$env:TEST_DATABASE_URL` 和 `$env:TEST_POSTGRES_URL` 指向已迁移的开发测试数据库，再运行同一套 pytest。测试事务回滚，但不要把这些变量指向生产数据库。
 
-Docker 一键启动命令、当前 Windows 引擎阻塞、保留清理、原生 PostgreSQL 启停与端口说明见 [运行文档](docs/OPERATIONS.md)。[首轮 CI 验收记录](https://github.com/8xbAdx8/DataPilot/actions/runs/39051736631) 包含应用检查和独立 Compose 冒烟成功结果；[后续运行](https://github.com/8xbAdx8/DataPilot/actions) 按提交分别查看。
+Docker 一键启动命令、隔离验收、软件源网络、保留清理、原生 PostgreSQL 启停与端口说明见 [运行文档](docs/OPERATIONS.md)。[首轮 CI 验收记录](https://github.com/8xbAdx8/DataPilot/actions/runs/39051736631) 包含当时的应用检查和独立 Compose 冒烟成功结果；[后续运行](https://github.com/8xbAdx8/DataPilot/actions) 按提交分别查看，本升级本地结果见验收文档。
 
 ## 上传约定
 

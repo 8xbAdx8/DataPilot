@@ -64,6 +64,23 @@ def test_import_deduplicate_view_update_and_delete(client, dataset, session):
     )
 
 
+def test_knowledge_routes_require_session_csrf_and_forbid_scope_override(client, dataset):
+    from fastapi.testclient import TestClient
+
+    with TestClient(app) as unauthenticated:
+        assert unauthenticated.get(f"/api/datasets/{dataset['id']}/knowledge").status_code == 401
+        unauthenticated.cookies.update(client.cookies)
+        assert (
+            unauthenticated.post(
+                f"/api/datasets/{dataset['id']}/knowledge", json=alias()
+            ).status_code
+            == 403
+        )
+    injected = {**alias(), "owner_id": str(uuid.uuid4())}
+    assert add(client, dataset, injected).status_code == 422
+    assert client.get(f"/api/datasets/{dataset['id']}/knowledge").json() == []
+
+
 def test_missing_configuration_and_bad_dimensions_fail_explicitly_then_recover(
     client, dataset, settings, monkeypatch
 ):
@@ -95,6 +112,7 @@ def test_chunks_cover_long_document_and_keep_overlap():
         "  ",
         "x" * 16001,
         "nul\x00byte",
+        "escape\x1bbyte",
         "LLM_API_KEY=sk-" + "a" * 32,
         "password=private-secret-placeholder",
     ],

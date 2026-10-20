@@ -130,7 +130,7 @@ class CompatibleEmbeddingProvider:
             body = json.loads(content)
             if not isinstance(body, dict):
                 raise ValueError("embedding envelope is not an object")
-            if body.get("model", self.model) != self.model:
+            if body.get("model") != self.model:
                 raise ValueError("embedding model mismatch")
             data = body["data"]
             if (

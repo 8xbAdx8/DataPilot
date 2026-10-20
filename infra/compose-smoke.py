@@ -2,12 +2,13 @@
 
 import http.cookiejar
 import json
+import os
 import secrets
 import subprocess
 import urllib.request
 from urllib.error import HTTPError
 
-BASE = "http://127.0.0.1:3000/api"
+BASE = os.environ.get("SMOKE_BASE_URL", "http://127.0.0.1:3000/api")
 CLIENT = urllib.request.build_opener(
     urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar())
 )
@@ -42,6 +43,14 @@ def expect_logged_out():
 
 def main():
     assert request("/health/ready")["status"] == "ok"
+    config = request("/config")
+    assert config["provider"] == "mock", (
+        "Smoke requires explicit Mock; refusing paid model calls"
+    )
+    if os.environ.get("SMOKE_REQUIRE_RAG") == "1":
+        assert config["embedding"]["provider"] == "fake", (
+            "RAG acceptance requires explicit Fake vectors"
+        )
     username, password = "smoke-" + secrets.token_hex(8), secrets.token_urlsafe(24)
     provision = subprocess.run(
         [
@@ -90,6 +99,32 @@ def main():
             {"region": "West", "metric": 20},
         ]
         print("HTTP health + upload + Mock SQL + real DuckDB result: PASS")
+        assert result["telemetry"]["workflow"]["engine"] == "langgraph"
+        assert result["telemetry"]["workflow"]["agent"]["tool_calls"] >= 2
+        if config["embedding"]["provider"] == "fake":
+            saved = json_request(
+                f"/datasets/{dataset['id']}/knowledge",
+                {
+                    "title": "销售额",
+                    "source_type": "field_alias",
+                    "content": '{"alias":"销售额","field":"revenue"}',
+                },
+            )
+            assert saved["status"] == "ready" and saved["fake_embedding"]
+            rag = json_request(
+                f"/datasets/{dataset['id']}/analyses", {"question": "销售额总和"}
+            )
+            assert rag["result"]["rows"] == [{"metric": 60}]
+            context = rag["telemetry"]["workflow"]["rag"]
+            assert (
+                context["used"]
+                and context["citations"][0]["document_id"] == saved["id"]
+            )
+            request(f"/knowledge/{saved['id']}", method="DELETE")
+            assert request(f"/datasets/{dataset['id']}/knowledge") == []
+            print(
+                "Compose pgvector + knowledge CRUD + RAG citation + actual SUM=60: PASS"
+            )
     finally:
         request(f"/datasets/{dataset['id']}", method="DELETE")
         request("/auth/logout", data=b"", method="POST")

@@ -1,5 +1,7 @@
 # 固定评估与对照
 
+可选将新评估的分数上传 LangSmith：显式配置 LangSmith 开关/Key 后运行 `python -m app.evaluate --publish-metrics`。使用官方外部实验 API 创建可比较的基础/增强实验，只上传固定用例 ID、评分、计数和实际时间戳，不上传问句/SQL/数据。当前已完成受控 HTTP 合同测试，未连接云端，详见 [隐私说明](LANGSMITH.md)。已有本地报告不自动上传；新运行才有完整实际时间戳。
+
 2026-10-20 本机 Windows / Python 3.12.14 / PostgreSQL 17.10 / pgvector 0.8.7 单次离线实测，原始记录见 [evaluation-offline.json](evaluation-offline.json)：
 
 | 指标 | 基础模式 | 增强模式 |

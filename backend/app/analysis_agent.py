@@ -192,7 +192,13 @@ class AgentBudget(AgentMiddleware):
                 request.override(
                     model_settings={
                         **request.model_settings,
-                        "timeout": max(0.01, context.deadline - time.monotonic()),
+                        "timeout": max(
+                            0.01,
+                            min(
+                                context.settings.llm_timeout_seconds,
+                                context.deadline - time.monotonic(),
+                            ),
+                        ),
                     }
                 )
             )

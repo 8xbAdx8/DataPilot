@@ -6,17 +6,27 @@ flowchart LR
   Next --> API[FastAPI]
   API --> Auth[Cookie 会话 / owner 检查]
   Auth --> Metadata[SQLAlchemy / PostgreSQL 元信息]
-  API --> Provider[Mock / 兼容 LLM Provider]
+  API --> Graph[LangGraph StateGraph]
+  Graph --> RAG[owner + dataset 过滤的 pgvector 检索]
+  RAG --> Agent[LangChain Agent / 五个受控只读工具]
+  Agent --> Decision{关键歧义}
+  Decision -->|是| Clarify[澄清及历史]
+  Decision -->|否| Provider[Mock / 兼容 SQL Provider]
   Provider --> Guard[SQLGlot AST 与真实 Schema 校验]
+  Guard -->|仅可恢复字段错误| Repair[最多一次修复再校验]
+  Repair --> Guard
   Guard --> Worker[受限 DuckDB 子进程]
   Worker --> Data[当前数据集 DuckDB 文件]
   Worker --> Result[真实结果 / 本地有界快照]
   Result --> UI[SQL / 表格 / ECharts / 事实总结]
+  Graph -.显式启用 / 元数据白名单.-> Smith[LangSmith]
 ```
 
 Next.js 与 FastAPI 分开后，React 状态和 Python 数据执行可独立测试。Next 的同源代理解决浏览器连接问题，不能替代后端安全检查。上传、模型、SQL 和资源限制都集中在 FastAPI。
 
-PostgreSQL 是平台数据库：保存账户、会话摘要、数据集归属/字段画像、问题、SQL、状态和审计。DuckDB 是分析引擎：每份上传数据一个文件，固定表名 `data`。LLM 只接收 Schema 与问题，SQL 执行器只接收经过校验的查询和当前 DuckDB 路径，没有平台连接参数。
+PostgreSQL 是平台数据库：保存账户、会话摘要、数据集归属/字段画像、问题、SQL、状态、审计及授权的业务知识/向量。DuckDB 是分析引擎：每份上传数据一个文件，固定表名 `data`。LLM 接收 Schema、问题和有界计划/业务知识，原始数据行不发送；SQL 执行器只接收经过校验的查询和当前 DuckDB 路径，没有平台连接参数。
+
+完整数据流和代码职责见 [升级记录](AI_UPGRADE.md)。知识输入先验证和分块，经独立 Embedding Provider 生成 1536 维向量。模型、维度和服务空间必须一致；数据库先做 owner/dataset/ready/space 过滤再计算距离。Graph 决定路径，Agent 提供建议；它不能改变认证、配额、审计和 SQL 执行权限。没有 Checkpointer，避免在外部持久化原始图状态。
 
 `auth.py` 的 `current_user` 作为 FastAPI 依赖，读取 Cookie 摘要对应的未过期会话；datasets / analyses 的每条业务查询再约束 `Dataset.owner_id == user.id`。认证回答“你是谁”，所有权回答“你能访问哪份数据”，二者都不能只依赖前端隐藏按钮。分析结果通过数据集继承归属，读文件之前就拒绝非所有者。
 
@@ -46,4 +56,4 @@ PostgreSQL 是平台数据库：保存账户、会话摘要、数据集归属/�
 
 密码管理沿用 PostgreSQL 会话：`confirm_password()` 在凭据操作的行锁内重新确认当前密码和未过期会话，改密与 `accounts.reset_password()` 将哈希更新、全会话删除和审计一起提交。只“改密码哈希”不足以让已登录设备退出；只检查请求开始时的会话又可能在并发重置后继续授权。真实 PG 多连接测试分别验证两种问题，默认 SQLite 回归无法替代它。
 
-登录、owner、密码生命周期、配额与基础观测已实现，Linux Docker 验收按提交查看 Actions。真实模型仍需后端凭据；后续评估可用性与有限 SQL 修复，确有多步需求时再考虑 LangGraph。当前不需要 Agent 编排来完成单条分析。
+登录、owner、密码生命周期、配额与基础观测已实现。升级使用单个受控规划 Agent 和 StateGraph，保留普通后端的安全职责，没有加入多自主 Agent 或持久化 Checkpointer。真实模型、工具和 Embedding 分别验收，不能把离线测试与历史 Actions 当作本次真实模型质量证据。

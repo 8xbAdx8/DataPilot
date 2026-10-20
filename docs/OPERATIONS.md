@@ -2,6 +2,28 @@
 
 ## Docker Compose
 
+升级后的 PG 镜像基于原 `postgres:17-alpine` 编译 pgvector 0.8.7，保留原基础发行版和卷格式。首次从 0005 升至 0006 前先备份业务库，保证迁移账号有 CREATE EXTENSION 权限；已有旧 vector 版本需管理员先显式升级扩展。`alembic downgrade 0005` 删除新知识表/索引及其数据，会保留共享 vector 扩展和既有业务表，须先备份知识内容。单元回滚只在临时测试库执行，不能随意对业务库回退。
+
+隔离的完整离线验收使用 Compose >=2.24.4（ports `!override` / env_file `!reset`）：
+
+```powershell
+$env:COMPOSE_FILE='docker-compose.yml;infra/compose.test.yml' # Linux 用冒号分隔
+$env:COMPOSE_PROJECT_NAME='datapilot-upgrade-e2e'
+$env:SMOKE_BASE_URL='http://127.0.0.1:13000/api'
+$env:SMOKE_REQUIRE_RAG='1'
+docker compose --env-file .env.example config --quiet
+docker compose --env-file .env.example up --build --wait --wait-timeout 300
+.\.venv\Scripts\python infra/compose-smoke.py
+docker compose ps
+docker compose down # 仅停止该测试项目，保留其独立卷
+```
+
+这套栈使用 15432 / 18000 / 13000 和独立命名卷，不读开发者 .env，强制 Mock/Fake、追踪关闭。冒烟验证健康、上传、Agent/Graph、实际聚合、知识索引/引用/删除，以及密码和会话撤销；配置不是 Mock 时在调用前拒绝，避免误用真实模型。
+
+本次完整隔离栈已构建并验收通过：PG vector 0.8.7 / 迁移 0006，三个服务 healthy，HTTP 冒烟通过；生产容器同源 Edge 回归 13 passed。若要复跑浏览器测试，在上述终端另设 `DATABASE_URL=postgresql+psycopg://datapilot:datapilot_local@127.0.0.1:15432/datapilot` 和 `E2E_BASE_URL=http://127.0.0.1:13000`，再 `npm --prefix frontend run test:e2e`。CLI 测试账户必须创建在对应隔离数据库，不能误写本机业务库后去容器登录。恢复日常开发时关闭该测试终端的变量或新开终端。
+
+Docker Hub 不通时可在本终端显式设置 `PYTHON_BUILD_IMAGE=public.ecr.aws/docker/library/python:3.12-slim`、`NODE_BUILD_IMAGE=public.ecr.aws/docker/library/node:24-alpine`、`POSTGRES_BUILD_IMAGE=public.ecr.aws/docker/library/postgres:17-alpine`，再构建隔离栈。这是 AWS 官方公布的 Docker Official Images 镜像源；Dockerfile 默认不变。镜像可配置不代表网络问题已解决，实际验收状态见 [升级验收](UPGRADE_ACCEPTANCE.md)。使用完测试终端变量后，新开终端恢复普通 Compose 配置。
+
 ```powershell
 if (!(Test-Path .env)) { Copy-Item .env.example .env }
 docker compose config --quiet
@@ -25,7 +47,7 @@ docker compose down # 停止，不删除命名卷
 
 不要随意执行 `down -v`，它会删除数据库与分析数据。所有发布端口仅绑定本机；平台登录账户与 PostgreSQL 连接账户彼此独立。数据库默认密码只用于本地演示。修改密码时，连接 URL 中的保留字符需 URL 编码。
 
-**实际验收状态（2026-10-19 复核）：** [GitHub Actions 首轮运行](https://github.com/8xbAdx8/DataPilot/actions/runs/39051736631) 的 `application` 与 `compose` 作业均成功。Linux runner 已完成镜像构建、PostgreSQL/后端/前端健康检查和同源真实查询冒烟。Windows 本机 Docker Desktop 在 `dockerInference` 套接字初始化时退出的问题仍未修复；本机使用原生 PostgreSQL / Python / Node。Linux 验收成功不代表 Windows 引擎恢复，也不代表真实模型 API 已验证。
+**历史验收状态（2026-10-19 复核）：** [GitHub Actions 首轮运行](https://github.com/8xbAdx8/DataPilot/actions/runs/39051736631) 的 `application` 与 `compose` 作业均成功。当时 Linux runner 已完成镜像构建、PostgreSQL/后端/前端健康检查和同源真实查询冒烟，Windows 引擎受阻。2026-10-20 本次引擎已可运行，升级后镜像和网络的实际验收单独记录在 [升级验收](UPGRADE_ACCEPTANCE.md)，不沿用历史绿色状态。
 
 ## 当前机器的原生 PostgreSQL
 
@@ -47,6 +69,8 @@ docker compose down # 停止，不删除命名卷
 | --- | --- | --- |
 | 原始上传文件 | 导入期间 | 导入后关闭上传临时文件，不保留原件 |
 | DuckDB 与数据集元信息 | 创建后 30 天 | 清理命令删除过期数据集及其历史/快照 |
+| 数据集知识与向量 | 随数据集保留，或手动删除 | 删除数据集级联清理；当前公开 API 仅创建数据集作用域知识 |
+| 结果中的知识引用快照 | 随分析历史 30 天 | 删知识后新查询不再命中，旧历史仍保留有界来源文本 |
 | 结果快照 | 分析后 7 天 | 清理后历史仍可查看，导出返回 410 |
 | 分析历史元信息 | 分析后 30 天 | 删除历史，避免 PostgreSQL 持续增长 |
 | 审计记录 | 90 天 | 独立保留事件、ID、原因；不复制整份问题和结果 |

@@ -22,3 +22,11 @@ Key 缺失时仍可分析，无外部请求。项目名称限定 64 位英文数
 测试 `test_tracing.py` 拦截 SDK 的最终 HTTP 请求体，验证白名单、嵌套、禁用状态、缺少 Key、队列满和异常不影响结果。没有连接真实 LangSmith 云端，外部看板及服务接收状态未验证。追踪不包含内容，因此只能诊断路径、调用和延迟，不能在云端重放原始用户问题。
 
 官方依据（2026-10-20 核对，SDK 0.14.11）：[隐私控制](https://docs.langchain.com/langsmith/mask-inputs-outputs)、[显式 tracing_context](https://docs.langchain.com/langsmith/trace-without-env-vars)、已安装 SDK 的 Client/batch_ingest_runs API。SDK 参数采用 `tracing_mode="langsmith"`，未使用已弃用的 `otel_enabled`。
+
+## 固定评测的可选实验上传
+
+`python -m app.evaluate --publish-metrics` 另外要求 DATAPILOT_LANGSMITH_ENABLED=true 和独立 Key，普通评估不联网。`evaluation_cloud.py` 使用官方 [上传外部实验 API](https://docs.langchain.com/langsmith/upload-existing-experiments)，把本地固定 ground truth 评分映射为同一数据集上的 baseline/enhanced 两个实验，便于云端比较。
+
+载荷重新构造，只允许仓库固定用例 ID、已计算的 0–1 分数、非负调用/Token 计数和实际分析开始/结束时间。预期/实际内容均为空对象，不上传原问题、SQL、知识文本、数据行、错误正文、文件路径或账号。用例行 UUID 和数据集版本来自固定 ID/题库摘要，两种实验保持一致；未知用量不填。每次显式命令创建新的实验，不覆盖已有实验。保留本地 JSON 后才上传，最多两个请求、每请求网络超时 5 秒、不跟随重定向或自动重试。上传失败仍保留本地评分，状态 not_confirmed，不能声称云端成功；部分远程实验可能已创建，需在工作区自行检查。
+
+本次只用 MockTransport 核对实际 HTTP 载荷、分数/时间校验、默认禁用和错误脱敏，未启用真实 LangSmith 服务。CLI `--live` 与 RUN_LIVE_EVAL 控制聊天/Embedding；`--publish-metrics` 独立控制外部评分发送，两者不能相互代替。工作区配额、费用和云端保留由 LangSmith 服务决定。

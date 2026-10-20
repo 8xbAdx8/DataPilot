@@ -22,15 +22,15 @@ flowchart LR
   Q -->|否| P[现有 SQL Provider]
   P --> S[现有 AST / Schema / 策略]
   S -->|合格| D[受限 DuckDB 子进程]
-  S -->|仅可恢复的语法或字段错误| F[最多一次修复，再回到 S]
+  S -->|仅结构已合格的字段绑定错误| F[最多一次修复，再回到 S]
   S -->|危险 / 权限 / 不支持| X[拒绝并审计]
   D --> O[结果检查 / 图表 / 快照 / 业务事务]
   G -.仅显式启用的白名单元数据.-> L[LangSmith]
 ```
 
-权限、数据库行锁、配额和持久化事务仍由普通后端执行。Agent 没有 SQL/Python/Shell/任意文件工具。图状态只存可序列化问题、schema、计划、有界知识引用、SQL、结果和阶段状态；凭据、数据库 Session、服务对象和文件路径只存在受控运行依赖中，不进入图状态。
+权限、数据库行锁、配额和持久化事务仍由普通后端执行。Agent 没有 SQL/Python/Shell/任意文件工具。图状态只存可序列化问题、schema、计划、有界知识引用、SQL 提案、校验和阶段状态；完整结果保留在 AnalysisRun 中，不进入图状态。凭据、数据库 Session、服务对象和文件路径只存在受控运行依赖中，不进入图状态。
 
-## 后续阶段
+## 约定阶段（执行结果见下方记录）
 
 2. StateGraph 与一次有限修复；先保持原 API/事务并验证所有旧测试。
 3. create_agent 与有权限检查的结构化工具、澄清、调用/时间/Token 限额。
@@ -102,3 +102,13 @@ Agent 最多 3 次模型、4 次工具调用；保守预留最多 64000 Token（
 `app.evaluate` / `app/evals` 运行 29 道固定合成题，覆盖真实 API、pgvector 与 DuckDB，脚本模型提供明确提案而不充当语义模型。基础模式关闭 Agent/RAG/修复，增强模式启用；实际结果与固定 ground truth 比较，不使用模型自评。报告分别记录生成、执行、结果正确、Recall@4、安全、错误拒绝、调用、已报告 Token、小计缺失、p50/p95 与修复前后结果；金额与真实模型性能未测量。双开关 `--live` + RUN_LIVE_EVAL 才允许真实评估。
 
 实际发现旧 guard 将 AND/OR（SQLGlot 的 Func 子类）误判为危险函数，修复为先识别已有结构白名单，再验证函数白名单；没有新增 SQL 权限。日期多条件现在可执行，新增 AND 中嵌套 getenv 仍拒绝。旧测试全部保留。独立 PostgreSQL 评估/guard 初轮 **53 passed**，新增布尔条件后评分/guard **56 passed**；最终 CLI 两模式 58 次 API 用例执行完成、增强 29/29 规则通过，退出码 0。固定结果见 [报告](evaluation-offline.json)，定义与局限见 [评估说明](EVALUATION.md)。本阶段没有真实外部 API 请求。
+
+## 阶段 8：完整回归、真实容器与交付
+
+最终 PostgreSQL **328 passed / 3 skipped**，Ruff check/format、pip check、Alembic check、ESLint/TypeScript/生产构建通过。原生 Edge **13 passed**；生产 Compose 栈 Edge 再跑同一套 **13 passed**。SQLite 与最终 Linux 镜像计数见完整验收。跳过的真实模型/Embedding 与数据库专项按环境独立标记，没有删旧测试或放宽断言。
+
+最终 SQLite **310 passed / 21 skipped**；Linux 镜像专项含新评分合同 **121 passed / 1 skipped / 1 deselected**（真实 Embedding 默认跳过，独立 PG 评估已在完整 PG 套件运行）。源码冻结后重新构建后端、整栈就绪并重跑 HTTP RAG/账户冒烟，全部 PASS。
+
+Docker 引擎现已可用。Hub 认证超时、ECR 层下载/软件源 EOF 后，使用官方 Docker ECR 镜像和 HTTPS Debian 源完成三个镜像实际构建；未更改全局网络或真实 .env。首次长构建保存旧源码快照，Linux 测试检出缺失 model 校验，随后复用依赖缓存重建并重测通过。最终隔离项目的 PG/backend/frontend healthy、migrate 正常退出，vector 0.8.7 / Alembic 0006。完整 HTTP 冒烟通过真实上传、Agent/Graph、DuckDB 分组、知识入库/删除、RAG 真实引用与 SUM=60、改密/撤销会话。测试栈仅使用独立端口/卷和 Mock/Fake；本次未调用真实 Agent、Embedding、LangSmith 或付费评估。
+
+补充 Agent 请求超时同时受提供商和图剩余时间约束、知识 API 会话/CSRF/额外作用域参数拒绝、控制字符校验、Embedding model 必填。最后接通 LangSmith 官方外部实验上传：--publish-metrics 与开关/Key 同时启用才发送固定用例 ID、评分和实际时间，无问句/SQL/数据；6 项受控 HTTP 合同测试验证隐私与失败边界，没有真正发送云端。架构、配置、实际命令、结果、限制、启动和面试说明整理于 [完整验收](UPGRADE_ACCEPTANCE.md)，[全部文件](UPGRADE_FILES.md) 共 61 项。升级依照要求本地逐阶段提交，不 push；新的 GitHub Actions 尚未运行，不能沿用基线 CI 的结果。

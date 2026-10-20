@@ -1,5 +1,11 @@
 # 接入真实模型
 
+升级后聊天与 Embedding 是独立能力。Agent 复用聊天 Key/模型配置创建专用 LangChain 适配器；DeepSeek/OpenAI 原生工具通过 `RUN_LIVE_AGENT=1` 专项验证，通用兼容端点还需 `AGENT_NATIVE_TOOLS=true`。不能从“SQL JSON 能调用”推断“原生工具能调用”。只想使用原有单轮 SQL 接口时，可显式 `AGENT_ENABLED=false`；所有模式都执行相同 SQL 安全校验。
+
+知识索引需要另设 `EMBEDDING_PROVIDER=openai`、`EMBEDDING_MODEL=text-embedding-3-small`、`EMBEDDING_BASE_URL=https://api.openai.com/v1`、`EMBEDDING_API_KEY`、`EMBEDDING_DIMENSIONS=1536`。默认 `none` 明确未配置，不复用 DeepSeek 聊天 Key。真实接口按 OpenAI 官方 Embedding 合同实现并完成受控 HTTP 合同测试，尚未调用真实 Embedding 服务。`fake` 仅用于演示词项哈希检索，页面会显示测试向量提示。先用 `RUN_LIVE_EMBEDDING=1` 跑 `backend/tests/test_embeddings.py` 的显式专项，再重建知识索引。
+
+新增真实专项和统一评估均未在本次默认回归中启用，参见 [固定评估](EVALUATION.md)。原有下方单个 DeepSeek 测试记录是升级前证据；当前开发验收进程为 Mock/Fake，未改写用户的 `.env`，切回真实配置须停止该测试 API 后重启。
+
 项目已有兼容 Chat Completions 的 Provider。首次可使用 DeepSeek；这里不涉及部署模型或训练模型，而是由 FastAPI 调用提供商 API 生成 SQL，再由本地安全校验和 DuckDB 执行。
 
 ## 1. 创建 API Key
@@ -30,7 +36,7 @@ LLM_TIMEOUT_SECONDS=60
 .\.venv\Scripts\python -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000 --no-access-log
 ```
 
-配置在进程内缓存，编辑 `.env` 后必须重启。前端通常无需重启；刷新页面后确认提供商和模型已更新。使用 Docker 时需 `docker compose up -d --build --force-recreate backend`；单独 restart 不会重新加载容器的 env_file。当前机器 Windows Docker 引擎仍有问题，优先使用原生服务。
+配置在进程内缓存，编辑 `.env` 后必须重启。前端通常无需重启；刷新页面后确认提供商和模型已更新。使用 Docker 时需 `docker compose up -d --build --force-recreate backend`；单独 restart 不会重新加载容器的 env_file。当前原生服务与隔离容器验收使用不同端口，具体状态见升级验收。
 
 ## 4. 跑一次真实 API 测试
 
