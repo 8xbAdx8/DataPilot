@@ -96,3 +96,9 @@ Agent 最多 3 次模型、4 次工具调用；保守预留最多 64000 Token（
 独立开关 + Key 才创建 SDK Client；原始 Graph/Agent 自动追踪始终禁用。真实节点和工具调用记录开始/结束时间，完成分析后用有界后台队列导出白名单计数/状态，工具/模型 span 嵌套在 plan 下。Client 二次过滤输入输出和 metadata，并禁止 SDK 自动附加 runtime/env。失败不影响业务结果、历史或审计，队列满明确丢弃。详见 [隐私配置与边界](LANGSMITH.md)。外部云服务未启用，未声称真实看板接收通过。
 
 验证：真实 PostgreSQL 上 Graph、Agent、知识库、业务日志与追踪合计 **66 passed**，Ruff 通过。SDK 最终 batch 请求体、额外环境元数据、输入输出二次拦截、节点/工具父子关系、禁用/无 Key/传输失败/满队列均已检查；没有发送外部请求。
+
+## 阶段 7：固定评估与能力开关对照
+
+`app.evaluate` / `app/evals` 运行 29 道固定合成题，覆盖真实 API、pgvector 与 DuckDB，脚本模型提供明确提案而不充当语义模型。基础模式关闭 Agent/RAG/修复，增强模式启用；实际结果与固定 ground truth 比较，不使用模型自评。报告分别记录生成、执行、结果正确、Recall@4、安全、错误拒绝、调用、已报告 Token、小计缺失、p50/p95 与修复前后结果；金额与真实模型性能未测量。双开关 `--live` + RUN_LIVE_EVAL 才允许真实评估。
+
+实际发现旧 guard 将 AND/OR（SQLGlot 的 Func 子类）误判为危险函数，修复为先识别已有结构白名单，再验证函数白名单；没有新增 SQL 权限。日期多条件现在可执行，新增 AND 中嵌套 getenv 仍拒绝。旧测试全部保留。独立 PostgreSQL 评估/guard 初轮 **53 passed**，新增布尔条件后评分/guard **56 passed**；最终 CLI 两模式 58 次 API 用例执行完成、增强 29/29 规则通过，退出码 0。固定结果见 [报告](evaluation-offline.json)，定义与局限见 [评估说明](EVALUATION.md)。本阶段没有真实外部 API 请求。

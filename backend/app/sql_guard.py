@@ -110,11 +110,15 @@ def validate_sql(sql: str, fields: list[dict]) -> str:
         node.pop_comments()  # Emit canonical SQL without retaining untrusted SQL comments.
         if isinstance(node, exp.Star) and any(node.args.values()):
             raise unsafe("MVP 不支持星号的 EXCLUDE、REPLACE 或 RENAME 修饰。")
-        if isinstance(node, exp.Func):
+        if node.key in STRUCTURAL_NODES:
+            # SQLGlot also models logical AND/OR as Func subclasses. Admit only
+            # these already-whitelisted structural nodes before checking functions.
+            pass
+        elif isinstance(node, exp.Func):
             # Anonymous/user-defined functions are never admitted, even if their text looks safe.
             if isinstance(node, exp.Anonymous) or node.sql_name() not in SAFE_FUNCTIONS:
                 raise unsafe("SQL 使用了未经授权的函数。")
-        elif node.key not in STRUCTURAL_NODES:
+        else:
             raise unsafe("SQL 使用了当前不支持的语法。")
         if isinstance(node, exp.Select) and node is not tree:
             raise unsafe("MVP 暂不支持子查询。")

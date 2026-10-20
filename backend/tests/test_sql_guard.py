@@ -17,6 +17,9 @@ FIELDS = [{"name": "region", "type": "VARCHAR"}, {"name": "revenue", "type": "BI
         "SELECT CASE WHEN revenue > 10 THEN 'large' ELSE 'small' END AS size FROM data",
         "SELECT COALESCE(revenue, 0) AS value FROM data",
         "SELECT 'DROP' AS text FROM data",
+        "SELECT SUM(revenue) FROM data WHERE revenue >= 10 AND revenue < 30",
+        "SELECT region FROM data WHERE region = 'East' OR region = 'West'",
+        "SELECT region FROM data WHERE NOT (revenue = 0)",
     ],
 )
 def test_allowed_selects(sql):
@@ -51,6 +54,7 @@ def test_allowed_selects(sql):
         "SELECT read_blob('/etc/passwd') FROM data",
         "SELECT * FROM read_parquet('https://example.com/data.parquet')",
         "SELECT getenv('LLM_API_KEY') FROM data",
+        "SELECT region FROM data WHERE revenue > 0 AND getenv('LLM_API_KEY') = 'x'",
         "SELECT current_setting('home_directory') FROM data",
         "SELECT query('DROP TABLE data') FROM data",
         "SELECT * FROM range(1000000000)",
