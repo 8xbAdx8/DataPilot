@@ -2,6 +2,8 @@
 
 先读[人工复核记录](RAG_LABEL_REVIEW.md)和[原始基线](PHASE13_RAG_BASELINE.md)。题目 JSON 是冻结的创作快照，独立 review receipt 的 SHA 与用户确认才是有效审阅状态；修改任何标签必须升级版本并重新复核。旧阶段 11/12 分数不改。
 
+SQL 正确性专项使用独立的 `app.sql_evaluate`，不修改本页旧 RAG 题集/评分；人工审阅 v1 与日期契约修订 v2 均保留。开发、冻结/一次留出命令以及对旧 0/2 的逐题诊断见[阶段 16](PHASE16_SQL_CORRECTNESS.md)。普通 CI 不调用真实评测；设置 `RUN_LIVE_SQL_EVAL=1` 和 `--live` 才会使用本地已配置的真实聊天/Embedding 服务。
+
 ## 安装可选评测环境
 
 兼容性补充：langchain-community 固定 0.3.31，因为 0.4.2 移除了 Ragas 0.4.3 仍导入的 VertexAI 模块；完整版本锁已用 pip check 验证。

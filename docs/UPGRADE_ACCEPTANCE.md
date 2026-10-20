@@ -4,6 +4,8 @@
 
 最新证据：[人工复核的检索基线](PHASE13_RAG_BASELINE.md)、[三种检索策略与一次留出对照](PHASE14_RAG_CALIBRATION.md)、[真实浏览器和 LangSmith 云端验收](PHASE15_LIVE_ACCEPTANCE.md)。真实外部服务已跑通，正式留出 SQL 仍为 0/2，未据此宣称质量全面通过；LangSmith 普通运行保持关闭。
 
+[阶段16 SQL整改](PHASE16_SQL_CORRECTNESS.md) 已定位旧超时/别名，独立新题集真实开发严格12/12、冻结留出7/8；唯一失败为仍不支持的HAVING，零执行。新旧题集不可直接比较，旧0/2保持不变；阶段16也仅本地提交。
+
 基线 `a7971cb`，分支 `codex/agent-rag-upgrade`。保留原认证、所有权、CSRF、事务、配额、审计、SQL 安全和界面，未改写用户 .env；升级提交仅在本地，未推送、发布或调用收费服务。各阶段证据见 [AI_UPGRADE](AI_UPGRADE.md)，固定测量见 [EVALUATION](EVALUATION.md)，全部 61 个新增/修改文件见 [逐文件清单](UPGRADE_FILES.md)。
 
 ## 实现与数据流

@@ -1,0 +1,690 @@
+{
+  "historical_results_unchanged": true,
+  "source_sha256": {
+    "backend/app/evals/rag-quality-v1.json": "de5a8ee25f3320082d94a6efcce75b253e2d30ee0caf477bddfbf4cd45dbcd48",
+    "docs/rag-holdout-baseline.json": "06727e3ccf86fcf221aad13d4f9c5bfe02d8ce2df1e4d9db882238299e0d46c4",
+    "docs/rag-holdout-selected.json": "6b9b1b1cfb82fbc4388518d897a121b75739ef9b8f454bdb1d705d54ebe89c06",
+    "backend/app/execution.py": "82719699807f90b55d78c83c0f248468477029249ea7a7ef64b7b7c03dfc212b",
+    "backend/app/providers.py": "9fd1b088f5b04484ffe0871dbb61cb24faa7d77d1f769107b52b05486094f755",
+    "backend/app/rag_metrics.py": "fb99ee81fa4068729f0e94183fdf5ae73ed74cd1719c26db3062c371ebad5216"
+  },
+  "cases": [
+    {
+      "case": {
+        "id": "h-p-02",
+        "query": "按定义求目前可以售出的库存件数，只输出 metric。",
+        "split": "holdout",
+        "family": "h-concept-2",
+        "type": "positive",
+        "difficulty": "paraphrase-or-definition",
+        "owner": "inventory-owner",
+        "dataset": "inventory",
+        "authorized": true,
+        "relevant_document_ids": [
+          "f8cf19f4-b48a-5ff1-a0b6-856552dd22eb"
+        ],
+        "relevant_chunk_ids": [
+          "8201c637-b09d-5d85-9909-5a380ee41c99"
+        ],
+        "acceptable_source_ids": [
+          "8201c637-b09d-5d85-9909-5a380ee41c99"
+        ],
+        "relevance_grades": {
+          "8201c637-b09d-5d85-9909-5a380ee41c99": 1
+        },
+        "forbidden_document_ids": [],
+        "should_no_match": false,
+        "downstream": {
+          "behavior": "sql",
+          "sql": "SELECT SUM(quantity) AS metric FROM data WHERE status = 'available'",
+          "rows": [
+            {
+              "metric": 30
+            }
+          ]
+        },
+        "run_downstream": true,
+        "annotation_basis": "Explicit synthetic definition and owner/dataset scope; user review pending."
+      },
+      "evidence": {
+        "rag-holdout-baseline.json": {
+          "id": "h-p-02",
+          "retrieval_status": "retrieved",
+          "retrieval_ms": 1915.063,
+          "authorized_chunk_ids": [
+            "6d07a5a8-6f62-571b-80f8-8171253a9e51",
+            "8201c637-b09d-5d85-9909-5a380ee41c99",
+            "842d8942-1d97-5550-ab02-f11a97b45b64",
+            "015d636d-1429-598f-8826-f6f79c73ac88",
+            "146f0499-24c8-5b81-9b4d-3a9d0ab6f78c",
+            "2d3444e1-5d53-5be2-9a83-4125312ff19d",
+            "d2d6bfdb-7dc7-58bb-9497-52c6751ebf89",
+            "bff6b3fe-5027-5bd1-a036-4b2f3df844c2",
+            "dd6c322a-5056-5667-bc70-1edc54995029"
+          ],
+          "retrieved_ids": [
+            "8201c637-b09d-5d85-9909-5a380ee41c99",
+            "842d8942-1d97-5550-ab02-f11a97b45b64",
+            "015d636d-1429-598f-8826-f6f79c73ac88",
+            "6d07a5a8-6f62-571b-80f8-8171253a9e51"
+          ],
+          "citations": [
+            {
+              "chunk_id": "8201c637-b09d-5d85-9909-5a380ee41c99",
+              "document_id": "f8cf19f4-b48a-5ff1-a0b6-856552dd22eb",
+              "chunk_index": 0,
+              "title": "可售库存",
+              "source_type": "metric_definition",
+              "excerpt": "可售库存：只统计 status='available' 的 quantity 合计，排除在途库存。",
+              "similarity": 0.740787
+            },
+            {
+              "chunk_id": "842d8942-1d97-5550-ab02-f11a97b45b64",
+              "document_id": "4e3012e2-b708-5f5a-a79c-3e5634807fb7",
+              "chunk_index": 0,
+              "title": "在途库存",
+              "source_type": "metric_definition",
+              "excerpt": "在途库存：只统计 status='transit' 的 quantity 合计，不包含运输费用。",
+              "similarity": 0.66902
+            },
+            {
+              "chunk_id": "015d636d-1429-598f-8826-f6f79c73ac88",
+              "document_id": "36dccd8b-1940-56c7-9200-4d0748080749",
+              "chunk_index": 0,
+              "title": "可售库存价值",
+              "source_type": "metric_definition",
+              "excerpt": "可售库存价值：仅 available 记录的 quantity*unit_cost 合计，不是减值损失。",
+              "similarity": 0.650869
+            },
+            {
+              "chunk_id": "6d07a5a8-6f62-571b-80f8-8171253a9e51",
+              "document_id": "d9d6f440-5bbb-55e5-9a3f-8c14d042328f",
+              "chunk_index": 0,
+              "title": "存货件数",
+              "source_type": "field_alias",
+              "excerpt": "{\"alias\":\"存货件数\",\"field\":\"quantity\"}",
+              "similarity": 0.612232
+            }
+          ],
+          "downstream": {
+            "sql": "SELECT SUM(\"data\".\"quantity\") AS \"available_inventory\" FROM \"data\" AS \"data\" WHERE \"data\".\"status\" = 'available'",
+            "rows": [
+              {
+                "available_inventory": 30
+              }
+            ],
+            "nodes": [
+              "prepare",
+              "retrieve",
+              "plan",
+              "generate",
+              "validate",
+              "execute",
+              "check_result"
+            ],
+            "validations": [
+              {
+                "status": "approved",
+                "attempt": 0
+              }
+            ],
+            "plan": {
+              "metrics": [
+                "可售库存 = SUM(quantity) WHERE status='available'"
+              ],
+              "dimensions": [],
+              "filters": [
+                "status = 'available'"
+              ],
+              "time_range": null,
+              "ordering": [],
+              "top_n": null,
+              "needs_clarification": false,
+              "clarification_questions": [],
+              "knowledge_chunk_ids": [
+                "8201c637-b09d-5d85-9909-5a380ee41c99"
+              ]
+            },
+            "agent_mode": "native_tools",
+            "tools_used": [
+              "get_metric_definition",
+              "inspect_dataset_schema"
+            ],
+            "finalization_calls": 0,
+            "usage": {
+              "sql": {
+                "source": "provider",
+                "prompt_tokens": 554,
+                "completion_tokens": 48,
+                "total_tokens": 602
+              },
+              "agent": {
+                "input_tokens": 3633,
+                "output_tokens": 199,
+                "total_tokens": 3832
+              }
+            },
+            "citations": [
+              {
+                "title": "可售库存",
+                "chunk_id": "8201c637-b09d-5d85-9909-5a380ee41c99",
+                "similarity": 0.740787
+              }
+            ],
+            "sql_model_calls": 1,
+            "status": "success",
+            "error_code": null,
+            "adopted_ids": [
+              "8201c637-b09d-5d85-9909-5a380ee41c99"
+            ],
+            "cited_ids": [
+              "8201c637-b09d-5d85-9909-5a380ee41c99"
+            ],
+            "agent": {
+              "model_calls": 2,
+              "tool_calls": 2,
+              "tools_used": [
+                "get_metric_definition",
+                "inspect_dataset_schema"
+              ],
+              "reserved_token_bound": 15731,
+              "finalization_calls": 0,
+              "usage": {
+                "input_tokens": 3633,
+                "output_tokens": 199,
+                "total_tokens": 3832
+              },
+              "mode": "native_tools"
+            },
+            "http_status": 201,
+            "behavior_correct": true
+          }
+        },
+        "rag-holdout-selected.json": {
+          "id": "h-p-02",
+          "retrieval_status": "retrieved",
+          "retrieval_ms": 1801.52,
+          "authorized_chunk_ids": [
+            "6d07a5a8-6f62-571b-80f8-8171253a9e51",
+            "8201c637-b09d-5d85-9909-5a380ee41c99",
+            "842d8942-1d97-5550-ab02-f11a97b45b64",
+            "015d636d-1429-598f-8826-f6f79c73ac88",
+            "146f0499-24c8-5b81-9b4d-3a9d0ab6f78c",
+            "2d3444e1-5d53-5be2-9a83-4125312ff19d",
+            "d2d6bfdb-7dc7-58bb-9497-52c6751ebf89",
+            "bff6b3fe-5027-5bd1-a036-4b2f3df844c2",
+            "dd6c322a-5056-5667-bc70-1edc54995029"
+          ],
+          "retrieved_ids": [
+            "8201c637-b09d-5d85-9909-5a380ee41c99"
+          ],
+          "citations": [
+            {
+              "chunk_id": "8201c637-b09d-5d85-9909-5a380ee41c99",
+              "document_id": "f8cf19f4-b48a-5ff1-a0b6-856552dd22eb",
+              "chunk_index": 0,
+              "title": "可售库存",
+              "source_type": "metric_definition",
+              "excerpt": "可售库存：只统计 status='available' 的 quantity 合计，排除在途库存。",
+              "similarity": 0.740787
+            }
+          ],
+          "downstream": {
+            "sql": "SELECT SUM(\"data\".\"quantity\") AS \"metric\" FROM \"data\" AS \"data\" WHERE \"data\".\"status\" = 'available'",
+            "rows": null,
+            "nodes": [
+              "prepare",
+              "retrieve",
+              "plan",
+              "generate",
+              "validate",
+              "execute"
+            ],
+            "validations": [
+              {
+                "status": "approved",
+                "attempt": 0
+              }
+            ],
+            "plan": {
+              "metrics": [
+                "可售库存 = SUM(quantity) WHERE status='available'（排除在途库存）"
+              ],
+              "dimensions": [],
+              "filters": [
+                "status = 'available'"
+              ],
+              "time_range": null,
+              "ordering": [],
+              "top_n": null,
+              "needs_clarification": false,
+              "clarification_questions": [],
+              "knowledge_chunk_ids": [
+                "8201c637-b09d-5d85-9909-5a380ee41c99"
+              ]
+            },
+            "agent_mode": "native_tools",
+            "tools_used": [
+              "get_metric_definition",
+              "inspect_dataset_schema"
+            ],
+            "finalization_calls": 0,
+            "usage": {
+              "sql": {
+                "source": "provider",
+                "prompt_tokens": 560,
+                "completion_tokens": 48,
+                "total_tokens": 608
+              },
+              "agent": {
+                "input_tokens": 2911,
+                "output_tokens": 291,
+                "total_tokens": 3202
+              }
+            },
+            "citations": [
+              {
+                "title": "可售库存",
+                "chunk_id": "8201c637-b09d-5d85-9909-5a380ee41c99",
+                "similarity": 0.740787
+              }
+            ],
+            "sql_model_calls": 1,
+            "status": "error",
+            "error_code": "query_timeout",
+            "adopted_ids": [
+              "8201c637-b09d-5d85-9909-5a380ee41c99"
+            ],
+            "cited_ids": [
+              "8201c637-b09d-5d85-9909-5a380ee41c99"
+            ],
+            "agent": {
+              "model_calls": 2,
+              "tool_calls": 2,
+              "tools_used": [
+                "get_metric_definition",
+                "inspect_dataset_schema"
+              ],
+              "reserved_token_bound": 13732,
+              "finalization_calls": 0,
+              "usage": {
+                "input_tokens": 2911,
+                "output_tokens": 291,
+                "total_tokens": 3202
+              },
+              "mode": "native_tools"
+            },
+            "http_status": 408,
+            "behavior_correct": false
+          }
+        }
+      },
+      "langsmith_reliable_link": null,
+      "langsmith_reason": "Historical evaluation explicitly disabled tracing; later browser trace is a different analysis."
+    },
+    {
+      "case": {
+        "id": "h-p-04",
+        "query": "遵循已登记口径求可售库存价值，只输出 metric。",
+        "split": "holdout",
+        "family": "h-concept-4",
+        "type": "positive",
+        "difficulty": "paraphrase-or-definition",
+        "owner": "inventory-owner",
+        "dataset": "inventory",
+        "authorized": true,
+        "relevant_document_ids": [
+          "36dccd8b-1940-56c7-9200-4d0748080749"
+        ],
+        "relevant_chunk_ids": [
+          "015d636d-1429-598f-8826-f6f79c73ac88"
+        ],
+        "acceptable_source_ids": [
+          "015d636d-1429-598f-8826-f6f79c73ac88"
+        ],
+        "relevance_grades": {
+          "015d636d-1429-598f-8826-f6f79c73ac88": 1
+        },
+        "forbidden_document_ids": [],
+        "should_no_match": false,
+        "downstream": {
+          "behavior": "sql",
+          "sql": "SELECT SUM(quantity*unit_cost) AS metric FROM data WHERE status = 'available'",
+          "rows": [
+            {
+              "metric": 80
+            }
+          ]
+        },
+        "run_downstream": true,
+        "annotation_basis": "Explicit synthetic definition and owner/dataset scope; user review pending."
+      },
+      "evidence": {
+        "rag-holdout-baseline.json": {
+          "id": "h-p-04",
+          "retrieval_status": "retrieved",
+          "retrieval_ms": 1789.329,
+          "authorized_chunk_ids": [
+            "6d07a5a8-6f62-571b-80f8-8171253a9e51",
+            "8201c637-b09d-5d85-9909-5a380ee41c99",
+            "842d8942-1d97-5550-ab02-f11a97b45b64",
+            "015d636d-1429-598f-8826-f6f79c73ac88",
+            "146f0499-24c8-5b81-9b4d-3a9d0ab6f78c",
+            "2d3444e1-5d53-5be2-9a83-4125312ff19d",
+            "d2d6bfdb-7dc7-58bb-9497-52c6751ebf89",
+            "bff6b3fe-5027-5bd1-a036-4b2f3df844c2",
+            "dd6c322a-5056-5667-bc70-1edc54995029"
+          ],
+          "retrieved_ids": [
+            "015d636d-1429-598f-8826-f6f79c73ac88",
+            "8201c637-b09d-5d85-9909-5a380ee41c99",
+            "842d8942-1d97-5550-ab02-f11a97b45b64",
+            "bff6b3fe-5027-5bd1-a036-4b2f3df844c2"
+          ],
+          "citations": [
+            {
+              "chunk_id": "015d636d-1429-598f-8826-f6f79c73ac88",
+              "document_id": "36dccd8b-1940-56c7-9200-4d0748080749",
+              "chunk_index": 0,
+              "title": "可售库存价值",
+              "source_type": "metric_definition",
+              "excerpt": "可售库存价值：仅 available 记录的 quantity*unit_cost 合计，不是减值损失。",
+              "similarity": 0.678461
+            },
+            {
+              "chunk_id": "8201c637-b09d-5d85-9909-5a380ee41c99",
+              "document_id": "f8cf19f4-b48a-5ff1-a0b6-856552dd22eb",
+              "chunk_index": 0,
+              "title": "可售库存",
+              "source_type": "metric_definition",
+              "excerpt": "可售库存：只统计 status='available' 的 quantity 合计，排除在途库存。",
+              "similarity": 0.639382
+            },
+            {
+              "chunk_id": "842d8942-1d97-5550-ab02-f11a97b45b64",
+              "document_id": "4e3012e2-b708-5f5a-a79c-3e5634807fb7",
+              "chunk_index": 0,
+              "title": "在途库存",
+              "source_type": "metric_definition",
+              "excerpt": "在途库存：只统计 status='transit' 的 quantity 合计，不包含运输费用。",
+              "similarity": 0.57764
+            },
+            {
+              "chunk_id": "bff6b3fe-5027-5bd1-a036-4b2f3df844c2",
+              "document_id": "1a5df12a-2a1d-5b9f-a19d-23b5ff52b856",
+              "chunk_index": 0,
+              "title": "加权库存单位成本",
+              "source_type": "metric_definition",
+              "excerpt": "加权库存单位成本：SUM(quantity*unit_cost)/SUM(quantity)，包含全部状态，缺 quantity 的记录不计；不是采购合同单价。",
+              "similarity": 0.573254
+            }
+          ],
+          "downstream": {
+            "sql": "SELECT SUM(\"data\".\"quantity\" * \"data\".\"unit_cost\") AS \"available_inventory_value\" FROM \"data\" AS \"data\" WHERE \"data\".\"status\" = 'available'",
+            "rows": null,
+            "nodes": [
+              "prepare",
+              "retrieve",
+              "plan",
+              "generate",
+              "validate",
+              "execute"
+            ],
+            "validations": [
+              {
+                "status": "approved",
+                "attempt": 0
+              }
+            ],
+            "plan": {
+              "metrics": [
+                "可售库存价值 = SUM(quantity*unit_cost) WHERE status='available'"
+              ],
+              "dimensions": [],
+              "filters": [
+                "status = 'available'"
+              ],
+              "time_range": null,
+              "ordering": [],
+              "top_n": null,
+              "needs_clarification": false,
+              "clarification_questions": [],
+              "knowledge_chunk_ids": [
+                "015d636d-1429-598f-8826-f6f79c73ac88"
+              ]
+            },
+            "agent_mode": "native_tools",
+            "tools_used": [
+              "get_metric_definition",
+              "inspect_dataset_schema"
+            ],
+            "finalization_calls": 0,
+            "usage": {
+              "sql": {
+                "source": "provider",
+                "prompt_tokens": 555,
+                "completion_tokens": 61,
+                "total_tokens": 616
+              },
+              "agent": {
+                "input_tokens": 3665,
+                "output_tokens": 289,
+                "total_tokens": 3954
+              }
+            },
+            "citations": [
+              {
+                "title": "可售库存价值",
+                "chunk_id": "015d636d-1429-598f-8826-f6f79c73ac88",
+                "similarity": 0.678461
+              }
+            ],
+            "sql_model_calls": 1,
+            "status": "error",
+            "error_code": "query_timeout",
+            "adopted_ids": [
+              "015d636d-1429-598f-8826-f6f79c73ac88"
+            ],
+            "cited_ids": [
+              "015d636d-1429-598f-8826-f6f79c73ac88"
+            ],
+            "agent": {
+              "model_calls": 2,
+              "tool_calls": 2,
+              "tools_used": [
+                "get_metric_definition",
+                "inspect_dataset_schema"
+              ],
+              "reserved_token_bound": 15938,
+              "finalization_calls": 0,
+              "usage": {
+                "input_tokens": 3665,
+                "output_tokens": 289,
+                "total_tokens": 3954
+              },
+              "mode": "native_tools"
+            },
+            "http_status": 408,
+            "behavior_correct": false
+          }
+        },
+        "rag-holdout-selected.json": {
+          "id": "h-p-04",
+          "retrieval_status": "no_match",
+          "retrieval_ms": 1950.713,
+          "authorized_chunk_ids": [
+            "6d07a5a8-6f62-571b-80f8-8171253a9e51",
+            "8201c637-b09d-5d85-9909-5a380ee41c99",
+            "842d8942-1d97-5550-ab02-f11a97b45b64",
+            "015d636d-1429-598f-8826-f6f79c73ac88",
+            "146f0499-24c8-5b81-9b4d-3a9d0ab6f78c",
+            "2d3444e1-5d53-5be2-9a83-4125312ff19d",
+            "d2d6bfdb-7dc7-58bb-9497-52c6751ebf89",
+            "bff6b3fe-5027-5bd1-a036-4b2f3df844c2",
+            "dd6c322a-5056-5667-bc70-1edc54995029"
+          ],
+          "retrieved_ids": [],
+          "citations": [],
+          "downstream": {
+            "sql": "SELECT SUM(\"data\".\"quantity\" * \"data\".\"unit_cost\") AS \"available_inventory_value\" FROM \"data\" AS \"data\" WHERE \"data\".\"status\" = 'available'",
+            "rows": null,
+            "nodes": [
+              "prepare",
+              "retrieve",
+              "plan",
+              "generate",
+              "validate",
+              "execute"
+            ],
+            "validations": [
+              {
+                "status": "approved",
+                "attempt": 0
+              }
+            ],
+            "plan": {
+              "metrics": [
+                "可售库存价值 = SUM(quantity * unit_cost)，仅 status = 'available'"
+              ],
+              "dimensions": [],
+              "filters": [
+                "status = 'available'"
+              ],
+              "time_range": null,
+              "ordering": [],
+              "top_n": null,
+              "needs_clarification": false,
+              "clarification_questions": [],
+              "knowledge_chunk_ids": [
+                "015d636d-1429-598f-8826-f6f79c73ac88"
+              ]
+            },
+            "agent_mode": "native_tools",
+            "tools_used": [
+              "inspect_dataset_schema",
+              "get_metric_definition"
+            ],
+            "finalization_calls": 0,
+            "usage": {
+              "sql": {
+                "source": "provider",
+                "prompt_tokens": 552,
+                "completion_tokens": 62,
+                "total_tokens": 614
+              },
+              "agent": {
+                "input_tokens": 2669,
+                "output_tokens": 290,
+                "total_tokens": 2959
+              }
+            },
+            "citations": [
+              {
+                "title": "可售库存价值",
+                "chunk_id": "015d636d-1429-598f-8826-f6f79c73ac88",
+                "similarity": null
+              }
+            ],
+            "sql_model_calls": 1,
+            "status": "error",
+            "error_code": "query_timeout",
+            "adopted_ids": [
+              "015d636d-1429-598f-8826-f6f79c73ac88"
+            ],
+            "cited_ids": [
+              "015d636d-1429-598f-8826-f6f79c73ac88"
+            ],
+            "agent": {
+              "model_calls": 2,
+              "tool_calls": 2,
+              "tools_used": [
+                "inspect_dataset_schema",
+                "get_metric_definition"
+              ],
+              "reserved_token_bound": 13073,
+              "finalization_calls": 0,
+              "usage": {
+                "input_tokens": 2669,
+                "output_tokens": 290,
+                "total_tokens": 2959
+              },
+              "mode": "native_tools"
+            },
+            "http_status": 408,
+            "behavior_correct": false
+          }
+        }
+      },
+      "langsmith_reliable_link": null,
+      "langsmith_reason": "Historical evaluation explicitly disabled tracing; later browser trace is a different analysis."
+    }
+  ],
+  "synthetic_execution_diagnostic": {
+    "light": {
+      "mode": "light",
+      "events": [
+        {
+          "elapsed_ms": 172.455,
+          "stage": "target_entered",
+          "web_stack_loaded": false
+        },
+        {
+          "elapsed_ms": 1549.851,
+          "columns": [
+            {
+              "name": "metric",
+              "type": "HUGEINT"
+            }
+          ],
+          "rows": [
+            {
+              "metric": 80
+            }
+          ],
+          "truncated": false
+        }
+      ],
+      "production_5s": {
+        "status": "success",
+        "rows": [
+          {
+            "metric": 80
+          }
+        ],
+        "elapsed_ms": 1491.224
+      },
+      "historical_scores_changed": false
+    },
+    "heavy": {
+      "mode": "heavy",
+      "events": [
+        {
+          "elapsed_ms": 5684.936,
+          "stage": "target_entered",
+          "web_stack_loaded": true
+        },
+        {
+          "elapsed_ms": 5716.638,
+          "columns": [
+            {
+              "name": "metric",
+              "type": "HUGEINT"
+            }
+          ],
+          "rows": [
+            {
+              "metric": 80
+            }
+          ],
+          "truncated": false
+        }
+      ],
+      "production_5s": {
+        "status": "error",
+        "code": "query_timeout",
+        "elapsed_ms": 5036.152
+      },
+      "historical_scores_changed": false
+    }
+  }
+}

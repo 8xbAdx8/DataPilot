@@ -1,0 +1,13 @@
+{
+  "status": "human-confirmed",
+  "reviewer": "human-user",
+  "confirmation": "确认 h04 日期契约修订",
+  "confirmed_at": "2026-10-20T17:56:23.053355+00:00",
+  "file_sha256": {
+    "sql-correctness-v2.json": "05d246fe13ab4135f01c47c992b8436261b52dee8831d71439b31e41cb39e1fd",
+    "sql16-orders.csv": "ce293c170aa12b3ee457ac15ceb2148e777d4e18ff539a134b81a8c75744178f",
+    "sql16-hours.csv": "ad6f1232dc9bc509d9777e87d991d4c25a438108b37a39920edec4e353daa60a"
+  },
+  "revision_of": "sql-correctness-v1.review.json",
+  "scope": "All original 30 reviewed cases retained; only h04 explicit DATE display and reference CAST corrected after deterministic reference execution. No live evaluation before approval."
+}

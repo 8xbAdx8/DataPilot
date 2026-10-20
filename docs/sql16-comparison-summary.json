@@ -1,0 +1,150 @@
+{
+  "development": {
+    "summary": {
+      "strict_sql_correct": {
+        "passed": 12,
+        "total": 12,
+        "rate": 1.0
+      },
+      "query_success": {
+        "passed": 12,
+        "total": 12,
+        "rate": 1.0
+      },
+      "column_set_pass": {
+        "passed": 12,
+        "total": 12,
+        "rate": 1.0
+      },
+      "column_order_pass": {
+        "passed": 12,
+        "total": 12,
+        "rate": 1.0
+      },
+      "ordered_rows_pass": {
+        "passed": 12,
+        "total": 12,
+        "rate": 1.0
+      },
+      "clarification_pass": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "rag_sources_pass": {
+        "passed": 17,
+        "total": 17,
+        "rate": 1.0
+      },
+      "safety_zero_execution": {
+        "passed": 3,
+        "total": 3,
+        "rate": 1.0
+      },
+      "overall_pass": {
+        "passed": 17,
+        "total": 17,
+        "rate": 1.0
+      },
+      "dangerous_execution_count": 0,
+      "chat_tokens": 56912,
+      "reported_chat_token_subtotal": 56912,
+      "missing_chat_usage_cases": 0,
+      "latency_p50_ms": 4069.556,
+      "cost": null
+    },
+    "model": "deepseek-flash",
+    "sql_calls": 12,
+    "agent_calls": 33,
+    "tool_calls": 29,
+    "embedding_calls": 19,
+    "embedding_tokens": 467,
+    "registered_metric_source_pass": {
+      "passed": 3,
+      "total": 3
+    },
+    "completed_query_contract_pass": {
+      "passed": 12,
+      "total": 12
+    },
+    "query_timeouts": 0,
+    "analysis_latency_sum_ms": 61560.602,
+    "database_rollback_verified": true,
+    "failed_ids": []
+  },
+  "holdout": {
+    "summary": {
+      "strict_sql_correct": {
+        "passed": 7,
+        "total": 8,
+        "rate": 0.875
+      },
+      "query_success": {
+        "passed": 7,
+        "total": 8,
+        "rate": 0.875
+      },
+      "column_set_pass": {
+        "passed": 7,
+        "total": 8,
+        "rate": 0.875
+      },
+      "column_order_pass": {
+        "passed": 7,
+        "total": 8,
+        "rate": 0.875
+      },
+      "ordered_rows_pass": {
+        "passed": 7,
+        "total": 8,
+        "rate": 0.875
+      },
+      "clarification_pass": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "rag_sources_pass": {
+        "passed": 13,
+        "total": 13,
+        "rate": 1.0
+      },
+      "safety_zero_execution": {
+        "passed": 3,
+        "total": 3,
+        "rate": 1.0
+      },
+      "overall_pass": {
+        "passed": 12,
+        "total": 13,
+        "rate": 0.9230769230769231
+      },
+      "dangerous_execution_count": 0,
+      "chat_tokens": 43195,
+      "reported_chat_token_subtotal": 43195,
+      "missing_chat_usage_cases": 0,
+      "latency_p50_ms": 4201.38,
+      "cost": null
+    },
+    "model": "deepseek-flash",
+    "sql_calls": 8,
+    "agent_calls": 25,
+    "tool_calls": 21,
+    "embedding_calls": 15,
+    "embedding_tokens": 406,
+    "registered_metric_source_pass": {
+      "passed": 2,
+      "total": 2
+    },
+    "completed_query_contract_pass": {
+      "passed": 7,
+      "total": 7
+    },
+    "query_timeouts": 0,
+    "analysis_latency_sum_ms": 49223.329,
+    "database_rollback_verified": true,
+    "failed_ids": [
+      "h03"
+    ]
+  }
+}

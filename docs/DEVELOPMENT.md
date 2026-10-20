@@ -189,3 +189,12 @@
 - LangSmith 服务器实际读回 14 个成功 spans、4 个受控拒绝 spans，以及 22 条实验运行、标签和 17 个反馈。正文为空，元数据受限，应用开关保持默认关闭。云端四位反馈与本地全精度分数分别保存，没有重复创建实验。
 - 完整 PostgreSQL 355 passed / 6 skipped、SQLite 334 passed / 27 skipped；之后新增的数值表示测试在 17 项定向中通过，不并入旧完整计数。Mock/Fake 容器 Playwright 13 passed / 1 skipped、真实浏览器 1 passed；Ruff、前端检查、依赖检查、Compose 冒烟和迁移验证通过。失败尝试与修复、清理及推送前审计见[阶段 15](PHASE15_LIVE_ACCEPTANCE.md)。
 - 基线 `ae45190` 的远程 CI 成功；三个新增阶段只创建本地提交，未自动推送。真实服务证据、工程回归与留出质量分别报告，不宣称全面通过。
+
+## 2026-10-21 · 阶段 16 严格 SQL 正确性
+
+- 先读取旧h-p-02/h-p-04完整证据：均因query_timeout失败，价值题另有别名违约；实际知识采用正确、计划与预算无根因证据。Windows轻/重入口实验确认spawn重导入Web栈可在进入查询前消耗5.68秒，旧0/2保持原样。
+- 独立轻量Python查询worker避免父main重放，保留5秒含启动、两槽、AST/所有权/只读/外部访问关闭及行字节限制。SQL提示词明确列契约与NULL语义；没有改Agent/RAG/安全白名单或预算。
+- 人工确认开发17/留出13题；参考执行发现h04 TIMESTAMP/DATE标签契约问题，保留v1并经再次人工确认建立v2。开发一次17/17规则、严格12/12；代码/配置冻结后留出一次12/13规则、严格7/8。唯一失败HAVING超出原白名单，AST拒绝且零执行，不调参或再跑。
+- 真实聊天100107 Token、真实Embedding34次/873 Token，费用未知；来源业务题3/3与2/2，未出现查询超时或危险执行。LangSmith保持关闭，未挪用旧云端记录。HTTP钩子的原生Agent覆盖限制如实记录。
+- 完整PG373 passed/6 skipped、SQLite352 passed/27 skipped；前端lint/typecheck/build、Playwright13 passed/1 skipped、Compose冒烟/迁移/回退、Ruff及pip检查通过。公开ECR构建在首次Docker Hub连接失败后成功，临时项目清理、原服务保留。
+- 新语料精确字节受Git属性保护，避免换行转换破坏人工SHA；历史结果/旧receipt未改。仅本地提交，不推送。根因、逐题SQL/结果/来源、冻结和限制见[阶段16报告](PHASE16_SQL_CORRECTNESS.md)。

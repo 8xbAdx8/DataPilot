@@ -1,0 +1,85 @@
+{
+  "note": "Frozen hashes identify actual evaluated working-copy bytes. .gitattributes stores LF; canonical hashes allow comparison with the committed source without changing the frozen manifest or repeating evaluation.",
+  "implementation": {
+    "sql_evaluate.py": {
+      "frozen_raw_sha256": "9cd8681032d3e350b4e12714f6f450e9fd9d77c6c06b40682f17295e5b20c6c6",
+      "git_lf_sha256": "569e42d4a4ac981ae443544550eab71743112785f19041cc205c7593cba25321",
+      "contains_crlf": true
+    },
+    "execution.py": {
+      "frozen_raw_sha256": "0114bccdd128a7314720015cdc6b55ced7f6942258815bbf6634f497ae5f76c0",
+      "git_lf_sha256": "97eaed7678804ec854020bad50451ccc4cd1add9bb0422e6b57f53e1824f7b55",
+      "contains_crlf": true
+    },
+    "query_worker.py": {
+      "frozen_raw_sha256": "77ce5231dc95d782bb5943ec5d6ae44a7f20201a6f15e1d349ab588dec4b16e2",
+      "git_lf_sha256": "77ce5231dc95d782bb5943ec5d6ae44a7f20201a6f15e1d349ab588dec4b16e2",
+      "contains_crlf": false
+    },
+    "serialization.py": {
+      "frozen_raw_sha256": "9b54c49a4243d8b06601a2b4a8c00c96ce8388d40c3ecc99cce06b3b1061fba0",
+      "git_lf_sha256": "9b54c49a4243d8b06601a2b4a8c00c96ce8388d40c3ecc99cce06b3b1061fba0",
+      "contains_crlf": false
+    },
+    "providers.py": {
+      "frozen_raw_sha256": "be34b49f258da73b96b837580ae5b609fbb778cb80c046bb94715fcc266332d5",
+      "git_lf_sha256": "be34b49f258da73b96b837580ae5b609fbb778cb80c046bb94715fcc266332d5",
+      "contains_crlf": false
+    },
+    "analysis_agent.py": {
+      "frozen_raw_sha256": "126f6ec62bee701c8f48cc8c1a0635e0bee309fa69a4f61300b81b087deaf1da",
+      "git_lf_sha256": "126f6ec62bee701c8f48cc8c1a0635e0bee309fa69a4f61300b81b087deaf1da",
+      "contains_crlf": false
+    },
+    "analysis_graph.py": {
+      "frozen_raw_sha256": "59b532612aff35a9930b10a3aa8221dc5cfc1adf07d2f9c403155536f9604290",
+      "git_lf_sha256": "59b532612aff35a9930b10a3aa8221dc5cfc1adf07d2f9c403155536f9604290",
+      "contains_crlf": false
+    },
+    "knowledge.py": {
+      "frozen_raw_sha256": "f114b8fc0ef3dbbf140ae4f95776b8026e0478f728c9117acbb6693696bb3627",
+      "git_lf_sha256": "f114b8fc0ef3dbbf140ae4f95776b8026e0478f728c9117acbb6693696bb3627",
+      "contains_crlf": false
+    },
+    "retrieval.py": {
+      "frozen_raw_sha256": "bce29bfdb4a1e67f8df5de1cf3c7a29bdad190b69509ed48f303a8024c09eec9",
+      "git_lf_sha256": "bce29bfdb4a1e67f8df5de1cf3c7a29bdad190b69509ed48f303a8024c09eec9",
+      "contains_crlf": false
+    },
+    "sql_guard.py": {
+      "frozen_raw_sha256": "58c04cf6838665b7d7cf03504f1557806aca4b4f8cc17c653a394799f72c69eb",
+      "git_lf_sha256": "58c04cf6838665b7d7cf03504f1557806aca4b4f8cc17c653a394799f72c69eb",
+      "contains_crlf": false
+    },
+    "ingestion.py": {
+      "frozen_raw_sha256": "19eee56a630a8bc8906848762313c6514f0f0437c3b3bc4dc6772cbfd75d3039",
+      "git_lf_sha256": "19eee56a630a8bc8906848762313c6514f0f0437c3b3bc4dc6772cbfd75d3039",
+      "contains_crlf": false
+    },
+    "embeddings.py": {
+      "frozen_raw_sha256": "cf47539de50bc9e2c9b9176b3c3b5f48695f6642aba4b526560c1e1af2eff21b",
+      "git_lf_sha256": "cf47539de50bc9e2c9b9176b3c3b5f48695f6642aba4b526560c1e1af2eff21b",
+      "contains_crlf": false
+    },
+    "config.py": {
+      "frozen_raw_sha256": "9d8f83e5743df7f7e514f77f8c8c0ddad78bc0d85d4f127760d2b475ccb22d23",
+      "git_lf_sha256": "9d8f83e5743df7f7e514f77f8c8c0ddad78bc0d85d4f127760d2b475ccb22d23",
+      "contains_crlf": false
+    },
+    "analyses.py": {
+      "frozen_raw_sha256": "d7398a15050d67353972558173e7693634eb543f2a7093307834bb70e57bc3ec",
+      "git_lf_sha256": "d7398a15050d67353972558173e7693634eb543f2a7093307834bb70e57bc3ec",
+      "contains_crlf": false
+    },
+    "rag_evaluate.py": {
+      "frozen_raw_sha256": "5dc32bdc46c169fb5d17338509f81902ed61822d2ca003832ed0cd28b26a1d7f",
+      "git_lf_sha256": "5dc32bdc46c169fb5d17338509f81902ed61822d2ca003832ed0cd28b26a1d7f",
+      "contains_crlf": false
+    },
+    "evaluate.py": {
+      "frozen_raw_sha256": "a3341b01e278083ddc3b5192799185cfa1c494aa320c3875e09420eb22e49b3f",
+      "git_lf_sha256": "a3341b01e278083ddc3b5192799185cfa1c494aa320c3875e09420eb22e49b3f",
+      "contains_crlf": false
+    }
+  }
+}

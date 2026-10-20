@@ -1,0 +1,50 @@
+{
+  "corpus_sha256": {
+    "sql-correctness-v2.json": "05d246fe13ab4135f01c47c992b8436261b52dee8831d71439b31e41cb39e1fd",
+    "sql16-orders.csv": "ce293c170aa12b3ee457ac15ceb2148e777d4e18ff539a134b81a8c75744178f",
+    "sql16-hours.csv": "ad6f1232dc9bc509d9777e87d991d4c25a438108b37a39920edec4e353daa60a"
+  },
+  "implementation_sha256": {
+    "sql_evaluate.py": "9cd8681032d3e350b4e12714f6f450e9fd9d77c6c06b40682f17295e5b20c6c6",
+    "execution.py": "0114bccdd128a7314720015cdc6b55ced7f6942258815bbf6634f497ae5f76c0",
+    "query_worker.py": "77ce5231dc95d782bb5943ec5d6ae44a7f20201a6f15e1d349ab588dec4b16e2",
+    "serialization.py": "9b54c49a4243d8b06601a2b4a8c00c96ce8388d40c3ecc99cce06b3b1061fba0",
+    "providers.py": "be34b49f258da73b96b837580ae5b609fbb778cb80c046bb94715fcc266332d5",
+    "analysis_agent.py": "126f6ec62bee701c8f48cc8c1a0635e0bee309fa69a4f61300b81b087deaf1da",
+    "analysis_graph.py": "59b532612aff35a9930b10a3aa8221dc5cfc1adf07d2f9c403155536f9604290",
+    "knowledge.py": "f114b8fc0ef3dbbf140ae4f95776b8026e0478f728c9117acbb6693696bb3627",
+    "retrieval.py": "bce29bfdb4a1e67f8df5de1cf3c7a29bdad190b69509ed48f303a8024c09eec9",
+    "sql_guard.py": "58c04cf6838665b7d7cf03504f1557806aca4b4f8cc17c653a394799f72c69eb",
+    "ingestion.py": "19eee56a630a8bc8906848762313c6514f0f0437c3b3bc4dc6772cbfd75d3039",
+    "embeddings.py": "cf47539de50bc9e2c9b9176b3c3b5f48695f6642aba4b526560c1e1af2eff21b",
+    "config.py": "9d8f83e5743df7f7e514f77f8c8c0ddad78bc0d85d4f127760d2b475ccb22d23",
+    "analyses.py": "d7398a15050d67353972558173e7693634eb543f2a7093307834bb70e57bc3ec",
+    "rag_evaluate.py": "5dc32bdc46c169fb5d17338509f81902ed61822d2ca003832ed0cd28b26a1d7f",
+    "evaluate.py": "a3341b01e278083ddc3b5192799185cfa1c494aa320c3875e09420eb22e49b3f"
+  },
+  "prompt_sha256": "be34b49f258da73b96b837580ae5b609fbb778cb80c046bb94715fcc266332d5",
+  "configuration": {
+    "llm_provider": "deepseek",
+    "llm_model": "deepseek-flash",
+    "embedding_provider": "openai_compatible",
+    "embedding_model": "text-embedding-v4",
+    "embedding_dimensions": 1536,
+    "rag_min_similarity": 0.7,
+    "rag_top_k": 4,
+    "rag_strategy": "vector",
+    "rag_reranker": "none",
+    "query_timeout_seconds": 5.0,
+    "max_result_rows": 1000,
+    "max_result_bytes": 1048576,
+    "agent_max_model_calls": 3,
+    "agent_max_tool_calls": 4,
+    "agent_token_budget": 64000,
+    "workflow_timeout_seconds": 90.0,
+    "sql_repair_enabled": true,
+    "agent_enabled": true,
+    "agent_native_tools": true,
+    "datapilot_langsmith_enabled": false
+  },
+  "parent_head": "85ac25bd70d8ccf9a66b5d20e1b7d5f1f9c045dc",
+  "working_tree_dirty": true
+}

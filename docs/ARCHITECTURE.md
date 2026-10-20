@@ -65,3 +65,5 @@ PostgreSQL 是平台数据库：保存账户、会话摘要、数据集归属/�
 `tracing.py` 从实际节点/工具起止时间构造新的元数据字典，经白名单过滤后交给容量 8 的后台队列；不序列化 Graph 状态、模型请求或查询行。来源只保留每条 trace 加盐的哈希。模型标签是固定枚举，陌生名称记 custom，防止任意文本借元数据流出。发送失败不改变分析状态。
 
 `langsmith_acceptance.py` 是显式启用的验收入口：默认只生成本地预览，live 分支从服务器回读实际子树、实验标签与反馈。发送成功和本地 UUID 都不足以证明云端记录存在。阶段 15 的真实浏览器流程读回 14 个 spans，初始语义 no_match 后由指标工具补足知识；它与阶段 14 正式留出评分分开记录，见[真实验收报告](PHASE15_LIVE_ACCEPTANCE.md)。
+
+阶段 16 将 `execution.py` 的启动方式改为 `python -I query_worker.py`，请求/结果通过私有 stdin/stdout JSON 传输，SQL 和文件路径不进入命令参数。原因是 Windows multiprocessing spawn 会重导入父入口：重型评测 CLI 在进入实际查询前已用尽 5 秒。独立 worker 只加载 DuckDB/序列化，不加载 FastAPI、Agent、配置文件或平台数据库。父进程仍限制两槽、含启动的截止时间并 kill/wait 回收，子进程保留只读、128MB、单线程、关闭外部访问等配置。
