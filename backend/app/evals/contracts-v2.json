@@ -1,0 +1,22 @@
+{
+  "version": "contracts-v2",
+  "description": "Explicit output contracts; separate from the unchanged 29-case legacy suite. Synthetic regression, not a blind benchmark.",
+  "splits": {
+    "development": [
+      {"id":"v2-dev-average","question":"计算 revenue 非空值的平均值，仅返回一列，别名为 metric。","sql":"SELECT AVG(revenue) AS metric FROM data","rows":[{"metric":20}]},
+      {"id":"v2-dev-empty","question":"查询 region 等于 'Missing' 的记录，只返回 region 列，不存在时返回空表。","sql":"SELECT region FROM data WHERE region = 'Missing'","rows":[]},
+      {"id":"v2-dev-group","question":"按 region 汇总 revenue，输出 region 和 metric（SUM(revenue)），按 region 字母升序排列，保留全为空值的分组。","sql":"SELECT region, SUM(revenue) AS metric FROM data GROUP BY region ORDER BY region","rows":[{"region":"East","metric":40},{"region":"North","metric":null},{"region":"West","metric":20}]},
+      {"id":"v2-dev-metric","question":"按已登记的净销售额定义求总和，仅输出一列 metric。","behavior":"metric","knowledge":"metric","expected_titles":["净销售额"],"rows":[{"metric":30}]},
+      {"id":"v2-dev-missing","question":"按已登记的税后利润定义分析；如果没有这个定义，先询问我采用哪种口径，不要自行编公式。","behavior":"unsupported","status":"clarification"},
+      {"id":"v2-dev-negative","question":"计算数据行数，只返回一列 metric。","knowledge":"irrelevant","sql":"SELECT COUNT(*) AS metric FROM data","rows":[{"metric":4}],"rag_status":"no_match"}
+    ],
+    "validation": [
+      {"id":"v2-val-count","question":"统计 status 为 paid 的记录数，只返回 metric 一列。","sql":"SELECT COUNT(*) AS metric FROM data WHERE status = 'paid'","rows":[{"metric":3}]},
+      {"id":"v2-val-average","question":"计算 East 地区非空 revenue 的算术平均数，只返回 metric 一列。","sql":"SELECT AVG(revenue) AS metric FROM data WHERE region = 'East'","rows":[{"metric":20}]},
+      {"id":"v2-val-top","question":"按 revenue 降序（空值最后）取前两条，只返回 region、revenue 两列。","sql":"SELECT region, revenue FROM data ORDER BY revenue DESC NULLS LAST LIMIT 2","rows":[{"region":"East","revenue":30},{"region":"West","revenue":20}]},
+      {"id":"v2-val-date","question":"统计 date 在 2026-02-01（含）至 2026-03-01（不含）的 revenue 总和，只输出 metric 一列。","sql":"SELECT SUM(revenue) AS metric FROM data WHERE date >= '2026-02-01' AND date < '2026-03-01'","rows":[{"metric":30}]},
+      {"id":"v2-val-metric","question":"按已登记的净销售额口径计算，只输出 metric 一列，不能把它解释为收入减成本。","behavior":"metric","knowledge":"metric","expected_titles":["净销售额"],"rows":[{"metric":30}]},
+      {"id":"v2-val-missing","question":"我要计算已登记的税后利润口径；没有注册定义时请先澄清，不能从字段自行猜公式。","behavior":"unsupported","status":"clarification"}
+    ]
+  }
+}

@@ -1,8 +1,18 @@
+import hashlib
+import json
 import os
 
 import pytest
 
-from app.evaluate import case_evidence, evaluate, load_cases, same_rows, score_case, summarize
+from app.evaluate import (
+    FIXTURES,
+    case_evidence,
+    evaluate,
+    load_cases,
+    same_rows,
+    score_case,
+    summarize,
+)
 
 
 def test_fixed_cases_cover_required_categories_and_result_comparison():
@@ -63,6 +73,78 @@ def test_real_evaluation_requires_two_opt_ins_before_database_access(monkeypatch
         evaluate("sqlite://")
 
 
+def test_contract_suite_is_versioned_frozen_and_has_disjoint_splits():
+    development = load_cases("contracts-v2", "development")
+    validation = load_cases("contracts-v2", "validation")
+    assert len(development) == len(validation) == 6
+    assert not {c["id"] for c in development} & {c["id"] for c in validation}
+    assert len(load_cases("contracts-v2")) == 12 and len(load_cases()) == 29
+    assert hashlib.sha256((FIXTURES / "cases.json").read_bytes()).hexdigest() == (
+        "c231102ad38de5dd76549bc955e8c79ee30bc52558dd8b90f6bc45e160be6d11"
+    )
+    assert hashlib.sha256((FIXTURES / "contracts-v2.json").read_bytes()).hexdigest() == (
+        "df217f146d66731d2912b132ea18e0ff1976d970b074901daf8e13f540508bd0"
+    )
+    with pytest.raises(ValueError):
+        load_cases("legacy", "validation")
+
+
+def test_agent_only_tokens_are_counted_but_attempted_unknown_sql_remains_unknown():
+    response = {
+        "status": "clarification",
+        "telemetry": {
+            "workflow": {
+                "sql_model_calls": 0,
+                "agent": {"model_calls": 2, "usage": {"total_tokens": 37}},
+            }
+        },
+    }
+    case = {"id": "clarify", "status": "clarification"}
+    score = score_case(case, response)
+    assert score["tokens"] == score["agent_tokens"] == 37 and score["sql_tokens"] == 0
+    response["telemetry"]["workflow"]["sql_model_calls"] = 1
+    assert score_case(case, response)["tokens"] is None
+
+
+def test_cli_selects_contract_split_and_records_identity(monkeypatch, tmp_path):
+    import sys
+
+    import app.evaluate as module
+
+    selected = []
+
+    def run(url, **kwargs):
+        selected.extend(kwargs["cases"])
+        return {
+            "mode": "controlled",
+            "summary": {},
+            "repair_comparison": {},
+            "records": {"enhanced": []},
+        }
+
+    output = tmp_path / "report.json"
+    monkeypatch.setattr(module, "evaluate", run)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "evaluate",
+            "--database-url",
+            "postgresql://unused",
+            "--suite",
+            "contracts-v2",
+            "--split",
+            "validation",
+            "--output",
+            str(output),
+        ],
+    )
+    module.main()
+    report = json.loads(output.read_text(encoding="utf-8"))
+    assert selected == load_cases("contracts-v2", "validation")
+    assert report["suite"]["split"] == "validation"
+
+
 def test_synthetic_evidence_excludes_credentials_raw_errors_and_unrelated_fields():
     evidence = case_evidence(
         {
@@ -103,3 +185,14 @@ def test_offline_fixed_evaluation_runs_real_api_pgvector_and_duckdb():
         "enhanced": {"cases": 1, "correct": 1},
     }
     assert report["summary"]["baseline"]["query_result_accuracy"] < 1
+
+
+@pytest.mark.postgres
+def test_contract_suite_runs_real_database_and_strict_ground_truth():
+    url = os.environ.get("TEST_DATABASE_URL")
+    if not url or not url.startswith("postgresql"):
+        pytest.skip("Contract evaluation requires independent PostgreSQL test DB")
+    report = evaluate(url, cases=load_cases("contracts-v2"))
+    assert len(report["records"]["enhanced"]) == 12
+    assert all(r["correct"] for r in report["records"]["enhanced"])
+    assert report["summary"]["enhanced"]["query_result_accuracy"] == 1

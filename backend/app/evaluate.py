@@ -1,6 +1,7 @@
 """Reproducible result-based evaluation; external models require two explicit opt-ins."""
 
 import argparse
+import hashlib
 import json
 import math
 import os
@@ -104,8 +105,16 @@ class ControlledProvider:
         return self.repair(question, fields, previous)
 
 
-def load_cases():
-    cases = json.loads((FIXTURES / "cases.json").read_text(encoding="utf-8"))
+def load_cases(suite="legacy", split="all"):
+    if suite not in {"legacy", "contracts-v2"} or split not in {"all", "development", "validation"}:
+        raise ValueError("Unknown evaluation suite or split")
+    if suite == "legacy":
+        if split != "all":
+            raise ValueError("Legacy cases have no development/validation split")
+        cases = json.loads((FIXTURES / "cases.json").read_text(encoding="utf-8"))
+    else:
+        groups = json.loads((FIXTURES / "contracts-v2.json").read_text(encoding="utf-8"))["splits"]
+        cases = [case for name, rows in groups.items() if split in {"all", name} for case in rows]
     if not cases or len({c["id"] for c in cases}) != len(cases):
         raise ValueError("Evaluation cases require unique IDs")
     for case in cases:
@@ -157,6 +166,10 @@ def score_case(case, response, *, retrieval=None):
         correct = correct and retrieval.get("status") == case["rag_status"]
     agent = workflow.get("agent", {})
     sql_tokens = response.get("telemetry", {}).get("usage", {}).get("total_tokens")
+    # An explicit zero call count proves no SQL tokens were spent. Missing telemetry
+    # or an attempted call without provider usage is still unknown.
+    if type(workflow.get("sql_model_calls")) is int and workflow["sql_model_calls"] == 0:
+        sql_tokens = 0
     agent_tokens = agent.get("usage", {}).get(
         "total_tokens", 0 if not agent.get("model_calls") else None
     )
@@ -183,6 +196,8 @@ def score_case(case, response, *, retrieval=None):
         "tokens": sql_tokens + agent_tokens
         if sql_tokens is not None and agent_tokens is not None
         else None,
+        "sql_tokens": sql_tokens,
+        "agent_tokens": agent_tokens,
         "rag_status": (retrieval or {}).get("status"),
     }
 
@@ -199,6 +214,19 @@ def case_evidence(response, retrieval):
         "plan": workflow.get("plan", {}),
         "agent_mode": workflow.get("agent", {}).get("mode"),
         "tools_used": workflow.get("agent", {}).get("tools_used", []),
+        "finalization_calls": workflow.get("agent", {}).get("finalization_calls", 0),
+        "usage": {
+            "sql": {
+                key: value
+                for key, value in response.get("telemetry", {}).get("usage", {}).items()
+                if key in {"source", "prompt_tokens", "completion_tokens", "total_tokens"}
+            },
+            "agent": {
+                key: value
+                for key, value in workflow.get("agent", {}).get("usage", {}).items()
+                if key in {"input_tokens", "output_tokens", "total_tokens"}
+            },
+        },
         "citations": [
             {key: source[key] for key in ("title", "chunk_id", "similarity") if key in source}
             for source in (retrieval or {}).get("citations", [])
@@ -454,6 +482,8 @@ def main():
     parser.add_argument("--database-url", default=os.environ.get("EVAL_DATABASE_URL"))
     parser.add_argument("--output", type=Path, default=ROOT / "data/runtime/evaluation.json")
     parser.add_argument("--live", action="store_true")
+    parser.add_argument("--suite", choices=["legacy", "contracts-v2"], default="legacy")
+    parser.add_argument("--split", choices=["all", "development", "validation"], default="all")
     parser.add_argument(
         "--checkpoint", type=Path, help="New JSONL file for completed synthetic case evidence"
     )
@@ -463,6 +493,10 @@ def main():
         help="Explicitly upload content-free LangSmith evaluation scores",
     )
     args = parser.parse_args()
+    try:
+        cases = load_cases(args.suite, args.split)
+    except ValueError as error:
+        parser.error(str(error))
     if not args.database_url:
         parser.error("Set EVAL_DATABASE_URL to an independent migrated pgvector test database")
     if args.publish_metrics:
@@ -481,8 +515,20 @@ def main():
         args.checkpoint.parent.mkdir(parents=True, exist_ok=True)
         args.checkpoint.touch(exist_ok=False)
     report = evaluate(
-        args.database_url, live=args.live, on_record=checkpoint if args.checkpoint else None
+        args.database_url,
+        live=args.live,
+        cases=cases,
+        on_record=checkpoint if args.checkpoint else None,
     )
+    report["suite"] = {
+        "name": args.suite,
+        "split": args.split,
+        "fixture_sha256": hashlib.sha256(
+            (
+                FIXTURES / ("cases.json" if args.suite == "legacy" else "contracts-v2.json")
+            ).read_bytes()
+        ).hexdigest(),
+    }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(
         json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False), encoding="utf-8"
@@ -491,7 +537,7 @@ def main():
         from app.evaluation_cloud import publish_report
 
         try:
-            report["langsmith_publish"] = publish_report(report, load_cases(), Settings())
+            report["langsmith_publish"] = publish_report(report, cases, Settings())
         except AppError as error:
             report["langsmith_publish"] = {"status": "not_confirmed", "code": error.detail["code"]}
         args.output.write_text(

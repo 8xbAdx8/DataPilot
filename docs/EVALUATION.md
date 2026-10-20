@@ -1,6 +1,6 @@
 # 固定评估与对照
 
-最新[阶段 11 真实评测](PHASE11_LIVE_EVALUATION.md)已完成两种模式各 29 题，原始[真实逐题报告](evaluation-live.json)保留 SQL/结果与失败记录。严格结果符合率基础 1/13、增强 0/13，既有输出契约差异也有 Agent/检索实际问题，未通过严格质量验收。下表仍是明确标记的历史离线结果，不能用其 100% 宣传真实模型准确率。
+[阶段 11 真实评测](PHASE11_LIVE_EVALUATION.md)完成两种模式各 29 题，原始[逐题报告](evaluation-live.json)保留严格失败：基础 1/13、增强 0/13。[阶段 12](PHASE12_AGENT_RELIABILITY.md)使用独立版本的明确输出契约题集，真实增强开发/验证各 6/6 规则通过，[原始记录](evaluation-contracts-v2-live.json)保留两个分组及基础失败。版本和覆盖范围不同，不直接比较，也不改写旧分数。下表仍是明确标记的历史离线结果，不能用其 100% 宣传真实模型准确率。
 
 可选将新评估的分数上传 LangSmith：显式配置 LangSmith 开关/Key 后运行 `python -m app.evaluate --publish-metrics`。使用官方外部实验 API 创建可比较的基础/增强实验，只上传固定用例 ID、评分、计数和实际时间戳，不上传问句/SQL/数据。当前已完成受控 HTTP 合同测试，未连接云端，详见 [隐私说明](LANGSMITH.md)。已有本地报告不自动上传；新运行才有完整实际时间戳。
 
@@ -61,6 +61,8 @@ $env:RUN_LIVE_EVAL='1'
 ```
 
 评测 CLI 现在为固定合成数据保留实际 SQL、结果、验证记录、工作流节点、原生工具名和检索引用，不记录供应商原始错误正文或配置凭据。`--checkpoint` 拒绝覆盖已有文件；它不是恢复运行开关，重新运行必须使用新路径。原有题目、预期值和评分不变，查询超时及结果大小的受控限制也明确列入 `fault_injection`。
+
+阶段 12 的独立版本入口：`--suite contracts-v2 --split development` 或 `--split validation`，两组各 6 题，文件及 SHA-256 在阶段报告中冻结。默认仍运行 legacy 29 题；不要事后修改旧报告或放宽比较规则。v2 明确列名/列集/行序，安全拒绝仍通过既有安全回归验证，不把模型澄清一律当成 `unsafe_sql`。Token 新增 SQL/Agent 分项：有明确零 SQL 调用时可计入 Agent-only 用量，真正调用但缺上报保持未知，金额不估算。
 
 未设置 RUN_LIVE_EVAL=1，或聊天/Embedding 缺真实配置即拒绝启动。超时、错误 JSON、跨用户用例仍是明确标记的受控测试；查询时限和返回字节上限也有故意收紧的故障控制。其余 SQL/Agent 使用真实配置，报告标记 `live-chat-and-embedding-with-injected-faults`。真实模式不采用 fixture 里预写的错误 SQL，不能宣称强制触发了修复或 CAST 故障。真实模型采用不同列别名或排序仍保留严格判错，不能为追求通过放宽安全约束。
 

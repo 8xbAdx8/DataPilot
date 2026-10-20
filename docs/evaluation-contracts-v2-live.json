@@ -1,0 +1,2022 @@
+{
+  "version": "contracts-v2",
+  "baseline_head": "702c48e32874aeb1e5f9a80f12193df1128e8273",
+  "ci_url": "https://github.com/8xbAdx8/DataPilot/actions/runs/39439653579",
+  "ci_conclusion": "success",
+  "configuration": {
+    "llm_timeout_seconds": 60.0,
+    "workflow_timeout_seconds": 90.0,
+    "query_timeout_seconds": 5.0,
+    "agent_max_model_calls": 3,
+    "agent_max_tool_calls": 4,
+    "agent_token_budget": 64000,
+    "rag_top_k": 4,
+    "rag_min_similarity": 0.2
+  },
+  "source_sha256": {
+    "backend/app/analysis_agent.py": "126f6ec62bee701c8f48cc8c1a0635e0bee309fa69a4f61300b81b087deaf1da",
+    "backend/app/evaluate.py": "a3341b01e278083ddc3b5192799185cfa1c494aa320c3875e09420eb22e49b3f"
+  },
+  "runs": {
+    "development": {
+      "mode": "live-chat-and-embedding-with-injected-faults",
+      "created_at": "2026-10-20T14:39:16.737143+00:00",
+      "providers": {
+        "chat": "deepseek",
+        "chat_model": "deepseek-flash",
+        "embedding": "openai_compatible",
+        "embedding_model": "text-embedding-v4",
+        "embedding_dimensions": 1536,
+        "langsmith_enabled": false
+      },
+      "rag_top_k": 4,
+      "baseline_definition": "Same API/guard/executor; Agent, RAG and repair disabled; not a historical binary benchmark",
+      "fault_injection": [],
+      "summary": {
+        "baseline": {
+          "cases": 6,
+          "answerable_cases": 5,
+          "safety_cases": 0,
+          "overall_rule_pass_rate": 0.5,
+          "sql_generation_rate": 1.0,
+          "query_result_accuracy": 0.8,
+          "query_success_rate": 1.0,
+          "false_refusal_rate": 0.0,
+          "safety_pass_rate": null,
+          "retrieval_recall_at_k": 0.0,
+          "retrieval_labeled_cases": 1,
+          "model_calls": 6,
+          "tool_calls": 0,
+          "tokens": 2143,
+          "reported_token_subtotal": 2143,
+          "missing_usage_cases": 0,
+          "cost_currency": null,
+          "latency_p50_ms": 3950.9714999999997,
+          "latency_p95_ms": 5394.086
+        },
+        "enhanced": {
+          "cases": 6,
+          "answerable_cases": 5,
+          "safety_cases": 0,
+          "overall_rule_pass_rate": 1.0,
+          "sql_generation_rate": 1.0,
+          "query_result_accuracy": 1.0,
+          "query_success_rate": 1.0,
+          "false_refusal_rate": 0.0,
+          "safety_pass_rate": null,
+          "retrieval_recall_at_k": 1.0,
+          "retrieval_labeled_cases": 1,
+          "model_calls": 18,
+          "tool_calls": 13,
+          "tokens": 21112,
+          "reported_token_subtotal": 21112,
+          "missing_usage_cases": 0,
+          "cost_currency": null,
+          "latency_p50_ms": 7881.723,
+          "latency_p95_ms": 11973.583
+        }
+      },
+      "repair_comparison": {
+        "baseline": {
+          "cases": 0,
+          "correct": 0
+        },
+        "enhanced": {
+          "cases": 0,
+          "correct": 0
+        }
+      },
+      "records": {
+        "baseline": [
+          {
+            "id": "v2-dev-average",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 0,
+            "tool_calls": 0,
+            "repair_attempts": 0,
+            "tokens": 346,
+            "sql_tokens": 346,
+            "agent_tokens": 0,
+            "rag_status": "not_configured",
+            "latency_ms": 5394.086,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:37:48.629414+00:00",
+            "ended_at": "2026-10-20T14:37:54.022596+00:00",
+            "evidence": {
+              "sql": "SELECT AVG(\"data\".\"revenue\") AS \"metric\" FROM \"data\" AS \"data\" WHERE NOT \"data\".\"revenue\" IS NULL",
+              "rows": [
+                {
+                  "metric": 20.0
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {},
+              "agent_mode": null,
+              "tools_used": [],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 302,
+                  "completion_tokens": 44,
+                  "total_tokens": 346
+                },
+                "agent": {}
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-dev-empty",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 0,
+            "tool_calls": 0,
+            "repair_attempts": 0,
+            "tokens": 354,
+            "sql_tokens": 354,
+            "agent_tokens": 0,
+            "rag_status": "not_configured",
+            "latency_ms": 3854.571,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:37:54.107046+00:00",
+            "ended_at": "2026-10-20T14:37:57.962127+00:00",
+            "evidence": {
+              "sql": "SELECT \"data\".\"region\" AS \"region\" FROM \"data\" AS \"data\" WHERE \"data\".\"region\" = 'Missing'",
+              "rows": [],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {},
+              "agent_mode": null,
+              "tools_used": [],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 307,
+                  "completion_tokens": 47,
+                  "total_tokens": 354
+                },
+                "agent": {}
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-dev-group",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 0,
+            "tool_calls": 0,
+            "repair_attempts": 0,
+            "tokens": 378,
+            "sql_tokens": 378,
+            "agent_tokens": 0,
+            "rag_status": "not_configured",
+            "latency_ms": 4114.34,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:37:58.106532+00:00",
+            "ended_at": "2026-10-20T14:38:02.220739+00:00",
+            "evidence": {
+              "sql": "SELECT \"data\".\"region\" AS \"region\", SUM(\"data\".\"revenue\") AS \"metric\" FROM \"data\" AS \"data\" GROUP BY \"data\".\"region\" ORDER BY \"region\" ASC",
+              "rows": [
+                {
+                  "region": "East",
+                  "metric": 40
+                },
+                {
+                  "region": "North",
+                  "metric": null
+                },
+                {
+                  "region": "West",
+                  "metric": 20
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {},
+              "agent_mode": null,
+              "tools_used": [],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 316,
+                  "completion_tokens": 62,
+                  "total_tokens": 378
+                },
+                "agent": {}
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-dev-metric",
+            "answerable": true,
+            "correct": false,
+            "result_correct": false,
+            "safety_ok": null,
+            "recall_at_k": 0.0,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 0,
+            "tool_calls": 0,
+            "repair_attempts": 0,
+            "tokens": 346,
+            "sql_tokens": 346,
+            "agent_tokens": 0,
+            "rag_status": "not_configured",
+            "latency_ms": 4047.372,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:38:04.656448+00:00",
+            "ended_at": "2026-10-20T14:38:08.703702+00:00",
+            "evidence": {
+              "sql": "SELECT SUM(\"data\".\"revenue\" - \"data\".\"cost\") AS \"metric\" FROM \"data\" AS \"data\"",
+              "rows": [
+                {
+                  "metric": 36
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {},
+              "agent_mode": null,
+              "tools_used": [],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 300,
+                  "completion_tokens": 46,
+                  "total_tokens": 346
+                },
+                "agent": {}
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-dev-missing",
+            "answerable": false,
+            "correct": false,
+            "result_correct": null,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "error",
+            "error_code": "llm_invalid_response",
+            "sql_generated": false,
+            "query_success": false,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 0,
+            "tool_calls": 0,
+            "repair_attempts": 0,
+            "tokens": 384,
+            "sql_tokens": 384,
+            "agent_tokens": 0,
+            "rag_status": "not_configured",
+            "latency_ms": 2102.65,
+            "http_status": 502,
+            "started_at": "2026-10-20T14:38:08.782418+00:00",
+            "ended_at": "2026-10-20T14:38:10.884186+00:00",
+            "evidence": {
+              "sql": null,
+              "rows": null,
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "generate"
+              ],
+              "validations": [],
+              "plan": {},
+              "agent_mode": null,
+              "tools_used": [],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 310,
+                  "completion_tokens": 74,
+                  "total_tokens": 384
+                },
+                "agent": {}
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-dev-negative",
+            "answerable": true,
+            "correct": false,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 0,
+            "tool_calls": 0,
+            "repair_attempts": 0,
+            "tokens": 335,
+            "sql_tokens": 335,
+            "agent_tokens": 0,
+            "rag_status": "not_configured",
+            "latency_ms": 3829.345,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:38:13.019102+00:00",
+            "ended_at": "2026-10-20T14:38:16.849104+00:00",
+            "evidence": {
+              "sql": "SELECT COUNT(*) AS \"metric\" FROM \"data\" AS \"data\"",
+              "rows": [
+                {
+                  "metric": 4
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {},
+              "agent_mode": null,
+              "tools_used": [],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 296,
+                  "completion_tokens": 39,
+                  "total_tokens": 335
+                },
+                "agent": {}
+              },
+              "citations": []
+            }
+          }
+        ],
+        "enhanced": [
+          {
+            "id": "v2-dev-average",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 2,
+            "tool_calls": 2,
+            "repair_attempts": 0,
+            "tokens": 3248,
+            "sql_tokens": 450,
+            "agent_tokens": 2798,
+            "rag_status": "no_documents",
+            "latency_ms": 7961.224,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:38:16.942216+00:00",
+            "ended_at": "2026-10-20T14:38:24.903461+00:00",
+            "evidence": {
+              "sql": "SELECT AVG(\"data\".\"revenue\") AS \"metric\" FROM \"data\" AS \"data\" WHERE NOT \"data\".\"revenue\" IS NULL",
+              "rows": [
+                {
+                  "metric": 20.0
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "plan",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {
+                "metrics": [
+                  "AVG(revenue) over non-null revenue values, aliased as metric"
+                ],
+                "dimensions": [],
+                "filters": [
+                  "revenue IS NOT NULL"
+                ],
+                "time_range": null,
+                "ordering": [],
+                "top_n": null,
+                "needs_clarification": false,
+                "clarification_questions": [],
+                "knowledge_chunk_ids": []
+              },
+              "agent_mode": "native_tools",
+              "tools_used": [
+                "inspect_dataset_schema",
+                "get_profile_summary"
+              ],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 400,
+                  "completion_tokens": 50,
+                  "total_tokens": 450
+                },
+                "agent": {
+                  "input_tokens": 2568,
+                  "output_tokens": 230,
+                  "total_tokens": 2798
+                }
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-dev-empty",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 2,
+            "tool_calls": 2,
+            "repair_attempts": 0,
+            "tokens": 3312,
+            "sql_tokens": 446,
+            "agent_tokens": 2866,
+            "rag_status": "no_documents",
+            "latency_ms": 7135.123,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:38:24.986887+00:00",
+            "ended_at": "2026-10-20T14:38:32.122579+00:00",
+            "evidence": {
+              "sql": "SELECT \"data\".\"region\" AS \"region\" FROM \"data\" AS \"data\" WHERE \"data\".\"region\" = 'Missing'",
+              "rows": [],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "plan",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {
+                "metrics": [],
+                "dimensions": [
+                  "region"
+                ],
+                "filters": [
+                  "region = 'Missing' (exact string match, not NULL)"
+                ],
+                "time_range": null,
+                "ordering": [],
+                "top_n": null,
+                "needs_clarification": false,
+                "clarification_questions": [],
+                "knowledge_chunk_ids": []
+              },
+              "agent_mode": "native_tools",
+              "tools_used": [
+                "inspect_dataset_schema",
+                "get_profile_summary"
+              ],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 399,
+                  "completion_tokens": 47,
+                  "total_tokens": 446
+                },
+                "agent": {
+                  "input_tokens": 2610,
+                  "output_tokens": 256,
+                  "total_tokens": 2866
+                }
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-dev-group",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 2,
+            "tool_calls": 2,
+            "repair_attempts": 0,
+            "tokens": 3344,
+            "sql_tokens": 465,
+            "agent_tokens": 2879,
+            "rag_status": "no_documents",
+            "latency_ms": 7802.222,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:38:32.208075+00:00",
+            "ended_at": "2026-10-20T14:38:40.010722+00:00",
+            "evidence": {
+              "sql": "SELECT \"data\".\"region\" AS \"region\", SUM(\"data\".\"revenue\") AS \"metric\" FROM \"data\" AS \"data\" GROUP BY \"data\".\"region\" ORDER BY \"region\" ASC",
+              "rows": [
+                {
+                  "region": "East",
+                  "metric": 40
+                },
+                {
+                  "region": "North",
+                  "metric": null
+                },
+                {
+                  "region": "West",
+                  "metric": 20
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "plan",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {
+                "metrics": [
+                  "metric = SUM(revenue)"
+                ],
+                "dimensions": [
+                  "region"
+                ],
+                "filters": [],
+                "time_range": null,
+                "ordering": [
+                  "region ASC"
+                ],
+                "top_n": null,
+                "needs_clarification": false,
+                "clarification_questions": [],
+                "knowledge_chunk_ids": []
+              },
+              "agent_mode": "native_tools",
+              "tools_used": [
+                "inspect_dataset_schema",
+                "get_profile_summary"
+              ],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 403,
+                  "completion_tokens": 62,
+                  "total_tokens": 465
+                },
+                "agent": {
+                  "input_tokens": 2628,
+                  "output_tokens": 251,
+                  "total_tokens": 2879
+                }
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-dev-metric",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": 1.0,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 2,
+            "tool_calls": 2,
+            "repair_attempts": 0,
+            "tokens": 3780,
+            "sql_tokens": 596,
+            "agent_tokens": 3184,
+            "rag_status": "retrieved",
+            "latency_ms": 11298.677,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:38:44.144661+00:00",
+            "ended_at": "2026-10-20T14:38:55.443815+00:00",
+            "evidence": {
+              "sql": "SELECT SUM(\"data\".\"revenue\") AS \"metric\" FROM \"data\" AS \"data\" WHERE \"data\".\"status\" = 'paid'",
+              "rows": [
+                {
+                  "metric": 30
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "plan",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {
+                "metrics": [
+                  "净销售额 = SUM(revenue) WHERE status = 'paid'"
+                ],
+                "dimensions": [],
+                "filters": [
+                  "status = 'paid'"
+                ],
+                "time_range": null,
+                "ordering": [],
+                "top_n": null,
+                "needs_clarification": false,
+                "clarification_questions": [],
+                "knowledge_chunk_ids": [
+                  "9d65794a-4b06-446c-9c9f-2c09ddaae093"
+                ]
+              },
+              "agent_mode": "native_tools",
+              "tools_used": [
+                "get_metric_definition",
+                "inspect_dataset_schema"
+              ],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 542,
+                  "completion_tokens": 54,
+                  "total_tokens": 596
+                },
+                "agent": {
+                  "input_tokens": 2897,
+                  "output_tokens": 287,
+                  "total_tokens": 3184
+                }
+              },
+              "citations": [
+                {
+                  "title": "净销售额",
+                  "chunk_id": "9d65794a-4b06-446c-9c9f-2c09ddaae093",
+                  "similarity": 0.722078
+                }
+              ]
+            }
+          },
+          {
+            "id": "v2-dev-missing",
+            "answerable": false,
+            "correct": true,
+            "result_correct": null,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "clarification",
+            "error_code": null,
+            "sql_generated": false,
+            "query_success": false,
+            "false_refusal": false,
+            "sql_calls": 0,
+            "agent_calls": 3,
+            "tool_calls": 3,
+            "repair_attempts": 0,
+            "tokens": 4165,
+            "sql_tokens": 0,
+            "agent_tokens": 4165,
+            "rag_status": "no_documents",
+            "latency_ms": 4619.889,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:38:55.536766+00:00",
+            "ended_at": "2026-10-20T14:39:00.157191+00:00",
+            "evidence": {
+              "sql": null,
+              "rows": null,
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "plan"
+              ],
+              "validations": [],
+              "plan": {
+                "metrics": [],
+                "dimensions": [],
+                "filters": [],
+                "time_range": null,
+                "ordering": [],
+                "top_n": null,
+                "needs_clarification": true,
+                "clarification_questions": [
+                  "未找到已登记的“税后利润”指标定义。请指定口径：是否按 revenue - cost 计算，还是需要扣除税费（数据集中无税费字段）？",
+                  "分析维度与时间范围：按 region 汇总，还是按月份趋势？需要覆盖哪个时间段？"
+                ],
+                "knowledge_chunk_ids": []
+              },
+              "agent_mode": "native_tools",
+              "tools_used": [
+                "get_metric_definition",
+                "inspect_dataset_schema",
+                "request_clarification"
+              ],
+              "finalization_calls": 1,
+              "usage": {
+                "sql": {
+                  "source": "unavailable",
+                  "prompt_tokens": null,
+                  "completion_tokens": null,
+                  "total_tokens": null
+                },
+                "agent": {
+                  "input_tokens": 3803,
+                  "output_tokens": 362,
+                  "total_tokens": 4165
+                }
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-dev-negative",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 2,
+            "tool_calls": 2,
+            "repair_attempts": 0,
+            "tokens": 3263,
+            "sql_tokens": 424,
+            "agent_tokens": 2839,
+            "rag_status": "no_match",
+            "latency_ms": 11973.583,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:39:04.751249+00:00",
+            "ended_at": "2026-10-20T14:39:16.725093+00:00",
+            "evidence": {
+              "sql": "SELECT COUNT(*) AS \"metric\" FROM \"data\" AS \"data\"",
+              "rows": [
+                {
+                  "metric": 4
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "plan",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {
+                "metrics": [
+                  "数据行数（COUNT(*)），输出列名 metric"
+                ],
+                "dimensions": [],
+                "filters": [],
+                "time_range": null,
+                "ordering": [],
+                "top_n": null,
+                "needs_clarification": false,
+                "clarification_questions": [],
+                "knowledge_chunk_ids": []
+              },
+              "agent_mode": "native_tools",
+              "tools_used": [
+                "inspect_dataset_schema",
+                "get_profile_summary"
+              ],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 383,
+                  "completion_tokens": 41,
+                  "total_tokens": 424
+                },
+                "agent": {
+                  "input_tokens": 2588,
+                  "output_tokens": 251,
+                  "total_tokens": 2839
+                }
+              },
+              "citations": []
+            }
+          }
+        ]
+      },
+      "suite": {
+        "name": "contracts-v2",
+        "split": "development",
+        "fixture_sha256": "df217f146d66731d2912b132ea18e0ff1976d970b074901daf8e13f540508bd0"
+      },
+      "run_evidence": {
+        "started_at": "2026-10-20T14:37:45.895882+00:00",
+        "ended_at": "2026-10-20T14:39:16.740247+00:00",
+        "elapsed_ms": 90785.683,
+        "database_counts_restored": true,
+        "embedding_requests": [
+          {
+            "texts": 1,
+            "status": "success",
+            "dimensions": [
+              1536
+            ],
+            "latency_ms": 2115.196
+          },
+          {
+            "texts": 1,
+            "status": "success",
+            "dimensions": [
+              1536
+            ],
+            "latency_ms": 2014.587
+          },
+          {
+            "texts": 1,
+            "status": "success",
+            "dimensions": [
+              1536
+            ],
+            "latency_ms": 2074.324
+          },
+          {
+            "texts": 1,
+            "status": "success",
+            "dimensions": [
+              1536
+            ],
+            "latency_ms": 1912.742
+          },
+          {
+            "texts": 1,
+            "status": "success",
+            "dimensions": [
+              1536
+            ],
+            "latency_ms": 3330.158
+          },
+          {
+            "texts": 1,
+            "status": "success",
+            "dimensions": [
+              1536
+            ],
+            "latency_ms": 2030.603
+          },
+          {
+            "texts": 1,
+            "status": "success",
+            "dimensions": [
+              1536
+            ],
+            "latency_ms": 2443.898
+          },
+          {
+            "texts": 1,
+            "status": "success",
+            "dimensions": [
+              1536
+            ],
+            "latency_ms": 4316.107
+          }
+        ],
+        "executed_sql_revalidated": 10
+      }
+    },
+    "validation": {
+      "mode": "live-chat-and-embedding-with-injected-faults",
+      "created_at": "2026-10-20T14:41:22.518882+00:00",
+      "providers": {
+        "chat": "deepseek",
+        "chat_model": "deepseek-flash",
+        "embedding": "openai_compatible",
+        "embedding_model": "text-embedding-v4",
+        "embedding_dimensions": 1536,
+        "langsmith_enabled": false
+      },
+      "rag_top_k": 4,
+      "baseline_definition": "Same API/guard/executor; Agent, RAG and repair disabled; not a historical binary benchmark",
+      "fault_injection": [],
+      "summary": {
+        "baseline": {
+          "cases": 6,
+          "answerable_cases": 5,
+          "safety_cases": 0,
+          "overall_rule_pass_rate": 0.6666666666666666,
+          "sql_generation_rate": 1.0,
+          "query_result_accuracy": 0.8,
+          "query_success_rate": 1.0,
+          "false_refusal_rate": 0.0,
+          "safety_pass_rate": null,
+          "retrieval_recall_at_k": 0.0,
+          "retrieval_labeled_cases": 1,
+          "model_calls": 6,
+          "tool_calls": 0,
+          "tokens": 2178,
+          "reported_token_subtotal": 2178,
+          "missing_usage_cases": 0,
+          "cost_currency": null,
+          "latency_p50_ms": 4568.327,
+          "latency_p95_ms": 5905.036
+        },
+        "enhanced": {
+          "cases": 6,
+          "answerable_cases": 5,
+          "safety_cases": 0,
+          "overall_rule_pass_rate": 1.0,
+          "sql_generation_rate": 1.0,
+          "query_result_accuracy": 1.0,
+          "query_success_rate": 1.0,
+          "false_refusal_rate": 0.0,
+          "safety_pass_rate": null,
+          "retrieval_recall_at_k": 1.0,
+          "retrieval_labeled_cases": 1,
+          "model_calls": 18,
+          "tool_calls": 13,
+          "tokens": 21225,
+          "reported_token_subtotal": 21225,
+          "missing_usage_cases": 0,
+          "cost_currency": null,
+          "latency_p50_ms": 7089.790999999999,
+          "latency_p95_ms": 9414.635
+        }
+      },
+      "repair_comparison": {
+        "baseline": {
+          "cases": 0,
+          "correct": 0
+        },
+        "enhanced": {
+          "cases": 0,
+          "correct": 0
+        }
+      },
+      "records": {
+        "baseline": [
+          {
+            "id": "v2-val-count",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 0,
+            "tool_calls": 0,
+            "repair_attempts": 0,
+            "tokens": 345,
+            "sql_tokens": 345,
+            "agent_tokens": 0,
+            "rag_status": "not_configured",
+            "latency_ms": 4750.134,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:40:06.484874+00:00",
+            "ended_at": "2026-10-20T14:40:11.235608+00:00",
+            "evidence": {
+              "sql": "SELECT COUNT(*) AS \"metric\" FROM \"data\" AS \"data\" WHERE \"data\".\"status\" = 'paid'",
+              "rows": [
+                {
+                  "metric": 3
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {},
+              "agent_mode": null,
+              "tools_used": [],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 301,
+                  "completion_tokens": 44,
+                  "total_tokens": 345
+                },
+                "agent": {}
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-val-average",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 0,
+            "tool_calls": 0,
+            "repair_attempts": 0,
+            "tokens": 357,
+            "sql_tokens": 357,
+            "agent_tokens": 0,
+            "rag_status": "not_configured",
+            "latency_ms": 5905.036,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:40:11.316118+00:00",
+            "ended_at": "2026-10-20T14:40:17.220703+00:00",
+            "evidence": {
+              "sql": "SELECT AVG(\"data\".\"revenue\") AS \"metric\" FROM \"data\" AS \"data\" WHERE \"data\".\"region\" = 'East' AND NOT \"data\".\"revenue\" IS NULL",
+              "rows": [
+                {
+                  "metric": 20.0
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {},
+              "agent_mode": null,
+              "tools_used": [],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 304,
+                  "completion_tokens": 53,
+                  "total_tokens": 357
+                },
+                "agent": {}
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-val-top",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 0,
+            "tool_calls": 0,
+            "repair_attempts": 0,
+            "tokens": 363,
+            "sql_tokens": 363,
+            "agent_tokens": 0,
+            "rag_status": "not_configured",
+            "latency_ms": 4584.563,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:40:17.315662+00:00",
+            "ended_at": "2026-10-20T14:40:21.900824+00:00",
+            "evidence": {
+              "sql": "SELECT \"data\".\"region\" AS \"region\", \"data\".\"revenue\" AS \"revenue\" FROM \"data\" AS \"data\" ORDER BY \"revenue\" DESC LIMIT 2",
+              "rows": [
+                {
+                  "region": "East",
+                  "revenue": 30
+                },
+                {
+                  "region": "West",
+                  "revenue": 20
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {},
+              "agent_mode": null,
+              "tools_used": [],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 309,
+                  "completion_tokens": 54,
+                  "total_tokens": 363
+                },
+                "agent": {}
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-val-date",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 0,
+            "tool_calls": 0,
+            "repair_attempts": 0,
+            "tokens": 388,
+            "sql_tokens": 388,
+            "agent_tokens": 0,
+            "rag_status": "not_configured",
+            "latency_ms": 4552.091,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:40:21.996439+00:00",
+            "ended_at": "2026-10-20T14:40:26.549025+00:00",
+            "evidence": {
+              "sql": "SELECT SUM(\"data\".\"revenue\") AS \"metric\" FROM \"data\" AS \"data\" WHERE \"data\".\"date\" >= CAST('2026-02-01' AS TIMESTAMP) AND \"data\".\"date\" < CAST('2026-03-01' AS TIMESTAMP)",
+              "rows": [
+                {
+                  "metric": 30
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {},
+              "agent_mode": null,
+              "tools_used": [],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 322,
+                  "completion_tokens": 66,
+                  "total_tokens": 388
+                },
+                "agent": {}
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-val-metric",
+            "answerable": true,
+            "correct": false,
+            "result_correct": false,
+            "safety_ok": null,
+            "recall_at_k": 0.0,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 0,
+            "tool_calls": 0,
+            "repair_attempts": 0,
+            "tokens": 354,
+            "sql_tokens": 354,
+            "agent_tokens": 0,
+            "rag_status": "not_configured",
+            "latency_ms": 4526.753,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:40:28.654388+00:00",
+            "ended_at": "2026-10-20T14:40:33.181013+00:00",
+            "evidence": {
+              "sql": "SELECT SUM(\"data\".\"revenue\") AS \"metric\" FROM \"data\" AS \"data\"",
+              "rows": [
+                {
+                  "metric": 60
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {},
+              "agent_mode": null,
+              "tools_used": [],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 308,
+                  "completion_tokens": 46,
+                  "total_tokens": 354
+                },
+                "agent": {}
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-val-missing",
+            "answerable": false,
+            "correct": false,
+            "result_correct": null,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "error",
+            "error_code": "llm_invalid_response",
+            "sql_generated": false,
+            "query_success": false,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 0,
+            "tool_calls": 0,
+            "repair_attempts": 0,
+            "tokens": 371,
+            "sql_tokens": 371,
+            "agent_tokens": 0,
+            "rag_status": "not_configured",
+            "latency_ms": 3026.55,
+            "http_status": 502,
+            "started_at": "2026-10-20T14:40:33.267206+00:00",
+            "ended_at": "2026-10-20T14:40:36.292890+00:00",
+            "evidence": {
+              "sql": null,
+              "rows": null,
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "generate"
+              ],
+              "validations": [],
+              "plan": {},
+              "agent_mode": null,
+              "tools_used": [],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 309,
+                  "completion_tokens": 62,
+                  "total_tokens": 371
+                },
+                "agent": {}
+              },
+              "citations": []
+            }
+          }
+        ],
+        "enhanced": [
+          {
+            "id": "v2-val-count",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 2,
+            "tool_calls": 2,
+            "repair_attempts": 0,
+            "tokens": 3283,
+            "sql_tokens": 433,
+            "agent_tokens": 2850,
+            "rag_status": "no_documents",
+            "latency_ms": 6999.869,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:40:36.367621+00:00",
+            "ended_at": "2026-10-20T14:40:43.367925+00:00",
+            "evidence": {
+              "sql": "SELECT COUNT(*) AS \"metric\" FROM \"data\" AS \"data\" WHERE \"data\".\"status\" = 'paid'",
+              "rows": [
+                {
+                  "metric": 3
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "plan",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {
+                "metrics": [
+                  "记录数 (COUNT(*))"
+                ],
+                "dimensions": [],
+                "filters": [
+                  "status = 'paid'"
+                ],
+                "time_range": null,
+                "ordering": [],
+                "top_n": null,
+                "needs_clarification": false,
+                "clarification_questions": [],
+                "knowledge_chunk_ids": []
+              },
+              "agent_mode": "native_tools",
+              "tools_used": [
+                "inspect_dataset_schema",
+                "get_profile_summary"
+              ],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 389,
+                  "completion_tokens": 44,
+                  "total_tokens": 433
+                },
+                "agent": {
+                  "input_tokens": 2598,
+                  "output_tokens": 252,
+                  "total_tokens": 2850
+                }
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-val-average",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 2,
+            "tool_calls": 2,
+            "repair_attempts": 0,
+            "tokens": 3340,
+            "sql_tokens": 467,
+            "agent_tokens": 2873,
+            "rag_status": "no_documents",
+            "latency_ms": 7179.713,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:40:43.419886+00:00",
+            "ended_at": "2026-10-20T14:40:50.599103+00:00",
+            "evidence": {
+              "sql": "SELECT AVG(\"data\".\"revenue\") AS \"metric\" FROM \"data\" AS \"data\" WHERE \"data\".\"region\" = 'East' AND NOT \"data\".\"revenue\" IS NULL",
+              "rows": [
+                {
+                  "metric": 20.0
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "plan",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {
+                "metrics": [
+                  "AVG(revenue) over non-null revenue rows, aliased as metric"
+                ],
+                "dimensions": [],
+                "filters": [
+                  "region = 'East'",
+                  "revenue IS NOT NULL"
+                ],
+                "time_range": null,
+                "ordering": [],
+                "top_n": null,
+                "needs_clarification": false,
+                "clarification_questions": [],
+                "knowledge_chunk_ids": []
+              },
+              "agent_mode": "native_tools",
+              "tools_used": [
+                "inspect_dataset_schema",
+                "get_profile_summary"
+              ],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 409,
+                  "completion_tokens": 58,
+                  "total_tokens": 467
+                },
+                "agent": {
+                  "input_tokens": 2604,
+                  "output_tokens": 269,
+                  "total_tokens": 2873
+                }
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-val-top",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 2,
+            "tool_calls": 2,
+            "repair_attempts": 0,
+            "tokens": 3317,
+            "sql_tokens": 452,
+            "agent_tokens": 2865,
+            "rag_status": "no_documents",
+            "latency_ms": 7691.77,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:40:50.684201+00:00",
+            "ended_at": "2026-10-20T14:40:58.375882+00:00",
+            "evidence": {
+              "sql": "SELECT \"data\".\"region\" AS \"region\", \"data\".\"revenue\" AS \"revenue\" FROM \"data\" AS \"data\" ORDER BY \"revenue\" DESC LIMIT 2",
+              "rows": [
+                {
+                  "region": "East",
+                  "revenue": 30
+                },
+                {
+                  "region": "West",
+                  "revenue": 20
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "plan",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {
+                "metrics": [
+                  "revenue"
+                ],
+                "dimensions": [
+                  "region"
+                ],
+                "filters": [],
+                "time_range": null,
+                "ordering": [
+                  "revenue DESC NULLS LAST"
+                ],
+                "top_n": 2,
+                "needs_clarification": false,
+                "clarification_questions": [],
+                "knowledge_chunk_ids": []
+              },
+              "agent_mode": "native_tools",
+              "tools_used": [
+                "inspect_dataset_schema",
+                "get_profile_summary"
+              ],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 397,
+                  "completion_tokens": 55,
+                  "total_tokens": 452
+                },
+                "agent": {
+                  "input_tokens": 2614,
+                  "output_tokens": 251,
+                  "total_tokens": 2865
+                }
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-val-date",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 2,
+            "tool_calls": 2,
+            "repair_attempts": 0,
+            "tokens": 3397,
+            "sql_tokens": 525,
+            "agent_tokens": 2872,
+            "rag_status": "no_documents",
+            "latency_ms": 6881.335,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:40:58.451894+00:00",
+            "ended_at": "2026-10-20T14:41:05.332680+00:00",
+            "evidence": {
+              "sql": "SELECT SUM(\"data\".\"revenue\") AS \"metric\" FROM \"data\" AS \"data\" WHERE \"data\".\"date\" >= '2026-02-01' AND \"data\".\"date\" < '2026-03-01'",
+              "rows": [
+                {
+                  "metric": 30
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "plan",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {
+                "metrics": [
+                  "SUM(revenue) AS metric"
+                ],
+                "dimensions": [],
+                "filters": [
+                  "date >= '2026-02-01'",
+                  "date < '2026-03-01'"
+                ],
+                "time_range": "2026-02-01 (inclusive) to 2026-03-01 (exclusive)",
+                "ordering": [],
+                "top_n": null,
+                "needs_clarification": false,
+                "clarification_questions": [],
+                "knowledge_chunk_ids": []
+              },
+              "agent_mode": "native_tools",
+              "tools_used": [
+                "inspect_dataset_schema",
+                "get_metric_definition"
+              ],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 448,
+                  "completion_tokens": 77,
+                  "total_tokens": 525
+                },
+                "agent": {
+                  "input_tokens": 2581,
+                  "output_tokens": 291,
+                  "total_tokens": 2872
+                }
+              },
+              "citations": []
+            }
+          },
+          {
+            "id": "v2-val-metric",
+            "answerable": true,
+            "correct": true,
+            "result_correct": true,
+            "safety_ok": null,
+            "recall_at_k": 1.0,
+            "status": "success",
+            "error_code": null,
+            "sql_generated": true,
+            "query_success": true,
+            "false_refusal": false,
+            "sql_calls": 1,
+            "agent_calls": 2,
+            "tool_calls": 2,
+            "repair_attempts": 0,
+            "tokens": 3821,
+            "sql_tokens": 615,
+            "agent_tokens": 3206,
+            "rag_status": "retrieved",
+            "latency_ms": 9414.635,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:41:09.295408+00:00",
+            "ended_at": "2026-10-20T14:41:18.709759+00:00",
+            "evidence": {
+              "sql": "SELECT SUM(\"data\".\"revenue\") AS \"metric\" FROM \"data\" AS \"data\" WHERE \"data\".\"status\" = 'paid'",
+              "rows": [
+                {
+                  "metric": 30
+                }
+              ],
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "plan",
+                "generate",
+                "validate",
+                "execute",
+                "check_result"
+              ],
+              "validations": [
+                {
+                  "status": "approved",
+                  "attempt": 0
+                }
+              ],
+              "plan": {
+                "metrics": [
+                  "净销售额 = SUM(revenue) WHERE status = 'paid'（退款不计入；非收入减成本）"
+                ],
+                "dimensions": [],
+                "filters": [
+                  "status = 'paid'"
+                ],
+                "time_range": null,
+                "ordering": [],
+                "top_n": null,
+                "needs_clarification": false,
+                "clarification_questions": [],
+                "knowledge_chunk_ids": [
+                  "d98a6172-dc49-4b3b-b12a-f318ceb87c2c"
+                ]
+              },
+              "agent_mode": "native_tools",
+              "tools_used": [
+                "get_metric_definition",
+                "inspect_dataset_schema"
+              ],
+              "finalization_calls": 0,
+              "usage": {
+                "sql": {
+                  "source": "provider",
+                  "prompt_tokens": 558,
+                  "completion_tokens": 57,
+                  "total_tokens": 615
+                },
+                "agent": {
+                  "input_tokens": 2910,
+                  "output_tokens": 296,
+                  "total_tokens": 3206
+                }
+              },
+              "citations": [
+                {
+                  "title": "净销售额",
+                  "chunk_id": "d98a6172-dc49-4b3b-b12a-f318ceb87c2c",
+                  "similarity": 0.717084
+                }
+              ]
+            }
+          },
+          {
+            "id": "v2-val-missing",
+            "answerable": false,
+            "correct": true,
+            "result_correct": null,
+            "safety_ok": null,
+            "recall_at_k": null,
+            "status": "clarification",
+            "error_code": null,
+            "sql_generated": false,
+            "query_success": false,
+            "false_refusal": false,
+            "sql_calls": 0,
+            "agent_calls": 3,
+            "tool_calls": 3,
+            "repair_attempts": 0,
+            "tokens": 4067,
+            "sql_tokens": 0,
+            "agent_tokens": 4067,
+            "rag_status": "no_documents",
+            "latency_ms": 3739.406,
+            "http_status": 201,
+            "started_at": "2026-10-20T14:41:18.772939+00:00",
+            "ended_at": "2026-10-20T14:41:22.512373+00:00",
+            "evidence": {
+              "sql": null,
+              "rows": null,
+              "nodes": [
+                "prepare",
+                "retrieve",
+                "plan"
+              ],
+              "validations": [],
+              "plan": {
+                "metrics": [],
+                "dimensions": [],
+                "filters": [],
+                "time_range": null,
+                "ordering": [],
+                "top_n": null,
+                "needs_clarification": true,
+                "clarification_questions": [
+                  "“税后利润”没有已注册的指标定义，请问应采用哪个正式口径（例如：净利润/税后净利的具体计算规则与来源）？",
+                  "该指标需要按哪些维度（如期间、部门、产品）汇总，以及时间范围是什么？"
+                ],
+                "knowledge_chunk_ids": []
+              },
+              "agent_mode": "native_tools",
+              "tools_used": [
+                "get_metric_definition",
+                "search_business_knowledge",
+                "request_clarification"
+              ],
+              "finalization_calls": 1,
+              "usage": {
+                "sql": {
+                  "source": "unavailable",
+                  "prompt_tokens": null,
+                  "completion_tokens": null,
+                  "total_tokens": null
+                },
+                "agent": {
+                  "input_tokens": 3720,
+                  "output_tokens": 347,
+                  "total_tokens": 4067
+                }
+              },
+              "citations": []
+            }
+          }
+        ]
+      },
+      "suite": {
+        "name": "contracts-v2",
+        "split": "validation",
+        "fixture_sha256": "df217f146d66731d2912b132ea18e0ff1976d970b074901daf8e13f540508bd0"
+      },
+      "run_evidence": {
+        "started_at": "2026-10-20T14:40:02.242698+00:00",
+        "ended_at": "2026-10-20T14:41:22.520880+00:00",
+        "elapsed_ms": 80199.842,
+        "database_counts_restored": true,
+        "embedding_requests": [
+          {
+            "texts": 1,
+            "status": "success",
+            "dimensions": [
+              1536
+            ],
+            "latency_ms": 1949.588
+          },
+          {
+            "texts": 1,
+            "status": "success",
+            "dimensions": [
+              1536
+            ],
+            "latency_ms": 1802.478
+          },
+          {
+            "texts": 1,
+            "status": "success",
+            "dimensions": [
+              1536
+            ],
+            "latency_ms": 2041.822
+          },
+          {
+            "texts": 1,
+            "status": "success",
+            "dimensions": [
+              1536
+            ],
+            "latency_ms": 2004.216
+          }
+        ],
+        "executed_sql_revalidated": 10
+      }
+    }
+  },
+  "limitations": [
+    "Explicit small synthetic regression; no blind/unseen-data or load-test claim.",
+    "Different questions/contracts than legacy v1; scores are not comparable to phase 11.",
+    "Legacy reports, questions and scoring expectations unchanged; no legacy live rerun.",
+    "No retrieval implementation/threshold changes; one negative example does not resolve the old false-positive risk.",
+    "No adversarial safety cases in v2; SQL/Agent safety regressions run separately.",
+    "LangSmith off; no raw user data; currency and Embedding token usage unmeasured."
+  ]
+}

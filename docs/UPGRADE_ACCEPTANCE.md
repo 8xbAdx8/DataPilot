@@ -1,6 +1,6 @@
 # DataPilot AI 升级交付与验收
 
-本页记录阶段 1–8 的交付快照；推送前审计见[阶段 9](PHASE9_INTEGRATION.md)，真实 Embedding/语义 RAG/生产容器浏览器证据见[阶段 10](PHASE10_EMBEDDING_RAG.md)，固定真实评测与质量问题见[阶段 11](PHASE11_LIVE_EVALUATION.md)。`4b95daf` 已推送且 CI 成功；阶段 11 仅本地提交。下文“尚未运行真实服务”指该快照验收时点。
+本页记录阶段 1–8 的交付快照；推送前审计见[阶段 9](PHASE9_INTEGRATION.md)，真实 Embedding/语义 RAG/生产容器浏览器证据见[阶段 10](PHASE10_EMBEDDING_RAG.md)，固定真实评测与质量问题见[阶段 11](PHASE11_LIVE_EVALUATION.md)，后续预算稳定性与契约验证见[阶段 12](PHASE12_AGENT_RELIABILITY.md)。`702c48e` 已推送且 CI 成功；阶段 12 仅本地提交。下文“尚未运行真实服务”指该快照验收时点。
 
 基线 `a7971cb`，分支 `codex/agent-rag-upgrade`。保留原认证、所有权、CSRF、事务、配额、审计、SQL 安全和界面，未改写用户 .env；升级提交仅在本地，未推送、发布或调用收费服务。各阶段证据见 [AI_UPGRADE](AI_UPGRADE.md)，固定测量见 [EVALUATION](EVALUATION.md)，全部 61 个新增/修改文件见 [逐文件清单](UPGRADE_FILES.md)。
 

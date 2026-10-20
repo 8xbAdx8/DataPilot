@@ -193,3 +193,116 @@ def test_model_call_timeout_obeys_provider_limit_and_workflow_deadline(context):
     context.deadline = time.monotonic() + 0.5
     middleware.wrap_model_call(Request(), handler)
     assert 0 < timeouts[-1] <= 0.5
+
+
+@pytest.mark.parametrize("exhaustion", ["model", "tools"])
+def test_native_adapter_reserves_structured_final_response_within_existing_budget(
+    context, exhaustion
+):
+    context.settings.agent_max_model_calls = 2 if exhaustion == "model" else 3
+    context.settings.agent_max_tool_calls = 1 if exhaustion == "tools" else 4
+    payloads = []
+
+    def handle(request):
+        payload = json.loads(request.content)
+        payloads.append(payload)
+        if len(payloads) == 1:
+            name, args = "inspect_dataset_schema", {}
+        else:
+            assert [t["function"]["name"] for t in payload["tools"]] == ["AnalysisPlan"]
+            name, args = "AnalysisPlan", AnalysisPlan(metrics=["revenue"]).model_dump()
+        return native_response(name, args, len(payloads))
+
+    with httpx.Client(transport=httpx.MockTransport(handle)) as http:
+        model = ChatOpenAI(
+            model="contract",
+            api_key="test-only",
+            base_url="https://unit.invalid",
+            http_client=http,
+            max_retries=0,
+        )
+        plan = plan_analysis(context, "revenue 平均值", model)
+    assert plan.metrics == ["revenue"] and context.model_calls == 2
+    assert context.tool_calls == 1 and context.finalization_calls == 1
+    assert context.usage["total_tokens"] == 30
+    assert context.model_calls <= context.settings.agent_max_model_calls
+
+
+def native_response(name, args, index):
+    return httpx.Response(
+        200,
+        json={
+            "id": "contract",
+            "object": "chat.completion",
+            "created": 1,
+            "model": "contract",
+            "choices": [
+                {
+                    "index": 0,
+                    "finish_reason": "tool_calls",
+                    "message": {
+                        "role": "assistant",
+                        "content": None,
+                        "tool_calls": [
+                            {
+                                "id": f"tool-{index}",
+                                "type": "function",
+                                "function": {"name": name, "arguments": json.dumps(args)},
+                            }
+                        ],
+                    },
+                }
+            ],
+            "usage": {"prompt_tokens": 10, "completion_tokens": 5, "total_tokens": 15},
+        },
+    )
+
+
+def test_model_ignoring_finalization_cannot_dispatch_more_tools(context):
+    context.settings.agent_max_model_calls = 2
+    calls = []
+
+    def handle(request):
+        calls.append(json.loads(request.content))
+        return native_response("inspect_dataset_schema", {}, len(calls))
+
+    with httpx.Client(transport=httpx.MockTransport(handle)) as http:
+        model = ChatOpenAI(
+            model="contract",
+            api_key="test-only",
+            base_url="https://unit.invalid",
+            http_client=http,
+            max_retries=0,
+        )
+        with pytest.raises(AppError) as error:
+            plan_analysis(context, "总和", model)
+    assert error.value.detail["code"] == "agent_model_limit"
+    assert context.model_calls == 2 and context.tool_calls == 1
+    assert context.usage["total_tokens"] == 30  # Rejected output still incurred model usage.
+
+
+def test_mixed_unauthorized_batch_executes_no_tools(context):
+    class Mixed(FakePlanningModel):
+        def _generate(self, messages, **kwargs):
+            return ChatResult(
+                generations=[
+                    ChatGeneration(
+                        message=AIMessage(
+                            content="",
+                            tool_calls=[
+                                {"name": "inspect_dataset_schema", "args": {}, "id": "allowed"},
+                                {
+                                    "name": "execute_sql",
+                                    "args": {"sql": "DROP TABLE data"},
+                                    "id": "denied",
+                                },
+                            ],
+                        )
+                    )
+                ]
+            )
+
+    with pytest.raises(AppError) as error:
+        plan_analysis(context, "question", Mixed())
+    assert error.value.detail["code"] == "agent_tool_denied"
+    assert context.tools_used == [] and context.tool_calls == 0
