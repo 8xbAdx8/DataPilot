@@ -1,5 +1,7 @@
 # 固定评估与对照
 
+最新[阶段 11 真实评测](PHASE11_LIVE_EVALUATION.md)已完成两种模式各 29 题，原始[真实逐题报告](evaluation-live.json)保留 SQL/结果与失败记录。严格结果符合率基础 1/13、增强 0/13，既有输出契约差异也有 Agent/检索实际问题，未通过严格质量验收。下表仍是明确标记的历史离线结果，不能用其 100% 宣传真实模型准确率。
+
 可选将新评估的分数上传 LangSmith：显式配置 LangSmith 开关/Key 后运行 `python -m app.evaluate --publish-metrics`。使用官方外部实验 API 创建可比较的基础/增强实验，只上传固定用例 ID、评分、计数和实际时间戳，不上传问句/SQL/数据。当前已完成受控 HTTP 合同测试，未连接云端，详见 [隐私说明](LANGSMITH.md)。已有本地报告不自动上传；新运行才有完整实际时间戳。
 
 2026-10-20 本机 Windows / Python 3.12.14 / PostgreSQL 17.10 / pgvector 0.8.7 单次离线实测，原始记录见 [evaluation-offline.json](evaluation-offline.json)：
@@ -54,6 +56,12 @@ $env:EVAL_DATABASE_URL='postgresql+psycopg://datapilot:datapilot_local@127.0.0.1
 # 先按 REAL_MODEL.md / AI_UPGRADE.md 独立配置真实 chat 与 Embedding
 $env:RUN_LIVE_EVAL='1'
 .\.venv\Scripts\python -m app.evaluate --live --output data/runtime/evaluation-live.json
+# 可选逐题证据：指定一个不存在的 JSONL 文件；中断时仍保留已完成题目
+# --checkpoint data/runtime/evaluation-live-cases.jsonl
 ```
 
-未设置 RUN_LIVE_EVAL=1，或聊天/Embedding 缺真实配置即拒绝启动。超时、错误 JSON、跨用户用例仍是明确标记的故障注入，其他用例调用真实 Provider/Agent；报告标记 `live-chat-and-embedding-with-injected-faults`。真实模型输出可采用不同列别名或排序，被严格结果规则判错时应复核题目，不能为追求通过放宽安全约束。当前未运行统一 29 题真实评估；[阶段 10](PHASE10_EMBEDDING_RAG.md)已另外验证真实百炼 Embedding、语义改写命中、权限/生命周期、DeepSeek Agent 与生产浏览器 RAG/SQL，并记录两个分析案例共 7304 聊天 Token。它不替代本题库的真实准确率、大规模语义召回率和云端评估；Embedding Token 未采集，金额未知。
+评测 CLI 现在为固定合成数据保留实际 SQL、结果、验证记录、工作流节点、原生工具名和检索引用，不记录供应商原始错误正文或配置凭据。`--checkpoint` 拒绝覆盖已有文件；它不是恢复运行开关，重新运行必须使用新路径。原有题目、预期值和评分不变，查询超时及结果大小的受控限制也明确列入 `fault_injection`。
+
+未设置 RUN_LIVE_EVAL=1，或聊天/Embedding 缺真实配置即拒绝启动。超时、错误 JSON、跨用户用例仍是明确标记的受控测试；查询时限和返回字节上限也有故意收紧的故障控制。其余 SQL/Agent 使用真实配置，报告标记 `live-chat-and-embedding-with-injected-faults`。真实模式不采用 fixture 里预写的错误 SQL，不能宣称强制触发了修复或 CAST 故障。真实模型采用不同列别名或排序仍保留严格判错，不能为追求通过放宽安全约束。
+
+[阶段 11](PHASE11_LIVE_EVALUATION.md)记录统一题库的单次真实结果、失败归因、18 次真实 Embedding、110 次真实聊天调用尝试及完整限制；聊天 Token 小计 60534、不完整用量 15 题，两模式总量与金额未知。[阶段 10](PHASE10_EMBEDDING_RAG.md)另有真实语义改写、权限/生命周期和生产浏览器 RAG/SQL 的固定案例，它不替代本题库的真实质量评估。两阶段均未验证 LangSmith 云端或大规模语义质量。

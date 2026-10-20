@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from app.evaluate import evaluate, load_cases, same_rows, score_case, summarize
+from app.evaluate import case_evidence, evaluate, load_cases, same_rows, score_case, summarize
 
 
 def test_fixed_cases_cover_required_categories_and_result_comparison():
@@ -63,12 +63,36 @@ def test_real_evaluation_requires_two_opt_ins_before_database_access(monkeypatch
         evaluate("sqlite://")
 
 
+def test_synthetic_evidence_excludes_credentials_raw_errors_and_unrelated_fields():
+    evidence = case_evidence(
+        {
+            "sql": "SELECT COUNT(*) AS metric FROM data",
+            "result": {"rows": [{"metric": 4}]},
+            "error_message": "private-error-body",
+            "api_key": "private-placeholder",
+            "telemetry": {"workflow": {"nodes": ["validate", "execute"]}},
+        },
+        {"citations": [{"title": "sales", "similarity": 0.7, "excerpt": "private-content"}]},
+    )
+    assert evidence["rows"] == [{"metric": 4}]
+    assert evidence["nodes"] == ["validate", "execute"]
+    assert evidence["citations"] == [{"title": "sales", "similarity": 0.7}]
+    assert "private" not in str(evidence)
+
+
 @pytest.mark.postgres
 def test_offline_fixed_evaluation_runs_real_api_pgvector_and_duckdb():
     url = os.environ.get("TEST_DATABASE_URL")
     if not url or not url.startswith("postgresql"):
         pytest.skip("Fixed end-to-end evaluation requires independent PostgreSQL test DB")
-    report = evaluate(url)
+    completed = []
+    report = evaluate(url, on_record=lambda mode, row: completed.append((mode, row)))
+    assert len(completed) == 58
+    assert completed[-1] == ("enhanced", report["records"]["enhanced"][-1])
+    assert report["providers"]["langsmith_enabled"] is False
+    assert {"llm-timeout", "bad-json", "query-timeout", "oversized-result"}.issubset(
+        report["fault_injection"]
+    )
     assert report["mode"] == "controlled-offline-not-model-accuracy"
     assert all(r["correct"] for r in report["records"]["enhanced"])
     assert all(r["safety_ok"] for r in report["records"]["enhanced"] if r["safety_ok"] is not None)

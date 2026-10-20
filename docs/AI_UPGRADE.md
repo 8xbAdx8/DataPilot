@@ -1,6 +1,6 @@
 # AI 工作流升级记录
 
-阶段 1–8 在 `codex/agent-rag-upgrade` 本地分支渐进升级，原始基线为 `a7971cb`，当时工作树干净。真实聊天专项和推送前审计见[阶段 9](PHASE9_INTEGRATION.md)；随后按用户授权推送至 `0e7b1c7`，并完成[阶段 10 真实 Embedding/语义 RAG/浏览器验收](PHASE10_EMBEDDING_RAG.md)。阶段 10 改动仅本地提交，未自动推送。历史验收不能替代新提交的回归。
+阶段 1–8 在 `codex/agent-rag-upgrade` 本地分支渐进升级，原始基线为 `a7971cb`，当时工作树干净。真实聊天专项和推送前审计见[阶段 9](PHASE9_INTEGRATION.md)，真实 Embedding/语义 RAG/浏览器见[阶段 10](PHASE10_EMBEDDING_RAG.md)。按用户授权已推送阶段 10 的 `4b95daf`，对应 Actions `39432044305` 成功。随后[阶段 11](PHASE11_LIVE_EVALUATION.md)运行 29 题真实对照，保留严格失败和逐题证据，不宣称真实质量通过；新增内容仅本地提交。下文保留各历史阶段当时的状态。
 
 ## 阶段 1：基线与兼容性
 

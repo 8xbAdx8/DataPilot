@@ -6,7 +6,9 @@
 
 AI 升级已实现：**LangGraph** 编排检索/规划/生成/校验/执行与最多一次字段修复；**LangChain Agent** 在限定的只读工具中选择 Schema、画像、业务知识、指标口径与澄清；**pgvector + 独立 Embedding** 保存并按用户/数据集过滤知识；**RAG** 将实际来源提供给 SQL 生成并在界面展示引用；**LangSmith** 默认关闭，只在显式启用后导出白名单性能元数据。详细交付和当前验证状态见 [升级验收](docs/UPGRADE_ACCEPTANCE.md)、[阶段记录](docs/AI_UPGRADE.md)、[评估报告](docs/EVALUATION.md) 和 [追踪隐私](docs/LANGSMITH.md)。
 
-升级分支 `codex/agent-rag-upgrade` 已推送至阶段 9 提交 `0e7b1c7`，对应 GitHub Actions 成功。[阶段 10 真实验收](docs/PHASE10_EMBEDDING_RAG.md)新增内容仅本地提交：百炼 `text-embedding-v4` 真实 1536 维向量 → pgvector 语义检索/权限隔离 → DeepSeek 原生 Agent → LangGraph → SQL 安全校验 → DuckDB → 生产容器浏览器图表、来源、历史和导出。合成净贡献额为 18，分组 East=6、West=12；真实专项 3 项、真实浏览器 1 项通过。LangSmith 云端及统一真实模型评估尚未运行。
+升级分支 `codex/agent-rag-upgrade` 已推送至阶段 10 提交 `4b95daf`，[对应 GitHub Actions](https://github.com/8xbAdx8/DataPilot/actions/runs/39432044305) 的 application / compose 均成功。[阶段 10 真实验收](docs/PHASE10_EMBEDDING_RAG.md)跑通百炼 1536 维向量 → pgvector → DeepSeek 原生 Agent → LangGraph → SQL 安全校验 → DuckDB → 生产容器浏览器图表、来源、历史和导出；合成净贡献额为 18，分组 East=6、West=12。
+
+[阶段 11 固定真实评测](docs/PHASE11_LIVE_EVALUATION.md)已实际执行基础/增强各 29 题，保留[逐题证据](docs/evaluation-live.json)，本阶段仅本地提交。严格结果符合率为 1/13 与 0/13，包含列别名/排序契约差异，也发现 Agent 工具预算、无关召回与澄清问题；不能宣称真实质量验收通过。真实 RAG 将登记指标结果从 36 修正为 30；18 次真实 Embedding 成功，增强模式 9 个安全题均未进入执行器。单批小题库不能证明通用准确率，LangSmith 云端仍未验证。
 
 无需付费服务即可运行 Mock 分析；`EMBEDDING_PROVIDER=none` 默认禁用知识索引，演示 RAG 须显式使用 `fake`，真实专项与浏览器专项默认关闭。阶段 10 的固定案例不代表自然语言泛化准确率或大规模语义召回率。
 

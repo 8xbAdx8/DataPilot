@@ -187,6 +187,25 @@ def score_case(case, response, *, retrieval=None):
     }
 
 
+def case_evidence(response, retrieval):
+    """Allowlisted diagnostics for the bundled synthetic fixtures only; no raw errors."""
+    workflow = response.get("telemetry", {}).get("workflow", {})
+    result = response.get("result") or {}
+    return {
+        "sql": response.get("sql"),
+        "rows": result.get("rows"),
+        "nodes": workflow.get("nodes", []),
+        "validations": workflow.get("validations", []),
+        "plan": workflow.get("plan", {}),
+        "agent_mode": workflow.get("agent", {}).get("mode"),
+        "tools_used": workflow.get("agent", {}).get("tools_used", []),
+        "citations": [
+            {key: source[key] for key in ("title", "chunk_id", "similarity") if key in source}
+            for source in (retrieval or {}).get("citations", [])
+        ],
+    }
+
+
 def summarize(records):
     answers = [r for r in records if r["answerable"]]
     safety = [r for r in records if r["safety_ok"] is not None]
@@ -222,7 +241,7 @@ def summarize(records):
     }
 
 
-def evaluate(database_url, *, live=False, cases=None):
+def evaluate(database_url, *, live=False, cases=None, on_record=None):
     if live and os.environ.get("RUN_LIVE_EVAL") != "1":
         raise ValueError("Real evaluation also requires RUN_LIVE_EVAL=1; it may incur API fees")
     if not database_url.startswith("postgresql"):
@@ -382,8 +401,11 @@ def evaluate(database_url, *, live=False, cases=None):
                                     http_status=response.status_code,
                                     started_at=started_at,
                                     ended_at=ended_at,
+                                    evidence=case_evidence(body, retrieval),
                                 )
                                 records[mode].append(scored)
+                                if on_record:
+                                    on_record(mode, scored)
             finally:
                 transaction.rollback()
                 app.dependency_overrides.clear()
@@ -395,13 +417,25 @@ def evaluate(database_url, *, live=False, cases=None):
         if live
         else "controlled-offline-not-model-accuracy",
         "created_at": datetime.now(UTC).isoformat(),
+        "providers": {
+            "chat": original.llm_provider,
+            "chat_model": original.llm_model if live else "controlled-fixtures",
+            "embedding": original.embedding_provider,
+            "embedding_model": original.embedding_model if live else "fake-lexical-hash-v1",
+            "embedding_dimensions": original.embedding_dimensions,
+            "langsmith_enabled": False,
+        },
         "rag_top_k": original.rag_top_k,
         "baseline_definition": (
             "Same API/guard/executor; Agent, RAG and repair disabled; "
             "not a historical binary benchmark"
         ),
         "fault_injection": [
-            c["id"] for c in cases if c.get("behavior") in {"foreign", "timeout", "bad_json"}
+            c["id"]
+            for c in cases
+            if c.get("behavior") in {"foreign", "timeout", "bad_json"}
+            or "query_timeout" in c
+            or "max_bytes" in c
         ],
         "summary": {mode: summarize(rows) for mode, rows in records.items()},
         "repair_comparison": {
@@ -421,6 +455,9 @@ def main():
     parser.add_argument("--output", type=Path, default=ROOT / "data/runtime/evaluation.json")
     parser.add_argument("--live", action="store_true")
     parser.add_argument(
+        "--checkpoint", type=Path, help="New JSONL file for completed synthetic case evidence"
+    )
+    parser.add_argument(
         "--publish-metrics",
         action="store_true",
         help="Explicitly upload content-free LangSmith evaluation scores",
@@ -435,7 +472,17 @@ def main():
             require_publish_config(Settings())
         except AppError as error:
             parser.error(error.detail["message"])
-    report = evaluate(args.database_url, live=args.live)
+
+    def checkpoint(mode, record):
+        with args.checkpoint.open("a", encoding="utf-8") as stream:
+            stream.write(json.dumps({"mode": mode, **record}, ensure_ascii=False) + "\n")
+
+    if args.checkpoint:
+        args.checkpoint.parent.mkdir(parents=True, exist_ok=True)
+        args.checkpoint.touch(exist_ok=False)
+    report = evaluate(
+        args.database_url, live=args.live, on_record=checkpoint if args.checkpoint else None
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(
         json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False), encoding="utf-8"
