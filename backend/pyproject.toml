@@ -14,6 +14,9 @@ dependencies = [
   "python-multipart>=0.0.20,<1", "duckdb>=1.4,<2",
   "pandas>=2.2,<4", "openpyxl>=3.1.5,<4",
   "sqlglot>=27,<31", "httpx>=0.28,<1",
+  "langgraph>=1.2.16,<1.3", "langchain>=1.4.6,<1.5",
+  "langchain-openai>=1.7.2,<1.8", "langsmith>=0.14.11,<0.15",
+  "pgvector>=0.5.1,<0.6", "websockets>=15,<17",
 ]
 
 [project.optional-dependencies]
