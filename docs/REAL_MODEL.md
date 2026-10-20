@@ -4,7 +4,7 @@
 
 知识索引需要另设 `EMBEDDING_PROVIDER=openai`、`EMBEDDING_MODEL=text-embedding-3-small`、`EMBEDDING_BASE_URL=https://api.openai.com/v1`、`EMBEDDING_API_KEY`、`EMBEDDING_DIMENSIONS=1536`。默认 `none` 明确未配置，不复用 DeepSeek 聊天 Key。真实接口按 OpenAI 官方 Embedding 合同实现并完成受控 HTTP 合同测试，尚未调用真实 Embedding 服务。`fake` 仅用于演示词项哈希检索，页面会显示测试向量提示。先用 `RUN_LIVE_EMBEDDING=1` 跑 `backend/tests/test_embeddings.py` 的显式专项，再重建知识索引。
 
-新增真实专项和统一评估均未在本次默认回归中启用，参见 [固定评估](EVALUATION.md)。原有下方单个 DeepSeek 测试记录是升级前证据；当前开发验收进程为 Mock/Fake，未改写用户的 `.env`，切回真实配置须停止该测试 API 后重启。
+新增真实专项默认关闭，参见 [固定评估](EVALUATION.md)。[阶段 9](PHASE9_INTEGRATION.md)已单独启用并通过真实 DeepSeek 原生工具、Graph/SQL/历史专项；独立 Embedding、语义 RAG、云端追踪和完整真实评估仍阻塞。下方首次单题记录属于升级前证据。常驻开发验收进程仍为 Mock/Fake，未改写用户的 `.env`，切回真实配置须停止该测试 API 后重启。
 
 项目已有兼容 Chat Completions 的 Provider。首次可使用 DeepSeek；这里不涉及部署模型或训练模型，而是由 FastAPI 调用提供商 API 生成 SQL，再由本地安全校验和 DuckDB 执行。
 

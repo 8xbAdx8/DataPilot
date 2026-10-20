@@ -2,7 +2,7 @@
 
 ## 2026-10-17 · 环境检查
 
-- `D:\codexproject\DataPilot` 初始为空，无 Git 历史/用户文件；已初始化仓库。
+- 项目工作目录初始为空，无 Git 历史/用户文件；已初始化仓库。
 - Node.js 24.15.0、npm 11.12.1、Git 2.54.0。
 - Python Launcher 存在默认 3.14 和独立 3.12.14；显式选用 3.12.14 创建 `.venv`，项目限制 `>=3.12,<3.13`。
 - Docker 29.6.2、Compose v5.3.1 已安装，初次检查引擎未运行；正在尝试启动。
@@ -133,3 +133,11 @@
 - 显式设置 RUN_LIVE_LLM=1，仅执行 `backend/tests/test_live_llm.py`，完成 **1 passed**（2.42 秒为整个 pytest 测试过程，非独立模型延迟）。真实 API 生成 SQL，严格解析和 AST 校验后，由受限 DuckDB 对 10/20/30 合成数据执行，单字段实际结果为 3。未替换 Provider、HTTP 或数据库执行器；测试结束后移除该进程中的 RUN_LIVE_LLM 开关。没有继续发起其他付费模型调用。
 - 原 API 仍缓存 Mock 配置；核对此前启动的本项目服务命令与 8000 端口归属后重启。后端直连与 Next 同源 `/api/config` 均为 deepseek / deepseek-flash，数据库就绪；本地服务保持运行。没有修改用户 `.env`、账户或业务数据。
 - 复核接入准备提交 `f9a8ca7` 的 Actions `39377994467`：application 与 compose 均成功。该 CI 使用 Mock Provider，不能充当真实模型验收。当前仅有单个真实 API / 安全 SQL / DuckDB 用例，尚未据此宣称复杂分析、图表和真实模型浏览器端到端通过，也不推断准确率或实际账单金额。
+
+## 2026-10-20 · 阶段 9 真实集成验收与推送前审计
+
+- 基线 `e4015b3` 工作区干净，先建立[验收计划和报告](PHASE9_INTEGRATION.md)，不扩展生产代码。明确聊天为真实 DeepSeek、Embedding 未配置、LangSmith 关闭且无 Key，常驻验收服务仍为 Mock/Fake。
+- 显式真实专项 **3 passed**。实际原生 Schema/画像工具 → 结构化计划 → LangGraph → 真实 SQL → AST → DuckDB，合成分组 East=40、West=20；校验图表配置、历史、CSV 与审计。该案例 Agent 2 次 + SQL 1 次请求、3071 Token，金额未知；不是完整真实 RAG 或浏览器验收。
+- PostgreSQL 全套 **328 passed / 4 skipped**，SQLite **310 passed / 22 skipped**；新专项默认关闭，旧测试保留。前端 lint/build、本机和生产容器 Playwright 各 **13 passed**；Docker 启动/健康/查询/知识/账户冒烟通过，均明确 Mock/Fake。迁移重复执行与临时库回退、Ruff 和 pip check 通过。
+- 先前系统临时目录权限错误已通过独立仓库临时目录修复后完整重跑，未跳过失败用例。全部可达 20 个提交、328 个文件版本审计未命中真实 Key 或私钥特征；公开本地示例与测试值已分类。当前泛化开发路径，历史仍保留非敏感路径，未重写历史。
+- 真实 Embedding/语义 RAG、LangSmith 云端和包含它们的完整真实 E2E 标记阻塞，未推送 GitHub。所有逐项证据、命令与边界见阶段报告。

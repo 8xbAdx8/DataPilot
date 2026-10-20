@@ -56,4 +56,4 @@ $env:RUN_LIVE_EVAL='1'
 .\.venv\Scripts\python -m app.evaluate --live --output data/runtime/evaluation-live.json
 ```
 
-未设置 RUN_LIVE_EVAL=1，或聊天/Embedding 缺真实配置即拒绝启动。超时、错误 JSON、跨用户用例仍是明确标记的故障注入，其他用例调用真实 Provider/Agent；报告标记 `live-chat-and-embedding-with-injected-faults`。真实模型输出可采用不同列别名或排序，被严格结果规则判错时应复核题目，不能为追求通过放宽安全约束。当前未运行真实评估，真实 Agent、Embedding、准确率、Token 成本与云端 LangSmith 评估均未测量。
+未设置 RUN_LIVE_EVAL=1，或聊天/Embedding 缺真实配置即拒绝启动。超时、错误 JSON、跨用户用例仍是明确标记的故障注入，其他用例调用真实 Provider/Agent；报告标记 `live-chat-and-embedding-with-injected-faults`。真实模型输出可采用不同列别名或排序，被严格结果规则判错时应复核题目，不能为追求通过放宽安全约束。当前未运行统一真实评估；[阶段 9](PHASE9_INTEGRATION.md)另外验证了单个真实 Agent/SQL 分组链路及其 Token，不能替代本题库真实准确率、真实 Embedding/语义召回和云端评估。金额仍未知。

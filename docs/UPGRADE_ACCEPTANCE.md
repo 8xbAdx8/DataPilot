@@ -1,5 +1,7 @@
 # DataPilot AI 升级交付与验收
 
+本页记录阶段 1–8 的交付快照；后续真实模型证据、当前配置阻塞和推送前审计见[阶段 9 验收](PHASE9_INTEGRATION.md)。下文“尚未运行真实服务”指该快照验收时点。
+
 基线 `a7971cb`，分支 `codex/agent-rag-upgrade`。保留原认证、所有权、CSRF、事务、配额、审计、SQL 安全和界面，未改写用户 .env；升级提交仅在本地，未推送、发布或调用收费服务。各阶段证据见 [AI_UPGRADE](AI_UPGRADE.md)，固定测量见 [EVALUATION](EVALUATION.md)，全部 61 个新增/修改文件见 [逐文件清单](UPGRADE_FILES.md)。
 
 ## 实现与数据流
