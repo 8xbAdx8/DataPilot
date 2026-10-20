@@ -126,3 +126,10 @@
 - 对照 DeepSeek 官方入门与 Chat Completions 文档，将代码默认值和 `.env.example` 的示例模型更新为 `deepseek-flash`。当前 API 默认开启思考，适配器仅在 deepseek Provider 显式关闭 thinking，避免耗尽原有 1000 Token 的 SQL JSON 输出预算；其他兼容 Provider 不收到专用参数。
 - 新增 REAL_MODEL 中文操作文档：开放平台 Key、本地 .env、重启、显式真实 API 专项、合成样例核对、费用与错误边界；未读取或写入用户实际 Key，也未修改本地 .env。
 - Provider/真实调用开关/遥测/分析回归 **46 passed / 1 skipped**，包含三种 Provider 的请求合同；真实 API 专项因未显式启用而跳过，不能把 MockTransport 测试记作真实模型验证。Ruff check / format 通过；后续真实调用须由用户本地配置凭据并明确启用验收。
+
+## 2026-10-20 · 首次真实 DeepSeek 验收
+
+- 用户已在本地配置并授权真实调用。只输出 Provider、模型、官方 API host、是否存在 Key 及超时等非敏感配置，未输出 Key；本机为 deepseek / deepseek-flash，HTTPS，超时 60 秒，无同名进程环境覆盖。确认 `.env` 被 Git 忽略且未跟踪。
+- 显式设置 RUN_LIVE_LLM=1，仅执行 `backend/tests/test_live_llm.py`，完成 **1 passed**（2.42 秒为整个 pytest 测试过程，非独立模型延迟）。真实 API 生成 SQL，严格解析和 AST 校验后，由受限 DuckDB 对 10/20/30 合成数据执行，单字段实际结果为 3。未替换 Provider、HTTP 或数据库执行器；测试结束后移除该进程中的 RUN_LIVE_LLM 开关。没有继续发起其他付费模型调用。
+- 原 API 仍缓存 Mock 配置；核对此前启动的本项目服务命令与 8000 端口归属后重启。后端直连与 Next 同源 `/api/config` 均为 deepseek / deepseek-flash，数据库就绪；本地服务保持运行。没有修改用户 `.env`、账户或业务数据。
+- 复核接入准备提交 `f9a8ca7` 的 Actions `39377994467`：application 与 compose 均成功。该 CI 使用 Mock Provider，不能充当真实模型验收。当前仅有单个真实 API / 安全 SQL / DuckDB 用例，尚未据此宣称复杂分析、图表和真实模型浏览器端到端通过，也不推断准确率或实际账单金额。

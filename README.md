@@ -4,7 +4,7 @@
 
 ## 开发状态
 
-已跑通完整 Mock 闭环：账户登录 → CSV/XLSX → DuckDB → 字段画像 → 自然语言生成 SQL → AST 安全校验 → 真实查询 → 表格/ECharts/事实总结 → 历史搜索与 CSV 导出。PostgreSQL 保存账户、会话和业务元信息，后端强制数据集所有权校验，提供删除与保留清理。GitHub Actions 已验证此前版本的应用检查与 Linux Compose 冒烟；新提交按对应 Actions 结果验收。真实 LLM API 仍待配置凭据后验证。
+已跑通完整 Mock 闭环：账户登录 → CSV/XLSX → DuckDB → 字段画像 → 自然语言生成 SQL → AST 安全校验 → 真实查询 → 表格/ECharts/事实总结 → 历史搜索与 CSV 导出。PostgreSQL 保存账户、会话和业务元信息，后端强制数据集所有权校验，提供删除与保留清理。GitHub Actions 已验证应用检查与 Linux Compose 冒烟；新提交按对应 Actions 结果验收。2026-10-20 已通过 DeepSeek `deepseek-flash` 真实 API 专项：生成 SQL → AST 校验 → DuckDB 执行，合成数据行数为 3；该单用例不代表整体模型准确率或真实模型浏览器全套验收。
 
 文档：[实施计划](docs/PLAN.md) · [架构与学习入口](docs/ARCHITECTURE.md) · [安全策略](docs/SECURITY.md) · [运行与保留策略](docs/OPERATIONS.md) · [真实模型接入](docs/REAL_MODEL.md) · [配额与执行诊断](docs/OBSERVABILITY.md) · [演示与验收](docs/DEMO.md) · [实际开发记录](docs/DEVELOPMENT.md)。
 

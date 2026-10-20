@@ -62,3 +62,9 @@ try {
 - SQL 安全拒绝：保留拒绝结果，不能通过放宽校验来完成接入。
 
 其他提供商使用 `openai` / `openai_compatible`，须自行设置对应的模型、Base URL 和 Key，并支持当前发送的 JSON Output、temperature、max_tokens 及 Chat Completions 格式。并非所有兼容 API 或模型都支持全部参数。
+
+## 已执行记录（2026-10-20）
+
+用户在本机配置并授权后，真实 `deepseek-flash` 专项 **1 passed**（2.42 秒包含完整 pytest 测试过程，不能当作模型延迟指标）：合成数据 10/20/30 → 真实 API 生成 SQL → AST 安全检查 → 受限 DuckDB 执行 → 单字段结果为 3。没有使用 MockTransport、Mock Provider 或结果兜底。
+
+已重启本项目后端，直连 8000 和前端同源代理 3000 的 `/api/config` 均显示 deepseek / deepseek-flash，`/api/health/ready` 正常。未额外调用付费模型来执行浏览器分组/图表全套；现有 CI 的浏览器与容器查询使用 Mock Provider，必须与本次真实 API 专项分开理解。Key 只保留在忽略的本地 `.env` 中，不在验证记录中保存凭据或提供商原始响应。

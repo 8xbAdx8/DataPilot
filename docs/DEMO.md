@@ -28,6 +28,6 @@
 
 [首轮 GitHub Actions](https://github.com/8xbAdx8/DataPilot/actions/runs/39051736631) 在提交 `da76f81` 验证了真实 PostgreSQL 后端 117 passed / 1 skipped（真实 LLM）、5 项 Chromium E2E、静态检查/构建，以及 Linux Compose 构建/健康/HTTP 冒烟。后续功能的验证见 DEVELOPMENT 与对应提交的 Actions，不能把旧提交的绿色结果套用到新代码。
 
-尚无真实模型 API 验证。当前支持账户、密码修改/管理员重置、会话管理和用户数据所有权，尚无自助找回、MFA、组织共享或完整公网防滥用措施。没有测量线上容量、并发吞吐或真实模型准确率，不应在简历中编造这些指标。Windows Docker 引擎问题仍未修复，Linux 容器验收按提交查看 CI。
+2026-10-20 已通过 DeepSeek `deepseek-flash` 的单个真实 API / AST / DuckDB 行数用例（1 passed，结果 3），并确认运行中的前后端配置已切换。该结果不是模型准确率评测；真实模型的分组分析、图表和浏览器完整闭环尚未单独验收。当前支持账户、密码修改/管理员重置、会话管理和用户数据所有权，尚无自助找回、MFA、组织共享或完整公网防滥用措施。没有测量线上容量、并发吞吐或真实模型准确率，不应在简历中编造这些指标。Windows Docker 引擎问题仍未修复，Linux 容器验收按提交查看 CI。
 
 可据实描述项目：实现支持 CSV/XLSX 的自然语言分析平台，使用 SQL AST 校验和受限 DuckDB 执行真实查询，提供结果可视化、历史检索和 CSV 导出，并通过 PostgreSQL 集成测试及 Docker Compose CI 验证。
