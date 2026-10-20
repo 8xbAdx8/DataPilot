@@ -14,6 +14,7 @@ from app.config import get_settings
 from app.datasets import router as dataset_router
 from app.db import get_session
 from app.errors import AppError
+from app.knowledge import router as knowledge_router
 from app.middleware import BodyLimitMiddleware, SecurityMiddleware
 from app.observability import RequestTelemetryMiddleware
 
@@ -23,13 +24,14 @@ app.add_middleware(SecurityMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=get_settings().cors_origins,
-    allow_methods=["GET", "POST", "DELETE"],
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["Content-Type", "X-DataPilot-CSRF"],
 )
 app.add_middleware(RequestTelemetryMiddleware)
 app.include_router(auth_router)
 app.include_router(dataset_router)
 app.include_router(analysis_router)
+app.include_router(knowledge_router)
 
 
 @app.exception_handler(RequestValidationError)
@@ -83,6 +85,23 @@ def public_config():
             "analyses_per_window": settings.analysis_requests_per_window,
             "uploads_per_window": settings.upload_requests_per_window,
             "window_seconds": settings.rate_limit_window_seconds,
+        },
+        "workflow": {
+            "engine": "langgraph",
+            "agent_enabled": settings.agent_enabled,
+            "sql_repair_enabled": settings.sql_repair_enabled,
+        },
+        "embedding": {
+            "provider": settings.embedding_provider,
+            "model": "fake-lexical-hash-v1"
+            if settings.embedding_provider == "fake"
+            else settings.embedding_model,
+            "dimensions": settings.embedding_dimensions,
+            "configured": settings.embedding_provider == "fake"
+            or bool(
+                settings.embedding_provider in {"openai", "openai_compatible"}
+                and settings.embedding_api_key
+            ),
         },
     }
 

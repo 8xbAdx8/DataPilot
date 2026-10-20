@@ -72,7 +72,12 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
       window.dispatchEvent(new Event("datapilot-session-expired"));
     }
     const detail = body?.detail;
-    const message = typeof detail === "string" ? detail : detail?.message;
+    const message =
+      typeof detail === "string"
+        ? detail
+        : Array.isArray(detail)
+          ? detail[0]?.msg
+          : detail?.message;
     throw new ApiError(
       message ?? `请求失败（HTTP ${response.status}）`,
       detail?.code,
@@ -92,6 +97,31 @@ export type Summary = {
   facts?: string[];
   hypotheses?: string[];
   limitations?: string[];
+};
+export type KnowledgeCitation = {
+  chunk_id: string;
+  document_id: string;
+  chunk_index: number;
+  title: string;
+  source_type: string;
+  excerpt: string;
+  similarity: number | null;
+};
+export type KnowledgeDocument = {
+  id: string;
+  dataset_id: string | null;
+  title: string;
+  source_type: string;
+  status: "pending" | "ready" | "failed";
+  error_code: string | null;
+  embedding_space: string | null;
+  fake_embedding: boolean;
+  chunk_count: number;
+  version: number;
+  content: string | null;
+  duplicate: boolean;
+  created_at: string;
+  updated_at: string;
 };
 export type QueryResult = {
   columns: { name: string; type: string }[];
@@ -122,6 +152,28 @@ export type Analysis = {
   created_at: string;
   request_id?: string | null;
   telemetry?: {
+    workflow?: {
+      engine: string;
+      nodes: string[];
+      stage_timings_ms: Record<string, number>;
+      repair_attempts: number;
+      sql_model_calls: number;
+      agent?: {
+        model_calls: number;
+        tool_calls: number;
+        tools_used: string[];
+        mode: string;
+        usage?: Record<string, number>;
+      };
+      rag?: {
+        status: string;
+        source?: string;
+        used: boolean;
+        error_code?: string | null;
+        retrieved_count?: number;
+        citations: KnowledgeCitation[];
+      };
+    };
     timings_ms?: Record<string, number>;
     usage?: {
       source: "provider" | "mock" | "unavailable";

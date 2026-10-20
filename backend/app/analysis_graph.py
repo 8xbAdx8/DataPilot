@@ -26,6 +26,7 @@ class AnalysisState(TypedDict, total=False):
     repairable: bool
     status: str
     plan: dict
+    rag: dict
 
 
 @dataclass
@@ -51,6 +52,13 @@ class AnalysisRun:
     planner: Callable[[], dict] | None = None
     plan: dict = field(default_factory=dict)
     agent_metrics: dict = field(default_factory=dict)
+    retriever: Callable[[], dict] | None = None
+    rag: dict = field(
+        default_factory=lambda: {"status": "not_requested", "used": False, "citations": []}
+    )
+
+    def generation_context(self):
+        return {"analysis_plan": self.plan, "business_knowledge": self.rag.get("citations", [])}
 
     def __post_init__(self):
         self.deadline = time.monotonic() + self.settings.workflow_timeout_seconds
@@ -66,6 +74,7 @@ class AnalysisRun:
             "validations": self.validations.copy(),
             "plan": self.plan.copy(),
             "agent": self.agent_metrics.copy(),
+            "rag": self.rag.copy(),
         }
 
     def budget(self):
@@ -117,9 +126,10 @@ def build_graph(run: AnalysisRun):
         try:
             with run.measure("provider"):
                 contextual = getattr(run.provider, "generate_with_context", None)
+                run.rag["used"] = bool(run.rag.get("citations") and callable(contextual))
                 proposal = (
-                    contextual(state["question"], state["schema"], {"analysis_plan": run.plan})
-                    if run.plan and callable(contextual)
+                    contextual(state["question"], state["schema"], run.generation_context())
+                    if (run.plan or run.rag.get("citations")) and callable(contextual)
                     else run.provider.generate(state["question"], state["schema"])
                 )
         finally:
@@ -157,6 +167,10 @@ def build_graph(run: AnalysisRun):
             and run.settings.sql_repair_enabled
             and run.repairs == 0
             and callable(getattr(run.provider, "repair", None))
+            and (
+                not run.rag.get("used")
+                or callable(getattr(run.provider, "repair_with_context", None))
+            )
         ):
             return "repair"
         return END
@@ -166,8 +180,18 @@ def build_graph(run: AnalysisRun):
         run.sql_calls += 1
         try:
             with run.measure("provider"):
-                proposal = run.provider.repair(
-                    state["question"], state["schema"], state["proposal"]["sql"]
+                contextual = getattr(run.provider, "repair_with_context", None)
+                proposal = (
+                    contextual(
+                        state["question"],
+                        state["schema"],
+                        state["proposal"]["sql"],
+                        run.generation_context(),
+                    )
+                    if callable(contextual)
+                    else run.provider.repair(
+                        state["question"], state["schema"], state["proposal"]["sql"]
+                    )
                 )
         finally:
             usage = getattr(run.provider, "usage", None)
@@ -191,6 +215,13 @@ def build_graph(run: AnalysisRun):
     graph = StateGraph(AnalysisState)
     graph.add_node("prepare", node("prepare", lambda _: {"repair_attempts": 0}))
 
+    def retrieve(_):
+        run.rag = run.retriever()
+        return {"rag": run.rag}
+
+    if run.retriever:
+        graph.add_node("retrieve", node("retrieve", retrieve))
+
     def plan(_):
         run.plan = run.planner()
         return {
@@ -209,15 +240,18 @@ def build_graph(run: AnalysisRun):
     ):
         graph.add_node(name, node(name, function))
     graph.add_edge(START, "prepare")
+    first = "retrieve" if run.retriever else "prepare"
+    if run.retriever:
+        graph.add_edge("prepare", "retrieve")
     if run.planner:
-        graph.add_edge("prepare", "plan")
+        graph.add_edge(first, "plan")
         graph.add_conditional_edges(
             "plan",
             lambda state: END if state["status"] == "clarification" else "generate",
             [END, "generate"],
         )
     else:
-        graph.add_edge("prepare", "generate")
+        graph.add_edge(first, "generate")
     graph.add_edge("generate", "validate")
     graph.add_conditional_edges("validate", route, ["execute", "repair", END])
     graph.add_edge("repair", "validate")

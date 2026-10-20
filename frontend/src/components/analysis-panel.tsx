@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/data-table";
 import { ResultChart } from "@/components/result-chart";
 import { AnalysisDiagnostics } from "@/components/analysis-diagnostics";
+import { AnalysisWorkflow } from "@/components/analysis-workflow";
 import {
   AnalysisHistory,
   analysisStatuses,
@@ -176,6 +177,7 @@ export function AnalysisPanel({ dataset }: { dataset: Dataset }) {
           </CardHeader>
           <CardContent className="space-y-5">
             <AnalysisDiagnostics analysis={active} />
+            <AnalysisWorkflow analysis={active} />
             {active.status === "clarification" && (
               <div
                 role="status"

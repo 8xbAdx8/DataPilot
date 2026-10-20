@@ -78,3 +78,15 @@ Agent 最多 3 次模型、4 次工具调用；保守预留最多 64000 Token（
 本机实际安装官方源码编译的 0.8.7；业务库与测试库升级及 Alembic check 通过。新建临时库实际验证 0005 → 0006 → 0005 → 0006，旧平台用户保留；回退移除本阶段表/索引，但有意保留可能被其他应用使用的共享 vector 扩展，不执行 DROP EXTENSION CASCADE。真实 pgvector 存储与 cosine 运算、索引定义已测试。检查约束首版发现 SQL NULL 逻辑遗漏，已在仍为空的新表上修正，未回退业务库。
 
 完整 PostgreSQL 回归 **280 passed / 3 skipped**；新增 NULL 约束回归后向量/Embedding 专项 **23 passed / 1 skipped**，Ruff、迁移 check、Compose config 通过。三个付费专项 SQL/原生工具/Embedding 默认分别跳过。Compose 保持 postgres:17-alpine，通过固定官方源码 commit 编译扩展，运行镜像不含编译工具、构建上下文仅 infra，不发送 .env 或数据。Docker 引擎仍不可用，镜像实际构建/启动留待阶段 8，不记为已通过。
+
+## 阶段 5：知识管理与 RAG
+
+`knowledge.py` 提供当前数据集的结构化知识条目 CRUD、去重、版本更新、重建索引和检索 API。每份知识最多 16000 字符、32768 UTF-8 字节，800 字符分块、100 字符重叠；禁止常见凭据格式，每人最多 100 份文档。远程嵌入前提交 pending 状态，结束后按 owner + 版本加锁检查，避免旧请求覆盖新文档、删除后复活或长时间持有行锁。失败保留明确 error_code，可手动恢复。
+
+检索使用 MATERIALIZED 授权子查询，先限定 owner、当前 dataset 或同 owner personal 作用域、ready 和 embedding_space，再计算 cosine/top-k/阈值。当前以过滤后的精确检索保证隔离与召回；虽然已有 HNSW 索引，暂不声称 ANN 性能收益。外来数据集和用户知识不会进入候选集合。没有配置、无文档、空间不匹配、未命中和检索失败都有不同状态；简单 Schema 查询仍可继续。
+
+图中 retrieve → Agent plan → generate 传递最多 4 个实际来源。Agent 可以自主选择 search_business_knowledge/get_metric_definition；每次工具调用仍检查所有权。模型输出的引用 ID 必须来自真实候选，冲突或未知字段别名请求澄清。知识片段视为不可信上下文，绝不执行其中的 SQL；生成和有限修复后均执行完整 AST 安全检查。Mock 仅支持显式 JSON 字段别名映射，不能冒充业务语义推理。
+
+前端沿用现有组件：数据集中的知识管理支持新增、查看/编辑、删除、重索引与失败状态；分析结果显示阶段、修复/调用数和本次实际使用的文档/分块/相关片段。删除立即影响新检索，已保存分析引用快照随历史保留（默认 30 天）；删除数据集会删除其知识。敏感个人信息仍需导入者预先去敏，凭据格式检测不等于通用 PII 清洗。
+
+验证：PostgreSQL 完整后端 **303 passed / 3 skipped**；Ruff、ESLint、生产构建通过；Edge **13 passed**，包含知识登记、查看、重索引、真实结果 60、实际引用、删除和 390px 无横向溢出。真实聊天、原生工具、Embedding 三个付费专项未启用。浏览器 API 进程显式使用 mock + fake，仅影响测试进程，不修改用户 .env。

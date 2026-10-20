@@ -60,6 +60,26 @@ class MockProvider:
 
     usage = TokenUsage(source="mock", prompt_tokens=0, completion_tokens=0, total_tokens=0)
 
+    def generate_with_context(self, question, fields, context):
+        # Explicit deterministic alias support for demo/evaluation. Never execute
+        # knowledge SQL or pretend that this is semantic model inference.
+        names = {f["name"] for f in fields}
+        for source in context.get("business_knowledge", []):
+            if source.get("source_type") != "field_alias":
+                continue
+            try:
+                alias = json.loads(source["excerpt"])
+                if (
+                    isinstance(alias, dict)
+                    and isinstance(alias.get("alias"), str)
+                    and alias.get("field") in names
+                    and alias["alias"]
+                ):
+                    question = question.replace(alias["alias"], alias["field"])
+            except (ValueError, TypeError, KeyError):
+                continue
+        return self.generate(question, fields)
+
     def generate(self, question: str, fields: list[dict]) -> SqlProposal:
         q = question.casefold()
         if any(token in q for token in ("多少行", "行数", "how many rows", "count rows")):
@@ -136,8 +156,13 @@ class CompatibleProvider:
         return self.generate_with_context(question, fields, {})
 
     def repair(self, question: str, fields: list[dict], previous_sql: str) -> SqlProposal:
+        return self.repair_with_context(question, fields, previous_sql, {})
+
+    def repair_with_context(self, question, fields, previous_sql, context):
         return self.generate_with_context(
-            question, fields, {"repair": {"previous_sql": previous_sql, "code": "unknown_column"}}
+            question,
+            fields,
+            {**context, "repair": {"previous_sql": previous_sql, "code": "unknown_column"}},
         )
 
     def generate_with_context(

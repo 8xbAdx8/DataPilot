@@ -41,7 +41,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
         working-directory: frontend
       - run: |
-          uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000 --no-access-log > /tmp/datapilot-api.log 2>&1 &
+          EMBEDDING_PROVIDER=fake RAG_MIN_SIMILARITY=0.05 uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000 --no-access-log > /tmp/datapilot-api.log 2>&1 &
           python infra/wait-for-api.py
           npm --prefix frontend run test:e2e
 

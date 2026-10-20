@@ -21,6 +21,7 @@ from app.auth import UserDep
 from app.datasets import SessionDep, SettingsDep, dataset_path, find_dataset
 from app.errors import AppError
 from app.execution import execute_query
+from app.knowledge import metric_definition, retrieve_knowledge
 from app.models import Analysis, AuditEvent, Dataset
 from app.observability import emit, timed
 from app.presentation import describe_result
@@ -152,14 +153,31 @@ def analyze(
     )
     if settings.agent_enabled:
         planner = PlannerContext(session, user.id, str(dataset_id), settings, run.deadline)
+        planner.search = lambda query: retrieve_knowledge(
+            session, user.id, str(dataset_id), query, settings, deadline=run.deadline
+        )
+        planner.metric_lookup = lambda name: metric_definition(
+            session, user.id, str(dataset_id), name, settings
+        )
 
         def make_plan():
             try:
-                return plan_analysis(planner, body.question).model_dump()
+                planner.knowledge = run.rag.get("citations", []).copy()
+                plan = plan_analysis(planner, body.question)
+                run.rag["retrieved_count"] = len(planner.knowledge)
+                run.rag["citations"] = [
+                    item
+                    for item in planner.knowledge
+                    if item["chunk_id"] in plan.knowledge_chunk_ids
+                ]
+                return plan.model_dump()
             finally:
                 run.agent_metrics = planner.metadata()
 
         run.planner = make_plan
+    run.retriever = lambda: retrieve_knowledge(
+        session, user.id, str(dataset_id), body.question, settings, deadline=run.deadline
+    )
     identifiers = {
         "request_id": analysis.request_id,
         "analysis_id": analysis.id,
