@@ -149,6 +149,13 @@ class CompatibleProvider:
                     headers={"Authorization": f"Bearer {settings.llm_api_key}"},
                     json={
                         "model": settings.llm_model,
+                        # DeepSeek currently defaults to thinking mode, which shares
+                        # this small output budget. Text-to-SQL needs the final JSON.
+                        **(
+                            {"thinking": {"type": "disabled"}}
+                            if settings.llm_provider == "deepseek"
+                            else {}
+                        ),
                         "temperature": 0,
                         "max_tokens": 1000,
                         "response_format": {"type": "json_object"},

@@ -6,7 +6,7 @@
 
 已跑通完整 Mock 闭环：账户登录 → CSV/XLSX → DuckDB → 字段画像 → 自然语言生成 SQL → AST 安全校验 → 真实查询 → 表格/ECharts/事实总结 → 历史搜索与 CSV 导出。PostgreSQL 保存账户、会话和业务元信息，后端强制数据集所有权校验，提供删除与保留清理。GitHub Actions 已验证此前版本的应用检查与 Linux Compose 冒烟；新提交按对应 Actions 结果验收。真实 LLM API 仍待配置凭据后验证。
 
-文档：[实施计划](docs/PLAN.md) · [架构与学习入口](docs/ARCHITECTURE.md) · [安全策略](docs/SECURITY.md) · [运行与保留策略](docs/OPERATIONS.md) · [配额与执行诊断](docs/OBSERVABILITY.md) · [演示与验收](docs/DEMO.md) · [实际开发记录](docs/DEVELOPMENT.md)。
+文档：[实施计划](docs/PLAN.md) · [架构与学习入口](docs/ARCHITECTURE.md) · [安全策略](docs/SECURITY.md) · [运行与保留策略](docs/OPERATIONS.md) · [真实模型接入](docs/REAL_MODEL.md) · [配额与执行诊断](docs/OBSERVABILITY.md) · [演示与验收](docs/DEMO.md) · [实际开发记录](docs/DEVELOPMENT.md)。
 
 ## 本地启动（PowerShell）
 
@@ -66,6 +66,8 @@ npm run test:e2e # 先启动后端；本机使用 Edge，CI 使用 Playwright Ch
 历史列表支持组合参数：`q` 搜索问题或 SQL（去除首尾空格、最多 200 字符、英文不区分大小写，`%` / `_` 按文字匹配），`status` 为 `running` / `success` / `rejected` / `error`，`limit` 为 1–100（默认 20），`offset` 为非负整数。界面每页 20 条，可搜索、筛选、翻页和重置；只请求元信息，不批量加载结果快照。
 
 真实模型：在根目录 `.env` 设置 `LLM_PROVIDER=deepseek`（也支持 `openai`、`openai_compatible`）、`LLM_MODEL`、`LLM_BASE_URL` 和 `LLM_API_KEY` 后重启后端。DeepSeek 的 Base URL 使用 `https://api.deepseek.com`，OpenAI 使用 `https://api.openai.com/v1`。后端会追加 `/chat/completions`。真实模式缺 Key 返回 503，不会降级 Mock。
+
+DeepSeek 当前示例模型为 `deepseek-flash`，适配器显式关闭其默认思考模式，让 1000 Token 输出预算用于 SQL JSON。其他兼容提供商不收到 DeepSeek 专用参数。按[真实模型接入步骤](docs/REAL_MODEL.md)配置并运行真实 API 专项；模型名以提供商控制台和官方文档为准。
 
 显式启用真实 API 测试（会消耗配置服务的 Token）：设置 `$env:RUN_LIVE_LLM='1'` 后运行 `.\.venv\Scripts\python -m pytest backend/tests -m live_llm`。默认跳过；HTTP MockTransport 合同测试不能替代真实 API 验证。
 

@@ -62,6 +62,40 @@ def test_compatible_http_contract_and_strict_json():
     assert result.sql == "SELECT COUNT(*) FROM data"
 
 
+@pytest.mark.parametrize("name", ["deepseek", "openai", "openai_compatible"])
+def test_thinking_toggle_is_only_sent_to_the_deepseek_provider(name):
+    config = settings()
+    config.llm_provider = name
+    config.llm_model = "configured-test-model"
+
+    def handle(request):
+        payload = json.loads(request.content)
+        assert payload["model"] == "configured-test-model"
+        assert payload["max_tokens"] == 1000
+        assert payload["response_format"] == {"type": "json_object"}
+        if name == "deepseek":
+            assert payload["thinking"] == {"type": "disabled"}
+        else:
+            assert "thinking" not in payload
+        return httpx.Response(
+            200,
+            json={
+                "choices": [
+                    {
+                        "message": {
+                            "content": json.dumps(
+                                {"sql": "SELECT COUNT(*) FROM data", "explanation": "Count rows"}
+                            )
+                        }
+                    }
+                ]
+            },
+        )
+
+    proposal = CompatibleProvider(config, httpx.MockTransport(handle)).generate("行数", FIELDS)
+    assert proposal.sql == "SELECT COUNT(*) FROM data"
+
+
 @pytest.mark.parametrize(
     "content",
     [

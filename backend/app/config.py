@@ -27,7 +27,7 @@ class Settings(BaseSettings):
         "http://127.0.0.1:3001",
     ]
     llm_provider: str = "mock"
-    llm_model: str = "deepseek-chat"
+    llm_model: str = "deepseek-flash"
     llm_base_url: str = "https://api.deepseek.com"
     llm_api_key: str = Field(default="", repr=False)
     llm_timeout_seconds: float = Field(default=30, gt=0, le=120)

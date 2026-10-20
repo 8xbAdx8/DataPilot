@@ -119,3 +119,10 @@
 - 前端 lint、typecheck、Next 生产构建通过。新增 E2E 首次定位到 Next 的空 alert，按实际错误文本定位后两项通过；检查了 390px 账户安全截图，表单和双会话无横向溢出。发现 Playwright 自动失败 ARIA 附件会含密码值，使用当前 runner 支持的 PLAYWRIGHT_NO_COPY_PROMPT 禁用；同时保持 trace 关闭，旧失败附件已清理。
 - 最终全套真实 API / Edge E2E **11 passed，exit 0**。Windows 沙箱使 Playwright 的 taskkill 无法回收 Next，测试全部完成后只结束本轮日志中确认的 3 个 Next 进程，runner 正常退出；没有结束其他 Node 或浏览器进程。Ruff check / format、pip check、git diff --check 均通过，未发现新增密钥或跟踪运行数据。
 - Compose 冒烟增加会话清单、改密、新旧密码验证和全部退出。Windows Docker 引擎问题仍在；本轮容器与 Chromium 全套结果以新提交 CI 为准。真实模型、实际账单及公网部署仍未验收；后续可增加有限 SQL 修复，始终重新进行 AST 校验并限制重试次数。
+
+## 2026-10-20 · 真实模型接入准备
+
+- 已复核 `5ded830` 的 Actions `39376772394`：真实 PostgreSQL 228 passed / 1 skipped、Chromium 11 passed；application 与 compose 均成功。容器日志确认真实查询和密码/会话撤销两段冒烟通过。随后按用户要求将 GitHub 仓库设为 PUBLIC，公开前检查全部 10 个提交与 215 个 blob，未发现 .env、运行数据库或常见密钥特征。
+- 对照 DeepSeek 官方入门与 Chat Completions 文档，将代码默认值和 `.env.example` 的示例模型更新为 `deepseek-flash`。当前 API 默认开启思考，适配器仅在 deepseek Provider 显式关闭 thinking，避免耗尽原有 1000 Token 的 SQL JSON 输出预算；其他兼容 Provider 不收到专用参数。
+- 新增 REAL_MODEL 中文操作文档：开放平台 Key、本地 .env、重启、显式真实 API 专项、合成样例核对、费用与错误边界；未读取或写入用户实际 Key，也未修改本地 .env。
+- Provider/真实调用开关/遥测/分析回归 **46 passed / 1 skipped**，包含三种 Provider 的请求合同；真实 API 专项因未显式启用而跳过，不能把 MockTransport 测试记作真实模型验证。Ruff check / format 通过；后续真实调用须由用户本地配置凭据并明确启用验收。
