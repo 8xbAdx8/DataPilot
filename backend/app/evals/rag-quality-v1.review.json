@@ -1,0 +1,8 @@
+{
+  "dataset_sha256": "de5a8ee25f3320082d94a6efcce75b253e2d30ee0caf477bddfbf4cd45dbcd48",
+  "status": "human-confirmed",
+  "reviewer": "human-user",
+  "confirmation": "已复核，确认标签与分组",
+  "confirmed_at": "2026-10-20T15:25:02.646199+00:00",
+  "scope": "All 44 labels, synthetic knowledge and development/holdout grouping. Corpus remains an immutable authoring snapshot; this receipt is the effective review status."
+}

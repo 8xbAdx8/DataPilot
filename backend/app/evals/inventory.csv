@@ -1,0 +1,5 @@
+sku,warehouse,quantity,unit_cost,status,snapshot_date
+A,W1,10,2,available,2026-03-01
+B,W2,20,3,available,2026-03-01
+A,W1,5,2,transit,2026-03-01
+C,W3,,4,available,2026-03-01
