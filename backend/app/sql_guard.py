@@ -127,6 +127,10 @@ def validate_sql(sql: str, fields: list[dict]) -> str:
             quote_identifiers=True,
         )
     except (OptimizeError, ValueError, TypeError, RecursionError) as exc:
-        raise unsafe("SQL 引用了未知或有歧义的字段。") from exc
+        error = unsafe("SQL 引用了未知或有歧义的字段。")
+        # Only schema binding after every structural/authorization check is recoverable.
+        # Parse failures cannot reliably establish the intended grammar, so stay terminal.
+        error.repairable = isinstance(exc, OptimizeError)
+        raise error from exc
     # Bind-time validation is backed by real DuckDB; schema scope cannot be expanded by the model.
     return qualified.sql(dialect="duckdb")

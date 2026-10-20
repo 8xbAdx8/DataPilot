@@ -31,6 +31,8 @@ class Settings(BaseSettings):
     llm_base_url: str = "https://api.deepseek.com"
     llm_api_key: str = Field(default="", repr=False)
     llm_timeout_seconds: float = Field(default=30, gt=0, le=120)
+    workflow_timeout_seconds: float = Field(default=90, gt=0, le=180)
+    sql_repair_enabled: bool = True
     max_upload_bytes: int = Field(default=10 * 1024 * 1024, gt=0)
     max_dataset_rows: int = Field(default=100_000, gt=0)
     max_dataset_columns: int = Field(default=100, gt=0)

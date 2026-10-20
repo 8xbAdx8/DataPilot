@@ -15,6 +15,7 @@ from pydantic import BaseModel, ConfigDict, StringConstraints, field_validator
 from sqlalchemy import or_, select
 from sqlalchemy.exc import SQLAlchemyError
 
+from app.analysis_graph import AnalysisRun, execute_analysis_graph
 from app.auth import UserDep
 from app.datasets import SessionDep, SettingsDep, dataset_path, find_dataset
 from app.errors import AppError
@@ -22,9 +23,8 @@ from app.execution import execute_query
 from app.models import Analysis, AuditEvent, Dataset
 from app.observability import emit, timed
 from app.presentation import describe_result
-from app.providers import LLMProvider, TokenUsage, get_provider
+from app.providers import LLMProvider, get_provider
 from app.rate_limits import consume
-from app.sql_guard import validate_sql
 
 router = APIRouter(prefix="/api", tags=["analyses"])
 
@@ -131,6 +131,24 @@ def analyze(
     path = result_path(settings, analysis.id)
     temporary = path.with_suffix(".tmp")
     timings = {}
+    run = AnalysisRun(
+        provider=provider,
+        settings=settings,
+        timings=timings,
+        execute=lambda sql: execute_query(
+            dataset_path(settings, str(dataset_id)),
+            sql,
+            settings.model_copy(
+                update={
+                    "query_timeout_seconds": min(
+                        settings.query_timeout_seconds, max(0.01, run.deadline - time.monotonic())
+                    )
+                }
+            ),
+        ),
+        question=body.question,
+        fields=dataset.profile["fields"],
+    )
     identifiers = {
         "request_id": analysis.request_id,
         "analysis_id": analysis.id,
@@ -138,10 +156,10 @@ def analyze(
     }
 
     def telemetry():
-        usage = getattr(provider, "usage", None)
         return {
             "timings_ms": timings.copy(),
-            "usage": (usage if isinstance(usage, TokenUsage) else TokenUsage()).model_dump(),
+            "usage": run.usage().model_dump(),
+            "workflow": run.metadata(),
         }
 
     def log_completion(status, error_code, duration_ms):
@@ -155,16 +173,11 @@ def analyze(
         )
 
     try:
-        with timed(timings, "provider"):
-            proposal = provider.generate(body.question, dataset.profile["fields"])
-        analysis.sql, analysis.explanation = proposal.sql, proposal.explanation
-        with timed(timings, "sql_guard"):
-            sql = validate_sql(proposal.sql, dataset.profile["fields"])
-        analysis.sql = sql
-        with timed(timings, "query"):
-            result = execute_query(dataset_path(settings, str(dataset_id)), sql, settings)
+        execute_analysis_graph(run)
+        analysis.sql, analysis.explanation = run.sql, run.explanation
+        result = run.result
         with timed(timings, "persist"):
-            chart, summary = describe_result(result, settings.llm_provider, proposal.chart)
+            chart, summary = describe_result(result, settings.llm_provider, run.chart)
             result.update(chart=chart, summary=summary)
             encoded = json.dumps(result, ensure_ascii=False, allow_nan=False)
             if len(encoded.encode("utf-8")) > settings.max_result_bytes:
@@ -193,6 +206,7 @@ def analyze(
         log_completion("error", "storage_unavailable", int((time.perf_counter() - started) * 1000))
         raise
     except Exception as error:
+        analysis.sql, analysis.explanation = run.sql, run.explanation
         path.unlink(missing_ok=True)
         temporary.unlink(missing_ok=True)
         if isinstance(error, AppError):

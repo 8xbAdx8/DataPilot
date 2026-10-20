@@ -130,16 +130,32 @@ class CompatibleProvider:
         self.settings = settings
         self.transport = transport
         self.usage = TokenUsage()
+        self.deadline: float | None = None
 
     def generate(self, question: str, fields: list[dict]) -> SqlProposal:
+        return self.generate_with_context(question, fields, {})
+
+    def repair(self, question: str, fields: list[dict], previous_sql: str) -> SqlProposal:
+        return self.generate_with_context(
+            question, fields, {"repair": {"previous_sql": previous_sql, "code": "unknown_column"}}
+        )
+
+    def generate_with_context(
+        self, question: str, fields: list[dict], context: dict
+    ) -> SqlProposal:
         settings = self.settings
         self.usage = TokenUsage()
         if not settings.llm_api_key:
             raise AppError(503, "llm_not_configured", "当前模型提供商未配置 API Key。")
-        deadline = time.monotonic() + settings.llm_timeout_seconds
+        timeout = settings.llm_timeout_seconds
+        if self.deadline is not None:
+            timeout = min(timeout, self.deadline - time.monotonic())
+        if timeout <= 0:
+            raise AppError(408, "workflow_timeout", "分析工作流超过总时间限制。")
+        deadline = time.monotonic() + timeout
         try:
             with httpx.Client(
-                timeout=settings.llm_timeout_seconds,
+                timeout=timeout,
                 transport=self.transport,
                 follow_redirects=False,
             ) as client:
@@ -170,6 +186,11 @@ class CompatibleProvider:
                                             {"name": f["name"], "type": f["type"]} for f in fields
                                         ],
                                         "question": question,
+                                        **(
+                                            {"untrusted_business_context": context}
+                                            if context
+                                            else {}
+                                        ),
                                     },
                                     ensure_ascii=False,
                                 ),
