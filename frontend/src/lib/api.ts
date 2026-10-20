@@ -88,6 +88,7 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export type Summary = {
+  clarification_questions?: string[];
   facts?: string[];
   hypotheses?: string[];
   limitations?: string[];
@@ -111,7 +112,7 @@ export type Analysis = {
   explanation: string | null;
   provider: string;
   model: string;
-  status: "running" | "success" | "rejected" | "error";
+  status: "running" | "success" | "rejected" | "error" | "clarification";
   duration_ms: number;
   returned_rows: number;
   truncated: boolean;

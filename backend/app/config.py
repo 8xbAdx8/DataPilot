@@ -33,6 +33,11 @@ class Settings(BaseSettings):
     llm_timeout_seconds: float = Field(default=30, gt=0, le=120)
     workflow_timeout_seconds: float = Field(default=90, gt=0, le=180)
     sql_repair_enabled: bool = True
+    agent_enabled: bool = True
+    agent_native_tools: bool = False
+    agent_max_model_calls: int = Field(default=3, ge=1, le=4)
+    agent_max_tool_calls: int = Field(default=4, ge=1, le=6)
+    agent_token_budget: int = Field(default=64000, ge=2000, le=100000)
     max_upload_bytes: int = Field(default=10 * 1024 * 1024, gt=0)
     max_dataset_rows: int = Field(default=100_000, gt=0)
     max_dataset_columns: int = Field(default=100, gt=0)

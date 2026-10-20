@@ -25,6 +25,7 @@ class AnalysisState(TypedDict, total=False):
     repair_attempts: int
     repairable: bool
     status: str
+    plan: dict
 
 
 @dataclass
@@ -47,6 +48,9 @@ class AnalysisRun:
     repairs: int = 0
     sql_calls: int = 0
     sql_usages: list[TokenUsage] = field(default_factory=list)
+    planner: Callable[[], dict] | None = None
+    plan: dict = field(default_factory=dict)
+    agent_metrics: dict = field(default_factory=dict)
 
     def __post_init__(self):
         self.deadline = time.monotonic() + self.settings.workflow_timeout_seconds
@@ -60,6 +64,8 @@ class AnalysisRun:
             "repair_attempts": self.repairs,
             "sql_model_calls": self.sql_calls,
             "validations": self.validations.copy(),
+            "plan": self.plan.copy(),
+            "agent": self.agent_metrics.copy(),
         }
 
     def budget(self):
@@ -110,7 +116,12 @@ def build_graph(run: AnalysisRun):
             run.provider.deadline = run.deadline
         try:
             with run.measure("provider"):
-                proposal = run.provider.generate(state["question"], state["schema"])
+                contextual = getattr(run.provider, "generate_with_context", None)
+                proposal = (
+                    contextual(state["question"], state["schema"], {"analysis_plan": run.plan})
+                    if run.plan and callable(contextual)
+                    else run.provider.generate(state["question"], state["schema"])
+                )
         finally:
             usage = getattr(run.provider, "usage", None)
             run.sql_usages.append(usage if isinstance(usage, TokenUsage) else TokenUsage())
@@ -179,6 +190,16 @@ def build_graph(run: AnalysisRun):
 
     graph = StateGraph(AnalysisState)
     graph.add_node("prepare", node("prepare", lambda _: {"repair_attempts": 0}))
+
+    def plan(_):
+        run.plan = run.planner()
+        return {
+            "plan": run.plan,
+            "status": "clarification" if run.plan.get("needs_clarification") else "planned",
+        }
+
+    if run.planner:
+        graph.add_node("plan", node("plan", plan))
     for name, function in (
         ("generate", generate),
         ("validate", guard),
@@ -188,7 +209,15 @@ def build_graph(run: AnalysisRun):
     ):
         graph.add_node(name, node(name, function))
     graph.add_edge(START, "prepare")
-    graph.add_edge("prepare", "generate")
+    if run.planner:
+        graph.add_edge("prepare", "plan")
+        graph.add_conditional_edges(
+            "plan",
+            lambda state: END if state["status"] == "clarification" else "generate",
+            [END, "generate"],
+        )
+    else:
+        graph.add_edge("prepare", "generate")
     graph.add_edge("generate", "validate")
     graph.add_conditional_edges("validate", route, ["execute", "repair", END])
     graph.add_edge("repair", "validate")

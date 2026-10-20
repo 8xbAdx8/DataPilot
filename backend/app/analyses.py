@@ -15,6 +15,7 @@ from pydantic import BaseModel, ConfigDict, StringConstraints, field_validator
 from sqlalchemy import or_, select
 from sqlalchemy.exc import SQLAlchemyError
 
+from app.analysis_agent import PlannerContext, plan_analysis
 from app.analysis_graph import AnalysisRun, execute_analysis_graph
 from app.auth import UserDep
 from app.datasets import SessionDep, SettingsDep, dataset_path, find_dataset
@@ -149,6 +150,16 @@ def analyze(
         question=body.question,
         fields=dataset.profile["fields"],
     )
+    if settings.agent_enabled:
+        planner = PlannerContext(session, user.id, str(dataset_id), settings, run.deadline)
+
+        def make_plan():
+            try:
+                return plan_analysis(planner, body.question).model_dump()
+            finally:
+                run.agent_metrics = planner.metadata()
+
+        run.planner = make_plan
     identifiers = {
         "request_id": analysis.request_id,
         "analysis_id": analysis.id,
@@ -175,6 +186,21 @@ def analyze(
     try:
         execute_analysis_graph(run)
         analysis.sql, analysis.explanation = run.sql, run.explanation
+        if run.plan.get("needs_clarification"):
+            analysis.status = "clarification"
+            analysis.summary = {"clarification_questions": run.plan["clarification_questions"]}
+            analysis.duration_ms = int((time.perf_counter() - started) * 1000)
+            analysis.telemetry = telemetry()
+            session.add(
+                AuditEvent(
+                    event="analysis_clarification",
+                    dataset_id=str(dataset_id),
+                    analysis_id=analysis.id,
+                )
+            )
+            session.commit()
+            log_completion("clarification", None, analysis.duration_ms)
+            return detail(analysis, settings)
         result = run.result
         with timed(timings, "persist"):
             chart, summary = describe_result(result, settings.llm_provider, run.chart)
@@ -249,7 +275,7 @@ def history(
     user: UserDep,
     dataset_id: uuid.UUID | None = None,
     q: Annotated[str, Query(max_length=200)] = "",
-    status: Literal["running", "success", "rejected", "error"] | None = None,
+    status: Literal["running", "success", "rejected", "error", "clarification"] | None = None,
     limit: Annotated[int, Query(ge=1, le=100)] = 20,
     offset: Annotated[int, Query(ge=0)] = 0,
 ):
