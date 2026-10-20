@@ -2,9 +2,9 @@
 
 升级后聊天与 Embedding 是独立能力。Agent 复用聊天 Key/模型配置创建专用 LangChain 适配器；DeepSeek/OpenAI 原生工具通过 `RUN_LIVE_AGENT=1` 专项验证，通用兼容端点还需 `AGENT_NATIVE_TOOLS=true`。不能从“SQL JSON 能调用”推断“原生工具能调用”。只想使用原有单轮 SQL 接口时，可显式 `AGENT_ENABLED=false`；所有模式都执行相同 SQL 安全校验。
 
-知识索引需要另设 `EMBEDDING_PROVIDER=openai`、`EMBEDDING_MODEL=text-embedding-3-small`、`EMBEDDING_BASE_URL=https://api.openai.com/v1`、`EMBEDDING_API_KEY`、`EMBEDDING_DIMENSIONS=1536`。默认 `none` 明确未配置，不复用 DeepSeek 聊天 Key。真实接口按 OpenAI 官方 Embedding 合同实现并完成受控 HTTP 合同测试，尚未调用真实 Embedding 服务。`fake` 仅用于演示词项哈希检索，页面会显示测试向量提示。先用 `RUN_LIVE_EMBEDDING=1` 跑 `backend/tests/test_embeddings.py` 的显式专项，再重建知识索引。
+知识索引使用独立 Embedding 配置，默认 `none`，不复用 DeepSeek 聊天 Key。[阶段 10](PHASE10_EMBEDDING_RAG.md)已实测阿里云百炼：`EMBEDDING_PROVIDER=openai_compatible`、`EMBEDDING_MODEL=text-embedding-v4`、独立 `EMBEDDING_API_KEY`、`EMBEDDING_DIMENSIONS=1536`，Base URL 使用与 Key 同地域/业务空间的兼容根地址。真实向量、语义检索和浏览器 RAG 闭环通过；OpenAI 官方 Embedding 服务尚未实际调用。`fake` 仅用于演示词项哈希检索，页面会显示测试向量提示。配置新服务后先启用对应真实专项，再为该模型空间重建索引。
 
-新增真实专项默认关闭，参见 [固定评估](EVALUATION.md)。[阶段 9](PHASE9_INTEGRATION.md)已单独启用并通过真实 DeepSeek 原生工具、Graph/SQL/历史专项；独立 Embedding、语义 RAG、云端追踪和完整真实评估仍阻塞。下方首次单题记录属于升级前证据。常驻开发验收进程仍为 Mock/Fake，未改写用户的 `.env`，切回真实配置须停止该测试 API 后重启。
+真实专项默认关闭，参见 [固定评估](EVALUATION.md)。[阶段 9](PHASE9_INTEGRATION.md)验证真实聊天部分链路，[阶段 10](PHASE10_EMBEDDING_RAG.md)补齐真实 Embedding、语义 RAG 和生产容器浏览器。LangSmith 云端及统一 29 题真实评估仍未运行。下方首次单题记录属于升级前证据。常驻开发验收进程仍为 Mock/Fake；阶段 10 使用独立临时真实栈并已清理。用户 `.env` 中的真实配置保留，新启动进程可读取；已有进程的环境变量覆盖和设置缓存需要重启后核对 `/api/config`。
 
 项目已有兼容 Chat Completions 的 Provider。首次可使用 DeepSeek；这里不涉及部署模型或训练模型，而是由 FastAPI 调用提供商 API 生成 SQL，再由本地安全校验和 DuckDB 执行。
 

@@ -141,3 +141,14 @@
 - PostgreSQL 全套 **328 passed / 4 skipped**，SQLite **310 passed / 22 skipped**；新专项默认关闭，旧测试保留。前端 lint/build、本机和生产容器 Playwright 各 **13 passed**；Docker 启动/健康/查询/知识/账户冒烟通过，均明确 Mock/Fake。迁移重复执行与临时库回退、Ruff 和 pip check 通过。
 - 先前系统临时目录权限错误已通过独立仓库临时目录修复后完整重跑，未跳过失败用例。全部可达 20 个提交、328 个文件版本审计未命中真实 Key 或私钥特征；公开本地示例与测试值已分类。当前泛化开发路径，历史仍保留非敏感路径，未重写历史。
 - 真实 Embedding/语义 RAG、LangSmith 云端和包含它们的完整真实 E2E 标记阻塞，未推送 GitHub。所有逐项证据、命令与边界见阶段报告。
+
+## 2026-10-20 · 阶段 10 真实 Embedding 与语义 RAG
+
+- 按用户明确授权推送 `codex/agent-rag-upgrade` 至 `0e7b1c7`，官方 REST 核验远端 SHA 一致，Actions `39412395408` 实际成功。Git 连接出现间歇性重置/超时，使用单次 OpenSSL 设置推送成功，未关闭证书校验或改全局配置。
+- 用户本地配置独立百炼 Key 和北京空间地址；只补齐原先缺失模板并修正 Provider/模型两个非敏感字段，保留其他设置。实际使用 openai_compatible / text-embedding-v4 / 1536 维，聊天仍为 DeepSeek，云端追踪关闭。
+- 首次三个真实专项返回 HTTP 错误而失败，知识停在 failed，未进入聊天或 SQL；保留失败摘要。随后单条探测 HTTP 200，再分步重跑 **3 passed / 13.98 秒**，首次原因未独立确认，不将失败改成跳过。
+- 真实语义改写检索命中相似度 **0.735559**；pgvector 实际存储、引用 ID、跨用户/数据集隔离、去重、更新、失败恢复及删除通过。受控缺 Key 是本地故障注入，不冒充远端故障。
+- 真实 Agent 原生 Schema/指标工具、实际知识来源 → SQLGlot → DuckDB，净贡献额 **18**。临时独立真实容器栈的 Edge 浏览器 **1 passed / 21.0 秒**，页面/ECharts/CSV **East=6、West=12**，刷新恢复历史、引用 GET 验证通过；没有拦截或伪造浏览器请求。
+- 两个分析案例共 6 次聊天请求，供应商报告 **7304 Token**；Embedding Token 未采集、金额未知，不据固定案例推断准确率或召回率。LangSmith 云端、统一 29 题真实评估仍未执行。
+- PostgreSQL **328 passed / 6 skipped**，SQLite **310 passed / 24 skipped**；默认 Mock/Fake 浏览器 **13 passed / 1 skipped**。新增三项真实专项默认关闭，旧测试保留。前端 lint/build/typecheck、Ruff、pip check、迁移检查/回退通过。
+- 临时真实栈及本轮新建的两个合成数据卷已清理，原服务保留。工作空间 Key 格式扫描新增点号支持，未发现实际 Key 进入 Git。无生产执行代码或依赖变更；阶段 10 只本地提交，未自动推送，完整证据见[验收报告](PHASE10_EMBEDDING_RAG.md)。

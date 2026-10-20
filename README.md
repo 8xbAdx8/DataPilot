@@ -6,9 +6,11 @@
 
 AI 升级已实现：**LangGraph** 编排检索/规划/生成/校验/执行与最多一次字段修复；**LangChain Agent** 在限定的只读工具中选择 Schema、画像、业务知识、指标口径与澄清；**pgvector + 独立 Embedding** 保存并按用户/数据集过滤知识；**RAG** 将实际来源提供给 SQL 生成并在界面展示引用；**LangSmith** 默认关闭，只在显式启用后导出白名单性能元数据。详细交付和当前验证状态见 [升级验收](docs/UPGRADE_ACCEPTANCE.md)、[阶段记录](docs/AI_UPGRADE.md)、[评估报告](docs/EVALUATION.md) 和 [追踪隐私](docs/LANGSMITH.md)。
 
-本升级在本地分支 `codex/agent-rag-upgrade` 分阶段提交，尚未推送，远程 Actions 尚未验证这些升级提交。[阶段 9 真实验收](docs/PHASE9_INTEGRATION.md)已验证 DeepSeek 原生工具调用 → LangGraph → SQL 安全校验 → DuckDB → 图表配置/历史/导出；合成分组结果 East=40、West=20。真实 Embedding、语义 RAG、LangSmith 云端和包含它们的完整真实端到端验收因缺独立配置而阻塞。无需付费服务即可运行 Mock 分析；`EMBEDDING_PROVIDER=none` 默认明确禁用知识索引，演示 RAG 须显式使用 `fake`，不能当作语义检索模型。
+升级分支 `codex/agent-rag-upgrade` 已推送至阶段 9 提交 `0e7b1c7`，对应 GitHub Actions 成功。[阶段 10 真实验收](docs/PHASE10_EMBEDDING_RAG.md)新增内容仅本地提交：百炼 `text-embedding-v4` 真实 1536 维向量 → pgvector 语义检索/权限隔离 → DeepSeek 原生 Agent → LangGraph → SQL 安全校验 → DuckDB → 生产容器浏览器图表、来源、历史和导出。合成净贡献额为 18，分组 East=6、West=12；真实专项 3 项、真实浏览器 1 项通过。LangSmith 云端及统一真实模型评估尚未运行。
 
-已跑通完整 Mock 闭环：账户登录 → CSV/XLSX → DuckDB → 字段画像 → 自然语言生成 SQL → AST 安全校验 → 真实查询 → 表格/ECharts/事实总结 → 历史搜索与 CSV 导出。PostgreSQL 保存账户、会话和业务元信息，后端强制数据集所有权校验，提供删除与保留清理。GitHub Actions 已验证应用检查与 Linux Compose 冒烟；新提交按对应 Actions 结果验收。2026-10-20 已通过 DeepSeek `deepseek-flash` 真实 API 专项：生成 SQL → AST 校验 → DuckDB 执行，合成数据行数为 3；该单用例不代表整体模型准确率或真实模型浏览器全套验收。
+无需付费服务即可运行 Mock 分析；`EMBEDDING_PROVIDER=none` 默认禁用知识索引，演示 RAG 须显式使用 `fake`，真实专项与浏览器专项默认关闭。阶段 10 的固定案例不代表自然语言泛化准确率或大规模语义召回率。
+
+已跑通完整 Mock 闭环：账户登录 → CSV/XLSX → DuckDB → 字段画像 → 自然语言生成 SQL → AST 安全校验 → 真实查询 → 表格/ECharts/事实总结 → 历史搜索与 CSV 导出。PostgreSQL 保存账户、会话和业务元信息，后端强制数据集所有权校验，提供删除与保留清理。阶段 10 另外使用真实聊天和 Embedding 服务验证同一执行边界，只发送合成 Schema/问题和人工合成知识。GitHub Actions 的普通回归使用 Mock/Fake，真实专项结果单独记录。
 
 文档：[实施计划](docs/PLAN.md) · [架构与学习入口](docs/ARCHITECTURE.md) · [安全策略](docs/SECURITY.md) · [运行与保留策略](docs/OPERATIONS.md) · [真实模型接入](docs/REAL_MODEL.md) · [配额与执行诊断](docs/OBSERVABILITY.md) · [演示与验收](docs/DEMO.md) · [实际开发记录](docs/DEVELOPMENT.md)。
 

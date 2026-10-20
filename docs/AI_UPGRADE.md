@@ -1,6 +1,6 @@
 # AI 工作流升级记录
 
-阶段 1–8 在 `codex/agent-rag-upgrade` 本地分支渐进升级，不自动 push、部署或调用付费服务。原始基线为 `a7971cb`，工作树干净。随后按用户明确授权执行的真实调用见[阶段 9 验收](PHASE9_INTEGRATION.md)，仍未推送。历史验收不能替代本次回归。
+阶段 1–8 在 `codex/agent-rag-upgrade` 本地分支渐进升级，原始基线为 `a7971cb`，当时工作树干净。真实聊天专项和推送前审计见[阶段 9](PHASE9_INTEGRATION.md)；随后按用户授权推送至 `0e7b1c7`，并完成[阶段 10 真实 Embedding/语义 RAG/浏览器验收](PHASE10_EMBEDDING_RAG.md)。阶段 10 改动仅本地提交，未自动推送。历史验收不能替代新提交的回归。
 
 ## 阶段 1：基线与兼容性
 

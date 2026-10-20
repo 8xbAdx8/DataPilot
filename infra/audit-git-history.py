@@ -29,7 +29,7 @@ def main():
         if value and len(value) >= 10
     ]
     patterns = {
-        "provider_key": rb"(?<![A-Za-z0-9])(?:sk-[A-Za-z0-9_-]{20,}|"
+        "provider_key": rb"(?<![A-Za-z0-9])(?:sk-[A-Za-z0-9._-]{20,}|"
         rb"gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|AKIA[0-9A-Z]{16})",
         "private_key": rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----",
         "credential_url": rb"[a-zA-Z][a-zA-Z0-9+.-]*://[^\s:/@\"']+:[^\s/@\"']+@[^\s\"']+",
