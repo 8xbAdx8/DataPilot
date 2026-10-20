@@ -101,6 +101,8 @@ def ready(session: Annotated[Session, Depends(get_session)]):
         session.execute(text("SELECT owner_id FROM datasets LIMIT 0"))
         session.execute(text("SELECT user_id FROM rate_limit_buckets LIMIT 0"))
         session.execute(text("SELECT request_id, telemetry FROM analyses LIMIT 0"))
+        session.execute(text("SELECT id, embedding_space FROM knowledge_documents LIMIT 0"))
+        session.execute(text("SELECT id, embedding FROM knowledge_chunks LIMIT 0"))
     except SQLAlchemyError:
         return JSONResponse(
             status_code=503, content={"status": "not_ready", "database": "unavailable"}

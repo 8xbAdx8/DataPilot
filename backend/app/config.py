@@ -38,6 +38,23 @@ class Settings(BaseSettings):
     agent_max_model_calls: int = Field(default=3, ge=1, le=4)
     agent_max_tool_calls: int = Field(default=4, ge=1, le=6)
     agent_token_budget: int = Field(default=64000, ge=2000, le=100000)
+    embedding_provider: str = "none"
+    embedding_model: str = "text-embedding-3-small"
+    embedding_base_url: str = "https://api.openai.com/v1"
+    embedding_api_key: str = Field(default="", repr=False)
+    embedding_dimensions: int = 1536
+    embedding_timeout_seconds: float = Field(default=20, gt=0, le=60)
+    rag_top_k: int = Field(default=4, ge=1, le=8)
+    rag_min_similarity: float = Field(default=0.20, ge=0, le=1)
+    knowledge_requests_per_window: int = Field(default=10, ge=1, le=120)
+
+    @field_validator("embedding_dimensions")
+    @classmethod
+    def fixed_embedding_dimension(cls, value):
+        if value != 1536:
+            raise ValueError("知识向量固定为 1536 维；变更维度需数据库迁移及全量重新嵌入。")
+        return value
+
     max_upload_bytes: int = Field(default=10 * 1024 * 1024, gt=0)
     max_dataset_rows: int = Field(default=100_000, gt=0)
     max_dataset_columns: int = Field(default=100, gt=0)

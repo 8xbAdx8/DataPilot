@@ -1,0 +1,12 @@
+FROM postgres:17-alpine AS vector_build
+RUN apk add --no-cache build-base git \
+    && git clone --depth 1 --branch v0.8.7 https://github.com/pgvector/pgvector.git /tmp/pgvector \
+    && test "$(git -C /tmp/pgvector rev-parse HEAD)" = "f37c13f68b57d2c3472b2214fbcff699d6d34876" \
+    && make -C /tmp/pgvector OPTFLAGS="" with_llvm=no \
+    && make -C /tmp/pgvector install with_llvm=no
+
+# Preserve the existing PG17 Alpine base and volume format; no implicit move to glibc.
+FROM postgres:17-alpine
+COPY --from=vector_build /usr/local/lib/postgresql/vector.so /usr/local/lib/postgresql/
+COPY --from=vector_build /usr/local/share/postgresql/extension/vector* /usr/local/share/postgresql/extension/
+COPY --from=vector_build /tmp/pgvector/LICENSE /usr/share/doc/pgvector/LICENSE

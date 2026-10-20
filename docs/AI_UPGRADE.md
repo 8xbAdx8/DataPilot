@@ -7,7 +7,7 @@
 - Python 3.12.14、Node 24.15.0、npm 11.12.1。升级前真实 PostgreSQL 回归 231 passed / 1 skipped；跳过的是需显式启用的真实模型测试。Ruff check / format、Alembic check 通过。当前提交的 Actions `39378633661` 先前已成功，但本次仍重跑本地基线。
 - 新依赖：LangGraph 1.2.16、LangChain 1.4.6、langchain-openai 1.7.2、LangSmith 0.14.11、pgvector Python 0.5.1。使用 `StateGraph`、`create_agent`、`ToolStrategy`，不使用弃用的 create_react_agent。
 - 实际解析发现 LangGraph SDK 0.4.8 要求 websockets<17，与原锁定 17.2 冲突。只调整这一已有包为 16.1.1，其他现有依赖全部保持原锁；新增的 httpx2 由 LangSmith 引入，需在安装后重跑认证/API 测试。
-- 本机 Docker 引擎未运行；已有 PostgreSQL 17.10 精简二进制缺少开发头文件。本机有 Visual Studio C++ 工具链，正在尝试从官方 EDB 17.10 归档补齐开发文件，并编译官方 pgvector 0.8.7。CI/Compose 将使用官方 `pgvector/pgvector:0.8.7-pg17`，不会直接复用 Alpine 数据目录；迁移实例时需逻辑备份/恢复，不能把旧 Alpine 卷挂到 Debian 镜像。
+- 本机 Docker 引擎未运行；已有 PostgreSQL 17.10 精简二进制缺少开发头文件。本机有 Visual Studio C++ 工具链，已从官方 EDB 17.10 归档补齐开发文件并编译 pgvector 0.8.7。CI 临时数据库使用官方 `pgvector/pgvector:0.8.7-pg17`。Compose 使用单独的 Alpine 构建镜像，保持原 PG17 Alpine 基础与现有卷；若操作者自行换成 Debian 镜像，必须先逻辑备份/恢复，不能盲目复用 Alpine 数据目录。
 - 安装后重新执行真实 PG 全套：231 passed / 1 skipped；pip check 与新公共 API 导入通过。前端 lint、生产构建以及全部 11 项 Edge E2E 通过并正常退出（1.5 分钟）。本机已使用官方 EDB 开发文件和 VS2022 编译出 pgvector 0.8.7 DLL，尚未安装扩展或升级业务库，留至阶段 4 实际验证。
 
 ## 职责与状态边界
@@ -66,3 +66,15 @@ Agent 最多 3 次模型、4 次工具调用；保守预留最多 64000 Token（
 关键歧义返回 clarification 状态和具体问题，不生成或执行 SQL；历史可筛选，CSV 导出拒绝。前端沿用现有卡片展示待澄清及如何补充问题。知识工具将在阶段 5 真正连接存储后加入，当前不伪造知识检索结果。
 
 验证：真实 PostgreSQL 全套 **258 passed / 2 skipped**，新增 10 项工具/权限/预算/澄清和原生模型 HTTP 合同测试；跳过项为真实 SQL API 与新增 RUN_LIVE_AGENT 工具调用专项，均未产生付费请求。ESLint、TypeScript/生产构建通过。模型 HTTP 合同使用 MockTransport，不能声称 DeepSeek 原生工具已经实测。
+
+浏览器阶段回归 **12 passed**，包含原有 11 项和新增“澄清 → 明确追问 → 真实查询”交互，正常退出。
+
+## 阶段 4：pgvector 与独立 Embedding
+
+0006 创建 pgvector、知识文档/分块表、owner/作用域/内容 hash 唯一约束、1536 维向量与 HNSW cosine 索引（m=16 / ef_construction=64）。NULL 作用域约束显式处理三值逻辑，防止非法 personal 范围通过 CHECK。更新/重嵌入使用版本号；状态/失败原因、空间标识和元数据均有独立字段。更换维度需迁移；同维度不同模型/服务也不能混用，空间 ID 包含提供商、模型、维度和服务地址摘要。
+
+`embeddings.py` 明确区分 none、真实 openai/openai_compatible 和 fake。真实默认模型 text-embedding-3-small、1536 维，使用独立 Key 与 /embeddings，验证响应模型、下标、数量、维度、有限数值与非零范数，限制输入批次/响应大小/总超时。Fake 为 lexical-hash-v1，只是可重复的词项哈希，不能宣称真实语义质量。没有配置则明确不可用，不复用聊天 Key，不静默降级。
+
+本机实际安装官方源码编译的 0.8.7；业务库与测试库升级及 Alembic check 通过。新建临时库实际验证 0005 → 0006 → 0005 → 0006，旧平台用户保留；回退移除本阶段表/索引，但有意保留可能被其他应用使用的共享 vector 扩展，不执行 DROP EXTENSION CASCADE。真实 pgvector 存储与 cosine 运算、索引定义已测试。检查约束首版发现 SQL NULL 逻辑遗漏，已在仍为空的新表上修正，未回退业务库。
+
+完整 PostgreSQL 回归 **280 passed / 3 skipped**；新增 NULL 约束回归后向量/Embedding 专项 **23 passed / 1 skipped**，Ruff、迁移 check、Compose config 通过。三个付费专项 SQL/原生工具/Embedding 默认分别跳过。Compose 保持 postgres:17-alpine，通过固定官方源码 commit 编译扩展，运行镜像不含编译工具、构建上下文仅 infra，不发送 .env 或数据。Docker 引擎仍不可用，镜像实际构建/启动留待阶段 8，不记为已通过。
