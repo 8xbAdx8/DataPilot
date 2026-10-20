@@ -91,6 +91,8 @@ RAG 专项使用已人工复核的 44 条合成查询，开发/留出分开。�
 
 [阶段 14 对照](docs/PHASE14_RAG_CALIBRATION.md) 将默认语义阈值改为 0.70，保留 vector/none；混合检索、FlashRank 和 Ragas 均可选。留出误召回下降，但漏召回、错误知识采用及严格 SQL 超时仍有失败，不能称为全面通过。安装、锁文件、真实评测与回滚见[评测说明](docs/RAG_EVALUATION.md)。
 
+[阶段 15 验收](docs/PHASE15_LIVE_ACCEPTANCE.md) 已完成真实模型浏览器流程（East=6、West=12），并从 LangSmith 读回成功/受控拒绝追踪及 22 条评测运行。云端只接收白名单元数据，普通运行仍默认关闭，配置见[追踪隐私说明](docs/LANGSMITH_PRIVACY.md)。这条独立流程成功不改变阶段 14 留出 SQL 0/2 的失败结论；新增阶段提交只保留本地，尚未推送。
+
 - 打开 <http://localhost:3000>，选择 `data/examples/sales.csv` 体验真实导入。
 - CSV 使用 UTF-8（支持 BOM），支持逗号、分号、制表符、竖线分隔；表头必填且不重复，数据行字段数须一致。保留完整字段的全空记录，跳过空白行；仅有表头不接受。
 - XLSX 要求有效 OOXML，多工作表需选择；不接受公式、宏、外部链接；解压总量最多 50 MiB / 1000 条目。

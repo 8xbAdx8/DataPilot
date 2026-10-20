@@ -1,6 +1,8 @@
 """Opt-in LangSmith export. Only newly constructed, bounded metadata leaves the app."""
 
+import hashlib
 import logging
+import re
 from datetime import UTC, datetime
 from queue import Full, Queue
 from threading import Lock, Thread
@@ -41,11 +43,20 @@ COUNTS = {
     "total_tokens",
     "input_tokens",
     "output_tokens",
+    "agent_total_tokens",
+}
+LABELS = {
+    "provider": {"deepseek", "openai", "openai_compatible", "mock", "custom"},
+    "model": {"deepseek-flash", "deepseek-chat", "gpt-4o-mini", "mock", "custom"},
+    "embedding_model": {"text-embedding-v4", "text-embedding-3-small", "fake", "custom"},
+    "retrieval_strategy": {"vector", "hybrid"},
+    "reranker": {"none", "flashrank"},
+    "sql_validation": {"approved", "rejected", "not_requested"},
 }
 
 
 def safe_metadata(values):
-    """No arbitrary strings, identifiers, nested payloads or exception messages."""
+    """Only enumerated labels/counts and per-trace salted source hashes; no bodies."""
     safe = {k: v for k, v in values.items() if k in COUNTS and type(v) is int and 0 <= v <= 10**9}
     for key, allowed in (("status", STATUSES), ("rag_status", RAG_STATUSES)):
         value = values.get(key)
@@ -53,6 +64,16 @@ def safe_metadata(values):
             safe[key] = value
     if type(values.get("rag_used")) is bool:
         safe["rag_used"] = values["rag_used"]
+    for key, allowed in LABELS.items():
+        if isinstance(values.get(key), str) and values[key] in allowed:
+            safe[key] = values[key]
+    hashes = values.get("source_hashes")
+    if (
+        isinstance(hashes, list)
+        and len(hashes) <= 8
+        and all(isinstance(value, str) and re.fullmatch(r"[0-9a-f]{16}", value) for value in hashes)
+    ):
+        safe["source_hashes"] = hashes
     return safe
 
 
@@ -71,11 +92,11 @@ class SafeSDKLogs(logging.Filter):
 logging.getLogger("langsmith.client").addFilter(SafeSDKLogs())
 
 
-def client_for(settings, on_error):
+def client_for(settings, on_error, *, timeout_ms=(5000, 5000)):
     return Client(
         api_urls={settings.langsmith_endpoint: settings.langsmith_api_key},
         auto_batch_tracing=False,
-        timeout_ms=(500, 1000),
+        timeout_ms=timeout_ms,
         retry_config=Retry(total=0),
         hide_inputs=lambda _: {},
         hide_outputs=lambda _: {},
@@ -104,6 +125,28 @@ def trace_payload(run, status, duration_ms):
             "rag_status": run.rag.get("status"),
             "rag_used": run.rag.get("used"),
             "retrieved_count": run.rag.get("retrieved_count", len(run.rag.get("citations", []))),
+            "provider": run.settings.llm_provider
+            if run.settings.llm_provider in LABELS["provider"]
+            else "custom",
+            "model": "mock"
+            if run.settings.llm_provider == "mock"
+            else run.settings.llm_model
+            if run.settings.llm_model in LABELS["model"]
+            else "custom",
+            "embedding_model": "fake"
+            if run.settings.embedding_provider == "fake"
+            else run.settings.embedding_model
+            if run.settings.embedding_model in LABELS["embedding_model"]
+            else "custom",
+            "retrieval_strategy": run.settings.rag_strategy,
+            "reranker": run.settings.rag_reranker,
+            "agent_total_tokens": run.agent_metrics.get("usage", {}).get("total_tokens"),
+            "sql_validation": run.validations[-1]["status"] if run.validations else "not_requested",
+            "source_hashes": [
+                hashlib.sha256((str(root_id) + "|" + source["chunk_id"]).encode()).hexdigest()[:16]
+                for source in run.rag.get("citations", [])[:8]
+                if isinstance(source.get("chunk_id"), str)
+            ],
             **run.usage().model_dump(exclude={"source"}),
         }
     )
@@ -154,7 +197,16 @@ def trace_payload(run, status, duration_ms):
                 "end_time": span["end"],
                 "inputs": {},
                 "outputs": {},
-                "extra": {"metadata": safe_metadata({"status": span["status"]})},
+                "extra": {
+                    "metadata": safe_metadata(
+                        {
+                            "status": span["status"],
+                            "duration_ms": max(
+                                0, int((span["end"] - span["start"]).total_seconds() * 1000)
+                            ),
+                        }
+                    )
+                },
                 "error": "stage_failed" if span["status"] == "error" else None,
             }
         )
@@ -181,7 +233,7 @@ def deliver(settings, rows):
                 client.close(timeout=0)
             except Exception:
                 status = "error"
-    emit("langsmith_export", status=status)
+    emit("langsmith_export", status=status, local_trace_id=str(rows[0]["id"]) if rows else None)
 
 
 _queue = Queue(maxsize=8)

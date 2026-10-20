@@ -1,0 +1,122 @@
+{
+  "status": "passed",
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "sql": "SELECT \"data\".\"region\" AS \"region\", SUM(\"data\".\"revenue\") - SUM(\"data\".\"cost\") AS \"net_contribution\" FROM \"data\" AS \"data\" WHERE \"data\".\"status\" = 'paid' GROUP BY \"data\".\"region\" ORDER BY \"region\" ASC",
+  "rows": [
+    {
+      "region": "East",
+      "net_contribution": 6
+    },
+    {
+      "region": "West",
+      "net_contribution": 12
+    }
+  ],
+  "chart": {
+    "kind": "bar",
+    "x": "region",
+    "y": "net_contribution",
+    "reason": "图表逐行使用本次查询结果，不补数或重算。"
+  },
+  "telemetry": {
+    "timings_ms": {
+      "provider": 2062,
+      "sql_guard": 31,
+      "query": 1377,
+      "persist": 0
+    },
+    "usage": {
+      "source": "provider",
+      "prompt_tokens": 573,
+      "completion_tokens": 82,
+      "total_tokens": 655
+    },
+    "workflow": {
+      "engine": "langgraph",
+      "nodes": [
+        "prepare",
+        "retrieve",
+        "plan",
+        "generate",
+        "validate",
+        "execute",
+        "check_result"
+      ],
+      "stage_timings_ms": {
+        "prepare": 0,
+        "retrieve": 2003,
+        "plan": 7124,
+        "generate": 2063,
+        "validate": 31,
+        "execute": 1377,
+        "check_result": 0
+      },
+      "repair_attempts": 0,
+      "sql_model_calls": 1,
+      "validations": [
+        {
+          "status": "approved",
+          "attempt": 0
+        }
+      ],
+      "plan": {
+        "metrics": [
+          "net_contribution = SUM(revenue) - SUM(cost)，仅统计 status='paid' 的记录"
+        ],
+        "dimensions": [
+          "region"
+        ],
+        "filters": [
+          "status = 'paid'"
+        ],
+        "time_range": null,
+        "ordering": [
+          "region ASC"
+        ],
+        "top_n": null,
+        "needs_clarification": false,
+        "clarification_questions": [],
+        "knowledge_chunk_ids": [
+          "a18e5a45-47c7-4a09-a54d-3c5f594ee0f3"
+        ]
+      },
+      "agent": {
+        "model_calls": 3,
+        "tool_calls": 3,
+        "tools_used": [
+          "inspect_dataset_schema",
+          "search_business_knowledge",
+          "get_metric_definition"
+        ],
+        "reserved_token_bound": 20779,
+        "finalization_calls": 1,
+        "usage": {
+          "input_tokens": 3865,
+          "output_tokens": 295,
+          "total_tokens": 4160
+        },
+        "mode": "native_tools"
+      },
+      "rag": {
+        "status": "no_match",
+        "source": "provider",
+        "used": true,
+        "citations": [
+          {
+            "chunk_id": "a18e5a45-47c7-4a09-a54d-3c5f594ee0f3",
+            "document_id": "d880020b-0b0f-4982-a747-55d6e4932087",
+            "chunk_index": 0,
+            "title": "净贡献额",
+            "source_type": "metric_definition",
+            "excerpt": "净贡献额：仅统计 status='paid' 的订单，计算 SUM(revenue)-SUM(cost)。退款订单不计入。",
+            "similarity": null
+          }
+        ],
+        "error_code": null,
+        "retrieved_count": 1
+      }
+    }
+  },
+  "history_and_csv": "passed"
+}

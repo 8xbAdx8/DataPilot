@@ -4,10 +4,12 @@ Run with the installed backend environment, from the repository root. Pattern
 findings require review; absence of findings is not proof that no secret exists.
 """
 
+import argparse
 import json
 import re
 import subprocess
 from collections import Counter
+from datetime import UTC, datetime
 from pathlib import Path
 
 from app.config import Settings
@@ -18,6 +20,14 @@ def git(*arguments):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--details-output",
+        type=Path,
+        default=Path("data/runtime")
+        / ("history-audit-" + datetime.now(UTC).strftime("%Y%m%dT%H%M%S%f") + ".json"),
+    )
+    args = parser.parse_args()
     config = Settings()
     known = [
         value.encode()
@@ -30,7 +40,8 @@ def main():
     ]
     patterns = {
         "provider_key": rb"(?<![A-Za-z0-9])(?:sk-[A-Za-z0-9._-]{20,}|"
-        rb"gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|AKIA[0-9A-Z]{16})",
+        rb"gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|"
+        rb"lsv2_[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16})",
         "private_key": rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----",
         "credential_url": rb"[a-zA-Z][a-zA-Z0-9+.-]*://[^\s:/@\"']+:[^\s/@\"']+@[^\s\"']+",
         "secret_assignment": rb"(?im)^[ \t]*(?:LLM_API_KEY|EMBEDDING_API_KEY|"
@@ -112,9 +123,10 @@ def main():
         "pattern_findings": findings,
         "note": "Candidates need manual review; no matched values are stored.",
     }
-    output = Path("data/runtime/phase9-history-audit.json")
+    output = args.details_output
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(result, indent=2), encoding="utf-8")
+    with output.open("x", encoding="utf-8") as stream:
+        stream.write(json.dumps(result, indent=2))
     print(
         json.dumps(
             {

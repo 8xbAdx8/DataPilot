@@ -30,6 +30,7 @@ FIELDS = {
     "analysis_id",
     "status",
     "error_code",
+    "local_trace_id",
     "timings_ms",
     "usage",
 }

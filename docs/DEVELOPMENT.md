@@ -180,3 +180,12 @@
 - PostgreSQL **337 passed / 6 skipped**，SQLite **318 passed / 25 skipped**，Ruff/pip、前端 lint/build/typecheck 通过。新后端镜像源码指纹一致、v2 题集可导入，独立 Compose 健康/迁移重复执行/check/真实查询/RAG/账户冒烟通过；生产容器 Edge **13 passed / 1 skipped**，明确 Mock/Fake。
 - 临时项目及本次新建的两个卷已清理，原三服务保留。提交前历史 23 提交/358 blob 未发现当前 Key 或禁止路径，待提交报告精确匹配原始分数，源代码指纹与真实运行一致，私有服务地址/密钥扫描未命中。阶段 12 只本地提交，详情见[报告](PHASE12_AGENT_RELIABILITY.md)。
 - 新契约结果不能与阶段 11 直接比较；未改检索阈值、旧误召回风险仍保留，未进行旧 29 题真实重跑、泛化基准、云端追踪或真实修复收益测试。后续先建立独立检索正负样本和留出评测。
+
+## 2026-10-21 · 阶段 13–15 检索评测与真实云端验收
+
+- 阶段 13 `af0cd2d` 冻结已人工复核的 23 条知识、44 条查询和开发/留出分组；真实基线及失败完整保留，见[阶段 13](PHASE13_RAG_BASELINE.md)。
+- 阶段 14 `b16651f` 对比向量/混合/真实 FlashRank，选择 vector / none / 0.70；独立锁定评测环境运行真实 Ragas。正式留出只运行冻结前后的两组一次，没有据此调参；选定配置仍有误召回 6/13、漏召回 1/8、错误知识采用 1/4，严格 SQL 0/2，见[阶段 14](PHASE14_RAG_CALIBRATION.md)。
+- 阶段 15 完成真实 DeepSeek Agent 工具、百炼 Embedding、pgvector、Graph、AST、DuckDB、前端图表/导出/历史/引用的独立浏览器验收；实际 East=6、West=12，四次聊天请求共 4815 Token，费用未知。初始语义 no_match，由指标工具补足知识；不把这条成功改写成留出集通过。
+- LangSmith 服务器实际读回 14 个成功 spans、4 个受控拒绝 spans，以及 22 条实验运行、标签和 17 个反馈。正文为空，元数据受限，应用开关保持默认关闭。云端四位反馈与本地全精度分数分别保存，没有重复创建实验。
+- 完整 PostgreSQL 355 passed / 6 skipped、SQLite 334 passed / 27 skipped；之后新增的数值表示测试在 17 项定向中通过，不并入旧完整计数。Mock/Fake 容器 Playwright 13 passed / 1 skipped、真实浏览器 1 passed；Ruff、前端检查、依赖检查、Compose 冒烟和迁移验证通过。失败尝试与修复、清理及推送前审计见[阶段 15](PHASE15_LIVE_ACCEPTANCE.md)。
+- 基线 `ae45190` 的远程 CI 成功；三个新增阶段只创建本地提交，未自动推送。真实服务证据、工程回归与留出质量分别报告，不宣称全面通过。

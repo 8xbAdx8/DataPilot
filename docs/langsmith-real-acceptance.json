@@ -1,0 +1,122 @@
+{
+  "created_at": "2026-10-20T17:21:26.927021+00:00",
+  "trace": {
+    "status": "server-readback-confirmed",
+    "run_id": "0ec2ecdb-f3c1-4a43-8989-442305b20ba7",
+    "url": "https://smith.langchain.com/o/7117ff9a-d5cf-4d63-baf2-64eac6e4ea95/projects/p/cdbe7c38-c22e-4901-8b41-e7378fb652db/r/0ec2ecdb-f3c1-4a43-8989-442305b20ba7?poll=true",
+    "names": [
+      "agent_model",
+      "check_result",
+      "datapilot.analysis",
+      "execute",
+      "generate",
+      "get_metric_definition",
+      "inspect_dataset_schema",
+      "plan",
+      "prepare",
+      "retrieve",
+      "search_business_knowledge",
+      "validate"
+    ],
+    "project": "datapilot-rag-acceptance",
+    "inputs_outputs_empty": true,
+    "metadata": {
+      "agent_model_calls": 3,
+      "agent_tool_calls": 3,
+      "agent_total_tokens": 4160,
+      "completion_tokens": 82,
+      "duration_ms": 12619,
+      "embedding_model": "text-embedding-v4",
+      "ls_run_depth": 0,
+      "model": "deepseek-flash",
+      "prompt_tokens": 573,
+      "provider": "deepseek",
+      "rag_status": "no_match",
+      "rag_used": true,
+      "repair_attempts": 0,
+      "reranker": "none",
+      "retrieval_strategy": "vector",
+      "retrieved_count": 1,
+      "source_hashes": [
+        "669a5d7e3005ee49"
+      ],
+      "sql_model_calls": 1,
+      "sql_validation": "approved",
+      "status": "success",
+      "total_tokens": 655
+    }
+  },
+  "experiment": {
+    "status": "server-readback-confirmed",
+    "dataset_id": "14a30d00-ff8c-4e2a-905c-2154f85d6022",
+    "experiment_id": "6535e31b-7875-4f31-b95f-7c6a72d5fc07",
+    "experiment_name": "datapilot-rag-20261020T171346-experiment",
+    "examples_confirmed": 22,
+    "runs_confirmed": 22,
+    "feedback_ids": [
+      "01a15a4e-2ec7-7751-a147-13ca99cd6ce8",
+      "01a15a4e-311c-72b5-a72f-403156713988",
+      "01a15a4e-3261-7479-a63f-ff48521a9342",
+      "01a15a4e-33c3-73ef-afb9-705527f08918",
+      "01a15a4e-34fd-7562-94be-1bee4bd985c7",
+      "01a15a4e-3637-743b-96bf-f04fa4a012cb",
+      "01a15a4e-3776-7284-bbfe-0ed168ea5a4a",
+      "01a15a4e-38ba-758e-a4e4-8104e4824012",
+      "01a15a4e-3a00-754e-b7da-d224a1e5f4ab",
+      "01a15a4e-3b3d-72b8-a6c7-bff8214b2856",
+      "01a15a4e-3c77-77a4-a89b-1a540542dc4e",
+      "01a15a4e-3dc1-7580-8b65-559257d78306",
+      "01a15a4e-3ef3-7192-80e6-299964138355",
+      "01a15a4e-40aa-7040-9777-d5610185ba9c",
+      "01a15a4e-41f1-722e-9060-60be219a25b6",
+      "01a15a4e-4344-7149-82a4-238657266fa9",
+      "01a15a4e-448a-7303-a2cb-67b359359404"
+    ],
+    "create_examples_acknowledged": true,
+    "labels_readback_verified": true,
+    "provenance_readback_verified": true,
+    "feedback_readback_verified": 17,
+    "feedback_representation": "cloud four-decimal quantization; local full precision authoritative",
+    "url": "https://smith.langchain.com/o/7117ff9a-d5cf-4d63-baf2-64eac6e4ea95/projects/p/6535e31b-7875-4f31-b95f-7c6a72d5fc07"
+  },
+  "status": "confirmed",
+  "rejection_trace": {
+    "status": "server-readback-confirmed",
+    "run_id": "6432fba9-92b2-4262-9a94-2bbe71633373",
+    "url": "https://smith.langchain.com/o/7117ff9a-d5cf-4d63-baf2-64eac6e4ea95/projects/p/cdbe7c38-c22e-4901-8b41-e7378fb652db/r/6432fba9-92b2-4262-9a94-2bbe71633373?poll=true",
+    "names": [
+      "datapilot.analysis",
+      "generate",
+      "prepare",
+      "validate"
+    ],
+    "project": "datapilot-rag-acceptance",
+    "inputs_outputs_empty": true,
+    "metadata": {
+      "completion_tokens": 0,
+      "duration_ms": 41,
+      "embedding_model": "text-embedding-v4",
+      "ls_run_depth": 0,
+      "model": "mock",
+      "prompt_tokens": 0,
+      "provider": "mock",
+      "rag_status": "not_requested",
+      "rag_used": false,
+      "repair_attempts": 0,
+      "reranker": "none",
+      "retrieval_strategy": "vector",
+      "retrieved_count": 0,
+      "source_hashes": [],
+      "sql_model_calls": 1,
+      "sql_validation": "rejected",
+      "status": "rejected",
+      "total_tokens": 0
+    },
+    "mode": "controlled-SQL-failure-real-cloud-not-real-model",
+    "zero_execution": true
+  },
+  "evidence_sources": [
+    "phase15-cloud-final2.json",
+    "phase15-langsmith-service4.json"
+  ]
+}

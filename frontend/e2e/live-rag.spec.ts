@@ -66,9 +66,11 @@ test("real semantic RAG reaches the production browser, SQL result and citations
     await expect(page.getByRole("list", { name: "本次知识来源" })).toContainText("净贡献额");
     await expect(page.getByRole("img", { name: /查询结果柱状图/ })).toBeVisible();
     const output = path.resolve(process.cwd(), "../data/runtime");
+    const prefix = process.env.E2E_EVIDENCE_PREFIX || "phase10";
+    if (!/^[a-z0-9-]{1,40}$/.test(prefix)) throw new Error("Invalid evidence prefix");
     await mkdir(output, { recursive: true });
-    await page.screenshot({ path: path.join(output, "phase10-real-browser.png"), fullPage: true });
-    await writeFile(path.join(output, "phase10-real-browser.json"), JSON.stringify({
+    await page.screenshot({ path: path.join(output, `${prefix}-real-browser.png`), fullPage: true });
+    await writeFile(path.join(output, `${prefix}-real-browser.json`), JSON.stringify({
       status: "passed", provider: analysis.provider, model: analysis.model,
       sql: analysis.sql, rows: analysis.result.rows, chart: analysis.result.chart,
       telemetry: analysis.telemetry, history_and_csv: "passed",

@@ -47,3 +47,9 @@
 `auth.lock_attempt` 使用 savepoint 处理首次锁行的并发创建，不提前提交业务状态；所有凭据操作统一按失败窗口 → User → AuthSession 取锁，保留清理也先处理失败窗口。`populate_existing=True` 刷新 SQLAlchemy identity map，锁后再次查询当前会话及过期时间，避免重置后仍用缓存的旧密码或旧会话授权。登录只轮换本次登录用户的原会话，避免无序跨账户锁。撤销不取消已经接纳的数据请求。
 
 `test_account_security.py` 覆盖密码/会话 API、边界、CSRF、脱敏和提交故障回滚；`test_auth_concurrency.py` 用真实 PostgreSQL 独立连接与行锁队列，验证登录/重置两种顺序、缓存刷新及并发改密。SQLite 无法证明这些锁保证。`e2e/account-security.spec.ts` 验证双浏览器会话、改密、旧密码拒绝、逐条/全部/当前撤销；除禁用 trace，还通过 Playwright 的 `PLAYWRIGHT_NO_COPY_PROMPT` 关闭会记录密码输入值的自动失败 ARIA 附件。
+
+## 云端追踪与公开仓库审计
+
+LangSmith 应用开关默认关闭；启用时也只发送新构造的白名单元数据，SDK 再隐藏 inputs/outputs 并剔除运行环境。没有上传原始行、知识正文、Schema、问题、SQL、凭据或原始来源 ID。阶段 15 已实际回读成功与受控拒绝记录，检查每个节点的空正文和元数据；受控 DROP 提案被 SQLGlot 拒绝且零执行，不代表真实模型生成过危险 SQL。详见[配置和隐私](LANGSMITH_PRIVACY.md)。
+
+`infra/audit-git-history.py` 检查全部可达历史对象中的当前配置 Key、凭据特征及禁止路径，只保存位置，不输出命中的值；模式候选仍需人工复核。输出独占创建以保留历史证据。未命中不能证明所有未知格式的秘密都不存在；若发现真实凭据曾入历史，应先轮换并报告相关提交，再由用户决定历史清理，不能只删当前文件。
