@@ -96,7 +96,7 @@ def ready(session: Annotated[Session, Depends(get_session)]):
         session.execute(text("SELECT id FROM analyses LIMIT 0"))
         session.execute(text("SELECT id FROM audit_events LIMIT 0"))
         session.execute(text("SELECT id, password_hash FROM users LIMIT 0"))
-        session.execute(text("SELECT token_hash FROM auth_sessions LIMIT 0"))
+        session.execute(text("SELECT token_hash, id, created_at FROM auth_sessions LIMIT 0"))
         session.execute(text("SELECT key FROM login_attempts LIMIT 0"))
         session.execute(text("SELECT owner_id FROM datasets LIMIT 0"))
         session.execute(text("SELECT user_id FROM rate_limit_buckets LIMIT 0"))

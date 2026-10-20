@@ -24,6 +24,12 @@ export type Dataset = {
 
 export type DatasetSummary = Omit<Dataset, "profile">;
 export type User = { id: string; username: string };
+export type AuthSession = {
+  id: string;
+  created_at: string | null;
+  expires_at: string;
+  current: boolean;
+};
 
 export class ApiError extends Error {
   constructor(
@@ -58,7 +64,11 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   }
   const body = await response.json().catch(() => null);
   if (!response.ok) {
-    if (response.status === 401 && !path.startsWith("/auth/")) {
+    if (
+      response.status === 401 &&
+      path !== "/auth/login" &&
+      path !== "/auth/me"
+    ) {
       window.dispatchEvent(new Event("datapilot-session-expired"));
     }
     const detail = body?.detail;

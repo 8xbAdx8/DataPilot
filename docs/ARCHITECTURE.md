@@ -44,4 +44,6 @@ PostgreSQL 是平台数据库：保存账户、会话摘要、数据集归属/�
 
 `rate_limits.py` 使用 PostgreSQL 条件 UPSERT 检查计数并递增，避免多个 API 进程分别计数而放大额度。分析配额与创建 running 历史一起提交，上传配额在解析前提交。`observability.py` 生成请求 ID 和固定字段日志，`analyses.py` 保存分段耗时，`providers.py` 仅从响应外层 usage 采集用量；前端以“执行详情”展示，旧历史无指标时保持缺失。
 
-登录、owner、配额与基础观测已实现，Linux Docker 验收按提交查看 Actions。真实模型仍需后端凭据；后续评估密码生命周期、可用性与有限 SQL 修复，确有多步需求时再考虑 LangGraph。当前不需要 Agent 编排来完成单条分析。
+密码管理沿用 PostgreSQL 会话：`confirm_password()` 在凭据操作的行锁内重新确认当前密码和未过期会话，改密与 `accounts.reset_password()` 将哈希更新、全会话删除和审计一起提交。只“改密码哈希”不足以让已登录设备退出；只检查请求开始时的会话又可能在并发重置后继续授权。真实 PG 多连接测试分别验证两种问题，默认 SQLite 回归无法替代它。
+
+登录、owner、密码生命周期、配额与基础观测已实现，Linux Docker 验收按提交查看 Actions。真实模型仍需后端凭据；后续评估可用性与有限 SQL 修复，确有多步需求时再考虑 LangGraph。当前不需要 Agent 编排来完成单条分析。

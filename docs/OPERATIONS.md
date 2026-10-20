@@ -13,7 +13,7 @@ docker compose up --build --wait --wait-timeout 240
 
 首次启动后按下方创建账户，再登录工作台。健康检查无需登录；业务 API 一律需要会话。
 
-`compose-smoke.py` 要求 Docker CLI、已启动的 Compose 栈和 Mock 模式：通过容器 CLI 创建随机合成测试账户，经同源 HTTP 登录，再检查健康、真实上传、分组 SQL、DuckDB 结果，最后删除自己创建的数据集并退出。密码只经子进程 stdin 和登录请求体传递，不打印；一次性账户元信息保留在该测试环境。设置真实模型后不要用它代替真实 API 专项测试。
+`compose-smoke.py` 要求 Docker CLI、已启动的 Compose 栈和 Mock 模式：通过容器 CLI 创建随机合成测试账户，经同源 HTTP 登录，检查健康、真实上传、分组 SQL 和 DuckDB 结果，删除自己的数据集后再验证改密、新旧密码、会话清单和全部退出。密码只经子进程 stdin 和请求体传递，不打印；一次性账户元信息保留在该测试环境。设置真实模型后不要用它代替真实 API 专项测试。
 
 默认上传文件上限 10 MiB；Next 代理缓冲为 11 MiB，留出 multipart 封装空间。提高后端 `MAX_UPLOAD_BYTES` 时，也需检查前端代理与容器资源限制。前端 E2E 默认使用独立的 3001 端口；已启动开发服务时，可设置 `E2E_BASE_URL=http://127.0.0.1:3000` 复用它，避免两个 Next dev 进程争用同一构建目录。
 
@@ -75,7 +75,7 @@ PostgreSQL 的画像中包含至多 20 行截断预览，因此也可能包含�
 docker compose exec backend python -m app.accounts create-user --username alice
 ```
 
-已有用户重名会拒绝覆盖；创建命令不会修改密码。自动化可用 `--password-stdin` 读取一行随机测试密码，不要用会打印输入的脚本或把真实密码保存进仓库。当前没有密码重置与账户删除 UI，账户元信息不自动清理；测试应使用独立数据库，E2E 会保留随机合成账户但删除自己的数据集并退出。
+已有用户重名会拒绝覆盖；创建命令不会修改密码。自动化可用 `--password-stdin` 读取一行随机测试密码，不要用会打印输入的脚本或把真实密码保存进仓库。没有账户删除 UI，账户元信息不自动清理；测试应使用独立数据库，E2E 会保留随机合成账户但删除自己的数据集并退出。
 
 0003 迁移新增 `users` / `auth_sessions` / `login_attempts` 和 nullable `datasets.owner_id`。此前数据保持原样，owner 为空时任何登录用户均不可访问；不会把旧数据自动授予首个账户。管理员在确认未归属数据的来源后显式操作：
 
@@ -94,3 +94,20 @@ docker compose exec backend python -m app.accounts create-user --username alice
 所有写请求必须同时满足自定义 CSRF 头和来源校验。无 Origin 的非浏览器客户端仍需自定义头；携带未知 Origin、`Origin: null` 或 `Sec-Fetch-Site: cross-site` 的写请求拒绝。GET 导出依靠会话与所有权检查，不需要 CSRF 头。API 响应 `Cache-Control: no-store`，浏览器不在 localStorage 保存会话令牌或密码。
 
 0004 迁移增加共享配额表及分析 `request_id` / `telemetry`，旧历史回填空诊断，不编造数据。升级后重新启动后端；配额、JSON 日志、请求 ID、Token 与日志轮转的配置见 [OBSERVABILITY](OBSERVABILITY.md)。所有实例须一致设置配额参数。Docker backend 日志默认按 `max-size=10m`、`max-file=3` 轮转；本机日志保留由操作者管理。
+
+## 密码与会话管理
+
+登录后点击“账户安全”。修改密码需要当前密码、新密码与确认；新密码为 12–128 字符且须不同于旧密码。成功后撤销本账户全部会话，返回登录页。会话列表最多 10 条，只显示随机公开 ID、创建/过期时间和当前标记；它不识别设备型号或地理位置。撤销单条或全部会话同样需要当前密码。撤销其他会话保留当前工作台；撤销当前会话或全部会话立即返回登录页。
+
+忘记密码时，由能进入后端运行环境的管理员执行；没有 Web 重置入口或自动发送邮件：
+
+```powershell
+.\.venv\Scripts\python -m app.accounts reset-password --username alice
+docker compose exec backend python -m app.accounts reset-password --username alice
+```
+
+命令交互输入并确认新密码；也支持 `--password-stdin`。它只修改已存在账户，并在同一事务中更新哈希、撤销目标账户所有会话、归零密码失败窗口和写入不含密码的审计。不会修改数据归属或其他用户；数据库提交失败时全部回滚。管理员可重设相同密码来强制撤销会话，但用户自行改密须使用不同新密码。
+
+0005 为会话新增独立公开 UUID 和创建时间。旧会话令牌继续有效，创建时间保留 NULL，界面显示“未知”；新会话记录真实时间。先 `alembic upgrade head`，再重启后端；就绪检查会拒绝缺少新列的旧 schema。回退仅在独立测试库验证，业务库回退前需备份并停止新版服务。
+
+登录与密码再确认共享每账户 15 分钟 / 5 次失败窗口；换接口或换会话不能增加猜测额度。改密、重置、登录和会话撤销通过 PostgreSQL 行锁串行化，等待后重新读取密码与当前会话；不能只在请求开始时认证一次。会话撤销阻止后续请求，已被接纳的分析或导出可能完成，不会强行取消已运行的 DuckDB 进程。

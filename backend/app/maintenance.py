@@ -29,9 +29,10 @@ def cleanup(session: Session, settings: Settings, *, apply: bool = False, now=No
         "rate_limits": 0,
     }
     for model, field, cutoff, key in [
+        # Match authentication's Attempt -> User -> Session lock order.
+        (LoginAttempt, LoginAttempt.window_started, now - timedelta(minutes=15), "login_attempts"),
         (AuthSession, AuthSession.expires_at, now, "sessions"),
         (RateLimitBucket, RateLimitBucket.expires_at, now, "rate_limits"),
-        (LoginAttempt, LoginAttempt.window_started, now - timedelta(minutes=15), "login_attempts"),
     ]:
         expired = session.scalars(select(model).where(field <= cutoff)).all()
         counts[key] = len(expired)

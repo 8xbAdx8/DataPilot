@@ -49,13 +49,15 @@ npm run test:e2e # 先启动后端；本机使用 Edge，CI 使用 Playwright Ch
 
 默认 `LLM_PROVIDER=mock`，无需 API Key。真实模型调用将在对应阶段单独记录；不要把密钥放进前端或提交到 Git。工作台需要管理员创建的账户，没有默认账户或公开注册接口。用户名为 3–64 位英文/数字/点/下划线/短横线（首位英文或数字，不区分大小写），密码为 12–128 字符。已存在账户不要重复创建；命令会拒绝覆盖。
 
-登录、退出、24 小时会话与所有权由后端执行。升级前的旧数据保留但默认不可访问；按[账户与迁移说明](docs/OPERATIONS.md#账户与旧数据归属)显式分配。当前是基础多账户演示版本，尚未提供密码重置、MFA 或公网部署所需的完整网关防护。
+登录、退出、24 小时会话与所有权由后端执行。工作台右上角“账户安全”支持修改密码、查看会话、撤销单个会话和退出全部设备；改密会撤销全部旧会话并要求重新登录。忘记密码时由管理员通过 CLI 重置。升级前的旧数据保留但默认不可访问；按[账户与迁移说明](docs/OPERATIONS.md#账户与旧数据归属)显式分配。当前尚无 MFA 或公网部署所需的完整网关防护。
 
 ## 安全分析 API
 
 `POST /api/datasets/{id}/analyses`，JSON 为 `{"question":"按 region 统计 revenue 总和"}`。Mock 还支持“这个数据集有多少行？”、“预览数据”、“revenue 平均值”。它只支持明确模板；复杂问题会返回错误。生成 SQL 必须通过 [安全策略](docs/SECURITY.md)，实际结果由 DuckDB 计算。
 
 数据 API 需要登录 Cookie。先向 `POST /api/auth/login` 提交 `username` / `password`，Cookie 由 HttpOnly 响应设置；`GET /api/auth/me` 返回当前用户，`POST /api/auth/logout` 撤销当前会话。所有 `/api` 写请求（包括登录/退出）必须带 `X-DataPilot-CSRF: 1`；浏览器通过内置客户端自动发送。不要把密码放进 URL、命令行参数或前端存储。
+
+`GET /api/auth/sessions` 只列出本账户最多 10 个未过期会话。`POST /api/auth/password` 使用 `current_password` / `new_password`，`POST /api/auth/logout-all` 与 `DELETE /api/auth/sessions/{公开会话ID}` 使用 `current_password`。后端重新确认密码与会话归属，失败次数和登录共享限额；详细操作见[密码与会话管理](docs/OPERATIONS.md#密码与会话管理)。
 
 默认每用户每 60 秒允许 30 次分析、10 次上传，PostgreSQL 原子计数使配额跨 API 进程共享。超限返回 429 和 `Retry-After`，前端显示等待建议，不自动重试。每个响应的 `X-Request-ID` 可关联脱敏 JSON 日志；分析“执行详情”展示真实分段耗时和提供商上报的 Token。未知用量不记为 0，不估算账单费用，详见[诊断说明](docs/OBSERVABILITY.md)。
 

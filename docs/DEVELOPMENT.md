@@ -106,3 +106,16 @@
 - 前端 lint、TypeScript/生产构建与 **9 项 Edge E2E** 通过，包括真实 429、不自动重试和执行诊断。最终异常处理修改后重跑限流与真实查询诊断专项。
 - 独立临时 PostgreSQL 库实际验证 0003 → 0004 → 0003 → 0004、旧历史与空诊断保留、ORM 无迁移差异；只删除本次新建临时库，未回退业务库。
 - Windows 本机 Docker 引擎仍未修复，新提交的 Linux Compose 验收以本轮 CI 为准。真实模型和实际费用仍未验证，完整公网/IP 网关限流不在本阶段范围；下一步可处理密码生命周期或有限 SQL 修复。
+
+## 2026-10-20 · 密码生命周期与会话管理
+
+- 已复核提交 `a193df1` 的 GitHub Actions `39200243752`：application / compose 成功，真实 PostgreSQL 186 passed / 1 skipped、Chromium E2E 9 passed，容器真实上传/查询闭环通过。
+- 账户安全面板接入真实 API：当前密码再确认、两次新密码确认、改密并全撤销、最多 10 条私有会话、逐条/全部/当前撤销。成功退出卸载工作台，关闭面板清空密码；面板打开/关闭保留原工作台状态。会话不展示推测的设备或位置。
+- 管理员 `reset-password` 只处理已有用户，交互/getpass 或 stdin 输入；哈希更新、全会话撤销、失败窗口归零及脱敏审计同事务，提交失败全部回滚。没有公开密码恢复入口，没有重置任何现有演示用户的密码。
+- 登录、改密、重置与撤销统一失败窗口 → User → AuthSession 锁序，维护清理顺序同步调整。savepoint 处理首次窗口并发插入，不提前提交其他业务状态；锁后强制刷新缓存用户、重验当前会话和最新时间；登录只轮换本用户旧 Cookie。解决旧密码登录在重置后创建有效会话、缓存旧密码和双改密的竞态。
+- 本机 PostgreSQL 启动在新沙箱限制下返回 restricted-token error 87；仅提升权限启动本项目原生 PostgreSQL 后正常，未重置数据。业务库/独立测试库均升级 0005，Alembic check 无差异。独立临时库实际完成 0004 → 0005 → 0004 → 0005，旧 token 保留、每行公开 UUID 唯一、创建时间保持 NULL；只删除本次创建的临时库。
+- 37 项新增账户 API 回归真实执行 scrypt、Cookie 与事务；首次 3 项失败为测试误将错误说明中的单词 inputs 当作输入泄漏，改为检查 JSON 的 input 键后全部通过。默认 SQLite 完整测试在加入 PG 并发文件前为 **221 passed / 3 skipped**；最终真实 PostgreSQL 完整套件 **228 passed / 1 skipped**（无真实 LLM 凭据）。
+- 5 项真实 PG 并发回归使用独立连接、事件屏障及 pg_blocking_pids 确认真实锁等待：重置/登录双顺序、expire_on_commit=False 的缓存身份/会话、有效新会话配旧缓存密码、两个已认证排队改密恰一次成功；单独再跑 5 项全部通过。
+- 前端 lint、typecheck、Next 生产构建通过。新增 E2E 首次定位到 Next 的空 alert，按实际错误文本定位后两项通过；检查了 390px 账户安全截图，表单和双会话无横向溢出。发现 Playwright 自动失败 ARIA 附件会含密码值，使用当前 runner 支持的 PLAYWRIGHT_NO_COPY_PROMPT 禁用；同时保持 trace 关闭，旧失败附件已清理。
+- 最终全套真实 API / Edge E2E **11 passed，exit 0**。Windows 沙箱使 Playwright 的 taskkill 无法回收 Next，测试全部完成后只结束本轮日志中确认的 3 个 Next 进程，runner 正常退出；没有结束其他 Node 或浏览器进程。Ruff check / format、pip check、git diff --check 均通过，未发现新增密钥或跟踪运行数据。
+- Compose 冒烟增加会话清单、改密、新旧密码验证和全部退出。Windows Docker 引擎问题仍在；本轮容器与 Chromium 全套结果以新提交 CI 为准。真实模型、实际账单及公网部署仍未验收；后续可增加有限 SQL 修复，始终重新进行 AST 校验并限制重试次数。

@@ -26,7 +26,7 @@
 
 写请求要求自定义 CSRF 头并检查 Origin / Fetch Metadata；SameSite 仅作纵深防御。每账户失败窗口持久化，15 分钟内 5 次错误后返回 429；不存在的账户使用相同错误和 scrypt 工作量。密码计算同时最多 2 个，繁忙返回 503。当前节流按账户而非全网/IP，仍需网关层速率与请求大小控制，不能把它当作完整的公网防滥用系统。
 
-子进程与 API 仍使用同一系统用户，没有完整操作系统沙箱。DuckDB 内存限制不是整个 Python 进程的硬内存限额，Windows 上也未实施内核资源配额。当前没有密码重置、MFA、组织/角色、共享数据集或公网容量验收；生产化还需要 HTTPS、网关限制、容器资源/权限约束、隔离工作进程和持续依赖升级。
+子进程与 API 仍使用同一系统用户，没有完整操作系统沙箱。DuckDB 内存限制不是整个 Python 进程的硬内存限额，Windows 上也未实施内核资源配额。当前没有自助找回密码、MFA、组织/角色、共享数据集或公网容量验收；生产化还需要 HTTPS、网关限制、容器资源/权限约束、隔离工作进程和持续依赖升级。
 
 实现参考：[OWASP 密码存储](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)、[会话管理](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html)、[CSRF 防护](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)。
 
@@ -37,3 +37,11 @@
 `test_sql_guard.py` 是 AST 回归集；`test_execution.py` 验证真实执行、超时回收、行/字节限制与执行环境外部访问禁用；`test_providers.py` 使用 HTTP MockTransport 测试 API 合同；`test_analyses.py` 覆盖完整 API、失败审计和导出。`test_live_llm.py` 只有显式启用才访问真实模型。
 
 `test_auth.py` 验证真实密码哈希、会话撤销/过期、登录节流、CSRF、所有业务路由的未登录拒绝、双用户隔离及旧数据显式分配；`e2e/auth.spec.ts` 用两个随机账户实际登录、查询、切换身份和检查导出权限。其余 API 测试在临时数据库写入真实会话行，不覆盖认证依赖。E2E 禁用网络 trace，避免登录请求中的密码进入测试附件。
+
+## 密码生命周期与并发边界
+
+改密、撤销单个/全部会话必须再次验证当前密码，错误与登录共享持久化失败窗口。改密与管理员 CLI 重置在同一事务中更新哈希、撤销全部目标会话并写审计。未知/其他用户的会话 ID 均返回相同 404；会话清单只返回独立 UUID，不暴露 token hash。管理员重置只能在后端运行环境执行，没有公开恢复接口。
+
+`auth.lock_attempt` 使用 savepoint 处理首次锁行的并发创建，不提前提交业务状态；所有凭据操作统一按失败窗口 → User → AuthSession 取锁，保留清理也先处理失败窗口。`populate_existing=True` 刷新 SQLAlchemy identity map，锁后再次查询当前会话及过期时间，避免重置后仍用缓存的旧密码或旧会话授权。登录只轮换本次登录用户的原会话，避免无序跨账户锁。撤销不取消已经接纳的数据请求。
+
+`test_account_security.py` 覆盖密码/会话 API、边界、CSRF、脱敏和提交故障回滚；`test_auth_concurrency.py` 用真实 PostgreSQL 独立连接与行锁队列，验证登录/重置两种顺序、缓存刷新及并发改密。SQLite 无法证明这些锁保证。`e2e/account-security.spec.ts` 验证双浏览器会话、改密、旧密码拒绝、逐条/全部/当前撤销；除禁用 trace，还通过 Playwright 的 `PLAYWRIGHT_NO_COPY_PROMPT` 关闭会记录密码输入值的自动失败 ARIA 附件。

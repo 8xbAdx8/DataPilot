@@ -25,6 +25,21 @@ def request(path, data=None, headers=None, method=None):
         return json.loads(content) if content else None
 
 
+def json_request(path, body):
+    return request(
+        path, json.dumps(body).encode(), {"Content-Type": "application/json"}
+    )
+
+
+def expect_logged_out():
+    try:
+        request("/auth/me")
+    except HTTPError as error:
+        assert error.code == 401
+    else:
+        raise AssertionError("Revoked session still authenticated")
+
+
 def main():
     assert request("/health/ready")["status"] == "ok"
     username, password = "smoke-" + secrets.token_hex(8), secrets.token_urlsafe(24)
@@ -77,6 +92,29 @@ def main():
         print("HTTP health + upload + Mock SQL + real DuckDB result: PASS")
     finally:
         request(f"/datasets/{dataset['id']}", method="DELETE")
+        request("/auth/logout", data=b"", method="POST")
+    replacement = secrets.token_urlsafe(24)
+    try:
+        json_request("/auth/login", {"username": username, "password": password})
+        sessions = request("/auth/sessions")
+        assert len(sessions) == 1 and sessions[0]["current"]
+        assert set(sessions[0]) == {"id", "created_at", "expires_at", "current"}
+        json_request(
+            "/auth/password",
+            {"current_password": password, "new_password": replacement},
+        )
+        expect_logged_out()
+        try:
+            json_request("/auth/login", {"username": username, "password": password})
+        except HTTPError as error:
+            assert error.code == 401
+        else:
+            raise AssertionError("Old password accepted after password change")
+        json_request("/auth/login", {"username": username, "password": replacement})
+        json_request("/auth/logout-all", {"current_password": replacement})
+        expect_logged_out()
+        print("HTTP password change + session inventory + revocation: PASS")
+    finally:
         request("/auth/logout", data=b"", method="POST")
 
 

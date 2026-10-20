@@ -24,7 +24,10 @@ class AuthSession(Base):
     __tablename__ = "auth_sessions"
 
     token_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
+    id: Mapped[str] = mapped_column(String(36), unique=True, default=lambda: str(uuid.uuid4()))
     user_id: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    # Legacy sessions have no known creation time; migration deliberately leaves NULL.
+    created_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), default=now)
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
 
 

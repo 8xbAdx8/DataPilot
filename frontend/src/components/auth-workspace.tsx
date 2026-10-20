@@ -3,6 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { api, ApiError, type User } from "@/lib/api";
 import { Workbench } from "@/components/workbench";
+import { AccountSecurity } from "@/components/account-security";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -13,6 +14,8 @@ export function AuthWorkspace() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
+  const [securityOpen, setSecurityOpen] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -33,6 +36,8 @@ export function AuthWorkspace() {
     function expired() {
       setUser(null);
       setPassword("");
+      setSecurityOpen(false);
+      setNotice("");
       setError("会话已失效，请重新登录。");
     }
     window.addEventListener("datapilot-session-expired", expired);
@@ -47,6 +52,7 @@ export function AuthWorkspace() {
     if (busy) return;
     setBusy(true);
     setError("");
+    setNotice("");
     try {
       setUser(
         await api<User>("/auth/login", {
@@ -70,6 +76,7 @@ export function AuthWorkspace() {
       await api("/auth/logout", { method: "POST" });
       setUser(null);
       setPassword("");
+      setSecurityOpen(false);
     } catch (e) {
       setError(e instanceof Error ? e.message : "退出失败，请重试。");
     } finally {
@@ -88,6 +95,15 @@ export function AuthWorkspace() {
       <>
         <div className="flex flex-wrap items-center justify-end gap-4 border-b bg-white px-6 py-3 text-sm text-slate-600">
           <span>当前用户：{user.username}</span>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={busy}
+            aria-expanded={securityOpen}
+            onClick={() => setSecurityOpen((value) => !value)}
+          >
+            账户安全
+          </Button>
           <Button variant="outline" size="sm" disabled={busy} onClick={logout}>
             退出登录
           </Button>
@@ -97,7 +113,21 @@ export function AuthWorkspace() {
             </p>
           )}
         </div>
-        <Workbench key={user.id} />
+        {securityOpen && (
+          <AccountSecurity
+            onClose={() => setSecurityOpen(false)}
+            onSignedOut={(message) => {
+              setUser(null);
+              setPassword("");
+              setSecurityOpen(false);
+              setError("");
+              setNotice(message);
+            }}
+          />
+        )}
+        <div hidden={securityOpen}>
+          <Workbench key={user.id} />
+        </div>
       </>
     );
   return (
@@ -111,6 +141,14 @@ export function AuthWorkspace() {
           </p>
         </CardHeader>
         <CardContent>
+          {notice && (
+            <p
+              role="status"
+              className="mb-5 rounded-md bg-emerald-50 p-3 text-sm text-emerald-800"
+            >
+              {notice}
+            </p>
+          )}
           <form onSubmit={login} className="space-y-5">
             <label className="block text-sm font-medium">
               用户名
