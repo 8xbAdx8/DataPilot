@@ -1,0 +1,45 @@
+{
+  "fingerprint": {
+    "implementation_sha256": {
+      "rag18_evaluate.py": "a8c8e7cc00099a5958d186243c79c8b6da3b23209fc277650ca9392ccfc843da",
+      "knowledge.py": "3516ccf20b066e3f911dc4ed1ed3558586cec097afc3e9f160a0caffaec3b6e1",
+      "retrieval.py": "0a23c3e9da429d51af20f9eda33592d88cf648f2ebef4d1d0bbc683186669903",
+      "reranking.py": "a576fef95181d981aac968c822a005fa818500b0d14d4dc39e8b519770d26521",
+      "embeddings.py": "cf47539de50bc9e2c9b9176b3c3b5f48695f6642aba4b526560c1e1af2eff21b",
+      "config.py": "9d8f83e5743df7f7e514f77f8c8c0ddad78bc0d85d4f127760d2b475ccb22d23",
+      "tracing.py": "2e9a2355f16fb3d429082a43c0b74cb9e20315782ec9cf3018da69bf714abcbd",
+      "analysis_agent.py": "126f6ec62bee701c8f48cc8c1a0635e0bee309fa69a4f61300b81b087deaf1da",
+      "analysis_graph.py": "59b532612aff35a9930b10a3aa8221dc5cfc1adf07d2f9c403155536f9604290",
+      "providers.py": "be34b49f258da73b96b837580ae5b609fbb778cb80c046bb94715fcc266332d5"
+    },
+    "embedding_model": "text-embedding-v4",
+    "embedding_dimensions": 1536,
+    "embedding_space_sha256": "c30bae58e38833f7ccbdf9864f97460ea7b8a4aa0943ce434e5515295fd533f9",
+    "flashrank_model_sha256": "ff24c4abf96a982ce24b021bab80d9d8a1c3c2ba6926fb41e372a9be1d8cba9b",
+    "top_k": 4,
+    "reranker_min_score": 0.5,
+    "rrf_constant": 60
+  },
+  "review": {
+    "status": "human-confirmed",
+    "confirmed_date": "2026-10-21",
+    "confirmation": "已复核，确认 RAG18 标签与分组",
+    "sha256": {
+      "rag18-v1.json": "b9d24d915f2dfed32472051d0fc5a90b104d1ebbda49143729b8b6b12ff3b4b0",
+      "rag18-support.csv": "7fbfc9d9b7a816627ec3003569c6c076e8bde2d7fe02616bedda6cb9962c67bf",
+      "rag18-delivery.csv": "fe3c2a56249bb11420c1837741c9e0ea18f7d6e7ae8b113c848c8b186fcae669"
+    }
+  },
+  "selected": {
+    "rag_strategy": "vector",
+    "rag_reranker": "none",
+    "rag_min_similarity": 0.65
+  },
+  "baseline": {
+    "rag_strategy": "vector",
+    "rag_reranker": "none",
+    "rag_min_similarity": 0.7
+  },
+  "development_sha256": "02f2c9d76ca3a36e6a68e8cb52a2771b8ce46453c9b0647dec5d865e24b2736c",
+  "holdout_protocol": "One batch, baseline and selected only; no further tuning"
+}

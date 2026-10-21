@@ -1,0 +1,35 @@
+{
+  "state": "complete",
+  "checks": {
+    "create_real_persisted": true,
+    "duplicate_no_embedding": true,
+    "update_replaced_vector_and_content": true,
+    "cross_owner_404": true,
+    "delete_zero_chunks_no_documents": true
+  },
+  "database_rollback_verified": true,
+  "embedding_requests": [
+    {
+      "inputs": 1,
+      "status": "success",
+      "usage": {
+        "source": "provider",
+        "prompt_tokens": 11,
+        "completion_tokens": null,
+        "total_tokens": 11
+      },
+      "duration_ms": 1979.066
+    },
+    {
+      "inputs": 1,
+      "status": "success",
+      "usage": {
+        "source": "provider",
+        "prompt_tokens": 12,
+        "completion_tokens": null,
+        "total_tokens": 12
+      },
+      "duration_ms": 2008.98
+    }
+  ]
+}

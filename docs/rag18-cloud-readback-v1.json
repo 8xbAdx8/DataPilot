@@ -1,0 +1,53 @@
+{
+  "status": "server-readback-confirmed",
+  "run_id": "dbce2016-8379-4618-b95e-83d7bab98acb",
+  "url": "https://smith.langchain.com/o/7117ff9a-d5cf-4d63-baf2-64eac6e4ea95/projects/p/cdbe7c38-c22e-4901-8b41-e7378fb652db/r/dbce2016-8379-4618-b95e-83d7bab98acb?poll=true",
+  "names": [
+    "datapilot.rag-evaluation"
+  ],
+  "project": "datapilot-rag-acceptance",
+  "inputs_outputs_empty": true,
+  "metadata": {
+    "candidates": [
+      {
+        "rank": 1,
+        "score_ppm": 811874,
+        "source_hash": "037885ccb6e0a67c",
+        "stage": "vector"
+      },
+      {
+        "rank": 2,
+        "score_ppm": 668506,
+        "source_hash": "16985cfc4767364c",
+        "stage": "vector"
+      },
+      {
+        "rank": 1,
+        "score_ppm": 811874,
+        "source_hash": "037885ccb6e0a67c",
+        "stage": "selected"
+      },
+      {
+        "rank": 2,
+        "score_ppm": 668506,
+        "source_hash": "16985cfc4767364c",
+        "stage": "selected"
+      }
+    ],
+    "contract_passed": false,
+    "duration_ms": 8,
+    "embedding_model": "text-embedding-v4",
+    "failure_code": "contract_failed",
+    "ls_run_depth": 0,
+    "rag_status": "retrieved",
+    "rag_used": false,
+    "reranker": "none",
+    "retrieval_config_hash": "4283d8a010673ac3",
+    "retrieval_strategy": "vector",
+    "retrieved_count": 2,
+    "status": "error"
+  },
+  "sample_id": "support-n01",
+  "provenance": "Actual measured dev retrieval; no model call",
+  "failure": "Expected no_match but retrieved authorized knowledge"
+}

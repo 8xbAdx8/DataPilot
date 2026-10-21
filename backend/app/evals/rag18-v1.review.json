@@ -1,0 +1,10 @@
+{
+  "status": "human-confirmed",
+  "confirmed_date": "2026-10-21",
+  "confirmation": "已复核，确认 RAG18 标签与分组",
+  "sha256": {
+    "rag18-v1.json": "b9d24d915f2dfed32472051d0fc5a90b104d1ebbda49143729b8b6b12ff3b4b0",
+    "rag18-support.csv": "7fbfc9d9b7a816627ec3003569c6c076e8bde2d7fe02616bedda6cb9962c67bf",
+    "rag18-delivery.csv": "fe3c2a56249bb11420c1837741c9e0ea18f7d6e7ae8b113c848c8b186fcae669"
+  }
+}

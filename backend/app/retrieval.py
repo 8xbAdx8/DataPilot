@@ -16,7 +16,31 @@ def lexical_terms(question):
     return sorted(set(terms))[:64]
 
 
-def select_candidates(session, allowed, vector, question, settings, make_citation):
+def select_candidates(session, allowed, vector, question, settings, make_citation, stages=None):
+    def observe(stage, passages):
+        if stages is not None:
+            stages.append(
+                {
+                    "stage": stage,
+                    "candidates": [
+                        {
+                            k: p[k]
+                            for k in (
+                                "chunk_id",
+                                "document_id",
+                                "similarity",
+                                "vector_rank",
+                                "lexical_rank",
+                                "fusion_score",
+                                "reranker_score",
+                            )
+                            if k in p
+                        }
+                        for p in passages[:16]
+                    ],
+                }
+            )
+
     distance = allowed.c.embedding.cosine_distance(vector)
     size = settings.rag_top_k if settings.rag_strategy == "vector" else 16
     query = select(allowed, distance.label("distance")).where(
@@ -24,7 +48,9 @@ def select_candidates(session, allowed, vector, question, settings, make_citatio
     )
     vector_rows = session.execute(query.order_by(distance, allowed.c.chunk_id).limit(size)).all()
     sources = {r.chunk_id: make_citation(r, max(0, min(1, 1 - r.distance))) for r in vector_rows}
+    observe("vector", list(sources.values()))
     if settings.rag_strategy == "vector":
+        observe("selected", list(sources.values()))
         return list(sources.values())
     terms = lexical_terms(question)
     text = func.lower(allowed.c.title + literal(" ") + allowed.c.content)
@@ -42,5 +68,9 @@ def select_candidates(session, allowed, vector, question, settings, make_citatio
     # RRF avoids adding incomparable cosine / term-count scores.
     candidates = [{**sources[key], "fusion_score": score} for key, score in scores.items()]
     candidates.sort(key=lambda p: (-p["fusion_score"], p["chunk_id"]))
+    observe("lexical", [sources[r.chunk_id] for r in lexical_rows])
+    observe("fused", candidates)
     candidates = rerank(question, candidates[:16], settings)
+    observe("reranked", candidates)
+    observe("selected", candidates[: settings.rag_top_k])
     return candidates[: settings.rag_top_k]

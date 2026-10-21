@@ -1,0 +1,6 @@
+ticket_id,team,status,handle_minutes,wait_minutes,fee,labor_cost,billing
+T1,Blue,closed,10,2,30,8,billable
+T2,Blue,closed,20,4,50,12,internal
+T3,Red,open,5,1,10,3,billable
+T4,Red,closed,30,,70,20,billable
+T5,Green,closed,,6,15,5,billable

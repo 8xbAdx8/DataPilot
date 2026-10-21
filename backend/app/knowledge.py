@@ -395,8 +395,9 @@ def retrieve_knowledge(session, owner_id, dataset_id, question, settings, *, dea
                     )
                 }
             )
+        result["candidate_stages"] = []
         result["citations"] = select_candidates(
-            session, allowed, vector, question, settings, citation
+            session, allowed, vector, question, settings, citation, result["candidate_stages"]
         )
         result["status"] = "retrieved" if result["citations"] else "no_match"
         return result

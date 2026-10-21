@@ -1,6 +1,7 @@
 """Opt-in LangSmith export. Only newly constructed, bounded metadata leaves the app."""
 
 import hashlib
+import json
 import logging
 import re
 from datetime import UTC, datetime
@@ -52,6 +53,17 @@ LABELS = {
     "retrieval_strategy": {"vector", "hybrid"},
     "reranker": {"none", "flashrank"},
     "sql_validation": {"approved", "rejected", "not_requested"},
+    "failure_code": {
+        "unsafe_sql",
+        "unknown_column",
+        "query_timeout",
+        "llm_timeout",
+        "agent_budget_exceeded",
+        "reranker_timeout",
+        "reranker_failed",
+        "contract_failed",
+        "other",
+    },
 }
 
 
@@ -64,6 +76,33 @@ def safe_metadata(values):
             safe[key] = value
     if type(values.get("rag_used")) is bool:
         safe["rag_used"] = values["rag_used"]
+    if type(values.get("contract_passed")) is bool:
+        safe["contract_passed"] = values["contract_passed"]
+    version = values.get("retrieval_config_hash")
+    if isinstance(version, str) and re.fullmatch(r"[0-9a-f]{16}", version):
+        safe["retrieval_config_hash"] = version
+    candidates = values.get("candidates")
+    if isinstance(candidates, list) and len(candidates) <= 80:
+        clean = []
+        for row in candidates:
+            if not isinstance(row, dict) or set(row) != {
+                "stage",
+                "source_hash",
+                "rank",
+                "score_ppm",
+            }:
+                continue
+            if (
+                row["stage"] in {"vector", "lexical", "fused", "reranked", "selected"}
+                and isinstance(row["source_hash"], str)
+                and re.fullmatch(r"[0-9a-f]{16}", row["source_hash"])
+                and type(row["rank"]) is int
+                and 1 <= row["rank"] <= 16
+                and type(row["score_ppm"]) is int
+                and 0 <= row["score_ppm"] <= 10**6
+            ):
+                clean.append(row)
+        safe["candidates"] = clean
     for key, allowed in LABELS.items():
         if isinstance(values.get(key), str) and values[key] in allowed:
             safe[key] = values[key]
@@ -75,6 +114,44 @@ def safe_metadata(values):
     ):
         safe["source_hashes"] = hashes
     return safe
+
+
+def retrieval_metadata(settings, rag, salt):
+    """No text or stable source identifiers cross the tracing boundary."""
+    config = {
+        k: getattr(settings, k)
+        for k in (
+            "rag_strategy",
+            "rag_reranker",
+            "rag_top_k",
+            "rag_min_similarity",
+            "reranker_min_score",
+        )
+    }
+    candidates = []
+    for stage in rag.get("candidate_stages", [])[:5]:
+        for rank, row in enumerate(stage.get("candidates", [])[:16], 1):
+            key = row.get("chunk_id")
+            score = row.get("reranker_score", row.get("fusion_score", row.get("similarity", 0)))
+            if isinstance(key, str) and type(score) in (int, float) and 0 <= score <= 1:
+                candidates.append(
+                    {
+                        "stage": stage.get("stage"),
+                        "rank": rank,
+                        "source_hash": hashlib.sha256((str(salt) + "|" + key).encode()).hexdigest()[
+                            :16
+                        ],
+                        "score_ppm": round(score * 10**6),
+                    }
+                )
+    return safe_metadata(
+        {
+            "retrieval_config_hash": hashlib.sha256(
+                json.dumps(config, sort_keys=True).encode()
+            ).hexdigest()[:16],
+            "candidates": candidates,
+        }
+    )
 
 
 class SafeSDKLogs(logging.Filter):
@@ -148,6 +225,14 @@ def trace_payload(run, status, duration_ms):
                 if isinstance(source.get("chunk_id"), str)
             ],
             **run.usage().model_dump(exclude={"source"}),
+            **retrieval_metadata(run.settings, run.rag, root_id),
+            "failure_code": (
+                run.failure.detail.get("code")
+                if run.failure and run.failure.detail.get("code") in LABELS["failure_code"]
+                else "other"
+                if run.failure
+                else None
+            ),
         }
     )
     rows = [

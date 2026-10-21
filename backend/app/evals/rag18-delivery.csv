@@ -1,0 +1,5 @@
+shipment_id,depot,status,weight_kg,distance_km,transit_minutes,fee,delivery_cost
+S1,North,delivered,2,10,30,20,5
+S2,North,late,5,20,90,40,12
+S3,South,delivered,3,15,45,30,8
+S4,South,cancelled,1,5,,10,4
