@@ -48,6 +48,8 @@ PostgreSQL 是平台数据库：保存账户、会话摘要、数据集归属/�
 
 ## 怎样验证，不只看绿色输出
 
+阶段17的HAVING验证分两步：`sql_guard.py`仍逐节点检查单表语法/函数并执行真实Schema qualify；`having_guard.py`额外确认别名无歧义、条件有界、聚合参数合法、非聚合列属于GROUP BY。安全校验失败仍留在Graph的拒绝分支，不能直接调用DuckDB。见[支持范围与测试](PHASE17_HAVING.md)。
+
 - `pytest` 用真实 DuckDB 验证结果值，用恶意 SQL 检查拒绝，并验证拒绝后执行器没有被调用。
 - 默认数据库测试用临时 SQLite 隔离；显式设置 `TEST_DATABASE_URL` 重跑相同 API 测试，才算验证了真实 PostgreSQL。
 - Provider 的 MockTransport 只验证网络合同和异常处理；真实模型专项由 `RUN_LIVE_LLM=1` 单独启用，未运行就标注未验证。

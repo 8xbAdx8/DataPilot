@@ -1,5 +1,6 @@
 import copy
 import json
+from unittest.mock import patch
 
 import duckdb
 import pytest
@@ -105,8 +106,14 @@ def test_reviewed_reference_arithmetic_and_existing_guard_boundary(split, tmp_pa
             assert names == c["expected_columns"], c["id"]
             assert same_rows(rows, c["expected_rows"]), c["id"]
             if c["id"] == "h03":
-                with pytest.raises(AppError) as error:
-                    validate_sql(c["reference_sql"], fields)
+                # Preserve the historical stage16 rejection assertion under its
+                # original node whitelist. New HAVING tests use the live policy;
+                # this does not rerun or rescore the frozen model holdout.
+                from app.sql_guard import STRUCTURAL_NODES
+
+                with patch("app.sql_guard.STRUCTURAL_NODES", STRUCTURAL_NODES - {"having"}):
+                    with pytest.raises(AppError) as error:
+                        validate_sql(c["reference_sql"], fields)
                 assert error.value.detail["code"] == "unsafe_sql"
             else:
                 validate_sql(c["reference_sql"], fields)

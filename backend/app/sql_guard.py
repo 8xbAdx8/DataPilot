@@ -4,6 +4,7 @@ from sqlglot.errors import OptimizeError, ParseError
 from sqlglot.optimizer.qualify import qualify
 
 from app.errors import AppError
+from app.having_guard import check_aliases, validate_having
 
 # Deliberately small MVP grammar: one SELECT over the uploaded table, no joins/CTEs/subqueries.
 STRUCTURAL_NODES = {
@@ -17,6 +18,7 @@ STRUCTURAL_NODES = {
     "alias",
     "where",
     "group",
+    "having",
     "order",
     "ordered",
     "limit",
@@ -122,6 +124,7 @@ def validate_sql(sql: str, fields: list[dict]) -> str:
             raise unsafe("SQL 使用了当前不支持的语法。")
         if isinstance(node, exp.Select) and node is not tree:
             raise unsafe("MVP 暂不支持子查询。")
+    check_aliases(tree, fields)
     try:
         qualified = qualify(
             tree,
@@ -136,5 +139,8 @@ def validate_sql(sql: str, fields: list[dict]) -> str:
         # Parse failures cannot reliably establish the intended grammar, so stay terminal.
         error.repairable = isinstance(exc, OptimizeError)
         raise error from exc
+    if len(list(qualified.walk())) > 512:
+        raise unsafe("SQL 展开后复杂度超过限制。")
+    validate_having(qualified, fields)
     # Bind-time validation is backed by real DuckDB; schema scope cannot be expanded by the model.
     return qualified.sql(dialect="duckdb")
