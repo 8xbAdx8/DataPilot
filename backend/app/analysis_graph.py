@@ -54,6 +54,9 @@ class AnalysisRun:
     sql_calls: int = 0
     sql_usages: list[TokenUsage] = field(default_factory=list)
     planner: Callable[[], dict] | None = None
+    evidence_guard: Callable[[str], None] | None = None
+    registered_metrics: list[dict] = field(default_factory=list)
+    metric_resolution: dict = field(default_factory=dict)
     plan: dict = field(default_factory=dict)
     agent_metrics: dict = field(default_factory=dict)
     retriever: Callable[[], dict] | None = None
@@ -62,7 +65,11 @@ class AnalysisRun:
     )
 
     def generation_context(self):
-        return {"analysis_plan": self.plan, "business_knowledge": self.rag.get("citations", [])}
+        return {
+            "analysis_plan": self.plan,
+            "business_knowledge": self.rag.get("citations", []),
+            "registered_metrics": self.registered_metrics,
+        }
 
     def __post_init__(self):
         self.deadline = time.monotonic() + self.settings.workflow_timeout_seconds
@@ -79,6 +86,7 @@ class AnalysisRun:
             "plan": self.plan.copy(),
             "agent": self.agent_metrics.copy(),
             "rag": self.rag.copy(),
+            "metric_resolution": self.metric_resolution.copy(),
         }
 
     def budget(self):
@@ -151,6 +159,8 @@ def build_graph(run: AnalysisRun):
         try:
             with run.measure("sql_guard"):
                 sql = validate_sql(state["proposal"]["sql"], state["schema"])
+                if run.evidence_guard:
+                    run.evidence_guard(sql)
             run.validations.append({"status": "approved", "attempt": run.repairs})
             run.sql = sql
             run.failure = None

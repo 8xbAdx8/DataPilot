@@ -1,0 +1,284 @@
+{
+  "state": "complete",
+  "mode": "baseline",
+  "records": [
+    {
+      "id": "alias",
+      "question": "各division的服务实收是多少？请使用已登记业务口径，仅输出division和service_net两列，按division升序。",
+      "http_status": 201,
+      "status": "success",
+      "sql": "SELECT \"data\".\"division\" AS \"division\", SUM(\"data\".\"fee\") - SUM(\"data\".\"labor\") AS \"service_net\" FROM \"data\" AS \"data\" WHERE \"data\".\"state\" = 'closed' GROUP BY \"data\".\"division\" ORDER BY \"division\" ASC",
+      "rows": [
+        {
+          "division": "North",
+          "service_net": 50
+        },
+        {
+          "division": "South",
+          "service_net": 22
+        }
+      ],
+      "error_code": null,
+      "summary": {
+        "facts": [
+          "实际查询返回 2 行、2 列。",
+          "结果首行示例：{\"division\": \"North\", \"service_net\": 50}"
+        ],
+        "hypotheses": [],
+        "limitations": [
+          "统计口径由 SQL 定义；本次结果不提供因果推断或未来预测。"
+        ]
+      },
+      "workflow": {
+        "engine": "langgraph",
+        "nodes": [
+          "prepare",
+          "retrieve",
+          "plan",
+          "generate",
+          "validate",
+          "execute",
+          "check_result"
+        ],
+        "stage_timings_ms": {
+          "prepare": 0,
+          "retrieve": 2029,
+          "plan": 4753,
+          "generate": 1976,
+          "validate": 52,
+          "execute": 1048,
+          "check_result": 0
+        },
+        "repair_attempts": 0,
+        "sql_model_calls": 1,
+        "validations": [
+          {
+            "status": "approved",
+            "attempt": 0
+          }
+        ],
+        "plan": {
+          "metrics": [
+            "service_net = SUM(fee) - SUM(labor)（已结服务净额）"
+          ],
+          "dimensions": [
+            "division"
+          ],
+          "filters": [
+            "state = 'closed'"
+          ],
+          "time_range": null,
+          "ordering": [
+            "division ASC"
+          ],
+          "top_n": null,
+          "needs_clarification": false,
+          "clarification_questions": [],
+          "knowledge_chunk_ids": [
+            "5e632a51-00f9-4ef9-8e8b-2d103cbcb690"
+          ]
+        },
+        "agent": {
+          "model_calls": 2,
+          "tool_calls": 2,
+          "tools_used": [
+            "get_metric_definition",
+            "inspect_dataset_schema"
+          ],
+          "tool_diagnostics": [
+            {
+              "name": "get_metric_definition",
+              "input_kind": "metric_name",
+              "input_chars": 6,
+              "result_status": "retrieved",
+              "citation_count": 1,
+              "field_count": 0
+            },
+            {
+              "name": "inspect_dataset_schema",
+              "input_kind": "scoped",
+              "input_chars": 0,
+              "result_status": "returned",
+              "citation_count": 0,
+              "field_count": 4
+            }
+          ],
+          "reserved_token_bound": 14733,
+          "finalization_calls": 0,
+          "usage": {
+            "input_tokens": 3169,
+            "output_tokens": 250,
+            "total_tokens": 3419
+          },
+          "mode": "native_tools"
+        },
+        "rag": {
+          "status": "retrieved",
+          "source": "provider",
+          "used": true,
+          "citations": [
+            {
+              "chunk_id": "5e632a51-00f9-4ef9-8e8b-2d103cbcb690",
+              "document_id": "f6de7195-a742-4b50-8e1d-4b3d6f1c697f",
+              "chunk_index": 0,
+              "title": "已结服务净额",
+              "source_type": "metric_definition",
+              "excerpt": "{\"version\": 1, \"name\": \"已结服务净额\", \"aliases\": [\"服务实收\", \"service_net\", \"扣除人工成本后的已结服务收入\"], \"expression\": \"SUM(fee)-SUM(labor)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"closed\"}], \"required_fields\": [\"fee\", \"labor\", \"state\"]}",
+              "similarity": 0.706914
+            }
+          ],
+          "error_code": null,
+          "candidate_stages": [
+            {
+              "stage": "vector",
+              "candidates": [
+                {
+                  "chunk_id": "5e632a51-00f9-4ef9-8e8b-2d103cbcb690",
+                  "document_id": "f6de7195-a742-4b50-8e1d-4b3d6f1c697f",
+                  "similarity": 0.706914
+                }
+              ]
+            },
+            {
+              "stage": "selected",
+              "candidates": [
+                {
+                  "chunk_id": "5e632a51-00f9-4ef9-8e8b-2d103cbcb690",
+                  "document_id": "f6de7195-a742-4b50-8e1d-4b3d6f1c697f",
+                  "similarity": 0.706914
+                }
+              ]
+            }
+          ],
+          "retrieved_count": 1
+        }
+      },
+      "tool_calls": [
+        {
+          "name": "get_metric_definition",
+          "arguments": {
+            "name": "已结服务净额"
+          },
+          "response": {
+            "status": "retrieved",
+            "citations": [
+              {
+                "chunk_id": "5e632a51-00f9-4ef9-8e8b-2d103cbcb690",
+                "document_id": "f6de7195-a742-4b50-8e1d-4b3d6f1c697f",
+                "chunk_index": 0,
+                "title": "已结服务净额",
+                "source_type": "metric_definition",
+                "excerpt": "{\"version\": 1, \"name\": \"已结服务净额\", \"aliases\": [\"服务实收\", \"service_net\", \"扣除人工成本后的已结服务收入\"], \"expression\": \"SUM(fee)-SUM(labor)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"closed\"}], \"required_fields\": [\"fee\", \"labor\", \"state\"]}",
+                "similarity": null
+              }
+            ],
+            "source": "provider"
+          }
+        },
+        {
+          "name": "inspect_dataset_schema",
+          "arguments": {
+            "scope": "current"
+          },
+          "response": {
+            "fields": [
+              {
+                "name": "division",
+                "type": "VARCHAR"
+              },
+              {
+                "name": "fee",
+                "type": "BIGINT"
+              },
+              {
+                "name": "labor",
+                "type": "BIGINT"
+              },
+              {
+                "name": "state",
+                "type": "VARCHAR"
+              }
+            ]
+          }
+        }
+      ],
+      "sql_usage": {
+        "source": "provider",
+        "prompt_tokens": 735,
+        "completion_tokens": 76,
+        "total_tokens": 811
+      },
+      "agent_usage": {
+        "input_tokens": 3169,
+        "output_tokens": 250,
+        "total_tokens": 3419
+      },
+      "chat_requests": 3,
+      "contract_passed": true,
+      "duration_ms": 9989.048
+    }
+  ],
+  "prior_chat_tokens": 0,
+  "total_chat_tokens": 4230,
+  "unknown_usage": false,
+  "token_stopline": 90000,
+  "case_conservative_reservation": 70000,
+  "dataset_sha256": "f35e7d61cb8106449f348f6bbd392b3845fb0d3bca3d94bd4983da27d15dec8f",
+  "head": "d8063cf7480941239f71b187a824bdaffc152086",
+  "sources_sha256": {
+    "analysis_agent.py": "3ed2a0d7696b097a5af9c37fa22ae4218598131a19f32b20dd8606ebb49bd139",
+    "knowledge.py": "3516ccf20b066e3f911dc4ed1ed3558586cec097afc3e9f160a0caffaec3b6e1",
+    "analyses.py": "d7398a15050d67353972558173e7693634eb543f2a7093307834bb70e57bc3ec",
+    "analysis_graph.py": "59b532612aff35a9930b10a3aa8221dc5cfc1adf07d2f9c403155536f9604290"
+  },
+  "model": "deepseek-flash",
+  "embedding_model": "text-embedding-v4",
+  "cost": "unknown",
+  "direct_lookup": {
+    "已结服务净额": {
+      "status": "retrieved",
+      "citations": [
+        {
+          "chunk_id": "5e632a51-00f9-4ef9-8e8b-2d103cbcb690",
+          "document_id": "f6de7195-a742-4b50-8e1d-4b3d6f1c697f",
+          "chunk_index": 0,
+          "title": "已结服务净额",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"已结服务净额\", \"aliases\": [\"服务实收\", \"service_net\", \"扣除人工成本后的已结服务收入\"], \"expression\": \"SUM(fee)-SUM(labor)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"closed\"}], \"required_fields\": [\"fee\", \"labor\", \"state\"]}",
+          "similarity": null
+        }
+      ],
+      "source": "provider"
+    },
+    "服务实收": {
+      "status": "no_match",
+      "citations": [],
+      "source": "provider"
+    }
+  },
+  "database_rollback_verified": true,
+  "embedding_requests": [
+    {
+      "inputs": 1,
+      "status": "success",
+      "usage": {
+        "source": "provider",
+        "prompt_tokens": 87,
+        "completion_tokens": null,
+        "total_tokens": 87
+      },
+      "duration_ms": 3253.558
+    },
+    {
+      "inputs": 1,
+      "status": "success",
+      "usage": {
+        "source": "provider",
+        "prompt_tokens": 29,
+        "completion_tokens": null,
+        "total_tokens": 29
+      },
+      "duration_ms": 2005.298
+    }
+  ]
+}

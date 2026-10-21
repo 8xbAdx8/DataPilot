@@ -76,6 +76,7 @@ class PlannerContext:
     tool_calls: int = 0
     reserved_tokens: int = 0
     tools_used: list[str] = field(default_factory=list)
+    tool_diagnostics: list[dict] = field(default_factory=list)
     usage: dict = field(default_factory=dict)
     spans: list[dict] = field(default_factory=list)
     finalization_calls: int = 0
@@ -94,6 +95,7 @@ class PlannerContext:
             "model_calls": self.model_calls,
             "tool_calls": self.tool_calls,
             "tools_used": self.tools_used.copy(),
+            "tool_diagnostics": self.tool_diagnostics.copy(),
             "reserved_token_bound": self.reserved_tokens,
             "finalization_calls": self.finalization_calls,
             "usage": self.usage.copy(),
@@ -108,6 +110,54 @@ class PlannerContext:
             ):
                 self.knowledge.append(source)
         return result
+
+    def record_tool(self, name, arguments, response):
+        """Only bounded classifications enter history; raw arguments stay transient.
+
+        Synthetic acceptance can observe this method locally. There is no request
+        or environment option to export tool bodies to logs or LangSmith.
+        """
+        content = getattr(response, "content", None)
+        try:
+            body = json.loads(content) if isinstance(content, str) else {}
+        except (ValueError, TypeError):
+            body = {}
+        if not isinstance(body, dict):
+            body = {}
+        status = body.get("status")
+        if not isinstance(status, str) or status not in {
+            "retrieved",
+            "no_match",
+            "not_configured",
+            "error",
+            "clarification",
+        }:
+            status = "returned"
+        event = {
+            "name": name,
+            "input_kind": "metric_name"
+            if name == "get_metric_definition"
+            else "query"
+            if name == "search_business_knowledge"
+            else "scoped",
+            "input_chars": min(1000, len(str(arguments.get("name", arguments.get("query", ""))))),
+            "result_status": status,
+            "citation_count": min(4, len(body.get("citations", []))),
+            "field_count": min(100, len(body.get("fields", []))),
+        }
+        resolution = body.get("resolution_status")
+        if isinstance(resolution, str) and resolution in {
+            "resolved",
+            "not_found",
+            "ambiguous",
+            "inapplicable",
+            "insufficient_evidence",
+            "not_configured",
+        }:
+            event["resolution_status"] = resolution
+        with self.lock:
+            if len(self.tool_diagnostics) < 4:
+                self.tool_diagnostics.append(event)
 
 
 def create_tools(context: PlannerContext):
@@ -155,7 +205,7 @@ def create_tools(context: PlannerContext):
 
         @tool(args_schema=MetricQuery)
         def get_metric_definition(name: str) -> dict:
-            """Read an explicitly registered metric definition by title; never invent one."""
+            """Resolve a registered metric by official name or explicit alias; never invent one."""
             with context.lock:
                 context.dataset()
                 return context.capture(context.metric_lookup(name))
@@ -274,6 +324,7 @@ class AgentBudget(AgentMiddleware):
         try:
             span = {"name": name, "start": datetime.now(UTC), "status": "error"}
             result = handler(request)
+            context.record_tool(name, request.tool_call.get("args", {}), result)
             span["status"] = "success"
             return result
         except AppError:

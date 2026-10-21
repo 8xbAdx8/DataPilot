@@ -22,6 +22,7 @@ from app.datasets import SessionDep, SettingsDep, dataset_path, find_dataset
 from app.errors import AppError
 from app.execution import execute_query
 from app.knowledge import metric_definition, retrieve_knowledge
+from app.metric_resolution import MetricRegistry
 from app.models import Analysis, AuditEvent, Dataset
 from app.observability import emit, timed
 from app.presentation import describe_result
@@ -152,31 +153,93 @@ def analyze(
         question=body.question,
         fields=dataset.profile["fields"],
     )
-    if settings.agent_enabled:
-        planner = PlannerContext(session, user.id, str(dataset_id), settings, run.deadline)
-        planner.search = lambda query: retrieve_knowledge(
-            session, user.id, str(dataset_id), query, settings, deadline=run.deadline
-        )
-        planner.metric_lookup = lambda name: metric_definition(
-            session, user.id, str(dataset_id), name, settings
-        )
 
-        def make_plan():
-            try:
-                planner.knowledge = run.rag.get("citations", []).copy()
-                plan = plan_analysis(planner, body.question)
-                run.rag["retrieved_count"] = len(planner.knowledge)
-                run.rag["citations"] = [
-                    item
-                    for item in planner.knowledge
-                    if item["chunk_id"] in plan.knowledge_chunk_ids
-                ]
-                return plan.model_dump()
-            finally:
-                run.agent_metrics = planner.metadata()
-                run.agent_spans = planner.spans.copy()
+    def configure_evidence():
+        registry = MetricRegistry(session, user.id, str(dataset_id), settings)
+        resolution = registry.resolve(body.question, question=True)
+        run.metric_resolution = registry.summary(resolution)
+        requires_metric = registry.enabled and (
+            resolution["status"] != "not_found"
+            or (bool(registry.items) and not registry.explicit_native(body.question))
+        )
+        if requires_metric and resolution["status"] == "resolved":
+            run.registered_metrics = [i["contract"].model_dump() for i in resolution["items"]]
+            run.evidence_guard = lambda sql: registry.check_sql(sql, resolution)
 
-        run.planner = make_plan
+        def evidence_clarification():
+            return {
+                "needs_clarification": True,
+                "clarification_questions": [registry.clarification(resolution)],
+                "knowledge_chunk_ids": [],
+            }
+
+        if settings.agent_enabled:
+            planner = PlannerContext(session, user.id, str(dataset_id), settings, run.deadline)
+            planner.search = lambda query: retrieve_knowledge(
+                session, user.id, str(dataset_id), query, settings, deadline=run.deadline
+            )
+            planner.metric_lookup = lambda name: metric_definition(
+                session, user.id, str(dataset_id), name, settings
+            )
+
+            def make_plan():
+                try:
+                    if requires_metric and resolution["status"] != "resolved":
+                        return evidence_clarification()
+                    planner.knowledge = run.rag.get("citations", []).copy()
+                    if requires_metric:
+                        required = [i["source"] for i in resolution["items"]]
+                        required_ids = {i["chunk_id"] for i in required}
+                        planner.knowledge = (
+                            required
+                            + [i for i in planner.knowledge if i["chunk_id"] not in required_ids][
+                                : 4 - len(required)
+                            ]
+                        )
+                    plan = plan_analysis(planner, body.question)
+                    if (
+                        registry.enabled
+                        and not requires_metric
+                        and not registry.explicit_native(body.question)
+                    ):
+                        if plan.metrics and not plan.needs_clarification:
+                            plan.needs_clarification = True
+                            plan.clarification_questions = [
+                                "没有可验证的已登记指标，请明确计算字段与业务口径。"
+                            ]
+                    if requires_metric and not plan.needs_clarification:
+                        expected = {i["source"]["chunk_id"] for i in resolution["items"]}
+                        if not expected <= set(plan.knowledge_chunk_ids):
+                            plan.needs_clarification = True
+                            plan.clarification_questions = [
+                                "规划未采用已登记指标来源，请确认指标定义。"
+                            ]
+                    run.rag["retrieved_count"] = len(planner.knowledge)
+                    run.rag["citations"] = [
+                        item
+                        for item in planner.knowledge
+                        if item["chunk_id"] in plan.knowledge_chunk_ids
+                    ]
+                    return plan.model_dump()
+                finally:
+                    run.agent_metrics = planner.metadata()
+                    run.agent_spans = planner.spans.copy()
+
+            run.planner = make_plan
+        elif requires_metric:
+
+            def plan_without_agent():
+                if resolution["status"] != "resolved":
+                    return evidence_clarification()
+                run.rag["citations"] = [i["source"] for i in resolution["items"]]
+                run.rag["retrieved_count"] = len(run.rag["citations"])
+                return {
+                    "needs_clarification": False,
+                    "knowledge_chunk_ids": [i["source"]["chunk_id"] for i in resolution["items"]],
+                }
+
+            run.planner = plan_without_agent
+
     run.retriever = lambda: retrieve_knowledge(
         session, user.id, str(dataset_id), body.question, settings, deadline=run.deadline
     )
@@ -205,6 +268,7 @@ def analyze(
         )
 
     try:
+        configure_evidence()
         execute_analysis_graph(run)
         analysis.sql, analysis.explanation = run.sql, run.explanation
         if run.plan.get("needs_clarification"):

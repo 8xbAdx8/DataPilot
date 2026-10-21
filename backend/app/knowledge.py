@@ -424,28 +424,6 @@ def search_documents(
 
 
 def metric_definition(session, owner_id, dataset_id, name, settings):
-    find_dataset(uuid.UUID(dataset_id), session, owner_id)
-    try:
-        provider = get_embedding_provider(settings)
-    except AppError as error:
-        return {
-            "status": "not_configured",
-            "citations": [],
-            "source": "unavailable",
-            "error_code": error.detail["code"],
-        }
-    allowed = eligible_chunks(owner_id, dataset_id, provider.space)
-    rows = session.execute(
-        select(allowed)
-        .where(
-            allowed.c.source_type == "metric_definition",
-            func.lower(allowed.c.title) == name.casefold(),
-        )
-        .order_by(allowed.c.chunk_index)
-        .limit(2)
-    ).all()
-    return {
-        "status": "retrieved" if rows else "no_match",
-        "citations": [citation(row) for row in rows],
-        "source": provider.source,
-    }
+    from app.metric_resolution import MetricRegistry
+
+    return MetricRegistry(session, owner_id, dataset_id, settings).lookup(name)

@@ -144,3 +144,6 @@ docker compose exec backend python -m app.accounts reset-password --username ali
 完整迁移演练可在仓库根运行 `.venv/Scripts/python infra/check-migrations.py --disposable --host 127.0.0.1`。脚本创建随机独立数据库，连续upgrade/check、downgrade到base后再upgrade/check；只删除自己成功创建的临时库，不回退配置中的业务库。需要本机数据库管理员允许CREATE DATABASE；不要在生产数据库使用直接downgrade做演练。
 
 真实专项默认不运行。`frontend/e2e/phase19-live.spec.ts` 要求 `RUN_PHASE19_LIVE=1`，只允许合成数据，逐案例检查预算，独占证据文件防止自动重跑；另一精确名称诊断要求 `RUN_PHASE19_DIAGNOSTIC=1`，读取已存在的主验收预算记录，且不改原4/5结论。E2E_BASE_URL与DATABASE_URL必须指向同一独立测试栈。真实Key只经后端本地env_file传入，前端和测试输出不得包含Key。结束恢复Mock/Fake、关闭云端追踪并清理自己的测试项目。阶段19原始结果及失败见[发布准备](PHASE19_RELEASE_READINESS.md)。
+
+
+阶段21注册指标可在现有“业务知识管理”中选择metric_definition，标题与JSON name一致，内容格式见[指标契约](METRIC_DEFINITIONS.md)。既有KnowledgeDocument.content存储即可，不需要迁移。复杂旧文本先转换为明确JSON；无法证明适用性时返回澄清，不能通过增加工具预算或降低检索阈值解决。真实开发CLI `app.metric21_acceptance` 显式要求RUN_LIVE_METRIC21=1；原始证据路径独占、90k停止线、下一案例70k保守预留。前次报告出现未知usage/未结束时，CLI在任何新调用前拒绝。本轮未知用量后保持停止，不重跑旧题；费用和完整Token未知。具体服务失败与已验证范围见[阶段21报告](PHASE21_METRIC_DISCOVERY.md)。

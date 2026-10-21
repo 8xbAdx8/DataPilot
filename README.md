@@ -4,7 +4,7 @@
 
 ## 开发状态
 
-当前交付到**阶段19（仅本地，未推送）**：[阶段17 HAVING安全子集](docs/PHASE17_HAVING.md)、[阶段18独立真实RAG评测](docs/PHASE18_RAG.md)、[阶段19验收与发布阻塞](docs/PHASE19_RELEASE_READINESS.md)。远端核对仍为阶段16的 `f6aaea8`；下述阶段10–16条目是历史证据。阶段18冻结留出正例命中8/8，但应拒答题仍误召回3/8；生产保留vector/0.70/none，FlashRank保持关闭。阶段19真实五案例**4/5**，另一次精确指标名称工具诊断跑通浏览器/图表/引用/历史/CSV；六条LangSmith记录已从服务器读回。不能宣称全部真实质量验收或生产发布通过。
+当前交付到**阶段21整改（仅本地，未推送）**：[指标登记与证据契约](docs/METRIC_DEFINITIONS.md)、[阶段21真实开发与回归报告](docs/PHASE21_METRIC_DISCOVERY.md)。阶段17–19已正常推送至 `d8063cf`，其[远程CI](https://github.com/8xbAdx8/DataPilot/actions/runs/39625387950)两个Job成功；这不是阶段21的CI。新结构化指标开发4/4通过，但旧格式补充真实调用失败且usage未知，不能宣称全部真实质量通过。历史阶段18留出正例8/8、误召回3/8，阶段19真实五案例4/5与独立诊断保持原样；生产检索仍vector/0.70/none，FlashRank关闭。以下阶段10–19条目为历史证据。
 
 
 AI 升级已实现：**LangGraph** 编排检索/规划/生成/校验/执行与最多一次字段修复；**LangChain Agent** 在限定的只读工具中选择 Schema、画像、业务知识、指标口径与澄清；**pgvector + 独立 Embedding** 保存并按用户/数据集过滤知识；**RAG** 将实际来源提供给 SQL 生成并在界面展示引用；**LangSmith** 默认关闭，只在显式启用后导出白名单性能元数据。详细交付和当前验证状态见 [升级验收](docs/UPGRADE_ACCEPTANCE.md)、[阶段记录](docs/AI_UPGRADE.md)、[评估报告](docs/EVALUATION.md) 和 [追踪隐私](docs/LANGSMITH.md)。

@@ -74,3 +74,6 @@ PostgreSQL 是平台数据库：保存账户、会话摘要、数据集归属/�
 阶段18候选诊断位于 `retrieval.select_candidates(..., stages)`，只在 `eligible_chunks` 的用户/数据集/空间过滤之后产生；最多5阶段×16候选。`tracing.retrieval_metadata` 将稳定chunk ID替换为每trace加盐哈希，并只允许排名、量化分数与配置摘要。算法与生产默认未变；真实误召回和FlashRank退化见阶段18报告。
 
 阶段19区分初始语义搜索与 `get_metric_definition` 精确名称查找：初始no_match不表示精确工具也没有定义。真实自动发现业务口径失败时按Graph的clarification分支结束，不生成或执行SQL；明确名称工具的独立诊断可以补入合法来源。这既说明读工具可用，也暴露自动口径发现和状态展示仍需改进，不能将工具诊断当作语义召回通过。
+
+
+阶段21增加 `MetricRegistry`，复用授权知识文档与索引，不新增数据库。它按已登记正式名/别名、定义结构与当前字段确定resolved/ambiguous/not_found/inapplicable/insufficient_evidence；合法来源在规划前优先注入，Agent必须实际选择来源。`AnalysisRun.evidence_guard` 在原SQLGlot/Schema校验之后、DuckDB之前核对聚合AST和必需AND过滤，不依赖提示词保证业务公式。关闭Agent仍不能绕过证据要求。`record_tool`只保存结果分类/数量；完整工具参数仅允许独立合成验收在本地观察。格式与局限见[指标契约](METRIC_DEFINITIONS.md)、[阶段21](PHASE21_METRIC_DISCOVERY.md)。初始向量状态没有被改写，统一来源UI留待后续授权阶段。
