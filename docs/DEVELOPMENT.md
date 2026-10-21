@@ -198,3 +198,13 @@
 - 真实聊天100107 Token、真实Embedding34次/873 Token，费用未知；来源业务题3/3与2/2，未出现查询超时或危险执行。LangSmith保持关闭，未挪用旧云端记录。HTTP钩子的原生Agent覆盖限制如实记录。
 - 完整PG373 passed/6 skipped、SQLite352 passed/27 skipped；前端lint/typecheck/build、Playwright13 passed/1 skipped、Compose冒烟/迁移/回退、Ruff及pip检查通过。公开ECR构建在首次Docker Hub连接失败后成功，临时项目清理、原服务保留。
 - 新语料精确字节受Git属性保护，避免换行转换破坏人工SHA；历史结果/旧receipt未改。仅本地提交，不推送。根因、逐题SQL/结果/来源、冻结和限制见[阶段16报告](PHASE16_SQL_CORRECTNESS.md)。
+
+
+## 2026-10-21 · 阶段17–19
+
+- 阶段17先从保留的h03 unsafe_sql证据定位原策略不支持HAVING，只增加GROUP BY内的有限聚合比较/算术AST子集；38项新增确定性回归，两套数据库目标回归各124通过。独立提交963be80，不回写旧留出结果。
+- 阶段18用户确认新20知识/34问题，六组开发比较、冻结后一次留出，真实text-embedding-v4 1536/pgvector/FlashRank均执行。选择vector0.65作为实验推荐，留出正例8/8但应no_match误召回3/8；默认仍vector0.70。真实生命周期与LangSmith检索失败回读通过，独立提交ddba77b。
+- 阶段19PG415/6skip、SQLite394/27skip、前端lint/typecheck/build、普通浏览器13/3skip、Docker构建健康冒烟、独立迁移完整回滚重建及依赖格式检查通过。新增云端关联工具后定向23通过，包含2新增测试。
+- 五案例真实专项4/5：普通聚合与HAVING结果正确，缺失口径澄清和危险零执行；自动业务口径发现失败被如实记录。另一次精确名称工具诊断成功，浏览器图表/引用/历史/CSV通过；不能合并成主验收5/5。
+- 共16次真实聊天、20120 Token，费用未知；云端限流和验收脚本错误保留，最终六条真实服务记录只读回验通过，输入输出和环境为空，契约只本地关联。恢复后测试服务无真实Key、云端关闭，独立项目清理，业务DB和原卷保留。
+- 历史39份评测文件与阶段18冻结哈希未变。本轮只本地提交；未将旧远程CI冒充新提交CI。详见[阶段19](PHASE19_RELEASE_READINESS.md)。

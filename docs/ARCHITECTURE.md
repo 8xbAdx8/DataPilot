@@ -69,3 +69,8 @@ PostgreSQL 是平台数据库：保存账户、会话摘要、数据集归属/�
 `langsmith_acceptance.py` 是显式启用的验收入口：默认只生成本地预览，live 分支从服务器回读实际子树、实验标签与反馈。发送成功和本地 UUID 都不足以证明云端记录存在。阶段 15 的真实浏览器流程读回 14 个 spans，初始语义 no_match 后由指标工具补足知识；它与阶段 14 正式留出评分分开记录，见[真实验收报告](PHASE15_LIVE_ACCEPTANCE.md)。
 
 阶段 16 将 `execution.py` 的启动方式改为 `python -I query_worker.py`，请求/结果通过私有 stdin/stdout JSON 传输，SQL 和文件路径不进入命令参数。原因是 Windows multiprocessing spawn 会重导入父入口：重型评测 CLI 在进入实际查询前已用尽 5 秒。独立 worker 只加载 DuckDB/序列化，不加载 FastAPI、Agent、配置文件或平台数据库。父进程仍限制两槽、含启动的截止时间并 kill/wait 回收，子进程保留只读、128MB、单线程、关闭外部访问等配置。
+
+
+阶段18候选诊断位于 `retrieval.select_candidates(..., stages)`，只在 `eligible_chunks` 的用户/数据集/空间过滤之后产生；最多5阶段×16候选。`tracing.retrieval_metadata` 将稳定chunk ID替换为每trace加盐哈希，并只允许排名、量化分数与配置摘要。算法与生产默认未变；真实误召回和FlashRank退化见阶段18报告。
+
+阶段19区分初始语义搜索与 `get_metric_definition` 精确名称查找：初始no_match不表示精确工具也没有定义。真实自动发现业务口径失败时按Graph的clarification分支结束，不生成或执行SQL；明确名称工具的独立诊断可以补入合法来源。这既说明读工具可用，也暴露自动口径发现和状态展示仍需改进，不能将工具诊断当作语义召回通过。

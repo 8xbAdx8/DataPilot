@@ -4,6 +4,9 @@
 
 ## 开发状态
 
+当前交付到**阶段19（仅本地，未推送）**：[阶段17 HAVING安全子集](docs/PHASE17_HAVING.md)、[阶段18独立真实RAG评测](docs/PHASE18_RAG.md)、[阶段19验收与发布阻塞](docs/PHASE19_RELEASE_READINESS.md)。远端核对仍为阶段16的 `f6aaea8`；下述阶段10–16条目是历史证据。阶段18冻结留出正例命中8/8，但应拒答题仍误召回3/8；生产保留vector/0.70/none，FlashRank保持关闭。阶段19真实五案例**4/5**，另一次精确指标名称工具诊断跑通浏览器/图表/引用/历史/CSV；六条LangSmith记录已从服务器读回。不能宣称全部真实质量验收或生产发布通过。
+
+
 AI 升级已实现：**LangGraph** 编排检索/规划/生成/校验/执行与最多一次字段修复；**LangChain Agent** 在限定的只读工具中选择 Schema、画像、业务知识、指标口径与澄清；**pgvector + 独立 Embedding** 保存并按用户/数据集过滤知识；**RAG** 将实际来源提供给 SQL 生成并在界面展示引用；**LangSmith** 默认关闭，只在显式启用后导出白名单性能元数据。详细交付和当前验证状态见 [升级验收](docs/UPGRADE_ACCEPTANCE.md)、[阶段记录](docs/AI_UPGRADE.md)、[评估报告](docs/EVALUATION.md) 和 [追踪隐私](docs/LANGSMITH.md)。
 
 升级分支 `codex/agent-rag-upgrade` 已推送至阶段 11 提交 `702c48e`，[对应 GitHub Actions](https://github.com/8xbAdx8/DataPilot/actions/runs/39439653579) 成功。[阶段 10 真实验收](docs/PHASE10_EMBEDDING_RAG.md)跑通百炼 1536 维向量 → pgvector → DeepSeek 原生 Agent → LangGraph → SQL 安全校验 → DuckDB → 生产容器浏览器图表、来源、历史和导出；合成净贡献额为 18，分组 East=6、West=12。

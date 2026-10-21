@@ -1,0 +1,85 @@
+{
+  "audit_events": {
+    "7aff21a8-5558-42af-87ab-19e4af19530a": [
+      "analysis_started",
+      "analysis_succeeded"
+    ],
+    "7da15caa-792e-4f60-aaba-ebc5ce1402a3": [
+      "analysis_started",
+      "analysis_succeeded"
+    ],
+    "608ff759-197a-45a2-806d-ce64aa226754": [
+      "analysis_clarification",
+      "analysis_started"
+    ],
+    "e13891b7-ac67-490c-8721-a7181d94aa0b": [
+      "analysis_clarification",
+      "analysis_started"
+    ],
+    "c03f4893-2e94-431d-92e1-1b847fd9393c": [
+      "analysis_clarification",
+      "analysis_started"
+    ],
+    "91d7e1d3-25a9-4093-a532-6b8e5ad599cc": [
+      "analysis_started",
+      "analysis_succeeded"
+    ]
+  },
+  "database_head": "0006",
+  "pgvector_version": "0.8.7",
+  "xlsx_profile": {
+    "status": "passed",
+    "row_count": 2,
+    "column_count": 2,
+    "sheet_name": "Sheet",
+    "profile": {
+      "table_name": "data",
+      "row_count": 2,
+      "column_count": 2,
+      "fields": [
+        {
+          "name": "region",
+          "type": "VARCHAR",
+          "missing": 0,
+          "missing_ratio": 0.0,
+          "unique": 2,
+          "statistics": {}
+        },
+        {
+          "name": "revenue",
+          "type": "BIGINT",
+          "missing": 0,
+          "missing_ratio": 0.0,
+          "unique": 2,
+          "statistics": {
+            "count": 2.0,
+            "mean": 15.0,
+            "std": 7.0710678118654755,
+            "min": 10.0,
+            "25%": 12.5,
+            "50%": 15.0,
+            "75%": 17.5,
+            "max": 20.0
+          }
+        }
+      ],
+      "preview": [
+        {
+          "region": "East",
+          "revenue": 10
+        },
+        {
+          "region": "West",
+          "revenue": 20
+        }
+      ],
+      "notes": [
+        "预览最多 20 行，文本最多 500 字符；类型由整列保守推断，空白视为缺失。",
+        "CSV 保留字段数完整的全空记录并跳过空白行；Excel 跳过全空白行。",
+        "超出 int64 的整数保留文本；描述统计采用浮点计算，原始整数和查询结果保留精度。"
+      ]
+    }
+  },
+  "anonymous_analysis_zero_acceptance": true,
+  "state": "passed"
+}

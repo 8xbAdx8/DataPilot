@@ -135,3 +135,12 @@ docker compose exec backend python -m app.accounts reset-password --username ali
 0005 为会话新增独立公开 UUID 和创建时间。旧会话令牌继续有效，创建时间保留 NULL，界面显示“未知”；新会话记录真实时间。先 `alembic upgrade head`，再重启后端；就绪检查会拒绝缺少新列的旧 schema。回退仅在独立测试库验证，业务库回退前需备份并停止新版服务。
 
 登录与密码再确认共享每账户 15 分钟 / 5 次失败窗口；换接口或换会话不能增加猜测额度。改密、重置、登录和会话撤销通过 PostgreSQL 行锁串行化，等待后重新读取密码与当前会话；不能只在请求开始时认证一次。会话撤销阻止后续请求，已被接纳的分析或导出可能完成，不会强行取消已运行的 DuckDB 进程。
+
+
+## 阶段17–19验收入口
+
+普通服务继续使用 `docker compose up -d --build`；PostgreSQL健康后migrate升级到head，再启动FastAPI，最后启动Next.js。各容器承担独立职责，前端通过代理调用API，DuckDB只查询上传数据，平台PostgreSQL从不交给模型执行SQL。
+
+完整迁移演练可在仓库根运行 `.venv/Scripts/python infra/check-migrations.py --disposable --host 127.0.0.1`。脚本创建随机独立数据库，连续upgrade/check、downgrade到base后再upgrade/check；只删除自己成功创建的临时库，不回退配置中的业务库。需要本机数据库管理员允许CREATE DATABASE；不要在生产数据库使用直接downgrade做演练。
+
+真实专项默认不运行。`frontend/e2e/phase19-live.spec.ts` 要求 `RUN_PHASE19_LIVE=1`，只允许合成数据，逐案例检查预算，独占证据文件防止自动重跑；另一精确名称诊断要求 `RUN_PHASE19_DIAGNOSTIC=1`，读取已存在的主验收预算记录，且不改原4/5结论。E2E_BASE_URL与DATABASE_URL必须指向同一独立测试栈。真实Key只经后端本地env_file传入，前端和测试输出不得包含Key。结束恢复Mock/Fake、关闭云端追踪并清理自己的测试项目。阶段19原始结果及失败见[发布准备](PHASE19_RELEASE_READINESS.md)。
