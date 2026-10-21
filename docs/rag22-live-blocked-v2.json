@@ -1,0 +1,31 @@
+{
+  "state": "blocked",
+  "mode": "live",
+  "chat_requests": 0,
+  "cloud_tracing": false,
+  "semantic_embedding_verified": false,
+  "embedding_requests": 0,
+  "embedding_tokens": null,
+  "cost": null,
+  "head": "4db494a8141b4a9866b32540e85dd384a84eb12d",
+  "sources_sha256": {
+    "rag22_evaluate.py": "ba1b07d69442f5a9eae962f89327ec184e40788a643c611a5b97f2e222b5c631",
+    "retrieval_evidence.py": "50c9859a8cc8fdd1372ddd0a12f067b212dfe86cf11ecbd9e15f6ac09231c9ab",
+    "metric_resolution.py": "b79a96f1411628878c758f323f28bb29471dce6385658f22ea0b9a8e46036674",
+    "knowledge.py": "b19a40e803dc2e51cc9a9fd461cf195cb22532ad8929ff97e8efc144965498b3",
+    "retrieval.py": "0a23c3e9da429d51af20f9eda33592d88cf648f2ebef4d1d0bbc683186669903",
+    "config.py": "eb5b6140ae7c1b70e9f252c57afce50af23a19685f8dd8e37a70ffe07a7fb3ee",
+    "analyses.py": "6ba023dc5f3c08e51989a6165d17e8b0b6ca1e7cfa49d51319256dc8510afd66",
+    "analysis_graph.py": "4d5c47c892f14c0a365234189307f36bdcbe466ad81a6b91fe1b616e57873c02",
+    "analysis_agent.py": "f22c8a3885a5f0c3a1def9fc74a50c49456e96df914ad1ce5e5bf984ebc9578b",
+    "sql_guard.py": "429a3f19094a63796960037bf7c5b2fe3062d453a3002dec233a7e4185e78290",
+    "tracing.py": "e67c07663579e339f6a04c9bd8bb2e231fc8e9f93b0b33d6ef50897d83330f23"
+  },
+  "configuration": {
+    "strategy": "vector",
+    "similarity": 0.7,
+    "reranker": "none",
+    "k": 4
+  },
+  "reason": "Prior uncertain usage blocks additional live calls"
+}

@@ -143,6 +143,12 @@ def build_graph(run: AnalysisRun):
             with run.measure("provider"):
                 contextual = getattr(run.provider, "generate_with_context", None)
                 run.rag["used"] = bool(run.rag.get("citations") and callable(contextual))
+                if "evidence" in run.rag:
+                    run.rag["evidence"]["context_source_ids"] = (
+                        [i["chunk_id"] for i in run.rag.get("citations", [])]
+                        if run.rag["used"]
+                        else []
+                    )
                 proposal = (
                     contextual(state["question"], state["schema"], run.generation_context())
                     if (run.plan or run.rag.get("citations")) and callable(contextual)
@@ -167,6 +173,8 @@ def build_graph(run: AnalysisRun):
             return {"sql": sql, "status": "approved", "repairable": False}
         except AppError as error:
             run.failure = error
+            if "evidence" in run.rag:
+                run.rag["evidence"]["final_decision"] = "reject"
             run.validations.append(
                 {
                     "status": "rejected",
@@ -221,6 +229,10 @@ def build_graph(run: AnalysisRun):
     def execute(state):
         with run.measure("query"):
             run.result = run.execute(state["sql"])
+        if "evidence" in run.rag:
+            run.rag["evidence"]["used_source_ids"] = run.rag["evidence"].get(
+                "context_source_ids", []
+            )
         return {"status": "executed"}
 
     def check(_):
@@ -228,6 +240,8 @@ def build_graph(run: AnalysisRun):
             key in run.result for key in ("columns", "rows", "truncated")
         ):
             raise AppError(422, "query_failed", "查询结果结构不符合约定。")
+        if "evidence" in run.rag:
+            run.rag["evidence"]["final_decision"] = "answer"
         return {"status": "success"}
 
     graph = StateGraph(AnalysisState)
@@ -242,6 +256,10 @@ def build_graph(run: AnalysisRun):
 
     def plan(_):
         run.plan = run.planner()
+        if "evidence" in run.rag:
+            run.rag["evidence"]["selected_source_ids"] = run.plan.get("knowledge_chunk_ids", [])
+            if run.plan.get("needs_clarification"):
+                run.rag["evidence"]["final_decision"] = "clarify"
         return {
             "plan": run.plan,
             "status": "clarification" if run.plan.get("needs_clarification") else "planned",

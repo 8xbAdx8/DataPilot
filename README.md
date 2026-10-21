@@ -4,7 +4,9 @@
 
 ## 开发状态
 
-当前交付到**阶段21整改（仅本地，未推送）**：[指标登记与证据契约](docs/METRIC_DEFINITIONS.md)、[阶段21真实开发与回归报告](docs/PHASE21_METRIC_DISCOVERY.md)。阶段17–19已正常推送至 `d8063cf`，其[远程CI](https://github.com/8xbAdx8/DataPilot/actions/runs/39625387950)两个Job成功；这不是阶段21的CI。新结构化指标开发4/4通过，但旧格式补充真实调用失败且usage未知，不能宣称全部真实质量通过。历史阶段18留出正例8/8、误召回3/8，阶段19真实五案例4/5与独立诊断保持原样；生产检索仍vector/0.70/none，FlashRank关闭。以下阶段10–19条目为历史证据。
+阶段22新增[登记证据筛选与开发评测](docs/PHASE22_RAG_QUALITY.md)，仅本地提交：26条人工复核查询、候选/目录补充/采用来源分开记录，`RAG_EVIDENCE_POLICY=registered`显式启用。默认仍legacy、vector/0.70/none；新模式尚未通过真实语义检索验收。阶段21未知用量护栏继续阻塞新真实调用，本轮只有Fake向量+真实pgvector和受控安全证据，不能宣称真实RAG质量通过。阶段21及以下为保留记录。
+
+阶段21交付记录**（仅本地，未推送）**：[指标登记与证据契约](docs/METRIC_DEFINITIONS.md)、[阶段21真实开发与回归报告](docs/PHASE21_METRIC_DISCOVERY.md)。阶段17–19已正常推送至 `d8063cf`，其[远程CI](https://github.com/8xbAdx8/DataPilot/actions/runs/39625387950)两个Job成功；这不是阶段21的CI。新结构化指标开发4/4通过，但旧格式补充真实调用失败且usage未知，不能宣称全部真实质量通过。历史阶段18留出正例8/8、误召回3/8，阶段19真实五案例4/5与独立诊断保持原样；生产检索仍vector/0.70/none，FlashRank关闭。以下阶段10–19条目为历史证据。
 
 
 AI 升级已实现：**LangGraph** 编排检索/规划/生成/校验/执行与最多一次字段修复；**LangChain Agent** 在限定的只读工具中选择 Schema、画像、业务知识、指标口径与澄清；**pgvector + 独立 Embedding** 保存并按用户/数据集过滤知识；**RAG** 将实际来源提供给 SQL 生成并在界面展示引用；**LangSmith** 默认关闭，只在显式启用后导出白名单性能元数据。详细交付和当前验证状态见 [升级验收](docs/UPGRADE_ACCEPTANCE.md)、[阶段记录](docs/AI_UPGRADE.md)、[评估报告](docs/EVALUATION.md) 和 [追踪隐私](docs/LANGSMITH.md)。

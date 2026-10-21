@@ -49,6 +49,8 @@ class Settings(BaseSettings):
     rag_min_similarity: float = Field(default=0.70, ge=0, le=1)
     rag_strategy: Literal["vector", "hybrid"] = "vector"
     rag_reranker: Literal["none", "flashrank"] = "none"
+    # Candidate compatibility remains default until independent semantic acceptance.
+    rag_evidence_policy: Literal["legacy", "registered"] = "legacy"
     reranker_min_score: float = Field(default=0.5, ge=0, le=1)
     reranker_timeout_seconds: float = Field(default=15, gt=0, le=60)
     reranker_cache_dir: Path = ROOT / "data/runtime/flashrank"

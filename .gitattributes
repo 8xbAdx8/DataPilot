@@ -6,3 +6,8 @@
 # Preserve the reviewed CRLF snapshot instead of invalidating its SHA on checkout.
 backend/app/evals/sql-correctness-v*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 backend/app/evals/sql16-*.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Stage22 review binds exact authored bytes, including line endings.
+backend/app/evals/rag22/*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+backend/app/evals/rag22/*.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+docs/rag22-*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+docs/RAG22_LABEL_REVIEW.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

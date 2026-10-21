@@ -123,6 +123,7 @@ def retrieval_metadata(settings, rag, salt):
         for k in (
             "rag_strategy",
             "rag_reranker",
+            "rag_evidence_policy",
             "rag_top_k",
             "rag_min_similarity",
             "reranker_min_score",

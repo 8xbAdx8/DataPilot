@@ -156,17 +156,26 @@ def analyze(
 
     def configure_evidence():
         registry = MetricRegistry(session, user.id, str(dataset_id), settings)
+        strict_evidence = settings.rag_evidence_policy == "registered"
         resolution = registry.resolve(body.question, question=True)
         run.metric_resolution = registry.summary(resolution)
-        requires_metric = registry.enabled and (
+        requires_metric = (registry.enabled or strict_evidence) and (
             resolution["status"] != "not_found"
-            or (bool(registry.items) and not registry.explicit_native(body.question))
+            or (
+                (bool(registry.items) or strict_evidence)
+                and not registry.explicit_native(body.question)
+            )
         )
         if requires_metric and resolution["status"] == "resolved":
             run.registered_metrics = [i["contract"].model_dump() for i in resolution["items"]]
             run.evidence_guard = lambda sql: registry.check_sql(sql, resolution)
 
         def evidence_clarification():
+            if strict_evidence:
+                run.rag["citations"] = []
+                run.rag.setdefault("evidence", {}).update(
+                    selected_source_ids=[], used_source_ids=[], final_decision="clarify"
+                )
             return {
                 "needs_clarification": True,
                 "clarification_questions": [registry.clarification(resolution)],
@@ -181,6 +190,38 @@ def analyze(
             planner.metric_lookup = lambda name: metric_definition(
                 session, user.id, str(dataset_id), name, settings
             )
+            if strict_evidence:
+                from app.retrieval_evidence import filter_evidence
+
+                # Tool arguments cannot change the original request's evidence scope.
+                def scoped_result(result):
+                    checked = filter_evidence(
+                        session, user.id, str(dataset_id), body.question, settings, result
+                    )
+                    returned = {s["chunk_id"] for s in result.get("citations", [])}
+                    if any(s["chunk_id"] not in returned for s in checked["citations"]):
+                        # Catalog supplementation belongs to initial retrieval.
+                        # A tool asking for another metric must report no match,
+                        # rather than silently returning the original metric.
+                        checked.update(
+                            status="no_match", citations=[], resolution_status="not_found"
+                        )
+                        checked["evidence"].update(
+                            status="insufficient_evidence",
+                            source_origins=[],
+                            eligible_candidate_count=0,
+                            catalog_supplement_count=0,
+                        )
+                    return checked
+
+                planner.search = lambda query: scoped_result(
+                    retrieve_knowledge(
+                        session, user.id, str(dataset_id), query, settings, deadline=run.deadline
+                    )
+                )
+                planner.metric_lookup = lambda name: scoped_result(
+                    metric_definition(session, user.id, str(dataset_id), name, settings)
+                )
 
             def make_plan():
                 try:
@@ -220,6 +261,10 @@ def analyze(
                         for item in planner.knowledge
                         if item["chunk_id"] in plan.knowledge_chunk_ids
                     ]
+                    if strict_evidence:
+                        run.rag["evidence"]["selected_source_ids"] = [
+                            i["chunk_id"] for i in run.rag["citations"]
+                        ]
                     return plan.model_dump()
                 finally:
                     run.agent_metrics = planner.metadata()
@@ -331,6 +376,12 @@ def analyze(
             failure.detail["code"],
             failure.detail["message"],
         )
+        if "evidence" in run.rag:
+            run.rag["evidence"]["final_decision"] = (
+                "reject"
+                if failure.detail["code"] in {"unsafe_sql", "metric_contract_violation"}
+                else "error"
+            )
         analysis.duration_ms = int((time.perf_counter() - started) * 1000)
         analysis.telemetry = telemetry()
         session.add(

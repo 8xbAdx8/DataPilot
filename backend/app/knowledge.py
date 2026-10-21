@@ -342,7 +342,7 @@ def citation(row, score=None):
     }
 
 
-def retrieve_knowledge(session, owner_id, dataset_id, question, settings, *, deadline=None):
+def _retrieve_candidates(session, owner_id, dataset_id, question, settings, *, deadline=None):
     find_dataset(uuid.UUID(dataset_id), session, owner_id)
     result = {
         "status": "not_configured",
@@ -409,6 +409,17 @@ def retrieve_knowledge(session, owner_id, dataset_id, question, settings, *, dea
         return result
 
 
+def retrieve_knowledge(session, owner_id, dataset_id, question, settings, *, deadline=None):
+    result = _retrieve_candidates(
+        session, owner_id, dataset_id, question, settings, deadline=deadline
+    )
+    if settings.rag_evidence_policy == "registered":
+        from app.retrieval_evidence import filter_evidence
+
+        return filter_evidence(session, owner_id, dataset_id, question, settings, result)
+    return result
+
+
 @router.post("/datasets/{dataset_id}/knowledge/search")
 def search_documents(
     dataset_id: uuid.UUID,
@@ -426,4 +437,7 @@ def search_documents(
 def metric_definition(session, owner_id, dataset_id, name, settings):
     from app.metric_resolution import MetricRegistry
 
-    return MetricRegistry(session, owner_id, dataset_id, settings).lookup(name)
+    result = MetricRegistry(session, owner_id, dataset_id, settings).lookup(name)
+    if settings.rag_evidence_policy == "registered" and result["resolution_status"] != "resolved":
+        return {**result, "status": "no_match", "citations": []}
+    return result
