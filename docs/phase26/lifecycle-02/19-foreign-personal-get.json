@@ -1,0 +1,50 @@
+{
+  "id": "foreign-personal-get",
+  "http_status": 404,
+  "response": {
+    "detail": {
+      "code": "knowledge_not_found",
+      "message": "知识条目不存在。"
+    }
+  },
+  "independent_connection": {
+    "documents": [
+      {
+        "id": "14a4f275-62fd-43fe-a8a2-8a453bd42106",
+        "owner_id": "81101140-d086-49b5-bfce-67e42b6aa3b5",
+        "dataset_id": null,
+        "version": 1,
+        "status": "ready",
+        "content": "回收规定：封条必须为蓝色。",
+        "space": "openai_compatible/text-embedding-v4/1536/f40b8b23a71b0c3c"
+      },
+      {
+        "id": "8c28e410-bb31-449a-a6a0-fc5928b30af0",
+        "owner_id": "81101140-d086-49b5-bfce-67e42b6aa3b5",
+        "dataset_id": "5a571be5-dcb8-496e-bc06-c2000401657f",
+        "version": 1,
+        "status": "ready",
+        "content": "冷库签收规则：温度必须低于1度。",
+        "space": "openai_compatible/text-embedding-v4/1536/f40b8b23a71b0c3c"
+      }
+    ],
+    "chunks": [
+      {
+        "id": "4077a988-5443-49e0-87ed-3db0e328a694",
+        "document_id": "8c28e410-bb31-449a-a6a0-fc5928b30af0",
+        "content": "冷库签收规则：温度必须低于1度。",
+        "dimensions": 1536,
+        "space": "openai_compatible/text-embedding-v4/1536/f40b8b23a71b0c3c",
+        "model": "text-embedding-v4"
+      },
+      {
+        "id": "d08af892-a298-4182-8825-934674d3ec85",
+        "document_id": "14a4f275-62fd-43fe-a8a2-8a453bd42106",
+        "content": "回收规定：封条必须为蓝色。",
+        "dimensions": 1536,
+        "space": "openai_compatible/text-embedding-v4/1536/f40b8b23a71b0c3c",
+        "model": "text-embedding-v4"
+      }
+    ]
+  }
+}

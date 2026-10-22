@@ -1,0 +1,34 @@
+{
+  "id": "failed-is-not-ready",
+  "http_status": 200,
+  "response": {
+    "status": "no_documents",
+    "source": "provider",
+    "used": false,
+    "citations": [],
+    "error_code": null
+  },
+  "independent_connection": {
+    "documents": [
+      {
+        "id": "87295077-46d0-4208-b5dc-e4c67fcf8eae",
+        "owner_id": "60bdf334-c5fb-4365-a089-549c4108afba",
+        "dataset_id": "4fcf6c73-94d1-4be4-8345-2028e9f44504",
+        "version": 3,
+        "status": "failed",
+        "content": "冷库签收规则：温度必须低于3度。",
+        "space": "openai_compatible/text-embedding-v4/1536/f40b8b23a71b0c3c"
+      }
+    ],
+    "chunks": [
+      {
+        "id": "0d9d5c42-43e6-4b50-8c91-ee9e75895fef",
+        "document_id": "87295077-46d0-4208-b5dc-e4c67fcf8eae",
+        "content": "冷库签收规则：温度必须低于3度。",
+        "dimensions": 1536,
+        "space": "openai_compatible/text-embedding-v4/1536/f40b8b23a71b0c3c",
+        "model": "text-embedding-v4"
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "staged_files_audited": 66,
+  "configured_private_values_checked": 4,
+  "exact_private_matches": 0,
+  "forbidden_paths": 0,
+  "pattern_candidate_classification": "one publicly documented Compose demo password; no personal credential",
+  "historical_audit": {
+    "commits": 37,
+    "blobs": 665,
+    "current_key_matches": 0,
+    "forbidden_files": 0
+  },
+  "original_history_files_unchanged": 159,
+  "original_phase24_code_check": "verified through Git archive of 48ca7654b3bba04a35ab55ad8a54d4bfd0104546; intentional current production source changes not passed off as frozen source",
+  "no_old_fixture_score_rewritten": true
+}

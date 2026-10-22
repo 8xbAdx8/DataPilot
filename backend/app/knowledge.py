@@ -202,13 +202,29 @@ def add_document(
     user: UserDep,
 ):
     find_dataset(dataset_id, session, user.id)
+    return create_document(body, response, session, settings, user, str(dataset_id))
+
+
+@router.post("/knowledge", response_model=DocumentView, status_code=201)
+def add_personal_document(
+    body: KnowledgeInput,
+    response: Response,
+    session: SessionDep,
+    settings: SettingsDep,
+    user: UserDep,
+):
+    """Create owner-only personal knowledge through the same atomic index path."""
+    return create_document(body, response, session, settings, user, None)
+
+
+def create_document(body, response, session, settings, user, dataset_id):
     consume(session, user.id, "knowledge", settings)
     session.scalar(select(User.id).where(User.id == user.id).with_for_update())
     fingerprint = content_hash(body)
     existing = session.scalar(
         select(KnowledgeDocument).where(
             KnowledgeDocument.owner_id == user.id,
-            KnowledgeDocument.scope_key == str(dataset_id),
+            KnowledgeDocument.scope_key == (dataset_id or "personal"),
             KnowledgeDocument.content_hash == fingerprint,
         )
     )
@@ -225,8 +241,8 @@ def add_document(
         raise AppError(409, "knowledge_limit", "每个账户最多保留 100 个知识条目。")
     saved = KnowledgeDocument(
         owner_id=user.id,
-        dataset_id=str(dataset_id),
-        scope_key=str(dataset_id),
+        dataset_id=dataset_id,
+        scope_key=dataset_id or "personal",
         title=body.title,
         source_type=body.source_type,
         content=body.content,
@@ -239,7 +255,7 @@ def add_document(
     session.add(
         AuditEvent(
             event="knowledge_added",
-            dataset_id=str(dataset_id),
+            dataset_id=dataset_id,
             details={"document_id": document_id},
         )
     )

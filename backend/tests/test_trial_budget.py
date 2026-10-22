@@ -238,3 +238,14 @@ def test_invalid_vector_keeps_available_usage_and_globally_stops(ledger):
     assert ledger.export()["requests"][0]["input_tokens"] == 3
     with pytest.raises(BudgetStop):
         reserve(ledger)
+
+
+def test_phase26_embedding_local_caps_do_not_borrow_later_quota(ledger):
+    for index in range(8):
+        key = ledger.reserve(
+            26, "embedding", f"case-{index}", "index", "synthetic", "model", {}, 5, 20
+        )
+        ledger.complete(key, {"usage": {"prompt_tokens": 5, "total_tokens": 5}}, "id", 1)
+    with pytest.raises(BudgetStop, match="preflight_denied"):
+        ledger.reserve(26, "embedding", "ninth", "index", "synthetic", "model", {}, 5, 20)
+    assert ledger.export()["totals"]["embedding"]["requests"] == 8

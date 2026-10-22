@@ -124,6 +124,56 @@ def snapshot(run):
     return value if value.get("version") == VERSION else None
 
 
+def validate_live_sources(session, owner_id, dataset_id, rag, settings):
+    """History stays immutable; a NEW execution must use current authorized rows.
+
+    Source rows are locked in a stable order through the analysis commit. An
+    update winning before the lock rejects this run; an update losing the lock
+    waits until this execution ends. No silently refreshed/replaced citations.
+    """
+    from app.embeddings import get_embedding_provider
+    from app.errors import AppError
+
+    evidence = rag.get("evidence", {})
+    ids = set(evidence.get("context_source_ids", []))
+    if not ids:
+        return
+    expected = {s["chunk_id"]: s for s in evidence.get("source_snapshots", [])}
+    rows = session.execute(
+        select(KnowledgeChunk, KnowledgeDocument)
+        .join(KnowledgeDocument, KnowledgeChunk.document_id == KnowledgeDocument.id)
+        .where(
+            KnowledgeChunk.id.in_(ids),
+            KnowledgeDocument.owner_id == owner_id,
+            or_(KnowledgeDocument.dataset_id == dataset_id, KnowledgeDocument.dataset_id.is_(None)),
+            KnowledgeDocument.status == "ready",
+        )
+        .order_by(KnowledgeDocument.id, KnowledgeChunk.id)
+        .execution_options(populate_existing=True)
+        .with_for_update(of=KnowledgeDocument)
+    ).all()
+    valid = len(ids) <= 4 and len(rows) == len(ids) and ids <= set(expected)
+    try:
+        provider = get_embedding_provider(settings)
+    except AppError:
+        valid, provider = False, None
+    for chunk, document in rows:
+        previous = expected.get(chunk.id, {})
+        valid = valid and (
+            previous.get("document_id") == document.id
+            and previous.get("document_version") == document.version
+            and previous.get("excerpt") == chunk.content[:800]
+            and provider is not None
+            and document.embedding_space == chunk.embedding_space == provider.space
+            and chunk.embedding_model == provider.model
+            and len(chunk.embedding) == 1536
+        )
+    evidence["live_source_validation"] = "approved" if valid else "rejected"
+    if not valid:
+        evidence.update(used_source_ids=[], final_decision="error")
+        raise AppError(409, "evidence_source_stale", "知识来源已更新、删除或失效，请重新发起分析。")
+
+
 def record_context(run, passed):
     evidence = snapshot(run)
     if evidence is not None and passed:

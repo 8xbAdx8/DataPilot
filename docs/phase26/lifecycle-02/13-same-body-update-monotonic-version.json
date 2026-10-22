@@ -1,0 +1,43 @@
+{
+  "id": "same-body-update-monotonic-version",
+  "http_status": 200,
+  "response": {
+    "id": "aca87f8d-e8be-41c5-a495-fa13cb24ff8c",
+    "dataset_id": "5a571be5-dcb8-496e-bc06-c2000401657f",
+    "title": "冷库签收规则",
+    "source_type": "business_rule",
+    "status": "ready",
+    "error_code": null,
+    "embedding_space": "openai_compatible/text-embedding-v4/1536/f40b8b23a71b0c3c",
+    "fake_embedding": false,
+    "chunk_count": 1,
+    "version": 9,
+    "content": "冷库签收规则：温度必须低于1度。",
+    "duplicate": false,
+    "created_at": "2026-10-22T15:08:36.581411Z",
+    "updated_at": "2026-10-22T15:08:37.133679Z"
+  },
+  "independent_connection": {
+    "documents": [
+      {
+        "id": "aca87f8d-e8be-41c5-a495-fa13cb24ff8c",
+        "owner_id": "81101140-d086-49b5-bfce-67e42b6aa3b5",
+        "dataset_id": "5a571be5-dcb8-496e-bc06-c2000401657f",
+        "version": 9,
+        "status": "ready",
+        "content": "冷库签收规则：温度必须低于1度。",
+        "space": "openai_compatible/text-embedding-v4/1536/f40b8b23a71b0c3c"
+      }
+    ],
+    "chunks": [
+      {
+        "id": "88c4da1d-08b5-465b-a41b-b997034d944c",
+        "document_id": "aca87f8d-e8be-41c5-a495-fa13cb24ff8c",
+        "content": "冷库签收规则：温度必须低于1度。",
+        "dimensions": 1536,
+        "space": "openai_compatible/text-embedding-v4/1536/f40b8b23a71b0c3c",
+        "model": "text-embedding-v4"
+      }
+    ]
+  }
+}

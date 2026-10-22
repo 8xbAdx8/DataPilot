@@ -56,6 +56,7 @@ class AnalysisRun:
     sql_usages: list[TokenUsage] = field(default_factory=list)
     planner: Callable[[], dict] | None = None
     evidence_guard: Callable[[str], None] | None = None
+    source_guard: Callable[[], None] | None = None
     registered_metrics: list[dict] = field(default_factory=list)
     metric_resolution: dict = field(default_factory=dict)
     plan: dict = field(default_factory=dict)
@@ -178,6 +179,8 @@ def build_graph(run: AnalysisRun):
                 sql = validate_sql(state["proposal"]["sql"], state["schema"])
                 if evidence is not None:
                     evidence["sql_validation"] = "approved"
+                if run.source_guard:
+                    run.source_guard()
                 if run.evidence_guard:
                     run.evidence_guard(sql)
                     if evidence is not None:
@@ -190,7 +193,7 @@ def build_graph(run: AnalysisRun):
             run.failure = error
             if "evidence" in run.rag:
                 run.rag["evidence"]["final_decision"] = "reject"
-            if evidence is not None:
+            if evidence is not None and error.detail["code"] != "evidence_source_stale":
                 key = (
                     "metric_validation"
                     if error.detail["code"] == "metric_contract_violation"
@@ -254,6 +257,8 @@ def build_graph(run: AnalysisRun):
         if evidence is not None:
             evidence["execution"] = "started"
         try:
+            if run.source_guard:
+                run.source_guard()
             with run.measure("query"):
                 run.result = run.execute(state["sql"])
         except Exception:

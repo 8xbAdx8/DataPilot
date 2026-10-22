@@ -20,7 +20,12 @@ from app.analysis_graph import AnalysisRun, execute_analysis_graph
 from app.auth import UserDep
 from app.datasets import SessionDep, SettingsDep, dataset_path, find_dataset
 from app.errors import AppError
-from app.evidence_snapshot import audit_summary, begin_snapshot, capture_sources
+from app.evidence_snapshot import (
+    audit_summary,
+    begin_snapshot,
+    capture_sources,
+    validate_live_sources,
+)
 from app.execution import execute_query
 from app.knowledge import metric_definition, retrieve_knowledge
 from app.metric_resolution import MetricRegistry
@@ -155,6 +160,9 @@ def analyze(
         fields=dataset.profile["fields"],
     )
     begin_snapshot(run.rag, settings.rag_evidence_policy)
+    run.source_guard = lambda: validate_live_sources(
+        session, user.id, str(dataset_id), run.rag, settings
+    )
 
     def configure_evidence():
         registry = MetricRegistry(session, user.id, str(dataset_id), settings)
