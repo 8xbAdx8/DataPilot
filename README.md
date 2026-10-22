@@ -4,6 +4,8 @@
 
 ## 开发状态
 
+阶段24[真实检索准入检查](docs/PHASE24_RAG_RETRIEVAL_QUALITY.md)为 **BLOCKED**：阶段21未知usage仍触发原护栏，本轮真实Embedding/聊天/LangSmith调用均为0，没有新增真实质量分数。阶段21–23已正常推送至 `0ff41fcc6899ae3cbfc250f7980d2abf59672655`，[该提交远程CI](https://github.com/8xbAdx8/DataPilot/actions/runs/39756176681)的application与compose均成功；CI不代表真实RAG质量通过。阶段24准入回执和报告仅本地提交，以下阶段文字保留当时交付状态。
+
 阶段23新增[证据链与历史可解释性](docs/PHASE23_EVIDENCE_OBSERVABILITY.md)：分别保存初始候选、目录补充、计划选择、SQL 上下文和执行后指标确认；前端与历史详情读取当次授权快照，旧记录显示未记录，不重新检索。LangSmith 仅完善本地白名单及隐私测试，本轮没有真实模型、Embedding 或云端追踪调用，未解决真实语义误召回。生产默认仍为 `legacy / vector / 0.70 / none`，阶段21未知用量停止规则保持有效。
 
 阶段22新增[登记证据筛选与开发评测](docs/PHASE22_RAG_QUALITY.md)，仅本地提交：26条人工复核查询、候选/目录补充/采用来源分开记录，`RAG_EVIDENCE_POLICY=registered`显式启用。默认仍legacy、vector/0.70/none；新模式尚未通过真实语义检索验收。阶段21未知用量护栏继续阻塞新真实调用，本轮只有Fake向量+真实pgvector和受控安全证据，不能宣称真实RAG质量通过。阶段21及以下为保留记录。
