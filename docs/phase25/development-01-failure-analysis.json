@@ -1,0 +1,21 @@
+{
+  "status": "PARTIAL",
+  "passed_cases": 7,
+  "total_cases": 8,
+  "failed_case": "p25-02",
+  "cause": "correct structured-fact document has real cosine 0.6800053119659424, below vector threshold 0.70; no candidate and conservative clarification before model",
+  "not_a_sql_failure": true,
+  "actual_real_agent_sql_success_case": "p25-01",
+  "source_policy": "closed facts only from authorized vector candidates",
+  "allowed_next_development_variant": {
+    "threshold": 0.65,
+    "production_default": 0.7,
+    "labels_unchanged": true,
+    "new_embedding_requests": 0,
+    "existing_chat_actual_input": 1831,
+    "planned_round_chat_reserve": 5989,
+    "sum_within_8000": 7820
+  },
+  "historical_first_round": "preserved unmodified",
+  "no_holdout_tuning": true
+}

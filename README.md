@@ -4,6 +4,8 @@
 
 ## 开发状态
 
+阶段25[真实Agent/SQL开发验收](docs/PHASE25_AGENT_SQL_E2E.md)：0.70首轮7/8失败保留；显式0.65开发变体8/8，其中两题真实原生Agent采用来源、SQL校验及DuckDB结果为25和3，其余六题提前拒绝。累计6次聊天/5331输入Token、2次Embedding/381输入Token，usage完整。生产默认不变，普通Agent工具与生产分析API整合尚未在此专项运行；开发通过不等于独立终验。[25–29顺序计划](docs/PHASE25_29_PLAN.md)要求各阶段独立验证和本地提交，不自动推送。
+
 阶段24[真实检索专项](docs/PHASE24_RAG_RETRIEVAL_QUALITY.md#2026-10-22-受控独立实验续验)取得 **检索范围 PASS**：人工复核、冻结的全新34题中，实验候选 C 的指标召回10/10、非指标召回10/10、无答案拒答10/10、4条安全探测通过，引用20/20一致。百炼真实1536维向量共13次HTTP、供应商输入usage 2934 Token；聊天/LLM裁判/LangSmith均0次。实际pgvector检索、API提交和跨连接持久化均验证。[原始结果与离线复核](docs/rag24/README.md)保留A/B失败和所有开发轮次。
 
 C 是显式实验策略，非指标知识须满足结构化的“主题+属性”契约，尚未接入生产请求；默认仍 `legacy / vector / 0.70 / none`，基线误召回风险仍存在。本轮未运行真实Agent/SQL端到端，不能据此宣称全面质量或生产发布通过。阶段21历史未知用量保持unknown，旧护栏未变；新的独立Embedding-only实验由后续用户指令明确授权，原阶段24 BLOCKED报告全文保留。本机PostgreSQL530项、SQLite506项、Playwright15项通过，另有原有条件专项跳过。

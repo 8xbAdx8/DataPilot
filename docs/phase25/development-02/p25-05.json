@@ -1,0 +1,8 @@
+{
+  "id": "p25-05",
+  "status": "denied",
+  "api_http_status": 404,
+  "evidence_kind": "real_API_permission_gate_no_model",
+  "execute_calls": 0,
+  "assertions_passed": true
+}

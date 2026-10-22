@@ -1,0 +1,388 @@
+{
+  "id": "p25-02",
+  "question": "根据结单登记的有效状态定义，计算对应行数，输出 row_count。",
+  "status": "success",
+  "error_code": null,
+  "evidence_kind": "real_native_agent_sql",
+  "workflow": {
+    "engine": "langgraph",
+    "nodes": [
+      "prepare",
+      "retrieve",
+      "plan",
+      "generate",
+      "validate",
+      "execute",
+      "check_result"
+    ],
+    "stage_timings_ms": {
+      "prepare": 0,
+      "retrieve": 3,
+      "plan": 1079,
+      "generate": 946,
+      "validate": 4,
+      "execute": 764,
+      "check_result": 0
+    },
+    "repair_attempts": 0,
+    "sql_model_calls": 1,
+    "validations": [
+      {
+        "status": "approved",
+        "attempt": 0
+      }
+    ],
+    "plan": {
+      "metrics": [
+        "row_count"
+      ],
+      "dimensions": [],
+      "filters": [
+        "state = 'closed'"
+      ],
+      "time_range": null,
+      "ordering": [],
+      "top_n": null,
+      "needs_clarification": false,
+      "clarification_questions": [],
+      "knowledge_chunk_ids": [
+        "622a85b2-4eb7-45f0-b8aa-c3d379ec1936"
+      ]
+    },
+    "agent": {
+      "model_calls": 1,
+      "tool_calls": 0,
+      "tools_used": [],
+      "tool_diagnostics": [],
+      "reserved_token_bound": 4606,
+      "finalization_calls": 1,
+      "usage": {
+        "input_tokens": 1031,
+        "output_tokens": 207,
+        "total_tokens": 1238
+      },
+      "mode": "native_tools"
+    },
+    "rag": {
+      "status": "retrieved",
+      "source": "provider",
+      "used": true,
+      "citations": [
+        {
+          "chunk_id": "622a85b2-4eb7-45f0-b8aa-c3d379ec1936",
+          "document_id": "9ac881b7-fab8-4272-b220-f9abd379e414",
+          "chunk_index": 0,
+          "title": "结单登记",
+          "source_type": "business_rule",
+          "excerpt": "{\"version\":1,\"subject\":\"结单登记\",\"subject_aliases\":[],\"required_fields\":[\"state\"],\"facts\":[{\"aspect\":\"有效状态\",\"aliases\":[],\"answer\":\"state = 'closed' 才是有效结单。\"}]}",
+          "similarity": 0.680005
+        }
+      ],
+      "error_code": null,
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "622a85b2-4eb7-45f0-b8aa-c3d379ec1936",
+              "document_id": "9ac881b7-fab8-4272-b220-f9abd379e414",
+              "similarity": 0.680005
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "622a85b2-4eb7-45f0-b8aa-c3d379ec1936",
+              "document_id": "9ac881b7-fab8-4272-b220-f9abd379e414",
+              "similarity": 0.680005
+            }
+          ]
+        }
+      ],
+      "evidence": {
+        "policy": "phase25-experiment-C",
+        "status": "not_found",
+        "candidate_count": 1,
+        "catalog_supplement_count": 0,
+        "source_origins": [
+          {
+            "chunk_id": "622a85b2-4eb7-45f0-b8aa-c3d379ec1936",
+            "origin": "vector_candidate"
+          }
+        ],
+        "matched_fact_count": 1,
+        "planned_source_ids": null,
+        "used_source_ids": [
+          "622a85b2-4eb7-45f0-b8aa-c3d379ec1936"
+        ],
+        "version": 1,
+        "source_snapshots": [
+          {
+            "chunk_id": "622a85b2-4eb7-45f0-b8aa-c3d379ec1936",
+            "document_id": "9ac881b7-fab8-4272-b220-f9abd379e414",
+            "chunk_index": 0,
+            "title": "结单登记",
+            "source_type": "business_rule",
+            "excerpt": "{\"version\":1,\"subject\":\"结单登记\",\"subject_aliases\":[],\"required_fields\":[\"state\"],\"facts\":[{\"aspect\":\"有效状态\",\"aliases\":[],\"answer\":\"state = 'closed' 才是有效结单。\"}]}",
+            "similarity": 0.680005,
+            "document_version": 1
+          }
+        ],
+        "eligible_source_ids": [
+          "622a85b2-4eb7-45f0-b8aa-c3d379ec1936"
+        ],
+        "selected_source_ids": [
+          "622a85b2-4eb7-45f0-b8aa-c3d379ec1936"
+        ],
+        "context_source_ids": [
+          "622a85b2-4eb7-45f0-b8aa-c3d379ec1936"
+        ],
+        "sql_validation": "approved",
+        "metric_validation": "approved",
+        "execution": "success",
+        "final_decision": "answer"
+      },
+      "candidate_status": "retrieved"
+    },
+    "metric_resolution": {
+      "status": "not_found",
+      "document_ids": [],
+      "chunk_ids": []
+    }
+  },
+  "sql": "SELECT COUNT(*) AS \"row_count\" FROM \"data\" AS \"data\" WHERE \"data\".\"state\" = 'closed'",
+  "sql_ast": [
+    {
+      "c": "sqlglot.expressions.query.Select"
+    },
+    {
+      "i": 0,
+      "k": "expressions",
+      "a": true,
+      "c": "sqlglot.expressions.core.Alias"
+    },
+    {
+      "i": 1,
+      "k": "this",
+      "c": "sqlglot.expressions.aggregate.Count",
+      "m": {
+        "line": 1,
+        "col": 12,
+        "start": 7,
+        "end": 11
+      }
+    },
+    {
+      "i": 2,
+      "k": "this",
+      "c": "sqlglot.expressions.core.Star",
+      "m": {
+        "line": 1,
+        "col": 14,
+        "start": 13,
+        "end": 13
+      }
+    },
+    {
+      "i": 2,
+      "k": "big_int",
+      "v": true
+    },
+    {
+      "i": 1,
+      "k": "alias",
+      "c": "sqlglot.expressions.core.Identifier",
+      "m": {
+        "line": 1,
+        "col": 30,
+        "start": 19,
+        "end": 29
+      }
+    },
+    {
+      "i": 5,
+      "k": "this",
+      "v": "row_count"
+    },
+    {
+      "i": 5,
+      "k": "quoted",
+      "v": true
+    },
+    {
+      "i": 0,
+      "k": "from_",
+      "c": "sqlglot.expressions.query.From"
+    },
+    {
+      "i": 8,
+      "k": "this",
+      "c": "sqlglot.expressions.query.Table"
+    },
+    {
+      "i": 9,
+      "k": "this",
+      "c": "sqlglot.expressions.core.Identifier",
+      "m": {
+        "line": 1,
+        "col": 42,
+        "start": 36,
+        "end": 41
+      }
+    },
+    {
+      "i": 10,
+      "k": "this",
+      "v": "data"
+    },
+    {
+      "i": 10,
+      "k": "quoted",
+      "v": true
+    },
+    {
+      "i": 9,
+      "k": "alias",
+      "c": "sqlglot.expressions.query.TableAlias"
+    },
+    {
+      "i": 13,
+      "k": "this",
+      "c": "sqlglot.expressions.core.Identifier",
+      "m": {
+        "line": 1,
+        "col": 52,
+        "start": 46,
+        "end": 51
+      }
+    },
+    {
+      "i": 14,
+      "k": "this",
+      "v": "data"
+    },
+    {
+      "i": 14,
+      "k": "quoted",
+      "v": true
+    },
+    {
+      "i": 0,
+      "k": "where",
+      "c": "sqlglot.expressions.query.Where"
+    },
+    {
+      "i": 17,
+      "k": "this",
+      "c": "sqlglot.expressions.core.EQ"
+    },
+    {
+      "i": 18,
+      "k": "this",
+      "c": "sqlglot.expressions.core.Column"
+    },
+    {
+      "i": 19,
+      "k": "this",
+      "c": "sqlglot.expressions.core.Identifier",
+      "m": {
+        "line": 1,
+        "col": 73,
+        "start": 66,
+        "end": 72
+      }
+    },
+    {
+      "i": 20,
+      "k": "this",
+      "v": "state"
+    },
+    {
+      "i": 20,
+      "k": "quoted",
+      "v": true
+    },
+    {
+      "i": 19,
+      "k": "table",
+      "c": "sqlglot.expressions.core.Identifier",
+      "m": {
+        "line": 1,
+        "col": 65,
+        "start": 59,
+        "end": 64
+      }
+    },
+    {
+      "i": 23,
+      "k": "this",
+      "v": "data"
+    },
+    {
+      "i": 23,
+      "k": "quoted",
+      "v": true
+    },
+    {
+      "i": 18,
+      "k": "expression",
+      "c": "sqlglot.expressions.core.Literal",
+      "m": {
+        "line": 1,
+        "col": 84,
+        "start": 76,
+        "end": 83
+      }
+    },
+    {
+      "i": 26,
+      "k": "this",
+      "v": "closed"
+    },
+    {
+      "i": 26,
+      "k": "is_string",
+      "v": true
+    }
+  ],
+  "execute_calls": 1,
+  "result": {
+    "columns": [
+      {
+        "name": "row_count",
+        "type": "BIGINT"
+      }
+    ],
+    "rows": [
+      {
+        "row_count": 3
+      }
+    ],
+    "truncated": false
+  },
+  "expected_result": {
+    "columns": [
+      "row_count"
+    ],
+    "rows": [
+      [
+        3
+      ]
+    ]
+  },
+  "adopted_sources": [
+    "status"
+  ],
+  "assertions_passed": true,
+  "nodes": [
+    "prepare",
+    "retrieve",
+    "plan",
+    "generate",
+    "validate",
+    "execute",
+    "check_result"
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "id": "p25-02",
+  "question": "根据结单登记的有效状态定义，计算对应行数，输出 row_count。",
+  "status": "clarification",
+  "error_code": null,
+  "evidence_kind": "real_database_deterministic_evidence_gate_no_model",
+  "workflow": {
+    "engine": "langgraph",
+    "nodes": [
+      "prepare",
+      "retrieve",
+      "plan"
+    ],
+    "stage_timings_ms": {
+      "prepare": 0,
+      "retrieve": 0,
+      "plan": 0
+    },
+    "repair_attempts": 0,
+    "sql_model_calls": 0,
+    "validations": [],
+    "plan": {
+      "needs_clarification": true,
+      "clarification_questions": [
+        "未找到适用于当前数据集的已登记指标，请提供正式名称或已登记别名。"
+      ],
+      "knowledge_chunk_ids": []
+    },
+    "agent": {},
+    "rag": {
+      "status": "no_match",
+      "source": "provider",
+      "used": false,
+      "citations": [],
+      "error_code": null,
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "phase25-experiment-C",
+        "status": "not_found",
+        "candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "matched_fact_count": 0,
+        "planned_source_ids": null,
+        "used_source_ids": [],
+        "version": 1,
+        "source_snapshots": [],
+        "eligible_source_ids": [],
+        "selected_source_ids": [],
+        "context_source_ids": [],
+        "sql_validation": "not_requested",
+        "metric_validation": "not_requested",
+        "execution": "not_requested",
+        "final_decision": "clarify"
+      },
+      "candidate_status": "no_match"
+    },
+    "metric_resolution": {
+      "status": "not_found",
+      "document_ids": [],
+      "chunk_ids": []
+    }
+  },
+  "sql": null,
+  "sql_ast": null,
+  "execute_calls": 0,
+  "result": null,
+  "expected_result": {
+    "columns": [
+      "row_count"
+    ],
+    "rows": [
+      [
+        3
+      ]
+    ]
+  },
+  "adopted_sources": [],
+  "assertions_passed": false,
+  "nodes": [
+    "prepare",
+    "retrieve",
+    "plan"
+  ]
+}

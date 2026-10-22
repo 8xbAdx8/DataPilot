@@ -1,0 +1,486 @@
+{
+  "id": "p25-01",
+  "question": "请按已登记结单净额（别名净收）口径计算，总列名 net_amount；保留 NULL 语义。",
+  "status": "success",
+  "error_code": null,
+  "evidence_kind": "real_native_agent_sql",
+  "workflow": {
+    "engine": "langgraph",
+    "nodes": [
+      "prepare",
+      "retrieve",
+      "plan",
+      "generate",
+      "validate",
+      "execute",
+      "check_result"
+    ],
+    "stage_timings_ms": {
+      "prepare": 0,
+      "retrieve": 5,
+      "plan": 1523,
+      "generate": 932,
+      "validate": 6,
+      "execute": 715,
+      "check_result": 0
+    },
+    "repair_attempts": 0,
+    "sql_model_calls": 1,
+    "validations": [
+      {
+        "status": "approved",
+        "attempt": 0
+      }
+    ],
+    "plan": {
+      "metrics": [
+        "结单净额（别名净收）= SUM(fee) - SUM(cost)，输出列名 net_amount，保留 NULL 语义"
+      ],
+      "dimensions": [],
+      "filters": [
+        "state = 'closed'"
+      ],
+      "time_range": null,
+      "ordering": [],
+      "top_n": null,
+      "needs_clarification": false,
+      "clarification_questions": [],
+      "knowledge_chunk_ids": [
+        "7b86f0c9-2dfd-4c23-a838-002a58613744"
+      ]
+    },
+    "agent": {
+      "model_calls": 1,
+      "tool_calls": 0,
+      "tools_used": [],
+      "tool_diagnostics": [],
+      "reserved_token_bound": 4677,
+      "finalization_calls": 1,
+      "usage": {
+        "input_tokens": 1059,
+        "output_tokens": 233,
+        "total_tokens": 1292
+      },
+      "mode": "native_tools"
+    },
+    "rag": {
+      "status": "retrieved",
+      "source": "provider",
+      "used": true,
+      "citations": [
+        {
+          "chunk_id": "7b86f0c9-2dfd-4c23-a838-002a58613744",
+          "document_id": "07122ab5-ea76-4398-814c-88649aa01c2a",
+          "chunk_index": 0,
+          "title": "结单净额",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\":1,\"name\":\"结单净额\",\"aliases\":[\"净收\"],\"expression\":\"SUM(fee)-SUM(cost)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"closed\"}],\"required_fields\":[\"state\",\"fee\",\"cost\"]}",
+          "similarity": 0.701911
+        }
+      ],
+      "error_code": null,
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "7b86f0c9-2dfd-4c23-a838-002a58613744",
+              "document_id": "07122ab5-ea76-4398-814c-88649aa01c2a",
+              "similarity": 0.701911
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "7b86f0c9-2dfd-4c23-a838-002a58613744",
+              "document_id": "07122ab5-ea76-4398-814c-88649aa01c2a",
+              "similarity": 0.701911
+            }
+          ]
+        }
+      ],
+      "evidence": {
+        "policy": "phase25-experiment-C",
+        "status": "resolved",
+        "candidate_count": 1,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 1,
+        "catalog_supplement_count": 0,
+        "source_origins": [
+          {
+            "chunk_id": "7b86f0c9-2dfd-4c23-a838-002a58613744",
+            "origin": "vector_candidate"
+          }
+        ],
+        "selected_source_ids": [
+          "7b86f0c9-2dfd-4c23-a838-002a58613744"
+        ],
+        "used_source_ids": [
+          "7b86f0c9-2dfd-4c23-a838-002a58613744"
+        ],
+        "final_decision": "answer",
+        "version": 1,
+        "source_snapshots": [
+          {
+            "chunk_id": "7b86f0c9-2dfd-4c23-a838-002a58613744",
+            "document_id": "07122ab5-ea76-4398-814c-88649aa01c2a",
+            "chunk_index": 0,
+            "title": "结单净额",
+            "source_type": "metric_definition",
+            "excerpt": "{\"version\":1,\"name\":\"结单净额\",\"aliases\":[\"净收\"],\"expression\":\"SUM(fee)-SUM(cost)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"closed\"}],\"required_fields\":[\"state\",\"fee\",\"cost\"]}",
+            "similarity": 0.701911,
+            "document_version": 1
+          }
+        ],
+        "eligible_source_ids": [
+          "7b86f0c9-2dfd-4c23-a838-002a58613744"
+        ],
+        "context_source_ids": [
+          "7b86f0c9-2dfd-4c23-a838-002a58613744"
+        ],
+        "sql_validation": "approved",
+        "metric_validation": "approved",
+        "execution": "success"
+      },
+      "candidate_status": "retrieved"
+    },
+    "metric_resolution": {
+      "status": "resolved",
+      "document_ids": [
+        "07122ab5-ea76-4398-814c-88649aa01c2a"
+      ],
+      "chunk_ids": [
+        "7b86f0c9-2dfd-4c23-a838-002a58613744"
+      ]
+    }
+  },
+  "sql": "SELECT SUM(\"data\".\"fee\") - SUM(\"data\".\"cost\") AS \"net_amount\" FROM \"data\" AS \"data\" WHERE \"data\".\"state\" = 'closed'",
+  "sql_ast": [
+    {
+      "c": "sqlglot.expressions.query.Select"
+    },
+    {
+      "i": 0,
+      "k": "expressions",
+      "a": true,
+      "c": "sqlglot.expressions.core.Alias"
+    },
+    {
+      "i": 1,
+      "k": "this",
+      "c": "sqlglot.expressions.core.Sub"
+    },
+    {
+      "i": 2,
+      "k": "this",
+      "c": "sqlglot.expressions.aggregate.Sum",
+      "m": {
+        "line": 1,
+        "col": 10,
+        "start": 7,
+        "end": 9
+      }
+    },
+    {
+      "i": 3,
+      "k": "this",
+      "c": "sqlglot.expressions.core.Column"
+    },
+    {
+      "i": 4,
+      "k": "this",
+      "c": "sqlglot.expressions.core.Identifier",
+      "m": {
+        "line": 1,
+        "col": 23,
+        "start": 18,
+        "end": 22
+      }
+    },
+    {
+      "i": 5,
+      "k": "this",
+      "v": "fee"
+    },
+    {
+      "i": 5,
+      "k": "quoted",
+      "v": true
+    },
+    {
+      "i": 4,
+      "k": "table",
+      "c": "sqlglot.expressions.core.Identifier",
+      "m": {
+        "line": 1,
+        "col": 17,
+        "start": 11,
+        "end": 16
+      }
+    },
+    {
+      "i": 8,
+      "k": "this",
+      "v": "data"
+    },
+    {
+      "i": 8,
+      "k": "quoted",
+      "v": true
+    },
+    {
+      "i": 2,
+      "k": "expression",
+      "c": "sqlglot.expressions.aggregate.Sum",
+      "m": {
+        "line": 1,
+        "col": 30,
+        "start": 27,
+        "end": 29
+      }
+    },
+    {
+      "i": 11,
+      "k": "this",
+      "c": "sqlglot.expressions.core.Column"
+    },
+    {
+      "i": 12,
+      "k": "this",
+      "c": "sqlglot.expressions.core.Identifier",
+      "m": {
+        "line": 1,
+        "col": 44,
+        "start": 38,
+        "end": 43
+      }
+    },
+    {
+      "i": 13,
+      "k": "this",
+      "v": "cost"
+    },
+    {
+      "i": 13,
+      "k": "quoted",
+      "v": true
+    },
+    {
+      "i": 12,
+      "k": "table",
+      "c": "sqlglot.expressions.core.Identifier",
+      "m": {
+        "line": 1,
+        "col": 37,
+        "start": 31,
+        "end": 36
+      }
+    },
+    {
+      "i": 16,
+      "k": "this",
+      "v": "data"
+    },
+    {
+      "i": 16,
+      "k": "quoted",
+      "v": true
+    },
+    {
+      "i": 1,
+      "k": "alias",
+      "c": "sqlglot.expressions.core.Identifier",
+      "m": {
+        "line": 1,
+        "col": 61,
+        "start": 49,
+        "end": 60
+      }
+    },
+    {
+      "i": 19,
+      "k": "this",
+      "v": "net_amount"
+    },
+    {
+      "i": 19,
+      "k": "quoted",
+      "v": true
+    },
+    {
+      "i": 0,
+      "k": "from_",
+      "c": "sqlglot.expressions.query.From"
+    },
+    {
+      "i": 22,
+      "k": "this",
+      "c": "sqlglot.expressions.query.Table"
+    },
+    {
+      "i": 23,
+      "k": "this",
+      "c": "sqlglot.expressions.core.Identifier",
+      "m": {
+        "line": 1,
+        "col": 73,
+        "start": 67,
+        "end": 72
+      }
+    },
+    {
+      "i": 24,
+      "k": "this",
+      "v": "data"
+    },
+    {
+      "i": 24,
+      "k": "quoted",
+      "v": true
+    },
+    {
+      "i": 23,
+      "k": "alias",
+      "c": "sqlglot.expressions.query.TableAlias"
+    },
+    {
+      "i": 27,
+      "k": "this",
+      "c": "sqlglot.expressions.core.Identifier",
+      "m": {
+        "line": 1,
+        "col": 83,
+        "start": 77,
+        "end": 82
+      }
+    },
+    {
+      "i": 28,
+      "k": "this",
+      "v": "data"
+    },
+    {
+      "i": 28,
+      "k": "quoted",
+      "v": true
+    },
+    {
+      "i": 0,
+      "k": "where",
+      "c": "sqlglot.expressions.query.Where"
+    },
+    {
+      "i": 31,
+      "k": "this",
+      "c": "sqlglot.expressions.core.EQ"
+    },
+    {
+      "i": 32,
+      "k": "this",
+      "c": "sqlglot.expressions.core.Column"
+    },
+    {
+      "i": 33,
+      "k": "this",
+      "c": "sqlglot.expressions.core.Identifier",
+      "m": {
+        "line": 1,
+        "col": 104,
+        "start": 97,
+        "end": 103
+      }
+    },
+    {
+      "i": 34,
+      "k": "this",
+      "v": "state"
+    },
+    {
+      "i": 34,
+      "k": "quoted",
+      "v": true
+    },
+    {
+      "i": 33,
+      "k": "table",
+      "c": "sqlglot.expressions.core.Identifier",
+      "m": {
+        "line": 1,
+        "col": 96,
+        "start": 90,
+        "end": 95
+      }
+    },
+    {
+      "i": 37,
+      "k": "this",
+      "v": "data"
+    },
+    {
+      "i": 37,
+      "k": "quoted",
+      "v": true
+    },
+    {
+      "i": 32,
+      "k": "expression",
+      "c": "sqlglot.expressions.core.Literal",
+      "m": {
+        "line": 1,
+        "col": 115,
+        "start": 107,
+        "end": 114
+      }
+    },
+    {
+      "i": 40,
+      "k": "this",
+      "v": "closed"
+    },
+    {
+      "i": 40,
+      "k": "is_string",
+      "v": true
+    }
+  ],
+  "execute_calls": 1,
+  "result": {
+    "columns": [
+      {
+        "name": "net_amount",
+        "type": "HUGEINT"
+      }
+    ],
+    "rows": [
+      {
+        "net_amount": 25
+      }
+    ],
+    "truncated": false
+  },
+  "expected_result": {
+    "columns": [
+      "net_amount"
+    ],
+    "rows": [
+      [
+        25
+      ]
+    ]
+  },
+  "adopted_sources": [
+    "margin"
+  ],
+  "assertions_passed": true,
+  "nodes": [
+    "prepare",
+    "retrieve",
+    "plan",
+    "generate",
+    "validate",
+    "execute",
+    "check_result"
+  ]
+}

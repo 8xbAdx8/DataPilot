@@ -1,0 +1,27 @@
+{
+  "case": "p25-01",
+  "channel": "agent",
+  "tool_calls": [
+    {
+      "index": 0,
+      "id": "call_00_TcW1iUqzC7vwe754OjmY1424",
+      "type": "function",
+      "function": {
+        "name": "AnalysisPlan",
+        "arguments": "{\"metrics\": [\"结单净额（别名净收）= SUM(fee) - SUM(cost)，输出列名 net_amount，保留 NULL 语义\"], \"dimensions\": [], \"filters\": [\"state = 'closed'\"], \"time_range\": null, \"ordering\": [], \"top_n\": null, \"needs_clarification\": false, \"clarification_questions\": [], \"knowledge_chunk_ids\": [\"ed301761-3348-4025-961a-b4a964479935\"]}"
+      }
+    }
+  ],
+  "provider_response_id": "767f77a3-684d-4de8-bff7-87ed3ef54918",
+  "usage": {
+    "prompt_tokens": 1058,
+    "completion_tokens": 228,
+    "total_tokens": 1286,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 418
+  },
+  "request_body_sha256": "acad25bc2dea5a7d7a4171b9c570fb8970891074226a3f75d08a041c7a91f38d"
+}

@@ -1,0 +1,31 @@
+{
+  "status": "fits",
+  "chat_planned_http": 4,
+  "chat_preflight_reserved_bound": 5989,
+  "chat_payloads": [
+    {
+      "case": "p25-01",
+      "agent_estimate": 769,
+      "agent_reserve": 1538,
+      "sql_estimate": 788,
+      "sql_reserve": 1566
+    },
+    {
+      "case": "p25-02",
+      "agent_estimate": 733,
+      "agent_reserve": 1484,
+      "sql_estimate": 678,
+      "sql_reserve": 1401
+    }
+  ],
+  "embedding_planned_http": 2,
+  "embedding_unique_inputs": 14,
+  "embedding_estimate": 367,
+  "embedding_reserve": 1969,
+  "corpus_sha256": "6a50097a561fd415fd8e620f75e04faa854dee81c8bd2fca4284633d21e2b37f",
+  "tokenizer_sha256": "def76fb086971c7867b829c23a26261e38d9d74e02139253b38aeb9df8b4b50a",
+  "hosted_chat_tokenizer": "not_publicly_verified; full JSON count with 50%+128 reserve; stop on exceed",
+  "no_model_probe_requests": true,
+  "agent_call_limit": 1,
+  "repairs": 0
+}

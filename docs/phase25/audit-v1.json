@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "staged_files_audited": 43,
+  "exact_private_matches": 0,
+  "forbidden_paths": 0,
+  "private_values_checked": 4,
+  "candidate_classification": [
+    {
+      "path": "infra/compose.phase25.yml",
+      "line": 7,
+      "kind": "public_demo_password_same_as_example_not_personal_credential"
+    }
+  ],
+  "unchanged_historical_files": 159,
+  "phase24_frozen_blobs_verified": 59,
+  "no_credential_or_endpoint_values_logged": true,
+  "old_history_scan": {
+    "commits": 36,
+    "blobs": 624,
+    "exact_current_keys": 0,
+    "forbidden_paths": 0
+  },
+  "scope": "known-value/pattern scan and manual diff review; not an absolute guarantee"
+}
