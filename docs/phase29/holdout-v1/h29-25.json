@@ -1,0 +1,133 @@
+{
+  "id": "h29-25",
+  "query": "台风红色预警能室外拍摄吗？",
+  "kind": "prose",
+  "relevant_ids": [
+    "storm"
+  ],
+  "A": {
+    "ids": [
+      "storm"
+    ],
+    "sources": [
+      {
+        "chunk_id": "744135ae-37c0-4188-9dcc-bc3a27b0e24d",
+        "document_id": "dae93ad4-1c4e-4524-939d-8eb744500983",
+        "chunk_index": 0,
+        "title": "极端天气",
+        "source_type": "business_rule",
+        "excerpt": "台风红色预警取消室外拍摄，室内安排需值班经理确认。",
+        "similarity": 0.836619
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "744135ae-37c0-4188-9dcc-bc3a27b0e24d",
+        "document_id": "dae93ad4-1c4e-4524-939d-8eb744500983",
+        "chunk_index": 0,
+        "title": "极端天气",
+        "source_type": "business_rule",
+        "excerpt": "台风红色预警取消室外拍摄，室内安排需值班经理确认。",
+        "similarity": 0.836619
+      }
+    ],
+    "decision": {},
+    "references": [
+      {
+        "chunk_id": "744135ae-37c0-4188-9dcc-bc3a27b0e24d",
+        "document_id": "dae93ad4-1c4e-4524-939d-8eb744500983",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "744135ae-37c0-4188-9dcc-bc3a27b0e24d",
+        "document_id": "dae93ad4-1c4e-4524-939d-8eb744500983",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "744135ae-37c0-4188-9dcc-bc3a27b0e24d",
+            "document_id": "dae93ad4-1c4e-4524-939d-8eb744500983",
+            "similarity": 0.836619
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "744135ae-37c0-4188-9dcc-bc3a27b0e24d",
+            "document_id": "dae93ad4-1c4e-4524-939d-8eb744500983",
+            "similarity": 0.836619
+          }
+        ]
+      }
+    ],
+    "latency_ms": 16.82,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "744135ae-37c0-4188-9dcc-bc3a27b0e24d",
+        "document_id": "dae93ad4-1c4e-4524-939d-8eb744500983",
+        "chunk_index": 0,
+        "title": "极端天气",
+        "source_type": "business_rule",
+        "excerpt": "台风红色预警取消室外拍摄，室内安排需值班经理确认。",
+        "similarity": 0.836619
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "references": [
+      {
+        "chunk_id": "744135ae-37c0-4188-9dcc-bc3a27b0e24d",
+        "document_id": "dae93ad4-1c4e-4524-939d-8eb744500983",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "744135ae-37c0-4188-9dcc-bc3a27b0e24d",
+            "document_id": "dae93ad4-1c4e-4524-939d-8eb744500983",
+            "similarity": 0.836619
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "744135ae-37c0-4188-9dcc-bc3a27b0e24d",
+            "document_id": "dae93ad4-1c4e-4524-939d-8eb744500983",
+            "similarity": 0.836619
+          }
+        ]
+      }
+    ],
+    "latency_ms": 26.245,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

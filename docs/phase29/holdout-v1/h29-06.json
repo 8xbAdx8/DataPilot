@@ -1,0 +1,83 @@
+{
+  "id": "h29-06",
+  "query": "按zone的完结预约数，列zone、n，zone升序",
+  "kind": "metric",
+  "relevant_ids": [
+    "count"
+  ],
+  "A": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [],
+    "decision": {},
+    "references": [],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": []
+      },
+      {
+        "stage": "selected",
+        "candidates": []
+      }
+    ],
+    "latency_ms": 10.039,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [
+      "count"
+    ],
+    "sources": [
+      {
+        "chunk_id": "8407312f-f0b4-42ec-a478-31c1f34a2319",
+        "document_id": "2108bfd2-42c9-41ae-8ad7-32e961c2bdaa",
+        "chunk_index": 0,
+        "title": "完结预约数",
+        "source_type": "metric_definition",
+        "excerpt": "{\"version\":1,\"name\":\"完结预约数\",\"aliases\":[\"完结笔数\"],\"expression\":\"COUNT(*)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\"]}",
+        "similarity": null
+      }
+    ],
+    "raw_candidates": [],
+    "decision": {
+      "policy": "registered",
+      "status": "resolved",
+      "candidate_count": 0,
+      "matched_definition_count": 1,
+      "eligible_candidate_count": 0,
+      "catalog_supplement_count": 1,
+      "source_origins": [
+        {
+          "chunk_id": "8407312f-f0b4-42ec-a478-31c1f34a2319",
+          "origin": "registered_catalog"
+        }
+      ],
+      "selected_source_ids": [],
+      "used_source_ids": [],
+      "final_decision": "pending"
+    },
+    "references": [
+      {
+        "chunk_id": "8407312f-f0b4-42ec-a478-31c1f34a2319",
+        "document_id": "2108bfd2-42c9-41ae-8ad7-32e961c2bdaa",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": []
+      },
+      {
+        "stage": "selected",
+        "candidates": []
+      }
+    ],
+    "latency_ms": 30.171,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

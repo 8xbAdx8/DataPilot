@@ -1,0 +1,156 @@
+{
+  "id": "h29-13",
+  "query": "三脚架借用登记？",
+  "kind": "structured",
+  "relevant_ids": [
+    "tripod"
+  ],
+  "A": {
+    "ids": [
+      "tripod"
+    ],
+    "sources": [
+      {
+        "chunk_id": "8124c6e0-cecd-4647-9a04-3c6c120889d1",
+        "document_id": "b54203e4-1eb1-4549-83f6-cfa545cd58cc",
+        "chunk_index": 0,
+        "title": "三脚架",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"三脚架\",\"required_fields\":[],\"facts\":[{\"aspect\":\"借用登记\",\"answer\":\"借用需登记设备编号。\"}]}",
+        "similarity": 0.916595
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "8124c6e0-cecd-4647-9a04-3c6c120889d1",
+        "document_id": "b54203e4-1eb1-4549-83f6-cfa545cd58cc",
+        "chunk_index": 0,
+        "title": "三脚架",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"三脚架\",\"required_fields\":[],\"facts\":[{\"aspect\":\"借用登记\",\"answer\":\"借用需登记设备编号。\"}]}",
+        "similarity": 0.916595
+      }
+    ],
+    "decision": {},
+    "references": [
+      {
+        "chunk_id": "8124c6e0-cecd-4647-9a04-3c6c120889d1",
+        "document_id": "b54203e4-1eb1-4549-83f6-cfa545cd58cc",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "8124c6e0-cecd-4647-9a04-3c6c120889d1",
+        "document_id": "b54203e4-1eb1-4549-83f6-cfa545cd58cc",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "8124c6e0-cecd-4647-9a04-3c6c120889d1",
+            "document_id": "b54203e4-1eb1-4549-83f6-cfa545cd58cc",
+            "similarity": 0.916595
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "8124c6e0-cecd-4647-9a04-3c6c120889d1",
+            "document_id": "b54203e4-1eb1-4549-83f6-cfa545cd58cc",
+            "similarity": 0.916595
+          }
+        ]
+      }
+    ],
+    "latency_ms": 13.316,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [
+      "tripod"
+    ],
+    "sources": [
+      {
+        "chunk_id": "8124c6e0-cecd-4647-9a04-3c6c120889d1",
+        "document_id": "b54203e4-1eb1-4549-83f6-cfa545cd58cc",
+        "chunk_index": 0,
+        "title": "三脚架",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"三脚架\",\"required_fields\":[],\"facts\":[{\"aspect\":\"借用登记\",\"answer\":\"借用需登记设备编号。\"}]}",
+        "similarity": 0.916595
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "8124c6e0-cecd-4647-9a04-3c6c120889d1",
+        "document_id": "b54203e4-1eb1-4549-83f6-cfa545cd58cc",
+        "chunk_index": 0,
+        "title": "三脚架",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"三脚架\",\"required_fields\":[],\"facts\":[{\"aspect\":\"借用登记\",\"answer\":\"借用需登记设备编号。\"}]}",
+        "similarity": 0.916595
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "knowledge",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [
+        {
+          "chunk_id": "8124c6e0-cecd-4647-9a04-3c6c120889d1",
+          "origin": "vector_candidate"
+        }
+      ],
+      "matched_fact_count": 1,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "references": [
+      {
+        "chunk_id": "8124c6e0-cecd-4647-9a04-3c6c120889d1",
+        "document_id": "b54203e4-1eb1-4549-83f6-cfa545cd58cc",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "8124c6e0-cecd-4647-9a04-3c6c120889d1",
+        "document_id": "b54203e4-1eb1-4549-83f6-cfa545cd58cc",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "8124c6e0-cecd-4647-9a04-3c6c120889d1",
+            "document_id": "b54203e4-1eb1-4549-83f6-cfa545cd58cc",
+            "similarity": 0.916595
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "8124c6e0-cecd-4647-9a04-3c6c120889d1",
+            "document_id": "b54203e4-1eb1-4549-83f6-cfa545cd58cc",
+            "similarity": 0.916595
+          }
+        ]
+      }
+    ],
+    "latency_ms": 26.275,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

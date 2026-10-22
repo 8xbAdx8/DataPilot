@@ -1,0 +1,158 @@
+{
+  "id": "h29-08",
+  "query": "四月完结时长均值，列avg_minutes",
+  "kind": "metric",
+  "relevant_ids": [
+    "duration"
+  ],
+  "A": {
+    "ids": [
+      "duration"
+    ],
+    "sources": [
+      {
+        "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+        "document_id": "1bc5502a-212e-429d-8e94-844ab4e1a5a6",
+        "chunk_index": 0,
+        "title": "完结时长均值",
+        "source_type": "metric_definition",
+        "excerpt": "{\"version\":1,\"name\":\"完结时长均值\",\"aliases\":[\"平均时长\"],\"expression\":\"AVG(minutes)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"minutes\"]}",
+        "similarity": 0.740085
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+        "document_id": "1bc5502a-212e-429d-8e94-844ab4e1a5a6",
+        "chunk_index": 0,
+        "title": "完结时长均值",
+        "source_type": "metric_definition",
+        "excerpt": "{\"version\":1,\"name\":\"完结时长均值\",\"aliases\":[\"平均时长\"],\"expression\":\"AVG(minutes)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"minutes\"]}",
+        "similarity": 0.740085
+      }
+    ],
+    "decision": {},
+    "references": [
+      {
+        "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+        "document_id": "1bc5502a-212e-429d-8e94-844ab4e1a5a6",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+        "document_id": "1bc5502a-212e-429d-8e94-844ab4e1a5a6",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+            "document_id": "1bc5502a-212e-429d-8e94-844ab4e1a5a6",
+            "similarity": 0.740085
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+            "document_id": "1bc5502a-212e-429d-8e94-844ab4e1a5a6",
+            "similarity": 0.740085
+          }
+        ]
+      }
+    ],
+    "latency_ms": 13.34,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [
+      "duration"
+    ],
+    "sources": [
+      {
+        "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+        "document_id": "1bc5502a-212e-429d-8e94-844ab4e1a5a6",
+        "chunk_index": 0,
+        "title": "完结时长均值",
+        "source_type": "metric_definition",
+        "excerpt": "{\"version\":1,\"name\":\"完结时长均值\",\"aliases\":[\"平均时长\"],\"expression\":\"AVG(minutes)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"minutes\"]}",
+        "similarity": 0.740085
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+        "document_id": "1bc5502a-212e-429d-8e94-844ab4e1a5a6",
+        "chunk_index": 0,
+        "title": "完结时长均值",
+        "source_type": "metric_definition",
+        "excerpt": "{\"version\":1,\"name\":\"完结时长均值\",\"aliases\":[\"平均时长\"],\"expression\":\"AVG(minutes)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"minutes\"]}",
+        "similarity": 0.740085
+      }
+    ],
+    "decision": {
+      "policy": "registered",
+      "status": "resolved",
+      "candidate_count": 1,
+      "matched_definition_count": 1,
+      "eligible_candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [
+        {
+          "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+          "origin": "vector_candidate"
+        }
+      ],
+      "selected_source_ids": [],
+      "used_source_ids": [],
+      "final_decision": "pending"
+    },
+    "references": [
+      {
+        "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+        "document_id": "1bc5502a-212e-429d-8e94-844ab4e1a5a6",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+        "document_id": "1bc5502a-212e-429d-8e94-844ab4e1a5a6",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+            "document_id": "1bc5502a-212e-429d-8e94-844ab4e1a5a6",
+            "similarity": 0.740085
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+            "document_id": "1bc5502a-212e-429d-8e94-844ab4e1a5a6",
+            "similarity": 0.740085
+          }
+        ]
+      }
+    ],
+    "latency_ms": 33.265,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

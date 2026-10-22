@@ -1,0 +1,328 @@
+{
+  "id": "h29-02",
+  "question": "按zone输出预约实收率，列zone、rate，zone升序",
+  "http_status": 201,
+  "response": {
+    "id": "5d153a25-6db9-40ee-8cfb-8e212a5fe33e",
+    "dataset_id": "f603db15-14e5-404f-bcda-c869cbe1c9d4",
+    "question": "按zone输出预约实收率，列zone、rate，zone升序",
+    "sql": null,
+    "explanation": null,
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "status": "clarification",
+    "duration_ms": 36,
+    "returned_rows": 0,
+    "truncated": false,
+    "summary": {
+      "clarification_questions": [
+        "未找到适用于当前数据集的已登记指标，请提供正式名称或已登记别名。"
+      ]
+    },
+    "error_code": null,
+    "error_message": null,
+    "created_at": "2026-10-22T16:05:55.068016Z",
+    "request_id": "464d40fe-f1f9-4e0e-b24e-23929ba8362b",
+    "telemetry": {
+      "timings_ms": {},
+      "usage": {
+        "source": "unavailable",
+        "prompt_tokens": null,
+        "completion_tokens": null,
+        "total_tokens": null
+      },
+      "workflow": {
+        "engine": "langgraph",
+        "nodes": [
+          "prepare",
+          "retrieve",
+          "plan"
+        ],
+        "stage_timings_ms": {
+          "prepare": 0,
+          "retrieve": 15,
+          "plan": 2
+        },
+        "repair_attempts": 0,
+        "sql_model_calls": 0,
+        "validations": [],
+        "plan": {
+          "needs_clarification": true,
+          "clarification_questions": [
+            "未找到适用于当前数据集的已登记指标，请提供正式名称或已登记别名。"
+          ],
+          "knowledge_chunk_ids": []
+        },
+        "agent": {
+          "model_calls": 0,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_diagnostics": [],
+          "reserved_token_bound": 0,
+          "finalization_calls": 0,
+          "usage": {},
+          "mode": "native_tools"
+        },
+        "rag": {
+          "status": "no_match",
+          "source": "provider",
+          "used": false,
+          "citations": [],
+          "error_code": null,
+          "candidate_stages": [
+            {
+              "stage": "vector",
+              "candidates": [
+                {
+                  "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                  "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+                  "similarity": 0.755589
+                }
+              ]
+            },
+            {
+              "stage": "selected",
+              "candidates": [
+                {
+                  "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                  "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+                  "similarity": 0.755589
+                }
+              ]
+            }
+          ],
+          "experiment": {
+            "mode": "enabled",
+            "candidate": "C_registered_and_structured_facts",
+            "D": "disabled_development_gate_not_met",
+            "baseline_count": 1,
+            "candidate_count": 0,
+            "baseline_source_hashes": [
+              "5332f2a37da372f9"
+            ],
+            "candidate_source_hashes": [],
+            "changed": true,
+            "candidate_decision": "not_found",
+            "latency_ms": 0.126,
+            "extra_embedding_http": 0
+          },
+          "experiment_decision": {
+            "policy": "registered_with_facts",
+            "status": "not_found",
+            "candidate_count": 1,
+            "catalog_supplement_count": 0,
+            "source_origins": [],
+            "matched_fact_count": 0,
+            "planned_source_ids": null,
+            "used_source_ids": null
+          },
+          "candidate_status": "no_match",
+          "evidence": {
+            "version": 1,
+            "policy": "legacy",
+            "status": "not_found",
+            "source_origins": [
+              {
+                "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                "origin": "vector_candidate"
+              }
+            ],
+            "source_snapshots": [
+              {
+                "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+                "chunk_index": 0,
+                "title": "预约实收率",
+                "source_type": "metric_definition",
+                "excerpt": "{\"version\":1,\"name\":\"预约实收率\",\"aliases\":[\"实收率\"],\"expression\":\"ROUND(SUM(collected)/NULLIF(SUM(quoted),0),3)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"collected\",\"quoted\"]}",
+                "similarity": 0.755589,
+                "document_version": 1
+              }
+            ],
+            "eligible_source_ids": [],
+            "selected_source_ids": [],
+            "context_source_ids": [],
+            "used_source_ids": [],
+            "sql_validation": "not_requested",
+            "metric_validation": "not_requested",
+            "execution": "not_requested",
+            "final_decision": "clarify"
+          }
+        },
+        "metric_resolution": {
+          "status": "not_found",
+          "document_ids": [],
+          "chunk_ids": []
+        }
+      }
+    },
+    "result": null,
+    "result_expired": false
+  },
+  "history": {
+    "id": "5d153a25-6db9-40ee-8cfb-8e212a5fe33e",
+    "dataset_id": "f603db15-14e5-404f-bcda-c869cbe1c9d4",
+    "question": "按zone输出预约实收率，列zone、rate，zone升序",
+    "sql": null,
+    "explanation": null,
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "status": "clarification",
+    "duration_ms": 36,
+    "returned_rows": 0,
+    "truncated": false,
+    "summary": {
+      "clarification_questions": [
+        "未找到适用于当前数据集的已登记指标，请提供正式名称或已登记别名。"
+      ]
+    },
+    "error_code": null,
+    "error_message": null,
+    "created_at": "2026-10-22T16:05:55.068016Z",
+    "request_id": "464d40fe-f1f9-4e0e-b24e-23929ba8362b",
+    "telemetry": {
+      "timings_ms": {},
+      "usage": {
+        "source": "unavailable",
+        "prompt_tokens": null,
+        "completion_tokens": null,
+        "total_tokens": null
+      },
+      "workflow": {
+        "engine": "langgraph",
+        "nodes": [
+          "prepare",
+          "retrieve",
+          "plan"
+        ],
+        "stage_timings_ms": {
+          "prepare": 0,
+          "retrieve": 15,
+          "plan": 2
+        },
+        "repair_attempts": 0,
+        "sql_model_calls": 0,
+        "validations": [],
+        "plan": {
+          "needs_clarification": true,
+          "clarification_questions": [
+            "未找到适用于当前数据集的已登记指标，请提供正式名称或已登记别名。"
+          ],
+          "knowledge_chunk_ids": []
+        },
+        "agent": {
+          "model_calls": 0,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_diagnostics": [],
+          "reserved_token_bound": 0,
+          "finalization_calls": 0,
+          "usage": {},
+          "mode": "native_tools"
+        },
+        "rag": {
+          "status": "no_match",
+          "source": "provider",
+          "used": false,
+          "citations": [],
+          "error_code": null,
+          "candidate_stages": [
+            {
+              "stage": "vector",
+              "candidates": [
+                {
+                  "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                  "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+                  "similarity": 0.755589
+                }
+              ]
+            },
+            {
+              "stage": "selected",
+              "candidates": [
+                {
+                  "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                  "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+                  "similarity": 0.755589
+                }
+              ]
+            }
+          ],
+          "experiment": {
+            "mode": "enabled",
+            "candidate": "C_registered_and_structured_facts",
+            "D": "disabled_development_gate_not_met",
+            "baseline_count": 1,
+            "candidate_count": 0,
+            "baseline_source_hashes": [
+              "5332f2a37da372f9"
+            ],
+            "candidate_source_hashes": [],
+            "changed": true,
+            "candidate_decision": "not_found",
+            "latency_ms": 0.126,
+            "extra_embedding_http": 0
+          },
+          "experiment_decision": {
+            "policy": "registered_with_facts",
+            "status": "not_found",
+            "candidate_count": 1,
+            "catalog_supplement_count": 0,
+            "source_origins": [],
+            "matched_fact_count": 0,
+            "planned_source_ids": null,
+            "used_source_ids": null
+          },
+          "candidate_status": "no_match",
+          "evidence": {
+            "version": 1,
+            "policy": "legacy",
+            "status": "not_found",
+            "source_origins": [
+              {
+                "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                "origin": "vector_candidate"
+              }
+            ],
+            "source_snapshots": [
+              {
+                "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+                "chunk_index": 0,
+                "title": "预约实收率",
+                "source_type": "metric_definition",
+                "excerpt": "{\"version\":1,\"name\":\"预约实收率\",\"aliases\":[\"实收率\"],\"expression\":\"ROUND(SUM(collected)/NULLIF(SUM(quoted),0),3)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"collected\",\"quoted\"]}",
+                "similarity": 0.755589,
+                "document_version": 1
+              }
+            ],
+            "eligible_source_ids": [],
+            "selected_source_ids": [],
+            "context_source_ids": [],
+            "used_source_ids": [],
+            "sql_validation": "not_requested",
+            "metric_validation": "not_requested",
+            "execution": "not_requested",
+            "final_decision": "clarify"
+          }
+        },
+        "metric_resolution": {
+          "status": "not_found",
+          "document_ids": [],
+          "chunk_ids": []
+        }
+      }
+    },
+    "result": null,
+    "result_expired": false
+  },
+  "audit_events": [
+    "analysis_started",
+    "analysis_clarification"
+  ],
+  "model_http": [],
+  "executions": [],
+  "correct": false,
+  "success_expected": true,
+  "latency_ms": 63.306
+}

@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "quality_status": "PARTIAL, never engineering PASS substituted for quality",
+  "postgres": "580 passed,6 original live opt-in skipped;215.40s",
+  "sqlite": "538 passed,48 conditional skipped;159.64s",
+  "preflight": "PG34 passed; local18 passed",
+  "frontend": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "build": "passed"
+  },
+  "playwright": "15 passed,3 existing cloud opt-in skipped;1.1m;exit0",
+  "compose": "current source ECR build, isolated loopback stack healthy + HTTP smoke passed;Mock/Fake",
+  "migrations": "0006 upgrade twice/base rollback/reupgrade/alembic check passed;new disposable DB",
+  "ruff": "117 backend files check/format passed; new offline verifier passed",
+  "pip_check": "passed",
+  "frozen_results_offline_verifier": "50 raw cases;2 native plan responses;2 guarded SQL replays;0 external calls;unchanged scores",
+  "historical_stage24_archive": "verified original code+assets;0 new calls",
+  "protected_history_files": 159,
+  "protected_history_changes": [],
+  "cleanup": {
+    "project": "datapilot-phase29",
+    "live_trial_database": "rag24_e59a4d2888d5bd28 removed",
+    "owned_temporary_databases_remaining": 0,
+    "owned_containers_remaining": 0,
+    "owned_volumes_remaining": 0,
+    "prior_phase25_to28_resources": "previously removed, receipts preserved",
+    "other_business_resources": "untouched",
+    "shared_ledger": "preserved"
+  },
+  "logs_sha256": {
+    "phase29-postgres-preflight.log": "2b48bbde54f123fc13752185ac2ac5eb22d29f04b520729b09e4340f33c8afc5",
+    "phase29-postgres-final.log": "c9a5885a55bae789114ead75d2464204eacb005acacdb3934a4ff5b95370b09a",
+    "phase29-sqlite-final.log": "ec069312902b8f4efd7a6bb8f749dfdc9af2f9193f67adad21efdf3e6aee12f8",
+    "phase29-official-run.log": "af9a21fead2dc280a863aad7941dda931c1ac6fad3f7109219bbdd1a824cec35",
+    "phase29-compose-build.log": "0732b91858293ec13af8cb9f4223794cb2a1ce62e8c4f2e946b25d13b4a892b6",
+    "phase29-compose-up.log": "611cafd1705201f7214de106f08b973a7f96741a14947074a34e89e41c4817d9",
+    "phase29-compose-smoke.log": "3f1a6b3f03321c26a0f171a4648c0725961e2b4d82712f11b8fb95234cbbff39",
+    "phase29-playwright.log": "a3730f7b6c1d1f673529d868a7a46c9d9e84e93519d007ca09f35181b3456524",
+    "phase29-migrations.log": "083322efe5dcfcd60c7e85d52bddba43c21051d165b7ac632574802309516fa0",
+    "phase29-cleanup.log": "54778d080c3c0969ecb886d4c3a9cb42ae95d7028090e83e6a67d0a424bc53c9"
+  }
+}

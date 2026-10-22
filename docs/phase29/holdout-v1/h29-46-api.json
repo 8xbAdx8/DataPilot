@@ -1,0 +1,378 @@
+{
+  "id": "h29-46",
+  "question": "周末接待是否需要批准？",
+  "http_status": 201,
+  "response": {
+    "id": "e650c980-af36-40ca-b758-38444445c0b5",
+    "dataset_id": "f603db15-14e5-404f-bcda-c869cbe1c9d4",
+    "question": "周末接待是否需要批准？",
+    "sql": null,
+    "explanation": null,
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "status": "clarification",
+    "duration_ms": 36,
+    "returned_rows": 0,
+    "truncated": false,
+    "summary": {
+      "clarification_questions": [
+        "未找到适用于当前数据集的已登记指标，请提供正式名称或已登记别名。"
+      ]
+    },
+    "error_code": null,
+    "error_message": null,
+    "created_at": "2026-10-22T16:05:58.636134Z",
+    "request_id": "8a1f624c-8590-4411-8df4-9b5afbd1d7e8",
+    "telemetry": {
+      "timings_ms": {},
+      "usage": {
+        "source": "unavailable",
+        "prompt_tokens": null,
+        "completion_tokens": null,
+        "total_tokens": null
+      },
+      "workflow": {
+        "engine": "langgraph",
+        "nodes": [
+          "prepare",
+          "retrieve",
+          "plan"
+        ],
+        "stage_timings_ms": {
+          "prepare": 0,
+          "retrieve": 14,
+          "plan": 2
+        },
+        "repair_attempts": 0,
+        "sql_model_calls": 0,
+        "validations": [],
+        "plan": {
+          "needs_clarification": true,
+          "clarification_questions": [
+            "未找到适用于当前数据集的已登记指标，请提供正式名称或已登记别名。"
+          ],
+          "knowledge_chunk_ids": []
+        },
+        "agent": {
+          "model_calls": 0,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_diagnostics": [],
+          "reserved_token_bound": 0,
+          "finalization_calls": 0,
+          "usage": {},
+          "mode": "native_tools"
+        },
+        "rag": {
+          "status": "no_match",
+          "source": "provider",
+          "used": false,
+          "citations": [],
+          "error_code": null,
+          "candidate_stages": [
+            {
+              "stage": "vector",
+              "candidates": [
+                {
+                  "chunk_id": "87b253c9-c693-4b88-b793-f7a5f7a90d49",
+                  "document_id": "d94888f0-a64f-4486-99c0-04e106d9d607",
+                  "similarity": 0.962031
+                },
+                {
+                  "chunk_id": "39931da0-400c-4b4e-b36f-8132f99a6fb0",
+                  "document_id": "2959bf0f-d3a6-406f-99cf-4e381e638c23",
+                  "similarity": 0.934245
+                }
+              ]
+            },
+            {
+              "stage": "selected",
+              "candidates": [
+                {
+                  "chunk_id": "87b253c9-c693-4b88-b793-f7a5f7a90d49",
+                  "document_id": "d94888f0-a64f-4486-99c0-04e106d9d607",
+                  "similarity": 0.962031
+                },
+                {
+                  "chunk_id": "39931da0-400c-4b4e-b36f-8132f99a6fb0",
+                  "document_id": "2959bf0f-d3a6-406f-99cf-4e381e638c23",
+                  "similarity": 0.934245
+                }
+              ]
+            }
+          ],
+          "experiment": {
+            "mode": "enabled",
+            "candidate": "C_registered_and_structured_facts",
+            "D": "disabled_development_gate_not_met",
+            "baseline_count": 2,
+            "candidate_count": 0,
+            "baseline_source_hashes": [
+              "60fe5ee43910de9c",
+              "d4523182b96379e5"
+            ],
+            "candidate_source_hashes": [],
+            "changed": true,
+            "candidate_decision": "not_found",
+            "latency_ms": 0.118,
+            "extra_embedding_http": 0
+          },
+          "experiment_decision": {
+            "policy": "registered_with_facts",
+            "status": "not_found",
+            "candidate_count": 2,
+            "catalog_supplement_count": 0,
+            "source_origins": [],
+            "matched_fact_count": 0,
+            "planned_source_ids": null,
+            "used_source_ids": null
+          },
+          "candidate_status": "no_match",
+          "evidence": {
+            "version": 1,
+            "policy": "legacy",
+            "status": "not_found",
+            "source_origins": [
+              {
+                "chunk_id": "39931da0-400c-4b4e-b36f-8132f99a6fb0",
+                "origin": "vector_candidate"
+              },
+              {
+                "chunk_id": "87b253c9-c693-4b88-b793-f7a5f7a90d49",
+                "origin": "vector_candidate"
+              }
+            ],
+            "source_snapshots": [
+              {
+                "chunk_id": "39931da0-400c-4b4e-b36f-8132f99a6fb0",
+                "document_id": "2959bf0f-d3a6-406f-99cf-4e381e638c23",
+                "chunk_index": 0,
+                "title": "周末接待",
+                "source_type": "business_rule",
+                "excerpt": "周末接待需经理批准。",
+                "similarity": 0.934245,
+                "document_version": 1
+              },
+              {
+                "chunk_id": "87b253c9-c693-4b88-b793-f7a5f7a90d49",
+                "document_id": "d94888f0-a64f-4486-99c0-04e106d9d607",
+                "chunk_index": 0,
+                "title": "周末接待",
+                "source_type": "business_rule",
+                "excerpt": "周末接待无需批准。",
+                "similarity": 0.962031,
+                "document_version": 1
+              }
+            ],
+            "eligible_source_ids": [],
+            "selected_source_ids": [],
+            "context_source_ids": [],
+            "used_source_ids": [],
+            "sql_validation": "not_requested",
+            "metric_validation": "not_requested",
+            "execution": "not_requested",
+            "final_decision": "clarify"
+          }
+        },
+        "metric_resolution": {
+          "status": "not_found",
+          "document_ids": [],
+          "chunk_ids": []
+        }
+      }
+    },
+    "result": null,
+    "result_expired": false
+  },
+  "history": {
+    "id": "e650c980-af36-40ca-b758-38444445c0b5",
+    "dataset_id": "f603db15-14e5-404f-bcda-c869cbe1c9d4",
+    "question": "周末接待是否需要批准？",
+    "sql": null,
+    "explanation": null,
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "status": "clarification",
+    "duration_ms": 36,
+    "returned_rows": 0,
+    "truncated": false,
+    "summary": {
+      "clarification_questions": [
+        "未找到适用于当前数据集的已登记指标，请提供正式名称或已登记别名。"
+      ]
+    },
+    "error_code": null,
+    "error_message": null,
+    "created_at": "2026-10-22T16:05:58.636134Z",
+    "request_id": "8a1f624c-8590-4411-8df4-9b5afbd1d7e8",
+    "telemetry": {
+      "timings_ms": {},
+      "usage": {
+        "source": "unavailable",
+        "prompt_tokens": null,
+        "completion_tokens": null,
+        "total_tokens": null
+      },
+      "workflow": {
+        "engine": "langgraph",
+        "nodes": [
+          "prepare",
+          "retrieve",
+          "plan"
+        ],
+        "stage_timings_ms": {
+          "prepare": 0,
+          "retrieve": 14,
+          "plan": 2
+        },
+        "repair_attempts": 0,
+        "sql_model_calls": 0,
+        "validations": [],
+        "plan": {
+          "needs_clarification": true,
+          "clarification_questions": [
+            "未找到适用于当前数据集的已登记指标，请提供正式名称或已登记别名。"
+          ],
+          "knowledge_chunk_ids": []
+        },
+        "agent": {
+          "model_calls": 0,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_diagnostics": [],
+          "reserved_token_bound": 0,
+          "finalization_calls": 0,
+          "usage": {},
+          "mode": "native_tools"
+        },
+        "rag": {
+          "status": "no_match",
+          "source": "provider",
+          "used": false,
+          "citations": [],
+          "error_code": null,
+          "candidate_stages": [
+            {
+              "stage": "vector",
+              "candidates": [
+                {
+                  "chunk_id": "87b253c9-c693-4b88-b793-f7a5f7a90d49",
+                  "document_id": "d94888f0-a64f-4486-99c0-04e106d9d607",
+                  "similarity": 0.962031
+                },
+                {
+                  "chunk_id": "39931da0-400c-4b4e-b36f-8132f99a6fb0",
+                  "document_id": "2959bf0f-d3a6-406f-99cf-4e381e638c23",
+                  "similarity": 0.934245
+                }
+              ]
+            },
+            {
+              "stage": "selected",
+              "candidates": [
+                {
+                  "chunk_id": "87b253c9-c693-4b88-b793-f7a5f7a90d49",
+                  "document_id": "d94888f0-a64f-4486-99c0-04e106d9d607",
+                  "similarity": 0.962031
+                },
+                {
+                  "chunk_id": "39931da0-400c-4b4e-b36f-8132f99a6fb0",
+                  "document_id": "2959bf0f-d3a6-406f-99cf-4e381e638c23",
+                  "similarity": 0.934245
+                }
+              ]
+            }
+          ],
+          "experiment": {
+            "mode": "enabled",
+            "candidate": "C_registered_and_structured_facts",
+            "D": "disabled_development_gate_not_met",
+            "baseline_count": 2,
+            "candidate_count": 0,
+            "baseline_source_hashes": [
+              "60fe5ee43910de9c",
+              "d4523182b96379e5"
+            ],
+            "candidate_source_hashes": [],
+            "changed": true,
+            "candidate_decision": "not_found",
+            "latency_ms": 0.118,
+            "extra_embedding_http": 0
+          },
+          "experiment_decision": {
+            "policy": "registered_with_facts",
+            "status": "not_found",
+            "candidate_count": 2,
+            "catalog_supplement_count": 0,
+            "source_origins": [],
+            "matched_fact_count": 0,
+            "planned_source_ids": null,
+            "used_source_ids": null
+          },
+          "candidate_status": "no_match",
+          "evidence": {
+            "version": 1,
+            "policy": "legacy",
+            "status": "not_found",
+            "source_origins": [
+              {
+                "chunk_id": "39931da0-400c-4b4e-b36f-8132f99a6fb0",
+                "origin": "vector_candidate"
+              },
+              {
+                "chunk_id": "87b253c9-c693-4b88-b793-f7a5f7a90d49",
+                "origin": "vector_candidate"
+              }
+            ],
+            "source_snapshots": [
+              {
+                "chunk_id": "39931da0-400c-4b4e-b36f-8132f99a6fb0",
+                "document_id": "2959bf0f-d3a6-406f-99cf-4e381e638c23",
+                "chunk_index": 0,
+                "title": "周末接待",
+                "source_type": "business_rule",
+                "excerpt": "周末接待需经理批准。",
+                "similarity": 0.934245,
+                "document_version": 1
+              },
+              {
+                "chunk_id": "87b253c9-c693-4b88-b793-f7a5f7a90d49",
+                "document_id": "d94888f0-a64f-4486-99c0-04e106d9d607",
+                "chunk_index": 0,
+                "title": "周末接待",
+                "source_type": "business_rule",
+                "excerpt": "周末接待无需批准。",
+                "similarity": 0.962031,
+                "document_version": 1
+              }
+            ],
+            "eligible_source_ids": [],
+            "selected_source_ids": [],
+            "context_source_ids": [],
+            "used_source_ids": [],
+            "sql_validation": "not_requested",
+            "metric_validation": "not_requested",
+            "execution": "not_requested",
+            "final_decision": "clarify"
+          }
+        },
+        "metric_resolution": {
+          "status": "not_found",
+          "document_ids": [],
+          "chunk_ids": []
+        }
+      }
+    },
+    "result": null,
+    "result_expired": false
+  },
+  "audit_events": [
+    "analysis_started",
+    "analysis_clarification"
+  ],
+  "model_http": [],
+  "executions": [],
+  "correct": true,
+  "success_expected": false,
+  "latency_ms": 67.361
+}

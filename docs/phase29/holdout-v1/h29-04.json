@@ -1,0 +1,158 @@
+{
+  "id": "h29-04",
+  "query": "五月预约实收率，列rate",
+  "kind": "metric",
+  "relevant_ids": [
+    "rate"
+  ],
+  "A": {
+    "ids": [
+      "rate"
+    ],
+    "sources": [
+      {
+        "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+        "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+        "chunk_index": 0,
+        "title": "预约实收率",
+        "source_type": "metric_definition",
+        "excerpt": "{\"version\":1,\"name\":\"预约实收率\",\"aliases\":[\"实收率\"],\"expression\":\"ROUND(SUM(collected)/NULLIF(SUM(quoted),0),3)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"collected\",\"quoted\"]}",
+        "similarity": 0.741587
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+        "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+        "chunk_index": 0,
+        "title": "预约实收率",
+        "source_type": "metric_definition",
+        "excerpt": "{\"version\":1,\"name\":\"预约实收率\",\"aliases\":[\"实收率\"],\"expression\":\"ROUND(SUM(collected)/NULLIF(SUM(quoted),0),3)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"collected\",\"quoted\"]}",
+        "similarity": 0.741587
+      }
+    ],
+    "decision": {},
+    "references": [
+      {
+        "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+        "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+        "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+            "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+            "similarity": 0.741587
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+            "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+            "similarity": 0.741587
+          }
+        ]
+      }
+    ],
+    "latency_ms": 14.836,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [
+      "rate"
+    ],
+    "sources": [
+      {
+        "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+        "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+        "chunk_index": 0,
+        "title": "预约实收率",
+        "source_type": "metric_definition",
+        "excerpt": "{\"version\":1,\"name\":\"预约实收率\",\"aliases\":[\"实收率\"],\"expression\":\"ROUND(SUM(collected)/NULLIF(SUM(quoted),0),3)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"collected\",\"quoted\"]}",
+        "similarity": 0.741587
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+        "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+        "chunk_index": 0,
+        "title": "预约实收率",
+        "source_type": "metric_definition",
+        "excerpt": "{\"version\":1,\"name\":\"预约实收率\",\"aliases\":[\"实收率\"],\"expression\":\"ROUND(SUM(collected)/NULLIF(SUM(quoted),0),3)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"collected\",\"quoted\"]}",
+        "similarity": 0.741587
+      }
+    ],
+    "decision": {
+      "policy": "registered",
+      "status": "resolved",
+      "candidate_count": 1,
+      "matched_definition_count": 1,
+      "eligible_candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [
+        {
+          "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+          "origin": "vector_candidate"
+        }
+      ],
+      "selected_source_ids": [],
+      "used_source_ids": [],
+      "final_decision": "pending"
+    },
+    "references": [
+      {
+        "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+        "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+        "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+            "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+            "similarity": 0.741587
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+            "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+            "similarity": 0.741587
+          }
+        ]
+      }
+    ],
+    "latency_ms": 28.497,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

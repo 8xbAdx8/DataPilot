@@ -1,0 +1,344 @@
+{
+  "id": "h29-45",
+  "question": "平均时长是多少？",
+  "http_status": 201,
+  "response": {
+    "id": "d81b989d-7b0e-42ef-be8c-98ac01eb6d7f",
+    "dataset_id": "f603db15-14e5-404f-bcda-c869cbe1c9d4",
+    "question": "平均时长是多少？",
+    "sql": null,
+    "explanation": null,
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "status": "clarification",
+    "duration_ms": 35,
+    "returned_rows": 0,
+    "truncated": false,
+    "summary": {
+      "clarification_questions": [
+        "存在多个同名或同别名指标，请明确采用哪份定义。"
+      ]
+    },
+    "error_code": null,
+    "error_message": null,
+    "created_at": "2026-10-22T16:05:58.562047Z",
+    "request_id": "4fad547b-bcfe-4743-bcc6-d4bc69930875",
+    "telemetry": {
+      "timings_ms": {},
+      "usage": {
+        "source": "unavailable",
+        "prompt_tokens": null,
+        "completion_tokens": null,
+        "total_tokens": null
+      },
+      "workflow": {
+        "engine": "langgraph",
+        "nodes": [
+          "prepare",
+          "retrieve",
+          "plan"
+        ],
+        "stage_timings_ms": {
+          "prepare": 0,
+          "retrieve": 12,
+          "plan": 2
+        },
+        "repair_attempts": 0,
+        "sql_model_calls": 0,
+        "validations": [],
+        "plan": {
+          "needs_clarification": true,
+          "clarification_questions": [
+            "存在多个同名或同别名指标，请明确采用哪份定义。"
+          ],
+          "knowledge_chunk_ids": []
+        },
+        "agent": {
+          "model_calls": 0,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_diagnostics": [],
+          "reserved_token_bound": 0,
+          "finalization_calls": 0,
+          "usage": {},
+          "mode": "native_tools"
+        },
+        "rag": {
+          "status": "no_match",
+          "source": "provider",
+          "used": false,
+          "citations": [],
+          "error_code": null,
+          "candidate_stages": [
+            {
+              "stage": "vector",
+              "candidates": []
+            },
+            {
+              "stage": "selected",
+              "candidates": []
+            }
+          ],
+          "experiment": {
+            "mode": "enabled",
+            "candidate": "C_registered_and_structured_facts",
+            "D": "disabled_development_gate_not_met",
+            "baseline_count": 0,
+            "candidate_count": 0,
+            "baseline_source_hashes": [],
+            "candidate_source_hashes": [],
+            "changed": false,
+            "candidate_decision": "ambiguous",
+            "latency_ms": 0.074,
+            "extra_embedding_http": 0
+          },
+          "experiment_decision": {
+            "policy": "registered",
+            "status": "ambiguous",
+            "candidate_count": 0,
+            "matched_definition_count": 2,
+            "eligible_candidate_count": 0,
+            "catalog_supplement_count": 0,
+            "source_origins": [],
+            "selected_source_ids": [],
+            "used_source_ids": [],
+            "final_decision": "pending"
+          },
+          "candidate_status": "no_match",
+          "evidence": {
+            "version": 1,
+            "policy": "legacy",
+            "status": "ambiguous",
+            "source_origins": [
+              {
+                "chunk_id": "6ba3662c-d98f-4a31-ba56-d05bd224724d",
+                "origin": "registered_catalog"
+              },
+              {
+                "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+                "origin": "registered_catalog"
+              }
+            ],
+            "source_snapshots": [
+              {
+                "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+                "document_id": "1bc5502a-212e-429d-8e94-844ab4e1a5a6",
+                "chunk_index": 0,
+                "title": "完结时长均值",
+                "source_type": "metric_definition",
+                "excerpt": "{\"version\":1,\"name\":\"完结时长均值\",\"aliases\":[\"平均时长\"],\"expression\":\"AVG(minutes)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"minutes\"]}",
+                "similarity": null,
+                "document_version": 1
+              },
+              {
+                "chunk_id": "6ba3662c-d98f-4a31-ba56-d05bd224724d",
+                "document_id": "094e265a-b815-419a-a03b-e37707501071",
+                "chunk_index": 0,
+                "title": "取消时长均值",
+                "source_type": "metric_definition",
+                "excerpt": "{\"version\":1,\"name\":\"取消时长均值\",\"aliases\":[\"平均时长\"],\"expression\":\"AVG(minutes)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"cancelled\"}],\"required_fields\":[\"state\",\"minutes\"]}",
+                "similarity": null,
+                "document_version": 1
+              }
+            ],
+            "eligible_source_ids": [],
+            "selected_source_ids": [],
+            "context_source_ids": [],
+            "used_source_ids": [],
+            "sql_validation": "not_requested",
+            "metric_validation": "not_requested",
+            "execution": "not_requested",
+            "final_decision": "clarify"
+          }
+        },
+        "metric_resolution": {
+          "status": "ambiguous",
+          "document_ids": [
+            "094e265a-b815-419a-a03b-e37707501071",
+            "1bc5502a-212e-429d-8e94-844ab4e1a5a6"
+          ],
+          "chunk_ids": [
+            "6ba3662c-d98f-4a31-ba56-d05bd224724d",
+            "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755"
+          ]
+        }
+      }
+    },
+    "result": null,
+    "result_expired": false
+  },
+  "history": {
+    "id": "d81b989d-7b0e-42ef-be8c-98ac01eb6d7f",
+    "dataset_id": "f603db15-14e5-404f-bcda-c869cbe1c9d4",
+    "question": "平均时长是多少？",
+    "sql": null,
+    "explanation": null,
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "status": "clarification",
+    "duration_ms": 35,
+    "returned_rows": 0,
+    "truncated": false,
+    "summary": {
+      "clarification_questions": [
+        "存在多个同名或同别名指标，请明确采用哪份定义。"
+      ]
+    },
+    "error_code": null,
+    "error_message": null,
+    "created_at": "2026-10-22T16:05:58.562047Z",
+    "request_id": "4fad547b-bcfe-4743-bcc6-d4bc69930875",
+    "telemetry": {
+      "timings_ms": {},
+      "usage": {
+        "source": "unavailable",
+        "prompt_tokens": null,
+        "completion_tokens": null,
+        "total_tokens": null
+      },
+      "workflow": {
+        "engine": "langgraph",
+        "nodes": [
+          "prepare",
+          "retrieve",
+          "plan"
+        ],
+        "stage_timings_ms": {
+          "prepare": 0,
+          "retrieve": 12,
+          "plan": 2
+        },
+        "repair_attempts": 0,
+        "sql_model_calls": 0,
+        "validations": [],
+        "plan": {
+          "needs_clarification": true,
+          "clarification_questions": [
+            "存在多个同名或同别名指标，请明确采用哪份定义。"
+          ],
+          "knowledge_chunk_ids": []
+        },
+        "agent": {
+          "model_calls": 0,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_diagnostics": [],
+          "reserved_token_bound": 0,
+          "finalization_calls": 0,
+          "usage": {},
+          "mode": "native_tools"
+        },
+        "rag": {
+          "status": "no_match",
+          "source": "provider",
+          "used": false,
+          "citations": [],
+          "error_code": null,
+          "candidate_stages": [
+            {
+              "stage": "vector",
+              "candidates": []
+            },
+            {
+              "stage": "selected",
+              "candidates": []
+            }
+          ],
+          "experiment": {
+            "mode": "enabled",
+            "candidate": "C_registered_and_structured_facts",
+            "D": "disabled_development_gate_not_met",
+            "baseline_count": 0,
+            "candidate_count": 0,
+            "baseline_source_hashes": [],
+            "candidate_source_hashes": [],
+            "changed": false,
+            "candidate_decision": "ambiguous",
+            "latency_ms": 0.074,
+            "extra_embedding_http": 0
+          },
+          "experiment_decision": {
+            "policy": "registered",
+            "status": "ambiguous",
+            "candidate_count": 0,
+            "matched_definition_count": 2,
+            "eligible_candidate_count": 0,
+            "catalog_supplement_count": 0,
+            "source_origins": [],
+            "selected_source_ids": [],
+            "used_source_ids": [],
+            "final_decision": "pending"
+          },
+          "candidate_status": "no_match",
+          "evidence": {
+            "version": 1,
+            "policy": "legacy",
+            "status": "ambiguous",
+            "source_origins": [
+              {
+                "chunk_id": "6ba3662c-d98f-4a31-ba56-d05bd224724d",
+                "origin": "registered_catalog"
+              },
+              {
+                "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+                "origin": "registered_catalog"
+              }
+            ],
+            "source_snapshots": [
+              {
+                "chunk_id": "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755",
+                "document_id": "1bc5502a-212e-429d-8e94-844ab4e1a5a6",
+                "chunk_index": 0,
+                "title": "完结时长均值",
+                "source_type": "metric_definition",
+                "excerpt": "{\"version\":1,\"name\":\"完结时长均值\",\"aliases\":[\"平均时长\"],\"expression\":\"AVG(minutes)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"minutes\"]}",
+                "similarity": null,
+                "document_version": 1
+              },
+              {
+                "chunk_id": "6ba3662c-d98f-4a31-ba56-d05bd224724d",
+                "document_id": "094e265a-b815-419a-a03b-e37707501071",
+                "chunk_index": 0,
+                "title": "取消时长均值",
+                "source_type": "metric_definition",
+                "excerpt": "{\"version\":1,\"name\":\"取消时长均值\",\"aliases\":[\"平均时长\"],\"expression\":\"AVG(minutes)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"cancelled\"}],\"required_fields\":[\"state\",\"minutes\"]}",
+                "similarity": null,
+                "document_version": 1
+              }
+            ],
+            "eligible_source_ids": [],
+            "selected_source_ids": [],
+            "context_source_ids": [],
+            "used_source_ids": [],
+            "sql_validation": "not_requested",
+            "metric_validation": "not_requested",
+            "execution": "not_requested",
+            "final_decision": "clarify"
+          }
+        },
+        "metric_resolution": {
+          "status": "ambiguous",
+          "document_ids": [
+            "094e265a-b815-419a-a03b-e37707501071",
+            "1bc5502a-212e-429d-8e94-844ab4e1a5a6"
+          ],
+          "chunk_ids": [
+            "6ba3662c-d98f-4a31-ba56-d05bd224724d",
+            "d7b3f0d6-427c-4f19-9a39-0bb69e9f4755"
+          ]
+        }
+      }
+    },
+    "result": null,
+    "result_expired": false
+  },
+  "audit_events": [
+    "analysis_started",
+    "analysis_clarification"
+  ],
+  "model_http": [],
+  "executions": [],
+  "correct": true,
+  "success_expected": false,
+  "latency_ms": 64.162
+}

@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "staged_files_audited": 77,
+  "configured_private_values_checked": 4,
+  "exact_private_matches": 0,
+  "forbidden_paths": 0,
+  "new_pattern_candidates": 0,
+  "history": {
+    "commits": 40,
+    "blobs": 872,
+    "exact_current_key_matches": 0,
+    "forbidden_path_occurrences": 0,
+    "candidate_classification": "existing public example credentials, blank key fields and historical paths; no private credential"
+  },
+  "protected_old_files_unchanged": 159,
+  "stage24_original_code_archive": "verified, old entry points unchanged",
+  "stage29_freeze": "exact application/asset bytes verified; precommit parent HEAD ancestry recorded",
+  "old_scores_rewritten": false,
+  "trial_usage": "32 complete requests; no unknown new requests; phase21 unknown preserved",
+  "private_credentials_modified": false,
+  "remote_operations": false
+}

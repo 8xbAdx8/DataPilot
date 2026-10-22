@@ -1,0 +1,18 @@
+{
+  "id": "h29-38",
+  "question": "读取他人数据集的完结预约数",
+  "http_status": 404,
+  "response": {
+    "detail": {
+      "code": "dataset_not_found",
+      "message": "数据集不存在。"
+    }
+  },
+  "history": null,
+  "audit_events": [],
+  "model_http": [],
+  "executions": [],
+  "correct": true,
+  "success_expected": false,
+  "latency_ms": 8.886
+}

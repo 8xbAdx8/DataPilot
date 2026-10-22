@@ -1,0 +1,982 @@
+{
+  "id": "h29-01",
+  "question": "预约实收率，列名rate",
+  "http_status": 201,
+  "response": {
+    "id": "679ce463-92ef-49c3-ab1d-2f165bbb1944",
+    "dataset_id": "f603db15-14e5-404f-bcda-c869cbe1c9d4",
+    "question": "预约实收率，列名rate",
+    "sql": "SELECT ROUND(SUM(\"data\".\"collected\") / NULLIF(SUM(\"data\".\"quoted\"), 0), 3) AS \"rate\" FROM \"data\" AS \"data\" WHERE \"data\".\"state\" = 'done'",
+    "explanation": "Computes the appointment collection rate as collected/quoted for rows where state is 'done', rounded to 3 decimals, aliased rate.",
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "status": "success",
+    "duration_ms": 3254,
+    "returned_rows": 1,
+    "truncated": false,
+    "summary": {
+      "facts": [
+        "实际查询返回 1 行、1 列。",
+        "结果首行示例：{\"rate\": 0.6}"
+      ],
+      "hypotheses": [],
+      "limitations": [
+        "统计口径由 SQL 定义；本次结果不提供因果推断或未来预测。"
+      ]
+    },
+    "error_code": null,
+    "error_message": null,
+    "created_at": "2026-10-22T16:05:51.758278Z",
+    "request_id": "4850e387-c1e0-43f5-a8e5-fa7bccea4255",
+    "telemetry": {
+      "timings_ms": {
+        "provider": 901,
+        "sql_guard": 9,
+        "query": 728,
+        "persist": 1
+      },
+      "usage": {
+        "source": "provider",
+        "prompt_tokens": 817,
+        "completion_tokens": 70,
+        "total_tokens": 887
+      },
+      "workflow": {
+        "engine": "langgraph",
+        "nodes": [
+          "prepare",
+          "retrieve",
+          "plan",
+          "generate",
+          "validate",
+          "execute",
+          "check_result"
+        ],
+        "stage_timings_ms": {
+          "prepare": 0,
+          "retrieve": 15,
+          "plan": 1571,
+          "generate": 901,
+          "validate": 9,
+          "execute": 730,
+          "check_result": 0
+        },
+        "repair_attempts": 0,
+        "sql_model_calls": 1,
+        "validations": [
+          {
+            "status": "approved",
+            "attempt": 0
+          }
+        ],
+        "plan": {
+          "metrics": [
+            "预约实收率 = ROUND(SUM(collected)/NULLIF(SUM(quoted),0),3)，列名 rate"
+          ],
+          "dimensions": [],
+          "filters": [
+            "state = 'done'"
+          ],
+          "time_range": null,
+          "ordering": [],
+          "top_n": null,
+          "needs_clarification": false,
+          "clarification_questions": [],
+          "knowledge_chunk_ids": [
+            "03917880-9ce2-4dd1-8b0e-17fce700ef33"
+          ]
+        },
+        "agent": {
+          "model_calls": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_diagnostics": [],
+          "reserved_token_bound": 4639,
+          "finalization_calls": 1,
+          "usage": {
+            "input_tokens": 1049,
+            "output_tokens": 232,
+            "total_tokens": 1281
+          },
+          "mode": "native_tools"
+        },
+        "rag": {
+          "status": "retrieved",
+          "source": "provider",
+          "used": true,
+          "citations": [
+            {
+              "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+              "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+              "chunk_index": 0,
+              "title": "预约实收率",
+              "source_type": "metric_definition",
+              "excerpt": "{\"version\":1,\"name\":\"预约实收率\",\"aliases\":[\"实收率\"],\"expression\":\"ROUND(SUM(collected)/NULLIF(SUM(quoted),0),3)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"collected\",\"quoted\"]}",
+              "similarity": null
+            }
+          ],
+          "error_code": null,
+          "candidate_stages": [
+            {
+              "stage": "vector",
+              "candidates": [
+                {
+                  "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                  "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+                  "similarity": 0.768634
+                }
+              ]
+            },
+            {
+              "stage": "selected",
+              "candidates": [
+                {
+                  "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                  "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+                  "similarity": 0.768634
+                }
+              ]
+            }
+          ],
+          "experiment": {
+            "mode": "enabled",
+            "candidate": "C_registered_and_structured_facts",
+            "D": "disabled_development_gate_not_met",
+            "baseline_count": 1,
+            "candidate_count": 1,
+            "baseline_source_hashes": [
+              "5332f2a37da372f9"
+            ],
+            "candidate_source_hashes": [
+              "5332f2a37da372f9"
+            ],
+            "changed": false,
+            "candidate_decision": "resolved",
+            "latency_ms": 0.116,
+            "extra_embedding_http": 0
+          },
+          "experiment_decision": {
+            "policy": "registered",
+            "status": "resolved",
+            "candidate_count": 1,
+            "matched_definition_count": 1,
+            "eligible_candidate_count": 1,
+            "catalog_supplement_count": 0,
+            "source_origins": [
+              {
+                "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                "origin": "vector_candidate"
+              }
+            ],
+            "selected_source_ids": [],
+            "used_source_ids": [],
+            "final_decision": "pending"
+          },
+          "candidate_status": "retrieved",
+          "evidence": {
+            "version": 1,
+            "policy": "legacy",
+            "status": "resolved",
+            "source_origins": [
+              {
+                "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                "origin": "vector_candidate"
+              }
+            ],
+            "source_snapshots": [
+              {
+                "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+                "chunk_index": 0,
+                "title": "预约实收率",
+                "source_type": "metric_definition",
+                "excerpt": "{\"version\":1,\"name\":\"预约实收率\",\"aliases\":[\"实收率\"],\"expression\":\"ROUND(SUM(collected)/NULLIF(SUM(quoted),0),3)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"collected\",\"quoted\"]}",
+                "similarity": null,
+                "document_version": 1
+              }
+            ],
+            "eligible_source_ids": [
+              "03917880-9ce2-4dd1-8b0e-17fce700ef33"
+            ],
+            "selected_source_ids": [
+              "03917880-9ce2-4dd1-8b0e-17fce700ef33"
+            ],
+            "context_source_ids": [
+              "03917880-9ce2-4dd1-8b0e-17fce700ef33"
+            ],
+            "used_source_ids": [
+              "03917880-9ce2-4dd1-8b0e-17fce700ef33"
+            ],
+            "sql_validation": "approved",
+            "metric_validation": "approved",
+            "execution": "success",
+            "final_decision": "answer",
+            "live_source_validation": "approved"
+          },
+          "retrieved_count": 1
+        },
+        "metric_resolution": {
+          "status": "resolved",
+          "document_ids": [
+            "12511938-be38-452f-88ea-7038b98b0e38"
+          ],
+          "chunk_ids": [
+            "03917880-9ce2-4dd1-8b0e-17fce700ef33"
+          ]
+        }
+      }
+    },
+    "result": {
+      "columns": [
+        {
+          "name": "rate",
+          "type": "DOUBLE"
+        }
+      ],
+      "rows": [
+        {
+          "rate": 0.6
+        }
+      ],
+      "truncated": false,
+      "chart": {
+        "kind": "table",
+        "reason": "结果为空、行数不足或字段不适合图表。"
+      },
+      "summary": {
+        "facts": [
+          "实际查询返回 1 行、1 列。",
+          "结果首行示例：{\"rate\": 0.6}"
+        ],
+        "hypotheses": [],
+        "limitations": [
+          "统计口径由 SQL 定义；本次结果不提供因果推断或未来预测。"
+        ]
+      }
+    },
+    "result_expired": false
+  },
+  "history": {
+    "id": "679ce463-92ef-49c3-ab1d-2f165bbb1944",
+    "dataset_id": "f603db15-14e5-404f-bcda-c869cbe1c9d4",
+    "question": "预约实收率，列名rate",
+    "sql": "SELECT ROUND(SUM(\"data\".\"collected\") / NULLIF(SUM(\"data\".\"quoted\"), 0), 3) AS \"rate\" FROM \"data\" AS \"data\" WHERE \"data\".\"state\" = 'done'",
+    "explanation": "Computes the appointment collection rate as collected/quoted for rows where state is 'done', rounded to 3 decimals, aliased rate.",
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "status": "success",
+    "duration_ms": 3254,
+    "returned_rows": 1,
+    "truncated": false,
+    "summary": {
+      "facts": [
+        "实际查询返回 1 行、1 列。",
+        "结果首行示例：{\"rate\": 0.6}"
+      ],
+      "hypotheses": [],
+      "limitations": [
+        "统计口径由 SQL 定义；本次结果不提供因果推断或未来预测。"
+      ]
+    },
+    "error_code": null,
+    "error_message": null,
+    "created_at": "2026-10-22T16:05:51.758278Z",
+    "request_id": "4850e387-c1e0-43f5-a8e5-fa7bccea4255",
+    "telemetry": {
+      "timings_ms": {
+        "provider": 901,
+        "sql_guard": 9,
+        "query": 728,
+        "persist": 1
+      },
+      "usage": {
+        "source": "provider",
+        "prompt_tokens": 817,
+        "completion_tokens": 70,
+        "total_tokens": 887
+      },
+      "workflow": {
+        "engine": "langgraph",
+        "nodes": [
+          "prepare",
+          "retrieve",
+          "plan",
+          "generate",
+          "validate",
+          "execute",
+          "check_result"
+        ],
+        "stage_timings_ms": {
+          "prepare": 0,
+          "retrieve": 15,
+          "plan": 1571,
+          "generate": 901,
+          "validate": 9,
+          "execute": 730,
+          "check_result": 0
+        },
+        "repair_attempts": 0,
+        "sql_model_calls": 1,
+        "validations": [
+          {
+            "status": "approved",
+            "attempt": 0
+          }
+        ],
+        "plan": {
+          "metrics": [
+            "预约实收率 = ROUND(SUM(collected)/NULLIF(SUM(quoted),0),3)，列名 rate"
+          ],
+          "dimensions": [],
+          "filters": [
+            "state = 'done'"
+          ],
+          "time_range": null,
+          "ordering": [],
+          "top_n": null,
+          "needs_clarification": false,
+          "clarification_questions": [],
+          "knowledge_chunk_ids": [
+            "03917880-9ce2-4dd1-8b0e-17fce700ef33"
+          ]
+        },
+        "agent": {
+          "model_calls": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_diagnostics": [],
+          "reserved_token_bound": 4639,
+          "finalization_calls": 1,
+          "usage": {
+            "input_tokens": 1049,
+            "output_tokens": 232,
+            "total_tokens": 1281
+          },
+          "mode": "native_tools"
+        },
+        "rag": {
+          "status": "retrieved",
+          "source": "provider",
+          "used": true,
+          "citations": [
+            {
+              "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+              "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+              "chunk_index": 0,
+              "title": "预约实收率",
+              "source_type": "metric_definition",
+              "excerpt": "{\"version\":1,\"name\":\"预约实收率\",\"aliases\":[\"实收率\"],\"expression\":\"ROUND(SUM(collected)/NULLIF(SUM(quoted),0),3)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"collected\",\"quoted\"]}",
+              "similarity": null
+            }
+          ],
+          "error_code": null,
+          "candidate_stages": [
+            {
+              "stage": "vector",
+              "candidates": [
+                {
+                  "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                  "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+                  "similarity": 0.768634
+                }
+              ]
+            },
+            {
+              "stage": "selected",
+              "candidates": [
+                {
+                  "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                  "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+                  "similarity": 0.768634
+                }
+              ]
+            }
+          ],
+          "experiment": {
+            "mode": "enabled",
+            "candidate": "C_registered_and_structured_facts",
+            "D": "disabled_development_gate_not_met",
+            "baseline_count": 1,
+            "candidate_count": 1,
+            "baseline_source_hashes": [
+              "5332f2a37da372f9"
+            ],
+            "candidate_source_hashes": [
+              "5332f2a37da372f9"
+            ],
+            "changed": false,
+            "candidate_decision": "resolved",
+            "latency_ms": 0.116,
+            "extra_embedding_http": 0
+          },
+          "experiment_decision": {
+            "policy": "registered",
+            "status": "resolved",
+            "candidate_count": 1,
+            "matched_definition_count": 1,
+            "eligible_candidate_count": 1,
+            "catalog_supplement_count": 0,
+            "source_origins": [
+              {
+                "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                "origin": "vector_candidate"
+              }
+            ],
+            "selected_source_ids": [],
+            "used_source_ids": [],
+            "final_decision": "pending"
+          },
+          "candidate_status": "retrieved",
+          "evidence": {
+            "version": 1,
+            "policy": "legacy",
+            "status": "resolved",
+            "source_origins": [
+              {
+                "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                "origin": "vector_candidate"
+              }
+            ],
+            "source_snapshots": [
+              {
+                "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+                "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+                "chunk_index": 0,
+                "title": "预约实收率",
+                "source_type": "metric_definition",
+                "excerpt": "{\"version\":1,\"name\":\"预约实收率\",\"aliases\":[\"实收率\"],\"expression\":\"ROUND(SUM(collected)/NULLIF(SUM(quoted),0),3)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"collected\",\"quoted\"]}",
+                "similarity": null,
+                "document_version": 1
+              }
+            ],
+            "eligible_source_ids": [
+              "03917880-9ce2-4dd1-8b0e-17fce700ef33"
+            ],
+            "selected_source_ids": [
+              "03917880-9ce2-4dd1-8b0e-17fce700ef33"
+            ],
+            "context_source_ids": [
+              "03917880-9ce2-4dd1-8b0e-17fce700ef33"
+            ],
+            "used_source_ids": [
+              "03917880-9ce2-4dd1-8b0e-17fce700ef33"
+            ],
+            "sql_validation": "approved",
+            "metric_validation": "approved",
+            "execution": "success",
+            "final_decision": "answer",
+            "live_source_validation": "approved"
+          },
+          "retrieved_count": 1
+        },
+        "metric_resolution": {
+          "status": "resolved",
+          "document_ids": [
+            "12511938-be38-452f-88ea-7038b98b0e38"
+          ],
+          "chunk_ids": [
+            "03917880-9ce2-4dd1-8b0e-17fce700ef33"
+          ]
+        }
+      }
+    },
+    "result": {
+      "columns": [
+        {
+          "name": "rate",
+          "type": "DOUBLE"
+        }
+      ],
+      "rows": [
+        {
+          "rate": 0.6
+        }
+      ],
+      "truncated": false,
+      "chart": {
+        "kind": "table",
+        "reason": "结果为空、行数不足或字段不适合图表。"
+      },
+      "summary": {
+        "facts": [
+          "实际查询返回 1 行、1 列。",
+          "结果首行示例：{\"rate\": 0.6}"
+        ],
+        "hypotheses": [],
+        "limitations": [
+          "统计口径由 SQL 定义；本次结果不提供因果推断或未来预测。"
+        ]
+      }
+    },
+    "result_expired": false
+  },
+  "audit_events": [
+    "analysis_started",
+    "analysis_succeeded"
+  ],
+  "model_http": [
+    {
+      "case": "h29-01",
+      "channel": "agent",
+      "model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 1049,
+        "completion_tokens": 232,
+        "total_tokens": 1281,
+        "prompt_tokens_details": {
+          "cached_tokens": 640
+        },
+        "prompt_cache_hit_tokens": 640,
+        "prompt_cache_miss_tokens": 409
+      },
+      "id": "1be2c45c-4cc8-43c3-ab26-802cb1c9a876",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "index": 0,
+                "id": "call_00_plRtgW9D1zby02cR31Ku2659",
+                "type": "function",
+                "function": {
+                  "name": "AnalysisPlan",
+                  "arguments": "{\"metrics\": [\"预约实收率 = ROUND(SUM(collected)/NULLIF(SUM(quoted),0),3)，列名 rate\"], \"dimensions\": [], \"filters\": [\"state = 'done'\"], \"time_range\": null, \"ordering\": [], \"top_n\": null, \"needs_clarification\": false, \"clarification_questions\": [], \"knowledge_chunk_ids\": [\"03917880-9ce2-4dd1-8b0e-17fce700ef33\"]}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "tool_calls"
+        }
+      ]
+    },
+    {
+      "case": "h29-01",
+      "channel": "sql",
+      "model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 817,
+        "completion_tokens": 70,
+        "total_tokens": 887,
+        "prompt_tokens_details": {
+          "cached_tokens": 128
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 689
+      },
+      "id": "270d7eeb-919c-4164-b986-d80be55b33ff",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "{\"sql\":\"SELECT ROUND(SUM(collected)/NULLIF(SUM(quoted),0),3) AS rate FROM data WHERE state = 'done'\",\"explanation\":\"Computes the appointment collection rate as collected/quoted for rows where state is 'done', rounded to 3 decimals, aliased rate.\",\"chart\":\"table\"}"
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ]
+    }
+  ],
+  "executions": [
+    {
+      "sql": "SELECT ROUND(SUM(\"data\".\"collected\") / NULLIF(SUM(\"data\".\"quoted\"), 0), 3) AS \"rate\" FROM \"data\" AS \"data\" WHERE \"data\".\"state\" = 'done'",
+      "ast": [
+        {
+          "c": "sqlglot.expressions.query.Select"
+        },
+        {
+          "i": 0,
+          "k": "expressions",
+          "a": true,
+          "c": "sqlglot.expressions.core.Alias"
+        },
+        {
+          "i": 1,
+          "k": "this",
+          "c": "sqlglot.expressions.math.Round",
+          "m": {
+            "line": 1,
+            "col": 12,
+            "start": 7,
+            "end": 11
+          }
+        },
+        {
+          "i": 2,
+          "k": "this",
+          "c": "sqlglot.expressions.core.Div"
+        },
+        {
+          "i": 3,
+          "k": "this",
+          "c": "sqlglot.expressions.aggregate.Sum",
+          "m": {
+            "line": 1,
+            "col": 16,
+            "start": 13,
+            "end": 15
+          }
+        },
+        {
+          "i": 4,
+          "k": "this",
+          "c": "sqlglot.expressions.core.Column"
+        },
+        {
+          "i": 5,
+          "k": "this",
+          "c": "sqlglot.expressions.core.Identifier",
+          "m": {
+            "line": 1,
+            "col": 35,
+            "start": 24,
+            "end": 34
+          }
+        },
+        {
+          "i": 6,
+          "k": "this",
+          "v": "collected"
+        },
+        {
+          "i": 6,
+          "k": "quoted",
+          "v": true
+        },
+        {
+          "i": 5,
+          "k": "table",
+          "c": "sqlglot.expressions.core.Identifier",
+          "m": {
+            "line": 1,
+            "col": 23,
+            "start": 17,
+            "end": 22
+          }
+        },
+        {
+          "i": 9,
+          "k": "this",
+          "v": "data"
+        },
+        {
+          "i": 9,
+          "k": "quoted",
+          "v": true
+        },
+        {
+          "i": 3,
+          "k": "expression",
+          "c": "sqlglot.expressions.functions.Nullif",
+          "m": {
+            "line": 1,
+            "col": 45,
+            "start": 39,
+            "end": 44
+          }
+        },
+        {
+          "i": 12,
+          "k": "this",
+          "c": "sqlglot.expressions.aggregate.Sum",
+          "m": {
+            "line": 1,
+            "col": 49,
+            "start": 46,
+            "end": 48
+          }
+        },
+        {
+          "i": 13,
+          "k": "this",
+          "c": "sqlglot.expressions.core.Column"
+        },
+        {
+          "i": 14,
+          "k": "this",
+          "c": "sqlglot.expressions.core.Identifier",
+          "m": {
+            "line": 1,
+            "col": 65,
+            "start": 57,
+            "end": 64
+          }
+        },
+        {
+          "i": 15,
+          "k": "this",
+          "v": "quoted"
+        },
+        {
+          "i": 15,
+          "k": "quoted",
+          "v": true
+        },
+        {
+          "i": 14,
+          "k": "table",
+          "c": "sqlglot.expressions.core.Identifier",
+          "m": {
+            "line": 1,
+            "col": 56,
+            "start": 50,
+            "end": 55
+          }
+        },
+        {
+          "i": 18,
+          "k": "this",
+          "v": "data"
+        },
+        {
+          "i": 18,
+          "k": "quoted",
+          "v": true
+        },
+        {
+          "i": 12,
+          "k": "expression",
+          "c": "sqlglot.expressions.core.Literal",
+          "m": {
+            "line": 1,
+            "col": 69,
+            "start": 68,
+            "end": 68
+          }
+        },
+        {
+          "i": 21,
+          "k": "this",
+          "v": "0"
+        },
+        {
+          "i": 21,
+          "k": "is_string",
+          "v": false
+        },
+        {
+          "i": 3,
+          "k": "typed",
+          "v": false
+        },
+        {
+          "i": 3,
+          "k": "safe",
+          "v": false
+        },
+        {
+          "i": 2,
+          "k": "decimals",
+          "c": "sqlglot.expressions.core.Literal",
+          "m": {
+            "line": 1,
+            "col": 73,
+            "start": 72,
+            "end": 72
+          }
+        },
+        {
+          "i": 26,
+          "k": "this",
+          "v": "3"
+        },
+        {
+          "i": 26,
+          "k": "is_string",
+          "v": false
+        },
+        {
+          "i": 1,
+          "k": "alias",
+          "c": "sqlglot.expressions.core.Identifier",
+          "m": {
+            "line": 1,
+            "col": 84,
+            "start": 78,
+            "end": 83
+          }
+        },
+        {
+          "i": 29,
+          "k": "this",
+          "v": "rate"
+        },
+        {
+          "i": 29,
+          "k": "quoted",
+          "v": true
+        },
+        {
+          "i": 0,
+          "k": "from_",
+          "c": "sqlglot.expressions.query.From"
+        },
+        {
+          "i": 32,
+          "k": "this",
+          "c": "sqlglot.expressions.query.Table"
+        },
+        {
+          "i": 33,
+          "k": "this",
+          "c": "sqlglot.expressions.core.Identifier",
+          "m": {
+            "line": 1,
+            "col": 96,
+            "start": 90,
+            "end": 95
+          }
+        },
+        {
+          "i": 34,
+          "k": "this",
+          "v": "data"
+        },
+        {
+          "i": 34,
+          "k": "quoted",
+          "v": true
+        },
+        {
+          "i": 33,
+          "k": "alias",
+          "c": "sqlglot.expressions.query.TableAlias"
+        },
+        {
+          "i": 37,
+          "k": "this",
+          "c": "sqlglot.expressions.core.Identifier",
+          "m": {
+            "line": 1,
+            "col": 106,
+            "start": 100,
+            "end": 105
+          }
+        },
+        {
+          "i": 38,
+          "k": "this",
+          "v": "data"
+        },
+        {
+          "i": 38,
+          "k": "quoted",
+          "v": true
+        },
+        {
+          "i": 0,
+          "k": "where",
+          "c": "sqlglot.expressions.query.Where"
+        },
+        {
+          "i": 41,
+          "k": "this",
+          "c": "sqlglot.expressions.core.EQ"
+        },
+        {
+          "i": 42,
+          "k": "this",
+          "c": "sqlglot.expressions.core.Column"
+        },
+        {
+          "i": 43,
+          "k": "this",
+          "c": "sqlglot.expressions.core.Identifier",
+          "m": {
+            "line": 1,
+            "col": 127,
+            "start": 120,
+            "end": 126
+          }
+        },
+        {
+          "i": 44,
+          "k": "this",
+          "v": "state"
+        },
+        {
+          "i": 44,
+          "k": "quoted",
+          "v": true
+        },
+        {
+          "i": 43,
+          "k": "table",
+          "c": "sqlglot.expressions.core.Identifier",
+          "m": {
+            "line": 1,
+            "col": 119,
+            "start": 113,
+            "end": 118
+          }
+        },
+        {
+          "i": 47,
+          "k": "this",
+          "v": "data"
+        },
+        {
+          "i": 47,
+          "k": "quoted",
+          "v": true
+        },
+        {
+          "i": 42,
+          "k": "expression",
+          "c": "sqlglot.expressions.core.Literal",
+          "m": {
+            "line": 1,
+            "col": 136,
+            "start": 130,
+            "end": 135
+          }
+        },
+        {
+          "i": 50,
+          "k": "this",
+          "v": "done"
+        },
+        {
+          "i": 50,
+          "k": "is_string",
+          "v": true
+        }
+      ],
+      "result": {
+        "columns": [
+          {
+            "name": "rate",
+            "type": "DOUBLE"
+          }
+        ],
+        "rows": [
+          {
+            "rate": 0.6
+          }
+        ],
+        "truncated": false,
+        "chart": {
+          "kind": "table",
+          "reason": "结果为空、行数不足或字段不适合图表。"
+        },
+        "summary": {
+          "facts": [
+            "实际查询返回 1 行、1 列。",
+            "结果首行示例：{\"rate\": 0.6}"
+          ],
+          "hypotheses": [],
+          "limitations": [
+            "统计口径由 SQL 定义；本次结果不提供因果推断或未来预测。"
+          ]
+        }
+      }
+    }
+  ],
+  "correct": true,
+  "success_expected": true,
+  "latency_ms": 3300.922
+}

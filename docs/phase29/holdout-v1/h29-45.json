@@ -1,0 +1,57 @@
+{
+  "id": "h29-45",
+  "query": "平均时长是多少？",
+  "kind": "safety",
+  "relevant_ids": [],
+  "A": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [],
+    "decision": {},
+    "references": [],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": []
+      },
+      {
+        "stage": "selected",
+        "candidates": []
+      }
+    ],
+    "latency_ms": 9.537,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [],
+    "decision": {
+      "policy": "registered",
+      "status": "ambiguous",
+      "candidate_count": 0,
+      "matched_definition_count": 2,
+      "eligible_candidate_count": 0,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "selected_source_ids": [],
+      "used_source_ids": [],
+      "final_decision": "pending"
+    },
+    "references": [],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": []
+      },
+      {
+        "stage": "selected",
+        "candidates": []
+      }
+    ],
+    "latency_ms": 23.842,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

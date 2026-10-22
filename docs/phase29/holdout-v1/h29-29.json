@@ -1,0 +1,131 @@
+{
+  "id": "h29-29",
+  "query": "候场室面积多大？",
+  "kind": "no_answer",
+  "relevant_ids": [],
+  "A": {
+    "ids": [
+      "waiting"
+    ],
+    "sources": [
+      {
+        "chunk_id": "6ed948ea-8cee-4431-99bd-a10eb8374288",
+        "document_id": "8a415820-461b-4343-8092-54daa5cab605",
+        "chunk_index": 0,
+        "title": "候场室",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"候场室\",\"required_fields\":[],\"facts\":[{\"aspect\":\"容量\",\"answer\":\"最多六人。\"}]}",
+        "similarity": 0.767348
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "6ed948ea-8cee-4431-99bd-a10eb8374288",
+        "document_id": "8a415820-461b-4343-8092-54daa5cab605",
+        "chunk_index": 0,
+        "title": "候场室",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"候场室\",\"required_fields\":[],\"facts\":[{\"aspect\":\"容量\",\"answer\":\"最多六人。\"}]}",
+        "similarity": 0.767348
+      }
+    ],
+    "decision": {},
+    "references": [
+      {
+        "chunk_id": "6ed948ea-8cee-4431-99bd-a10eb8374288",
+        "document_id": "8a415820-461b-4343-8092-54daa5cab605",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "6ed948ea-8cee-4431-99bd-a10eb8374288",
+        "document_id": "8a415820-461b-4343-8092-54daa5cab605",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "6ed948ea-8cee-4431-99bd-a10eb8374288",
+            "document_id": "8a415820-461b-4343-8092-54daa5cab605",
+            "similarity": 0.767348
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "6ed948ea-8cee-4431-99bd-a10eb8374288",
+            "document_id": "8a415820-461b-4343-8092-54daa5cab605",
+            "similarity": 0.767348
+          }
+        ]
+      }
+    ],
+    "latency_ms": 13.162,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "6ed948ea-8cee-4431-99bd-a10eb8374288",
+        "document_id": "8a415820-461b-4343-8092-54daa5cab605",
+        "chunk_index": 0,
+        "title": "候场室",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"候场室\",\"required_fields\":[],\"facts\":[{\"aspect\":\"容量\",\"answer\":\"最多六人。\"}]}",
+        "similarity": 0.767348
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "references": [
+      {
+        "chunk_id": "6ed948ea-8cee-4431-99bd-a10eb8374288",
+        "document_id": "8a415820-461b-4343-8092-54daa5cab605",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "6ed948ea-8cee-4431-99bd-a10eb8374288",
+            "document_id": "8a415820-461b-4343-8092-54daa5cab605",
+            "similarity": 0.767348
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "6ed948ea-8cee-4431-99bd-a10eb8374288",
+            "document_id": "8a415820-461b-4343-8092-54daa5cab605",
+            "similarity": 0.767348
+          }
+        ]
+      }
+    ],
+    "latency_ms": 26.401,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

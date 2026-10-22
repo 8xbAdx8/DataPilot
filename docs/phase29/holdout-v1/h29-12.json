@@ -1,0 +1,156 @@
+{
+  "id": "h29-12",
+  "query": "背景纸破损处理？",
+  "kind": "structured",
+  "relevant_ids": [
+    "backdrop"
+  ],
+  "A": {
+    "ids": [
+      "backdrop"
+    ],
+    "sources": [
+      {
+        "chunk_id": "3d301fc2-275a-4db6-a0c2-b63408490178",
+        "document_id": "d23539af-8fb3-45dc-ac48-8f0de66369cc",
+        "chunk_index": 0,
+        "title": "背景纸",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"背景纸\",\"required_fields\":[],\"facts\":[{\"aspect\":\"破损处理\",\"answer\":\"破损背景纸停止使用。\"}]}",
+        "similarity": 0.787812
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "3d301fc2-275a-4db6-a0c2-b63408490178",
+        "document_id": "d23539af-8fb3-45dc-ac48-8f0de66369cc",
+        "chunk_index": 0,
+        "title": "背景纸",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"背景纸\",\"required_fields\":[],\"facts\":[{\"aspect\":\"破损处理\",\"answer\":\"破损背景纸停止使用。\"}]}",
+        "similarity": 0.787812
+      }
+    ],
+    "decision": {},
+    "references": [
+      {
+        "chunk_id": "3d301fc2-275a-4db6-a0c2-b63408490178",
+        "document_id": "d23539af-8fb3-45dc-ac48-8f0de66369cc",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "3d301fc2-275a-4db6-a0c2-b63408490178",
+        "document_id": "d23539af-8fb3-45dc-ac48-8f0de66369cc",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "3d301fc2-275a-4db6-a0c2-b63408490178",
+            "document_id": "d23539af-8fb3-45dc-ac48-8f0de66369cc",
+            "similarity": 0.787812
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "3d301fc2-275a-4db6-a0c2-b63408490178",
+            "document_id": "d23539af-8fb3-45dc-ac48-8f0de66369cc",
+            "similarity": 0.787812
+          }
+        ]
+      }
+    ],
+    "latency_ms": 12.655,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [
+      "backdrop"
+    ],
+    "sources": [
+      {
+        "chunk_id": "3d301fc2-275a-4db6-a0c2-b63408490178",
+        "document_id": "d23539af-8fb3-45dc-ac48-8f0de66369cc",
+        "chunk_index": 0,
+        "title": "背景纸",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"背景纸\",\"required_fields\":[],\"facts\":[{\"aspect\":\"破损处理\",\"answer\":\"破损背景纸停止使用。\"}]}",
+        "similarity": 0.787812
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "3d301fc2-275a-4db6-a0c2-b63408490178",
+        "document_id": "d23539af-8fb3-45dc-ac48-8f0de66369cc",
+        "chunk_index": 0,
+        "title": "背景纸",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"背景纸\",\"required_fields\":[],\"facts\":[{\"aspect\":\"破损处理\",\"answer\":\"破损背景纸停止使用。\"}]}",
+        "similarity": 0.787812
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "knowledge",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [
+        {
+          "chunk_id": "3d301fc2-275a-4db6-a0c2-b63408490178",
+          "origin": "vector_candidate"
+        }
+      ],
+      "matched_fact_count": 1,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "references": [
+      {
+        "chunk_id": "3d301fc2-275a-4db6-a0c2-b63408490178",
+        "document_id": "d23539af-8fb3-45dc-ac48-8f0de66369cc",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "3d301fc2-275a-4db6-a0c2-b63408490178",
+        "document_id": "d23539af-8fb3-45dc-ac48-8f0de66369cc",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "3d301fc2-275a-4db6-a0c2-b63408490178",
+            "document_id": "d23539af-8fb3-45dc-ac48-8f0de66369cc",
+            "similarity": 0.787812
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "3d301fc2-275a-4db6-a0c2-b63408490178",
+            "document_id": "d23539af-8fb3-45dc-ac48-8f0de66369cc",
+            "similarity": 0.787812
+          }
+        ]
+      }
+    ],
+    "latency_ms": 33.025,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

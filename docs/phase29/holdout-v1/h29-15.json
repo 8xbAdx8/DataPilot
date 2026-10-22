@@ -1,0 +1,156 @@
+{
+  "id": "h29-15",
+  "query": "发票申请办理期限？",
+  "kind": "structured",
+  "relevant_ids": [
+    "invoice"
+  ],
+  "A": {
+    "ids": [
+      "invoice"
+    ],
+    "sources": [
+      {
+        "chunk_id": "2685685c-f0d3-4c68-a490-c6aa1b300114",
+        "document_id": "a11c8855-155c-4684-873a-86781f3ed692",
+        "chunk_index": 0,
+        "title": "发票申请",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"发票申请\",\"required_fields\":[],\"facts\":[{\"aspect\":\"办理期限\",\"answer\":\"拍摄后七天内申请。\"}]}",
+        "similarity": 0.834732
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "2685685c-f0d3-4c68-a490-c6aa1b300114",
+        "document_id": "a11c8855-155c-4684-873a-86781f3ed692",
+        "chunk_index": 0,
+        "title": "发票申请",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"发票申请\",\"required_fields\":[],\"facts\":[{\"aspect\":\"办理期限\",\"answer\":\"拍摄后七天内申请。\"}]}",
+        "similarity": 0.834732
+      }
+    ],
+    "decision": {},
+    "references": [
+      {
+        "chunk_id": "2685685c-f0d3-4c68-a490-c6aa1b300114",
+        "document_id": "a11c8855-155c-4684-873a-86781f3ed692",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "2685685c-f0d3-4c68-a490-c6aa1b300114",
+        "document_id": "a11c8855-155c-4684-873a-86781f3ed692",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "2685685c-f0d3-4c68-a490-c6aa1b300114",
+            "document_id": "a11c8855-155c-4684-873a-86781f3ed692",
+            "similarity": 0.834732
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "2685685c-f0d3-4c68-a490-c6aa1b300114",
+            "document_id": "a11c8855-155c-4684-873a-86781f3ed692",
+            "similarity": 0.834732
+          }
+        ]
+      }
+    ],
+    "latency_ms": 12.545,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [
+      "invoice"
+    ],
+    "sources": [
+      {
+        "chunk_id": "2685685c-f0d3-4c68-a490-c6aa1b300114",
+        "document_id": "a11c8855-155c-4684-873a-86781f3ed692",
+        "chunk_index": 0,
+        "title": "发票申请",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"发票申请\",\"required_fields\":[],\"facts\":[{\"aspect\":\"办理期限\",\"answer\":\"拍摄后七天内申请。\"}]}",
+        "similarity": 0.834732
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "2685685c-f0d3-4c68-a490-c6aa1b300114",
+        "document_id": "a11c8855-155c-4684-873a-86781f3ed692",
+        "chunk_index": 0,
+        "title": "发票申请",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"发票申请\",\"required_fields\":[],\"facts\":[{\"aspect\":\"办理期限\",\"answer\":\"拍摄后七天内申请。\"}]}",
+        "similarity": 0.834732
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "knowledge",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [
+        {
+          "chunk_id": "2685685c-f0d3-4c68-a490-c6aa1b300114",
+          "origin": "vector_candidate"
+        }
+      ],
+      "matched_fact_count": 1,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "references": [
+      {
+        "chunk_id": "2685685c-f0d3-4c68-a490-c6aa1b300114",
+        "document_id": "a11c8855-155c-4684-873a-86781f3ed692",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "2685685c-f0d3-4c68-a490-c6aa1b300114",
+        "document_id": "a11c8855-155c-4684-873a-86781f3ed692",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "2685685c-f0d3-4c68-a490-c6aa1b300114",
+            "document_id": "a11c8855-155c-4684-873a-86781f3ed692",
+            "similarity": 0.834732
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "2685685c-f0d3-4c68-a490-c6aa1b300114",
+            "document_id": "a11c8855-155c-4684-873a-86781f3ed692",
+            "similarity": 0.834732
+          }
+        ]
+      }
+    ],
+    "latency_ms": 25.089,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "id": "h29-11",
+  "query": "服装柜钥匙保管？",
+  "kind": "structured",
+  "relevant_ids": [
+    "robe"
+  ],
+  "A": {
+    "ids": [
+      "robe"
+    ],
+    "sources": [
+      {
+        "chunk_id": "18b80953-5278-4b24-910c-8ee9a20080fe",
+        "document_id": "96177056-4ca2-4176-834a-a0d36ec1d093",
+        "chunk_index": 0,
+        "title": "服装柜",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"服装柜\",\"required_fields\":[],\"facts\":[{\"aspect\":\"钥匙保管\",\"answer\":\"钥匙由摄影助理保管。\"}]}",
+        "similarity": 0.805455
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "18b80953-5278-4b24-910c-8ee9a20080fe",
+        "document_id": "96177056-4ca2-4176-834a-a0d36ec1d093",
+        "chunk_index": 0,
+        "title": "服装柜",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"服装柜\",\"required_fields\":[],\"facts\":[{\"aspect\":\"钥匙保管\",\"answer\":\"钥匙由摄影助理保管。\"}]}",
+        "similarity": 0.805455
+      }
+    ],
+    "decision": {},
+    "references": [
+      {
+        "chunk_id": "18b80953-5278-4b24-910c-8ee9a20080fe",
+        "document_id": "96177056-4ca2-4176-834a-a0d36ec1d093",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "18b80953-5278-4b24-910c-8ee9a20080fe",
+        "document_id": "96177056-4ca2-4176-834a-a0d36ec1d093",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "18b80953-5278-4b24-910c-8ee9a20080fe",
+            "document_id": "96177056-4ca2-4176-834a-a0d36ec1d093",
+            "similarity": 0.805455
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "18b80953-5278-4b24-910c-8ee9a20080fe",
+            "document_id": "96177056-4ca2-4176-834a-a0d36ec1d093",
+            "similarity": 0.805455
+          }
+        ]
+      }
+    ],
+    "latency_ms": 13.067,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [
+      "robe"
+    ],
+    "sources": [
+      {
+        "chunk_id": "18b80953-5278-4b24-910c-8ee9a20080fe",
+        "document_id": "96177056-4ca2-4176-834a-a0d36ec1d093",
+        "chunk_index": 0,
+        "title": "服装柜",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"服装柜\",\"required_fields\":[],\"facts\":[{\"aspect\":\"钥匙保管\",\"answer\":\"钥匙由摄影助理保管。\"}]}",
+        "similarity": 0.805455
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "18b80953-5278-4b24-910c-8ee9a20080fe",
+        "document_id": "96177056-4ca2-4176-834a-a0d36ec1d093",
+        "chunk_index": 0,
+        "title": "服装柜",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"服装柜\",\"required_fields\":[],\"facts\":[{\"aspect\":\"钥匙保管\",\"answer\":\"钥匙由摄影助理保管。\"}]}",
+        "similarity": 0.805455
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "knowledge",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [
+        {
+          "chunk_id": "18b80953-5278-4b24-910c-8ee9a20080fe",
+          "origin": "vector_candidate"
+        }
+      ],
+      "matched_fact_count": 1,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "references": [
+      {
+        "chunk_id": "18b80953-5278-4b24-910c-8ee9a20080fe",
+        "document_id": "96177056-4ca2-4176-834a-a0d36ec1d093",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "18b80953-5278-4b24-910c-8ee9a20080fe",
+        "document_id": "96177056-4ca2-4176-834a-a0d36ec1d093",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "18b80953-5278-4b24-910c-8ee9a20080fe",
+            "document_id": "96177056-4ca2-4176-834a-a0d36ec1d093",
+            "similarity": 0.805455
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "18b80953-5278-4b24-910c-8ee9a20080fe",
+            "document_id": "96177056-4ca2-4176-834a-a0d36ec1d093",
+            "similarity": 0.805455
+          }
+        ]
+      }
+    ],
+    "latency_ms": 29.778,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

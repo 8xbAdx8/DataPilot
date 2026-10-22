@@ -1,0 +1,312 @@
+{
+  "id": "h29-44",
+  "question": "设备利用率？",
+  "http_status": 201,
+  "response": {
+    "id": "67d04f60-5956-4c29-a23f-572219ff5883",
+    "dataset_id": "f603db15-14e5-404f-bcda-c869cbe1c9d4",
+    "question": "设备利用率？",
+    "sql": null,
+    "explanation": null,
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "status": "clarification",
+    "duration_ms": 34,
+    "returned_rows": 0,
+    "truncated": false,
+    "summary": {
+      "clarification_questions": [
+        "已登记指标所需字段或公式不适用于当前数据集，请确认定义。"
+      ]
+    },
+    "error_code": null,
+    "error_message": null,
+    "created_at": "2026-10-22T16:05:58.486373Z",
+    "request_id": "a74b0a91-a006-4999-a770-8f4fa8938ca1",
+    "telemetry": {
+      "timings_ms": {},
+      "usage": {
+        "source": "unavailable",
+        "prompt_tokens": null,
+        "completion_tokens": null,
+        "total_tokens": null
+      },
+      "workflow": {
+        "engine": "langgraph",
+        "nodes": [
+          "prepare",
+          "retrieve",
+          "plan"
+        ],
+        "stage_timings_ms": {
+          "prepare": 0,
+          "retrieve": 11,
+          "plan": 3
+        },
+        "repair_attempts": 0,
+        "sql_model_calls": 0,
+        "validations": [],
+        "plan": {
+          "needs_clarification": true,
+          "clarification_questions": [
+            "已登记指标所需字段或公式不适用于当前数据集，请确认定义。"
+          ],
+          "knowledge_chunk_ids": []
+        },
+        "agent": {
+          "model_calls": 0,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_diagnostics": [],
+          "reserved_token_bound": 0,
+          "finalization_calls": 0,
+          "usage": {},
+          "mode": "native_tools"
+        },
+        "rag": {
+          "status": "no_match",
+          "source": "provider",
+          "used": false,
+          "citations": [],
+          "error_code": null,
+          "candidate_stages": [
+            {
+              "stage": "vector",
+              "candidates": []
+            },
+            {
+              "stage": "selected",
+              "candidates": []
+            }
+          ],
+          "experiment": {
+            "mode": "enabled",
+            "candidate": "C_registered_and_structured_facts",
+            "D": "disabled_development_gate_not_met",
+            "baseline_count": 0,
+            "candidate_count": 0,
+            "baseline_source_hashes": [],
+            "candidate_source_hashes": [],
+            "changed": false,
+            "candidate_decision": "inapplicable",
+            "latency_ms": 0.061,
+            "extra_embedding_http": 0
+          },
+          "experiment_decision": {
+            "policy": "registered",
+            "status": "inapplicable",
+            "candidate_count": 0,
+            "matched_definition_count": 1,
+            "eligible_candidate_count": 0,
+            "catalog_supplement_count": 0,
+            "source_origins": [],
+            "selected_source_ids": [],
+            "used_source_ids": [],
+            "final_decision": "pending"
+          },
+          "candidate_status": "no_match",
+          "evidence": {
+            "version": 1,
+            "policy": "legacy",
+            "status": "inapplicable",
+            "source_origins": [
+              {
+                "chunk_id": "a99a2487-c5f6-49eb-8eb5-b9d8aba9757d",
+                "origin": "registered_catalog"
+              }
+            ],
+            "source_snapshots": [
+              {
+                "chunk_id": "a99a2487-c5f6-49eb-8eb5-b9d8aba9757d",
+                "document_id": "e22a9ec4-eb0f-4f4b-97e1-42f3a2d0bec7",
+                "chunk_index": 0,
+                "title": "设备利用率",
+                "source_type": "metric_definition",
+                "excerpt": "{\"version\":1,\"name\":\"设备利用率\",\"aliases\":[],\"expression\":\"SUM(machine_hours)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"machine_hours\"]}",
+                "similarity": null,
+                "document_version": 1
+              }
+            ],
+            "eligible_source_ids": [],
+            "selected_source_ids": [],
+            "context_source_ids": [],
+            "used_source_ids": [],
+            "sql_validation": "not_requested",
+            "metric_validation": "not_requested",
+            "execution": "not_requested",
+            "final_decision": "clarify"
+          }
+        },
+        "metric_resolution": {
+          "status": "inapplicable",
+          "document_ids": [
+            "e22a9ec4-eb0f-4f4b-97e1-42f3a2d0bec7"
+          ],
+          "chunk_ids": [
+            "a99a2487-c5f6-49eb-8eb5-b9d8aba9757d"
+          ]
+        }
+      }
+    },
+    "result": null,
+    "result_expired": false
+  },
+  "history": {
+    "id": "67d04f60-5956-4c29-a23f-572219ff5883",
+    "dataset_id": "f603db15-14e5-404f-bcda-c869cbe1c9d4",
+    "question": "设备利用率？",
+    "sql": null,
+    "explanation": null,
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "status": "clarification",
+    "duration_ms": 34,
+    "returned_rows": 0,
+    "truncated": false,
+    "summary": {
+      "clarification_questions": [
+        "已登记指标所需字段或公式不适用于当前数据集，请确认定义。"
+      ]
+    },
+    "error_code": null,
+    "error_message": null,
+    "created_at": "2026-10-22T16:05:58.486373Z",
+    "request_id": "a74b0a91-a006-4999-a770-8f4fa8938ca1",
+    "telemetry": {
+      "timings_ms": {},
+      "usage": {
+        "source": "unavailable",
+        "prompt_tokens": null,
+        "completion_tokens": null,
+        "total_tokens": null
+      },
+      "workflow": {
+        "engine": "langgraph",
+        "nodes": [
+          "prepare",
+          "retrieve",
+          "plan"
+        ],
+        "stage_timings_ms": {
+          "prepare": 0,
+          "retrieve": 11,
+          "plan": 3
+        },
+        "repair_attempts": 0,
+        "sql_model_calls": 0,
+        "validations": [],
+        "plan": {
+          "needs_clarification": true,
+          "clarification_questions": [
+            "已登记指标所需字段或公式不适用于当前数据集，请确认定义。"
+          ],
+          "knowledge_chunk_ids": []
+        },
+        "agent": {
+          "model_calls": 0,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_diagnostics": [],
+          "reserved_token_bound": 0,
+          "finalization_calls": 0,
+          "usage": {},
+          "mode": "native_tools"
+        },
+        "rag": {
+          "status": "no_match",
+          "source": "provider",
+          "used": false,
+          "citations": [],
+          "error_code": null,
+          "candidate_stages": [
+            {
+              "stage": "vector",
+              "candidates": []
+            },
+            {
+              "stage": "selected",
+              "candidates": []
+            }
+          ],
+          "experiment": {
+            "mode": "enabled",
+            "candidate": "C_registered_and_structured_facts",
+            "D": "disabled_development_gate_not_met",
+            "baseline_count": 0,
+            "candidate_count": 0,
+            "baseline_source_hashes": [],
+            "candidate_source_hashes": [],
+            "changed": false,
+            "candidate_decision": "inapplicable",
+            "latency_ms": 0.061,
+            "extra_embedding_http": 0
+          },
+          "experiment_decision": {
+            "policy": "registered",
+            "status": "inapplicable",
+            "candidate_count": 0,
+            "matched_definition_count": 1,
+            "eligible_candidate_count": 0,
+            "catalog_supplement_count": 0,
+            "source_origins": [],
+            "selected_source_ids": [],
+            "used_source_ids": [],
+            "final_decision": "pending"
+          },
+          "candidate_status": "no_match",
+          "evidence": {
+            "version": 1,
+            "policy": "legacy",
+            "status": "inapplicable",
+            "source_origins": [
+              {
+                "chunk_id": "a99a2487-c5f6-49eb-8eb5-b9d8aba9757d",
+                "origin": "registered_catalog"
+              }
+            ],
+            "source_snapshots": [
+              {
+                "chunk_id": "a99a2487-c5f6-49eb-8eb5-b9d8aba9757d",
+                "document_id": "e22a9ec4-eb0f-4f4b-97e1-42f3a2d0bec7",
+                "chunk_index": 0,
+                "title": "设备利用率",
+                "source_type": "metric_definition",
+                "excerpt": "{\"version\":1,\"name\":\"设备利用率\",\"aliases\":[],\"expression\":\"SUM(machine_hours)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"machine_hours\"]}",
+                "similarity": null,
+                "document_version": 1
+              }
+            ],
+            "eligible_source_ids": [],
+            "selected_source_ids": [],
+            "context_source_ids": [],
+            "used_source_ids": [],
+            "sql_validation": "not_requested",
+            "metric_validation": "not_requested",
+            "execution": "not_requested",
+            "final_decision": "clarify"
+          }
+        },
+        "metric_resolution": {
+          "status": "inapplicable",
+          "document_ids": [
+            "e22a9ec4-eb0f-4f4b-97e1-42f3a2d0bec7"
+          ],
+          "chunk_ids": [
+            "a99a2487-c5f6-49eb-8eb5-b9d8aba9757d"
+          ]
+        }
+      }
+    },
+    "result": null,
+    "result_expired": false
+  },
+  "audit_events": [
+    "analysis_started",
+    "analysis_clarification"
+  ],
+  "model_http": [],
+  "executions": [],
+  "correct": true,
+  "success_expected": false,
+  "latency_ms": 64.197
+}

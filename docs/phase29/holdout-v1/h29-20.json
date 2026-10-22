@@ -1,0 +1,133 @@
+{
+  "id": "h29-20",
+  "query": "导盲犬有体重限制吗？",
+  "kind": "prose",
+  "relevant_ids": [
+    "pet"
+  ],
+  "A": {
+    "ids": [
+      "pet"
+    ],
+    "sources": [
+      {
+        "chunk_id": "9c64e2b2-c31e-4a95-9111-222640b03f4d",
+        "document_id": "5f6815a3-dad0-405f-95ea-ef8425110ed3",
+        "chunk_index": 0,
+        "title": "宠物摄影",
+        "source_type": "business_rule",
+        "excerpt": "宠物须牵绳入场，导盲犬不受体重限制。",
+        "similarity": 0.852358
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "9c64e2b2-c31e-4a95-9111-222640b03f4d",
+        "document_id": "5f6815a3-dad0-405f-95ea-ef8425110ed3",
+        "chunk_index": 0,
+        "title": "宠物摄影",
+        "source_type": "business_rule",
+        "excerpt": "宠物须牵绳入场，导盲犬不受体重限制。",
+        "similarity": 0.852358
+      }
+    ],
+    "decision": {},
+    "references": [
+      {
+        "chunk_id": "9c64e2b2-c31e-4a95-9111-222640b03f4d",
+        "document_id": "5f6815a3-dad0-405f-95ea-ef8425110ed3",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "9c64e2b2-c31e-4a95-9111-222640b03f4d",
+        "document_id": "5f6815a3-dad0-405f-95ea-ef8425110ed3",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "9c64e2b2-c31e-4a95-9111-222640b03f4d",
+            "document_id": "5f6815a3-dad0-405f-95ea-ef8425110ed3",
+            "similarity": 0.852358
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "9c64e2b2-c31e-4a95-9111-222640b03f4d",
+            "document_id": "5f6815a3-dad0-405f-95ea-ef8425110ed3",
+            "similarity": 0.852358
+          }
+        ]
+      }
+    ],
+    "latency_ms": 12.583,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "9c64e2b2-c31e-4a95-9111-222640b03f4d",
+        "document_id": "5f6815a3-dad0-405f-95ea-ef8425110ed3",
+        "chunk_index": 0,
+        "title": "宠物摄影",
+        "source_type": "business_rule",
+        "excerpt": "宠物须牵绳入场，导盲犬不受体重限制。",
+        "similarity": 0.852358
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "references": [
+      {
+        "chunk_id": "9c64e2b2-c31e-4a95-9111-222640b03f4d",
+        "document_id": "5f6815a3-dad0-405f-95ea-ef8425110ed3",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "9c64e2b2-c31e-4a95-9111-222640b03f4d",
+            "document_id": "5f6815a3-dad0-405f-95ea-ef8425110ed3",
+            "similarity": 0.852358
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "9c64e2b2-c31e-4a95-9111-222640b03f4d",
+            "document_id": "5f6815a3-dad0-405f-95ea-ef8425110ed3",
+            "similarity": 0.852358
+          }
+        ]
+      }
+    ],
+    "latency_ms": 26.674,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}
