@@ -1,0 +1,97 @@
+{
+  "id": "p27-24",
+  "query": "值班员电话号码？",
+  "kind": "no_answer",
+  "relevant_ids": [],
+  "A": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [],
+    "decision": {},
+    "authenticity": [],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": []
+      },
+      {
+        "stage": "selected",
+        "candidates": []
+      }
+    ],
+    "latency_ms": 12.3,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 0,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": []
+      },
+      {
+        "stage": "selected",
+        "candidates": []
+      }
+    ],
+    "latency_ms": 15.824,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "insufficient_evidence",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [],
+      "source_origins": [],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": []
+      },
+      {
+        "stage": "lexical",
+        "candidates": []
+      },
+      {
+        "stage": "fused",
+        "candidates": []
+      },
+      {
+        "stage": "reranked",
+        "candidates": []
+      },
+      {
+        "stage": "selected",
+        "candidates": []
+      }
+    ],
+    "latency_ms": 18.841,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

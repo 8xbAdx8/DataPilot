@@ -1,0 +1,265 @@
+{
+  "id": "p27-05",
+  "query": "周转筐何时清洗？",
+  "kind": "direct",
+  "relevant_ids": [
+    "bins"
+  ],
+  "A": {
+    "ids": [
+      "bins"
+    ],
+    "sources": [
+      {
+        "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+        "document_id": "6f7a38ef-635f-4da3-9861-3dc626e7a8f8",
+        "chunk_index": 0,
+        "title": "周转筐消毒",
+        "source_type": "business_rule",
+        "excerpt": "周转筐每日收工后以清水冲洗，污筐不得装果。",
+        "similarity": 0.782198
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+        "document_id": "6f7a38ef-635f-4da3-9861-3dc626e7a8f8",
+        "chunk_index": 0,
+        "title": "周转筐消毒",
+        "source_type": "business_rule",
+        "excerpt": "周转筐每日收工后以清水冲洗，污筐不得装果。",
+        "similarity": 0.782198
+      }
+    ],
+    "decision": {},
+    "authenticity": [
+      {
+        "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+            "document_id": "6f7a38ef-635f-4da3-9861-3dc626e7a8f8",
+            "similarity": 0.782198
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+            "document_id": "6f7a38ef-635f-4da3-9861-3dc626e7a8f8",
+            "similarity": 0.782198
+          }
+        ]
+      }
+    ],
+    "latency_ms": 15.405,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+        "document_id": "6f7a38ef-635f-4da3-9861-3dc626e7a8f8",
+        "chunk_index": 0,
+        "title": "周转筐消毒",
+        "source_type": "business_rule",
+        "excerpt": "周转筐每日收工后以清水冲洗，污筐不得装果。",
+        "similarity": 0.782198
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+            "document_id": "6f7a38ef-635f-4da3-9861-3dc626e7a8f8",
+            "similarity": 0.782198
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+            "document_id": "6f7a38ef-635f-4da3-9861-3dc626e7a8f8",
+            "similarity": 0.782198
+          }
+        ]
+      }
+    ],
+    "latency_ms": 20.222,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [
+      "bins"
+    ],
+    "sources": [
+      {
+        "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+        "document_id": "6f7a38ef-635f-4da3-9861-3dc626e7a8f8",
+        "chunk_index": 0,
+        "title": "周转筐消毒",
+        "source_type": "business_rule",
+        "excerpt": "周转筐每日收工后以清水冲洗，污筐不得装果。",
+        "similarity": 0.782198,
+        "vector_rank": 1,
+        "lexical_rank": 1,
+        "fusion_score": 0.03278688524590164
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+        "document_id": "6f7a38ef-635f-4da3-9861-3dc626e7a8f8",
+        "chunk_index": 0,
+        "title": "周转筐消毒",
+        "source_type": "business_rule",
+        "excerpt": "周转筐每日收工后以清水冲洗，污筐不得装果。",
+        "similarity": 0.782198,
+        "vector_rank": 1,
+        "lexical_rank": 1,
+        "fusion_score": 0.03278688524590164
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "retrieved",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+          "lexical_char_coverage": 1.0,
+          "cosine": 0.782198,
+          "vector_rank": 1,
+          "lexical_rank": 1,
+          "fusion_score": 0.03278688524590164,
+          "attribute_supported": true
+        }
+      ],
+      "source_origins": [
+        {
+          "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+          "origin": "vector_candidate",
+          "vector_rank": 1,
+          "lexical_rank": 1
+        }
+      ],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+            "document_id": "6f7a38ef-635f-4da3-9861-3dc626e7a8f8",
+            "similarity": 0.782198
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": [
+          {
+            "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+            "document_id": "6f7a38ef-635f-4da3-9861-3dc626e7a8f8",
+            "similarity": 0.782198,
+            "vector_rank": 1,
+            "lexical_rank": 1
+          }
+        ]
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+            "document_id": "6f7a38ef-635f-4da3-9861-3dc626e7a8f8",
+            "similarity": 0.782198,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+            "document_id": "6f7a38ef-635f-4da3-9861-3dc626e7a8f8",
+            "similarity": 0.782198,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "addd80e5-0547-4560-afc6-3f12eca89c5b",
+            "document_id": "6f7a38ef-635f-4da3-9861-3dc626e7a8f8",
+            "similarity": 0.782198,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      }
+    ],
+    "latency_ms": 20.571,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

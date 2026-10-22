@@ -1,0 +1,349 @@
+{
+  "id": "p27-30",
+  "query": "电池鼓包且清洁液泄漏如何处理？",
+  "kind": "multi",
+  "relevant_ids": [
+    "battery",
+    "spill"
+  ],
+  "A": {
+    "ids": [
+      "battery"
+    ],
+    "sources": [
+      {
+        "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+        "document_id": "b44c7748-7409-4725-a4ea-5e820f64c664",
+        "chunk_index": 0,
+        "title": "电池存放",
+        "source_type": "business_rule",
+        "excerpt": "备用电池放干燥柜，鼓包电池送回收点，不得充电。",
+        "similarity": 0.721781
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+        "document_id": "b44c7748-7409-4725-a4ea-5e820f64c664",
+        "chunk_index": 0,
+        "title": "电池存放",
+        "source_type": "business_rule",
+        "excerpt": "备用电池放干燥柜，鼓包电池送回收点，不得充电。",
+        "similarity": 0.721781
+      }
+    ],
+    "decision": {},
+    "authenticity": [
+      {
+        "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+            "document_id": "b44c7748-7409-4725-a4ea-5e820f64c664",
+            "similarity": 0.721781
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+            "document_id": "b44c7748-7409-4725-a4ea-5e820f64c664",
+            "similarity": 0.721781
+          }
+        ]
+      }
+    ],
+    "latency_ms": 18.521,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+        "document_id": "b44c7748-7409-4725-a4ea-5e820f64c664",
+        "chunk_index": 0,
+        "title": "电池存放",
+        "source_type": "business_rule",
+        "excerpt": "备用电池放干燥柜，鼓包电池送回收点，不得充电。",
+        "similarity": 0.721781
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+            "document_id": "b44c7748-7409-4725-a4ea-5e820f64c664",
+            "similarity": 0.721781
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+            "document_id": "b44c7748-7409-4725-a4ea-5e820f64c664",
+            "similarity": 0.721781
+          }
+        ]
+      }
+    ],
+    "latency_ms": 21.412,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [
+      "spill",
+      "battery"
+    ],
+    "sources": [
+      {
+        "chunk_id": "f818dd1c-4587-4d82-b9c9-0cc5056308a4",
+        "document_id": "a6b861e6-b272-4071-aaf0-fbd4447545ed",
+        "chunk_index": 0,
+        "title": "溢液处置",
+        "source_type": "business_rule",
+        "excerpt": "清洁液泄漏先围挡，再通知值班员，未经确认不得恢复通行。",
+        "similarity": 0.582273,
+        "vector_rank": 2,
+        "lexical_rank": 1,
+        "fusion_score": 0.03252247488101534
+      },
+      {
+        "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+        "document_id": "b44c7748-7409-4725-a4ea-5e820f64c664",
+        "chunk_index": 0,
+        "title": "电池存放",
+        "source_type": "business_rule",
+        "excerpt": "备用电池放干燥柜，鼓包电池送回收点，不得充电。",
+        "similarity": 0.721781,
+        "vector_rank": 1,
+        "lexical_rank": 2,
+        "fusion_score": 0.03252247488101534
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+        "document_id": "b44c7748-7409-4725-a4ea-5e820f64c664",
+        "chunk_index": 0,
+        "title": "电池存放",
+        "source_type": "business_rule",
+        "excerpt": "备用电池放干燥柜，鼓包电池送回收点，不得充电。",
+        "similarity": 0.721781,
+        "vector_rank": 1,
+        "lexical_rank": 2,
+        "fusion_score": 0.03252247488101534
+      },
+      {
+        "chunk_id": "f818dd1c-4587-4d82-b9c9-0cc5056308a4",
+        "document_id": "a6b861e6-b272-4071-aaf0-fbd4447545ed",
+        "chunk_index": 0,
+        "title": "溢液处置",
+        "source_type": "business_rule",
+        "excerpt": "清洁液泄漏先围挡，再通知值班员，未经确认不得恢复通行。",
+        "similarity": 0.582273,
+        "vector_rank": 2,
+        "lexical_rank": 1,
+        "fusion_score": 0.03252247488101534
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "retrieved",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "f818dd1c-4587-4d82-b9c9-0cc5056308a4",
+          "lexical_char_coverage": 0.555556,
+          "cosine": 0.582273,
+          "vector_rank": 2,
+          "lexical_rank": 1,
+          "fusion_score": 0.03252247488101534,
+          "attribute_supported": false
+        },
+        {
+          "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+          "lexical_char_coverage": 0.444444,
+          "cosine": 0.721781,
+          "vector_rank": 1,
+          "lexical_rank": 2,
+          "fusion_score": 0.03252247488101534,
+          "attribute_supported": true
+        }
+      ],
+      "source_origins": [
+        {
+          "chunk_id": "f818dd1c-4587-4d82-b9c9-0cc5056308a4",
+          "origin": "vector_candidate",
+          "vector_rank": 2,
+          "lexical_rank": 1
+        },
+        {
+          "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+          "origin": "vector_candidate",
+          "vector_rank": 1,
+          "lexical_rank": 2
+        }
+      ],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      },
+      {
+        "chunk_id": "f818dd1c-4587-4d82-b9c9-0cc5056308a4",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+            "document_id": "b44c7748-7409-4725-a4ea-5e820f64c664",
+            "similarity": 0.721781
+          },
+          {
+            "chunk_id": "f818dd1c-4587-4d82-b9c9-0cc5056308a4",
+            "document_id": "a6b861e6-b272-4071-aaf0-fbd4447545ed",
+            "similarity": 0.582273
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": [
+          {
+            "chunk_id": "f818dd1c-4587-4d82-b9c9-0cc5056308a4",
+            "document_id": "a6b861e6-b272-4071-aaf0-fbd4447545ed",
+            "similarity": 0.582273,
+            "vector_rank": 2,
+            "lexical_rank": 1
+          },
+          {
+            "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+            "document_id": "b44c7748-7409-4725-a4ea-5e820f64c664",
+            "similarity": 0.721781,
+            "vector_rank": 1,
+            "lexical_rank": 2
+          }
+        ]
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+            "document_id": "b44c7748-7409-4725-a4ea-5e820f64c664",
+            "similarity": 0.721781,
+            "vector_rank": 1,
+            "lexical_rank": 2,
+            "fusion_score": 0.03252247488101534
+          },
+          {
+            "chunk_id": "f818dd1c-4587-4d82-b9c9-0cc5056308a4",
+            "document_id": "a6b861e6-b272-4071-aaf0-fbd4447545ed",
+            "similarity": 0.582273,
+            "vector_rank": 2,
+            "lexical_rank": 1,
+            "fusion_score": 0.03252247488101534
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+            "document_id": "b44c7748-7409-4725-a4ea-5e820f64c664",
+            "similarity": 0.721781,
+            "vector_rank": 1,
+            "lexical_rank": 2,
+            "fusion_score": 0.03252247488101534
+          },
+          {
+            "chunk_id": "f818dd1c-4587-4d82-b9c9-0cc5056308a4",
+            "document_id": "a6b861e6-b272-4071-aaf0-fbd4447545ed",
+            "similarity": 0.582273,
+            "vector_rank": 2,
+            "lexical_rank": 1,
+            "fusion_score": 0.03252247488101534
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "44b70b03-f01a-4036-ae3f-b2123300bff5",
+            "document_id": "b44c7748-7409-4725-a4ea-5e820f64c664",
+            "similarity": 0.721781,
+            "vector_rank": 1,
+            "lexical_rank": 2,
+            "fusion_score": 0.03252247488101534
+          },
+          {
+            "chunk_id": "f818dd1c-4587-4d82-b9c9-0cc5056308a4",
+            "document_id": "a6b861e6-b272-4071-aaf0-fbd4447545ed",
+            "similarity": 0.582273,
+            "vector_rank": 2,
+            "lexical_rank": 1,
+            "fusion_score": 0.03252247488101534
+          }
+        ]
+      }
+    ],
+    "latency_ms": 33.807,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

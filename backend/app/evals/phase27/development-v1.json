@@ -1,0 +1,538 @@
+{
+  "version": 1,
+  "domain": "synthetic-orchard-operations",
+  "documents": [
+    {
+      "id": "cold",
+      "title": "冷藏箱作业",
+      "content": "冷藏箱放置阴凉处。\n箱温高于8度暂停装箱，恢复合规后再开工。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "target"
+    },
+    {
+      "id": "gloves",
+      "title": "手套标准",
+      "content": "采摘手套须为白色。破损立即更换，雨天禁止使用棉手套。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "target"
+    },
+    {
+      "id": "bins",
+      "title": "周转筐消毒",
+      "content": "周转筐每日收工后以清水冲洗，污筐不得装果。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "target"
+    },
+    {
+      "id": "scale",
+      "title": "天平检查",
+      "content": "天平开工前归零，偏差超过2克停用。校验只能由值班员签字。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "target"
+    },
+    {
+      "id": "gate",
+      "title": "夜间入园",
+      "content": "夜间访客须由保安陪同，员工凭胸卡进入，无需陪同。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "target"
+    },
+    {
+      "id": "power",
+      "title": "停电处置",
+      "content": "停电后关闭输送带，复电先试空载三分钟再上果。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "target"
+    },
+    {
+      "id": "labels",
+      "title": "标签颜色",
+      "content": "出口果箱使用蓝色标签，内销使用黄色标签，不得互换。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "target"
+    },
+    {
+      "id": "samples",
+      "title": "留样时长",
+      "content": "每批留样保存两天。温度异常批次保留四天，疑似污染批次不得放行。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "target"
+    },
+    {
+      "id": "rain",
+      "title": "雨后复工",
+      "content": "雨后地面无积水方可复工。雷电预警未解除时仍须停工。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "target"
+    },
+    {
+      "id": "load",
+      "title": "装车签收",
+      "content": "装车前点清箱数，双方签署交接单。缺少司机签字不得出车。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "target"
+    },
+    {
+      "id": "fallen",
+      "title": "跌落处置",
+      "content": "落地果只送堆肥区，不得混入商品箱。疑似受污染果须隔离。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "target"
+    },
+    {
+      "id": "spill",
+      "title": "溢液处置",
+      "content": "清洁液泄漏先围挡，再通知值班员，未经确认不得恢复通行。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "target"
+    },
+    {
+      "id": "battery",
+      "title": "电池存放",
+      "content": "备用电池放干燥柜，鼓包电池送回收点，不得充电。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "target"
+    },
+    {
+      "id": "access",
+      "title": "门禁故障",
+      "content": "门禁故障由保安人工核验胸卡，访客仍须陪同。不得分享胸卡。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "target"
+    },
+    {
+      "id": "dispatch",
+      "title": "出车复核",
+      "content": "交接单由仓管存档。\n司机签字后还须由门岗确认封条完好。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "target"
+    },
+    {
+      "id": "restart",
+      "title": "异常复工",
+      "content": "温控异常复工须由值班员确认。食品污染疑点必须由质检员解除。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "target"
+    },
+    {
+      "id": "foreign-gloves",
+      "title": "手套标准",
+      "content": "采摘手套须为白色。破损立即更换，雨天禁止使用棉手套。",
+      "source_type": "business_rule",
+      "owner": "other",
+      "dataset": "other"
+    },
+    {
+      "id": "sibling-gloves",
+      "title": "手套标准",
+      "content": "私域试验区采摘手套为黑色，只适用于本区。",
+      "source_type": "business_rule",
+      "owner": "reader",
+      "dataset": "sibling"
+    }
+  ],
+  "queries": [
+    {
+      "id": "p27-01",
+      "kind": "direct",
+      "query": "冷藏箱摆放何处？",
+      "relevant_ids": [
+        "cold"
+      ],
+      "should_no_match": false,
+      "label_basis": "正文明确阴凉处。",
+      "intent_group": "orchard-dev-01"
+    },
+    {
+      "id": "p27-02",
+      "kind": "synonym",
+      "query": "保冷箱摆在哪儿？",
+      "relevant_ids": [
+        "cold"
+      ],
+      "should_no_match": false,
+      "label_basis": "保冷箱为冷藏箱同义，询问位置。",
+      "intent_group": "orchard-dev-02"
+    },
+    {
+      "id": "p27-03",
+      "kind": "direct",
+      "query": "采摘手套什么颜色？",
+      "relevant_ids": [
+        "gloves"
+      ],
+      "should_no_match": false,
+      "label_basis": "须为白色，非私域黑色。",
+      "intent_group": "orchard-dev-03"
+    },
+    {
+      "id": "p27-04",
+      "kind": "synonym",
+      "query": "手套破了怎么办？",
+      "relevant_ids": [
+        "gloves"
+      ],
+      "should_no_match": false,
+      "label_basis": "破损立即更换。",
+      "intent_group": "orchard-dev-04"
+    },
+    {
+      "id": "p27-05",
+      "kind": "direct",
+      "query": "周转筐何时清洗？",
+      "relevant_ids": [
+        "bins"
+      ],
+      "should_no_match": false,
+      "label_basis": "每日收工后冲洗。",
+      "intent_group": "orchard-dev-05"
+    },
+    {
+      "id": "p27-06",
+      "kind": "synonym",
+      "query": "脏筐可以装果吗？",
+      "relevant_ids": [
+        "bins"
+      ],
+      "should_no_match": false,
+      "label_basis": "污筐不得装果。",
+      "intent_group": "orchard-dev-06"
+    },
+    {
+      "id": "p27-07",
+      "kind": "direct",
+      "query": "天平偏差几克停用？",
+      "relevant_ids": [
+        "scale"
+      ],
+      "should_no_match": false,
+      "label_basis": "超过2克停用，不是等于。",
+      "intent_group": "orchard-dev-07"
+    },
+    {
+      "id": "p27-08",
+      "kind": "synonym",
+      "query": "秤开工前如何处理？",
+      "relevant_ids": [
+        "scale"
+      ],
+      "should_no_match": false,
+      "label_basis": "开工前归零。",
+      "intent_group": "orchard-dev-08"
+    },
+    {
+      "id": "p27-09",
+      "kind": "direct",
+      "query": "断电后输送带怎么处理？",
+      "relevant_ids": [
+        "power"
+      ],
+      "should_no_match": false,
+      "label_basis": "停电先关闭输送带。",
+      "intent_group": "orchard-dev-09"
+    },
+    {
+      "id": "p27-10",
+      "kind": "synonym",
+      "query": "来电后能立即装果吗？",
+      "relevant_ids": [
+        "power"
+      ],
+      "should_no_match": false,
+      "label_basis": "复电须先空载三分钟。",
+      "intent_group": "orchard-dev-10"
+    },
+    {
+      "id": "p27-11",
+      "kind": "direct",
+      "query": "出口箱用什么颜色标签？",
+      "relevant_ids": [
+        "labels"
+      ],
+      "should_no_match": false,
+      "label_basis": "出口蓝色。",
+      "intent_group": "orchard-dev-11"
+    },
+    {
+      "id": "p27-12",
+      "kind": "synonym",
+      "query": "外销箱签贴何色？",
+      "relevant_ids": [
+        "labels"
+      ],
+      "should_no_match": false,
+      "label_basis": "外销/签贴同义，出口蓝色。",
+      "intent_group": "orchard-dev-12"
+    },
+    {
+      "id": "p27-13",
+      "kind": "condition",
+      "query": "雨天能用棉手套吗？",
+      "relevant_ids": [
+        "gloves"
+      ],
+      "should_no_match": false,
+      "label_basis": "雨天例外禁止棉手套。",
+      "intent_group": "orchard-dev-13"
+    },
+    {
+      "id": "p27-14",
+      "kind": "condition",
+      "query": "员工夜间入园需陪同吗？",
+      "relevant_ids": [
+        "gate"
+      ],
+      "should_no_match": false,
+      "label_basis": "员工凭胸卡无需陪同，与访客不同。",
+      "intent_group": "orchard-dev-14"
+    },
+    {
+      "id": "p27-15",
+      "kind": "condition",
+      "query": "访客晚上进园需谁陪同？",
+      "relevant_ids": [
+        "gate"
+      ],
+      "should_no_match": false,
+      "label_basis": "夜间访客由保安陪同。",
+      "intent_group": "orchard-dev-15"
+    },
+    {
+      "id": "p27-16",
+      "kind": "condition",
+      "query": "温度异常留样多久？",
+      "relevant_ids": [
+        "samples"
+      ],
+      "should_no_match": false,
+      "label_basis": "异常四天，与正常两天不同。",
+      "intent_group": "orchard-dev-16"
+    },
+    {
+      "id": "p27-17",
+      "kind": "condition",
+      "query": "有雷电预警可复工吗？",
+      "relevant_ids": [
+        "rain"
+      ],
+      "should_no_match": false,
+      "label_basis": "未解除仍停工，即使地面无积水。",
+      "intent_group": "orchard-dev-17"
+    },
+    {
+      "id": "p27-18",
+      "kind": "condition",
+      "query": "鼓包电池可以充电吗？",
+      "relevant_ids": [
+        "battery"
+      ],
+      "should_no_match": false,
+      "label_basis": "鼓包送回收，不得充电。",
+      "intent_group": "orchard-dev-18"
+    },
+    {
+      "id": "p27-19",
+      "kind": "no_answer",
+      "query": "冷藏箱品牌是什么？",
+      "relevant_ids": [],
+      "should_no_match": true,
+      "label_basis": "未给品牌，主题相近不足。",
+      "intent_group": "orchard-dev-19"
+    },
+    {
+      "id": "p27-20",
+      "kind": "no_answer",
+      "query": "手套单价多少？",
+      "relevant_ids": [],
+      "should_no_match": true,
+      "label_basis": "颜色/破损规则没有单价。",
+      "intent_group": "orchard-dev-20"
+    },
+    {
+      "id": "p27-21",
+      "kind": "no_answer",
+      "query": "访客停车费多少？",
+      "relevant_ids": [],
+      "should_no_match": true,
+      "label_basis": "入园陪同不是停车费。",
+      "intent_group": "orchard-dev-21"
+    },
+    {
+      "id": "p27-22",
+      "kind": "no_answer",
+      "query": "输送带功率多大？",
+      "relevant_ids": [],
+      "should_no_match": true,
+      "label_basis": "断电操作没有功率。",
+      "intent_group": "orchard-dev-22"
+    },
+    {
+      "id": "p27-23",
+      "kind": "no_answer",
+      "query": "标签供应商是谁？",
+      "relevant_ids": [],
+      "should_no_match": true,
+      "label_basis": "颜色不证明供应商。",
+      "intent_group": "orchard-dev-23"
+    },
+    {
+      "id": "p27-24",
+      "kind": "no_answer",
+      "query": "值班员电话号码？",
+      "relevant_ids": [],
+      "should_no_match": true,
+      "label_basis": "职责不含联系号码。",
+      "intent_group": "orchard-dev-24"
+    },
+    {
+      "id": "p27-25",
+      "kind": "multi",
+      "query": "夜间门禁坏了访客怎样入园？",
+      "relevant_ids": [
+        "gate",
+        "access"
+      ],
+      "should_no_match": false,
+      "label_basis": "需要夜间保安陪同及故障人工核验两份依据。",
+      "intent_group": "orchard-dev-25"
+    },
+    {
+      "id": "p27-26",
+      "kind": "multi",
+      "query": "出车签字及封条有哪些要求？",
+      "relevant_ids": [
+        "load",
+        "dispatch"
+      ],
+      "should_no_match": false,
+      "label_basis": "必须司机签字，门岗确认封条，两份规则共同约束。",
+      "intent_group": "orchard-dev-26"
+    },
+    {
+      "id": "p27-27",
+      "kind": "multi",
+      "query": "箱温过高后复工条件和批准人？",
+      "relevant_ids": [
+        "cold",
+        "restart"
+      ],
+      "should_no_match": false,
+      "label_basis": "温度合规加值班员确认，不能仅一份。",
+      "intent_group": "orchard-dev-27"
+    },
+    {
+      "id": "p27-28",
+      "kind": "multi",
+      "query": "落地疑污染果如何隔离及谁批准放行？",
+      "relevant_ids": [
+        "fallen",
+        "samples",
+        "restart"
+      ],
+      "should_no_match": false,
+      "label_basis": "隔离、不得放行、质检解除三份来源；不能假定已获批准。",
+      "intent_group": "orchard-dev-28"
+    },
+    {
+      "id": "p27-29",
+      "kind": "multi",
+      "query": "雨后收工如何清洁筐和复工？",
+      "relevant_ids": [
+        "bins",
+        "rain"
+      ],
+      "should_no_match": false,
+      "label_basis": "收工清洗与雨后无积水/无雷电限制两份。",
+      "intent_group": "orchard-dev-29"
+    },
+    {
+      "id": "p27-30",
+      "kind": "multi",
+      "query": "电池鼓包且清洁液泄漏如何处理？",
+      "relevant_ids": [
+        "battery",
+        "spill"
+      ],
+      "should_no_match": false,
+      "label_basis": "电池回收禁充与泄漏围挡通知两份独立要求。",
+      "intent_group": "orchard-dev-30"
+    },
+    {
+      "id": "p27-31",
+      "kind": "near_distractor",
+      "query": "留样箱的标签颜色？",
+      "relevant_ids": [],
+      "should_no_match": true,
+      "label_basis": "果箱颜色没有覆盖留样容器，不能拼接主题猜测。",
+      "intent_group": "orchard-dev-31"
+    },
+    {
+      "id": "p27-32",
+      "kind": "near_distractor",
+      "query": "电池冷藏温度是多少？",
+      "relevant_ids": [],
+      "should_no_match": true,
+      "label_basis": "干燥存放没有冷藏温度。",
+      "intent_group": "orchard-dev-32"
+    },
+    {
+      "id": "p27-33",
+      "kind": "near_distractor",
+      "query": "门岗的休息时段？",
+      "relevant_ids": [],
+      "should_no_match": true,
+      "label_basis": "封条职责没有休息时段。",
+      "intent_group": "orchard-dev-33"
+    },
+    {
+      "id": "p27-34",
+      "kind": "near_distractor",
+      "query": "周转筐可装多少公斤？",
+      "relevant_ids": [],
+      "should_no_match": true,
+      "label_basis": "清洗规则没有承重容量。",
+      "intent_group": "orchard-dev-34"
+    },
+    {
+      "id": "p27-35",
+      "kind": "near_distractor",
+      "query": "天平需要几节电池？",
+      "relevant_ids": [],
+      "should_no_match": true,
+      "label_basis": "归零和电池规则都没有电池数量。",
+      "intent_group": "orchard-dev-35"
+    },
+    {
+      "id": "p27-36",
+      "kind": "near_distractor",
+      "query": "内销果留样也用黄色签吗？",
+      "relevant_ids": [],
+      "should_no_match": true,
+      "label_basis": "内销果箱与留样容器适用范围不同。",
+      "intent_group": "orchard-dev-36"
+    }
+  ],
+  "split": "development-only",
+  "integration_gate": {
+    "min_positive_recall": 0.9,
+    "min_correct_refusal": 0.9,
+    "max_permission_leaks": 0,
+    "scope": "candidate development evidence only; no final generalization claim"
+  }
+}

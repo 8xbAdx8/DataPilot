@@ -1,0 +1,284 @@
+{
+  "id": "p27-02",
+  "query": "保冷箱摆在哪儿？",
+  "kind": "synonym",
+  "relevant_ids": [
+    "cold"
+  ],
+  "A": {
+    "ids": [
+      "cold"
+    ],
+    "sources": [
+      {
+        "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+        "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+        "chunk_index": 0,
+        "title": "冷藏箱作业",
+        "source_type": "business_rule",
+        "excerpt": "冷藏箱放置阴凉处。\n箱温高于8度暂停装箱，恢复合规后再开工。",
+        "similarity": 0.726238
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+        "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+        "chunk_index": 0,
+        "title": "冷藏箱作业",
+        "source_type": "business_rule",
+        "excerpt": "冷藏箱放置阴凉处。\n箱温高于8度暂停装箱，恢复合规后再开工。",
+        "similarity": 0.726238
+      }
+    ],
+    "decision": {},
+    "authenticity": [
+      {
+        "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.726238
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.726238
+          }
+        ]
+      }
+    ],
+    "latency_ms": 18.523,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+        "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+        "chunk_index": 0,
+        "title": "冷藏箱作业",
+        "source_type": "business_rule",
+        "excerpt": "冷藏箱放置阴凉处。\n箱温高于8度暂停装箱，恢复合规后再开工。",
+        "similarity": 0.726238
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.726238
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.726238
+          }
+        ]
+      }
+    ],
+    "latency_ms": 18.095,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+        "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+        "chunk_index": 0,
+        "title": "冷藏箱作业",
+        "source_type": "business_rule",
+        "excerpt": "冷藏箱放置阴凉处。\n箱温高于8度暂停装箱，恢复合规后再开工。",
+        "similarity": 0.726238,
+        "vector_rank": 1,
+        "fusion_score": 0.01639344262295082
+      },
+      {
+        "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+        "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+        "chunk_index": 0,
+        "title": "标签颜色",
+        "source_type": "business_rule",
+        "excerpt": "出口果箱使用蓝色标签，内销使用黄色标签，不得互换。",
+        "similarity": 0.561265,
+        "vector_rank": 2,
+        "fusion_score": 0.016129032258064516
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "insufficient_evidence",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+          "lexical_char_coverage": 0.644877,
+          "cosine": 0.726238,
+          "vector_rank": 1,
+          "lexical_rank": null,
+          "fusion_score": 0.01639344262295082,
+          "attribute_supported": true
+        },
+        {
+          "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+          "lexical_char_coverage": 0.169218,
+          "cosine": 0.561265,
+          "vector_rank": 2,
+          "lexical_rank": null,
+          "fusion_score": 0.016129032258064516,
+          "attribute_supported": false
+        }
+      ],
+      "source_origins": [],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      },
+      {
+        "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.726238
+          },
+          {
+            "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+            "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+            "similarity": 0.561265
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": []
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.726238,
+            "vector_rank": 1,
+            "fusion_score": 0.01639344262295082
+          },
+          {
+            "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+            "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+            "similarity": 0.561265,
+            "vector_rank": 2,
+            "fusion_score": 0.016129032258064516
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.726238,
+            "vector_rank": 1,
+            "fusion_score": 0.01639344262295082
+          },
+          {
+            "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+            "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+            "similarity": 0.561265,
+            "vector_rank": 2,
+            "fusion_score": 0.016129032258064516
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.726238,
+            "vector_rank": 1,
+            "fusion_score": 0.01639344262295082
+          },
+          {
+            "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+            "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+            "similarity": 0.561265,
+            "vector_rank": 2,
+            "fusion_score": 0.016129032258064516
+          }
+        ]
+      }
+    ],
+    "latency_ms": 149.554,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

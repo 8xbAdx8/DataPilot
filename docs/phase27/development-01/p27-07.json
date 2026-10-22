@@ -1,0 +1,265 @@
+{
+  "id": "p27-07",
+  "query": "天平偏差几克停用？",
+  "kind": "direct",
+  "relevant_ids": [
+    "scale"
+  ],
+  "A": {
+    "ids": [
+      "scale"
+    ],
+    "sources": [
+      {
+        "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+        "document_id": "89534283-5eb7-4ef9-9467-9a64195e4741",
+        "chunk_index": 0,
+        "title": "天平检查",
+        "source_type": "business_rule",
+        "excerpt": "天平开工前归零，偏差超过2克停用。校验只能由值班员签字。",
+        "similarity": 0.796132
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+        "document_id": "89534283-5eb7-4ef9-9467-9a64195e4741",
+        "chunk_index": 0,
+        "title": "天平检查",
+        "source_type": "business_rule",
+        "excerpt": "天平开工前归零，偏差超过2克停用。校验只能由值班员签字。",
+        "similarity": 0.796132
+      }
+    ],
+    "decision": {},
+    "authenticity": [
+      {
+        "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+            "document_id": "89534283-5eb7-4ef9-9467-9a64195e4741",
+            "similarity": 0.796132
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+            "document_id": "89534283-5eb7-4ef9-9467-9a64195e4741",
+            "similarity": 0.796132
+          }
+        ]
+      }
+    ],
+    "latency_ms": 15.504,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+        "document_id": "89534283-5eb7-4ef9-9467-9a64195e4741",
+        "chunk_index": 0,
+        "title": "天平检查",
+        "source_type": "business_rule",
+        "excerpt": "天平开工前归零，偏差超过2克停用。校验只能由值班员签字。",
+        "similarity": 0.796132
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+            "document_id": "89534283-5eb7-4ef9-9467-9a64195e4741",
+            "similarity": 0.796132
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+            "document_id": "89534283-5eb7-4ef9-9467-9a64195e4741",
+            "similarity": 0.796132
+          }
+        ]
+      }
+    ],
+    "latency_ms": 16.475,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [
+      "scale"
+    ],
+    "sources": [
+      {
+        "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+        "document_id": "89534283-5eb7-4ef9-9467-9a64195e4741",
+        "chunk_index": 0,
+        "title": "天平检查",
+        "source_type": "business_rule",
+        "excerpt": "天平开工前归零，偏差超过2克停用。校验只能由值班员签字。",
+        "similarity": 0.796132,
+        "vector_rank": 1,
+        "lexical_rank": 1,
+        "fusion_score": 0.03278688524590164
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+        "document_id": "89534283-5eb7-4ef9-9467-9a64195e4741",
+        "chunk_index": 0,
+        "title": "天平检查",
+        "source_type": "business_rule",
+        "excerpt": "天平开工前归零，偏差超过2克停用。校验只能由值班员签字。",
+        "similarity": 0.796132,
+        "vector_rank": 1,
+        "lexical_rank": 1,
+        "fusion_score": 0.03278688524590164
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "retrieved",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+          "lexical_char_coverage": 1.0,
+          "cosine": 0.796132,
+          "vector_rank": 1,
+          "lexical_rank": 1,
+          "fusion_score": 0.03278688524590164,
+          "attribute_supported": true
+        }
+      ],
+      "source_origins": [
+        {
+          "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+          "origin": "vector_candidate",
+          "vector_rank": 1,
+          "lexical_rank": 1
+        }
+      ],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+            "document_id": "89534283-5eb7-4ef9-9467-9a64195e4741",
+            "similarity": 0.796132
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": [
+          {
+            "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+            "document_id": "89534283-5eb7-4ef9-9467-9a64195e4741",
+            "similarity": 0.796132,
+            "vector_rank": 1,
+            "lexical_rank": 1
+          }
+        ]
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+            "document_id": "89534283-5eb7-4ef9-9467-9a64195e4741",
+            "similarity": 0.796132,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+            "document_id": "89534283-5eb7-4ef9-9467-9a64195e4741",
+            "similarity": 0.796132,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "ac1723b4-2903-4d8f-9839-0922f133f8fb",
+            "document_id": "89534283-5eb7-4ef9-9467-9a64195e4741",
+            "similarity": 0.796132,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      }
+    ],
+    "latency_ms": 19.266,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

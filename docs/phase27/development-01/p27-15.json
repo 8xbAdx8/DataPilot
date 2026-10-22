@@ -1,0 +1,329 @@
+{
+  "id": "p27-15",
+  "query": "访客晚上进园需谁陪同？",
+  "kind": "condition",
+  "relevant_ids": [
+    "gate"
+  ],
+  "A": {
+    "ids": [
+      "gate"
+    ],
+    "sources": [
+      {
+        "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+        "document_id": "8d80f5d5-a59e-4310-8dbf-ff8caa53869b",
+        "chunk_index": 0,
+        "title": "夜间入园",
+        "source_type": "business_rule",
+        "excerpt": "夜间访客须由保安陪同，员工凭胸卡进入，无需陪同。",
+        "similarity": 0.73
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+        "document_id": "8d80f5d5-a59e-4310-8dbf-ff8caa53869b",
+        "chunk_index": 0,
+        "title": "夜间入园",
+        "source_type": "business_rule",
+        "excerpt": "夜间访客须由保安陪同，员工凭胸卡进入，无需陪同。",
+        "similarity": 0.73
+      }
+    ],
+    "decision": {},
+    "authenticity": [
+      {
+        "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+            "document_id": "8d80f5d5-a59e-4310-8dbf-ff8caa53869b",
+            "similarity": 0.73
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+            "document_id": "8d80f5d5-a59e-4310-8dbf-ff8caa53869b",
+            "similarity": 0.73
+          }
+        ]
+      }
+    ],
+    "latency_ms": 12.8,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+        "document_id": "8d80f5d5-a59e-4310-8dbf-ff8caa53869b",
+        "chunk_index": 0,
+        "title": "夜间入园",
+        "source_type": "business_rule",
+        "excerpt": "夜间访客须由保安陪同，员工凭胸卡进入，无需陪同。",
+        "similarity": 0.73
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+            "document_id": "8d80f5d5-a59e-4310-8dbf-ff8caa53869b",
+            "similarity": 0.73
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+            "document_id": "8d80f5d5-a59e-4310-8dbf-ff8caa53869b",
+            "similarity": 0.73
+          }
+        ]
+      }
+    ],
+    "latency_ms": 17.325,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [
+      "gate"
+    ],
+    "sources": [
+      {
+        "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+        "document_id": "8d80f5d5-a59e-4310-8dbf-ff8caa53869b",
+        "chunk_index": 0,
+        "title": "夜间入园",
+        "source_type": "business_rule",
+        "excerpt": "夜间访客须由保安陪同，员工凭胸卡进入，无需陪同。",
+        "similarity": 0.73,
+        "vector_rank": 1,
+        "lexical_rank": 2,
+        "fusion_score": 0.03252247488101534
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "19301f27-c459-47e5-b2a8-b7330cde70b3",
+        "document_id": "0f52c533-3cbe-481a-9b2a-b2151272e76b",
+        "chunk_index": 0,
+        "title": "门禁故障",
+        "source_type": "business_rule",
+        "excerpt": "门禁故障由保安人工核验胸卡，访客仍须陪同。不得分享胸卡。",
+        "similarity": 0.654407,
+        "vector_rank": 2,
+        "lexical_rank": 1,
+        "fusion_score": 0.03252247488101534
+      },
+      {
+        "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+        "document_id": "8d80f5d5-a59e-4310-8dbf-ff8caa53869b",
+        "chunk_index": 0,
+        "title": "夜间入园",
+        "source_type": "business_rule",
+        "excerpt": "夜间访客须由保安陪同，员工凭胸卡进入，无需陪同。",
+        "similarity": 0.73,
+        "vector_rank": 1,
+        "lexical_rank": 2,
+        "fusion_score": 0.03252247488101534
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "retrieved",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+          "lexical_char_coverage": 1.0,
+          "cosine": 0.73,
+          "vector_rank": 1,
+          "lexical_rank": 2,
+          "fusion_score": 0.03252247488101534,
+          "attribute_supported": true
+        },
+        {
+          "chunk_id": "19301f27-c459-47e5-b2a8-b7330cde70b3",
+          "lexical_char_coverage": 0.41572,
+          "cosine": 0.654407,
+          "vector_rank": 2,
+          "lexical_rank": 1,
+          "fusion_score": 0.03252247488101534,
+          "attribute_supported": true
+        }
+      ],
+      "source_origins": [
+        {
+          "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+          "origin": "vector_candidate",
+          "vector_rank": 1,
+          "lexical_rank": 2
+        }
+      ],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "19301f27-c459-47e5-b2a8-b7330cde70b3",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      },
+      {
+        "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+            "document_id": "8d80f5d5-a59e-4310-8dbf-ff8caa53869b",
+            "similarity": 0.73
+          },
+          {
+            "chunk_id": "19301f27-c459-47e5-b2a8-b7330cde70b3",
+            "document_id": "0f52c533-3cbe-481a-9b2a-b2151272e76b",
+            "similarity": 0.654407
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": [
+          {
+            "chunk_id": "19301f27-c459-47e5-b2a8-b7330cde70b3",
+            "document_id": "0f52c533-3cbe-481a-9b2a-b2151272e76b",
+            "similarity": 0.654407,
+            "vector_rank": 2,
+            "lexical_rank": 1
+          },
+          {
+            "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+            "document_id": "8d80f5d5-a59e-4310-8dbf-ff8caa53869b",
+            "similarity": 0.73,
+            "vector_rank": 1,
+            "lexical_rank": 2
+          }
+        ]
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "19301f27-c459-47e5-b2a8-b7330cde70b3",
+            "document_id": "0f52c533-3cbe-481a-9b2a-b2151272e76b",
+            "similarity": 0.654407,
+            "vector_rank": 2,
+            "lexical_rank": 1,
+            "fusion_score": 0.03252247488101534
+          },
+          {
+            "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+            "document_id": "8d80f5d5-a59e-4310-8dbf-ff8caa53869b",
+            "similarity": 0.73,
+            "vector_rank": 1,
+            "lexical_rank": 2,
+            "fusion_score": 0.03252247488101534
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "19301f27-c459-47e5-b2a8-b7330cde70b3",
+            "document_id": "0f52c533-3cbe-481a-9b2a-b2151272e76b",
+            "similarity": 0.654407,
+            "vector_rank": 2,
+            "lexical_rank": 1,
+            "fusion_score": 0.03252247488101534
+          },
+          {
+            "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+            "document_id": "8d80f5d5-a59e-4310-8dbf-ff8caa53869b",
+            "similarity": 0.73,
+            "vector_rank": 1,
+            "lexical_rank": 2,
+            "fusion_score": 0.03252247488101534
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "19301f27-c459-47e5-b2a8-b7330cde70b3",
+            "document_id": "0f52c533-3cbe-481a-9b2a-b2151272e76b",
+            "similarity": 0.654407,
+            "vector_rank": 2,
+            "lexical_rank": 1,
+            "fusion_score": 0.03252247488101534
+          },
+          {
+            "chunk_id": "a14192c9-a467-4674-bdf0-2b60a01bcadc",
+            "document_id": "8d80f5d5-a59e-4310-8dbf-ff8caa53869b",
+            "similarity": 0.73,
+            "vector_rank": 1,
+            "lexical_rank": 2,
+            "fusion_score": 0.03252247488101534
+          }
+        ]
+      }
+    ],
+    "latency_ms": 20.403,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

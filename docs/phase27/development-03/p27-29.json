@@ -1,0 +1,349 @@
+{
+  "id": "p27-29",
+  "query": "雨后收工如何清洁筐和复工？",
+  "kind": "multi",
+  "relevant_ids": [
+    "bins",
+    "rain"
+  ],
+  "A": {
+    "ids": [
+      "bins"
+    ],
+    "sources": [
+      {
+        "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+        "document_id": "8df1c99d-085f-4189-80af-010b14a498ea",
+        "chunk_index": 0,
+        "title": "周转筐消毒",
+        "source_type": "business_rule",
+        "excerpt": "周转筐每日收工后以清水冲洗，污筐不得装果。",
+        "similarity": 0.731092
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+        "document_id": "8df1c99d-085f-4189-80af-010b14a498ea",
+        "chunk_index": 0,
+        "title": "周转筐消毒",
+        "source_type": "business_rule",
+        "excerpt": "周转筐每日收工后以清水冲洗，污筐不得装果。",
+        "similarity": 0.731092
+      }
+    ],
+    "decision": {},
+    "authenticity": [
+      {
+        "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+        "version": 1,
+        "valid": true,
+        "owner_id": "99406fa0-43d8-4113-ab61-92c2f3d82716",
+        "dataset_id": "435e0aba-dede-452a-b023-00214b6341bb"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+            "document_id": "8df1c99d-085f-4189-80af-010b14a498ea",
+            "similarity": 0.731092
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+            "document_id": "8df1c99d-085f-4189-80af-010b14a498ea",
+            "similarity": 0.731092
+          }
+        ]
+      }
+    ],
+    "latency_ms": 19.355,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+        "document_id": "8df1c99d-085f-4189-80af-010b14a498ea",
+        "chunk_index": 0,
+        "title": "周转筐消毒",
+        "source_type": "business_rule",
+        "excerpt": "周转筐每日收工后以清水冲洗，污筐不得装果。",
+        "similarity": 0.731092
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+        "version": 1,
+        "valid": true,
+        "owner_id": "99406fa0-43d8-4113-ab61-92c2f3d82716",
+        "dataset_id": "435e0aba-dede-452a-b023-00214b6341bb"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+            "document_id": "8df1c99d-085f-4189-80af-010b14a498ea",
+            "similarity": 0.731092
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+            "document_id": "8df1c99d-085f-4189-80af-010b14a498ea",
+            "similarity": 0.731092
+          }
+        ]
+      }
+    ],
+    "latency_ms": 22.283,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [
+      "bins",
+      "rain"
+    ],
+    "sources": [
+      {
+        "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+        "document_id": "8df1c99d-085f-4189-80af-010b14a498ea",
+        "chunk_index": 0,
+        "title": "周转筐消毒",
+        "source_type": "business_rule",
+        "excerpt": "周转筐每日收工后以清水冲洗，污筐不得装果。",
+        "similarity": 0.731092,
+        "vector_rank": 1,
+        "lexical_rank": 2,
+        "fusion_score": 0.03252247488101534
+      },
+      {
+        "chunk_id": "6696252a-c400-41f0-97c1-3e02df9936cc",
+        "document_id": "e50c4d21-395a-4699-99ca-ce99a9fc9c4d",
+        "chunk_index": 0,
+        "title": "雨后复工",
+        "source_type": "business_rule",
+        "excerpt": "雨后地面无积水方可复工。雷电预警未解除时仍须停工。",
+        "similarity": 0.56881,
+        "vector_rank": 2,
+        "lexical_rank": 1,
+        "fusion_score": 0.03252247488101534
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "6696252a-c400-41f0-97c1-3e02df9936cc",
+        "document_id": "e50c4d21-395a-4699-99ca-ce99a9fc9c4d",
+        "chunk_index": 0,
+        "title": "雨后复工",
+        "source_type": "business_rule",
+        "excerpt": "雨后地面无积水方可复工。雷电预警未解除时仍须停工。",
+        "similarity": 0.56881,
+        "vector_rank": 2,
+        "lexical_rank": 1,
+        "fusion_score": 0.03252247488101534
+      },
+      {
+        "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+        "document_id": "8df1c99d-085f-4189-80af-010b14a498ea",
+        "chunk_index": 0,
+        "title": "周转筐消毒",
+        "source_type": "business_rule",
+        "excerpt": "周转筐每日收工后以清水冲洗，污筐不得装果。",
+        "similarity": 0.731092,
+        "vector_rank": 1,
+        "lexical_rank": 2,
+        "fusion_score": 0.03252247488101534
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "retrieved",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+          "lexical_char_coverage": 0.770419,
+          "cosine": 0.731092,
+          "vector_rank": 1,
+          "lexical_rank": 2,
+          "fusion_score": 0.03252247488101534,
+          "attribute_supported": true
+        },
+        {
+          "chunk_id": "6696252a-c400-41f0-97c1-3e02df9936cc",
+          "lexical_char_coverage": 0.311256,
+          "cosine": 0.56881,
+          "vector_rank": 2,
+          "lexical_rank": 1,
+          "fusion_score": 0.03252247488101534,
+          "attribute_supported": true
+        }
+      ],
+      "source_origins": [
+        {
+          "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+          "origin": "vector_candidate",
+          "vector_rank": 1,
+          "lexical_rank": 2
+        },
+        {
+          "chunk_id": "6696252a-c400-41f0-97c1-3e02df9936cc",
+          "origin": "vector_candidate",
+          "vector_rank": 2,
+          "lexical_rank": 1
+        }
+      ],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "6696252a-c400-41f0-97c1-3e02df9936cc",
+        "version": 1,
+        "valid": true,
+        "owner_id": "99406fa0-43d8-4113-ab61-92c2f3d82716",
+        "dataset_id": "435e0aba-dede-452a-b023-00214b6341bb"
+      },
+      {
+        "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+        "version": 1,
+        "valid": true,
+        "owner_id": "99406fa0-43d8-4113-ab61-92c2f3d82716",
+        "dataset_id": "435e0aba-dede-452a-b023-00214b6341bb"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+            "document_id": "8df1c99d-085f-4189-80af-010b14a498ea",
+            "similarity": 0.731092
+          },
+          {
+            "chunk_id": "6696252a-c400-41f0-97c1-3e02df9936cc",
+            "document_id": "e50c4d21-395a-4699-99ca-ce99a9fc9c4d",
+            "similarity": 0.56881
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": [
+          {
+            "chunk_id": "6696252a-c400-41f0-97c1-3e02df9936cc",
+            "document_id": "e50c4d21-395a-4699-99ca-ce99a9fc9c4d",
+            "similarity": 0.56881,
+            "vector_rank": 2,
+            "lexical_rank": 1
+          },
+          {
+            "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+            "document_id": "8df1c99d-085f-4189-80af-010b14a498ea",
+            "similarity": 0.731092,
+            "vector_rank": 1,
+            "lexical_rank": 2
+          }
+        ]
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "6696252a-c400-41f0-97c1-3e02df9936cc",
+            "document_id": "e50c4d21-395a-4699-99ca-ce99a9fc9c4d",
+            "similarity": 0.56881,
+            "vector_rank": 2,
+            "lexical_rank": 1,
+            "fusion_score": 0.03252247488101534
+          },
+          {
+            "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+            "document_id": "8df1c99d-085f-4189-80af-010b14a498ea",
+            "similarity": 0.731092,
+            "vector_rank": 1,
+            "lexical_rank": 2,
+            "fusion_score": 0.03252247488101534
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "6696252a-c400-41f0-97c1-3e02df9936cc",
+            "document_id": "e50c4d21-395a-4699-99ca-ce99a9fc9c4d",
+            "similarity": 0.56881,
+            "vector_rank": 2,
+            "lexical_rank": 1,
+            "fusion_score": 0.03252247488101534
+          },
+          {
+            "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+            "document_id": "8df1c99d-085f-4189-80af-010b14a498ea",
+            "similarity": 0.731092,
+            "vector_rank": 1,
+            "lexical_rank": 2,
+            "fusion_score": 0.03252247488101534
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "6696252a-c400-41f0-97c1-3e02df9936cc",
+            "document_id": "e50c4d21-395a-4699-99ca-ce99a9fc9c4d",
+            "similarity": 0.56881,
+            "vector_rank": 2,
+            "lexical_rank": 1,
+            "fusion_score": 0.03252247488101534
+          },
+          {
+            "chunk_id": "99a238fe-8a59-49c9-a3d1-788a37123820",
+            "document_id": "8df1c99d-085f-4189-80af-010b14a498ea",
+            "similarity": 0.731092,
+            "vector_rank": 1,
+            "lexical_rank": 2,
+            "fusion_score": 0.03252247488101534
+          }
+        ]
+      }
+    ],
+    "latency_ms": 30.641,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

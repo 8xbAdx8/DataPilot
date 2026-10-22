@@ -1,0 +1,244 @@
+{
+  "id": "p27-30",
+  "query": "电池鼓包且清洁液泄漏如何处理？",
+  "kind": "multi",
+  "relevant_ids": [
+    "battery",
+    "spill"
+  ],
+  "A": {
+    "ids": [
+      "battery"
+    ],
+    "sources": [
+      {
+        "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+        "document_id": "9bf75532-8235-448e-89c9-ce252b6cf94e",
+        "chunk_index": 0,
+        "title": "电池存放",
+        "source_type": "business_rule",
+        "excerpt": "备用电池放干燥柜，鼓包电池送回收点，不得充电。",
+        "similarity": 0.721781
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+        "document_id": "9bf75532-8235-448e-89c9-ce252b6cf94e",
+        "chunk_index": 0,
+        "title": "电池存放",
+        "source_type": "business_rule",
+        "excerpt": "备用电池放干燥柜，鼓包电池送回收点，不得充电。",
+        "similarity": 0.721781
+      }
+    ],
+    "decision": {},
+    "authenticity": [
+      {
+        "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+            "document_id": "9bf75532-8235-448e-89c9-ce252b6cf94e",
+            "similarity": 0.721781
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+            "document_id": "9bf75532-8235-448e-89c9-ce252b6cf94e",
+            "similarity": 0.721781
+          }
+        ]
+      }
+    ],
+    "latency_ms": 16.316,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+        "document_id": "9bf75532-8235-448e-89c9-ce252b6cf94e",
+        "chunk_index": 0,
+        "title": "电池存放",
+        "source_type": "business_rule",
+        "excerpt": "备用电池放干燥柜，鼓包电池送回收点，不得充电。",
+        "similarity": 0.721781
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+            "document_id": "9bf75532-8235-448e-89c9-ce252b6cf94e",
+            "similarity": 0.721781
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+            "document_id": "9bf75532-8235-448e-89c9-ce252b6cf94e",
+            "similarity": 0.721781
+          }
+        ]
+      }
+    ],
+    "latency_ms": 21.561,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+        "document_id": "9bf75532-8235-448e-89c9-ce252b6cf94e",
+        "chunk_index": 0,
+        "title": "电池存放",
+        "source_type": "business_rule",
+        "excerpt": "备用电池放干燥柜，鼓包电池送回收点，不得充电。",
+        "similarity": 0.721781,
+        "vector_rank": 1,
+        "lexical_rank": 1,
+        "fusion_score": 0.03278688524590164
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "insufficient_evidence",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+          "lexical_char_coverage": 0.32088,
+          "cosine": 0.721781,
+          "vector_rank": 1,
+          "lexical_rank": 1,
+          "fusion_score": 0.03278688524590164,
+          "attribute_supported": true
+        }
+      ],
+      "source_origins": [],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+            "document_id": "9bf75532-8235-448e-89c9-ce252b6cf94e",
+            "similarity": 0.721781
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": [
+          {
+            "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+            "document_id": "9bf75532-8235-448e-89c9-ce252b6cf94e",
+            "similarity": 0.721781,
+            "vector_rank": 1,
+            "lexical_rank": 1
+          }
+        ]
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+            "document_id": "9bf75532-8235-448e-89c9-ce252b6cf94e",
+            "similarity": 0.721781,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+            "document_id": "9bf75532-8235-448e-89c9-ce252b6cf94e",
+            "similarity": 0.721781,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "0fe17ff5-e493-4345-8d56-c94a68b155c7",
+            "document_id": "9bf75532-8235-448e-89c9-ce252b6cf94e",
+            "similarity": 0.721781,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      }
+    ],
+    "latency_ms": 31.11,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

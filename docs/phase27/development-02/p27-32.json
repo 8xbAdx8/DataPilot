@@ -1,0 +1,169 @@
+{
+  "id": "p27-32",
+  "query": "电池冷藏温度是多少？",
+  "kind": "near_distractor",
+  "relevant_ids": [],
+  "A": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [],
+    "decision": {},
+    "authenticity": [],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": []
+      },
+      {
+        "stage": "selected",
+        "candidates": []
+      }
+    ],
+    "latency_ms": 12.906,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 0,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": []
+      },
+      {
+        "stage": "selected",
+        "candidates": []
+      }
+    ],
+    "latency_ms": 14.709,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+        "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+        "chunk_index": 0,
+        "title": "冷藏箱作业",
+        "source_type": "business_rule",
+        "excerpt": "冷藏箱放置阴凉处。\n箱温高于8度暂停装箱，恢复合规后再开工。",
+        "similarity": 0.673166,
+        "vector_rank": 1,
+        "lexical_rank": 1,
+        "fusion_score": 0.03278688524590164
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "insufficient_evidence",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+          "lexical_char_coverage": 0.440556,
+          "cosine": 0.673166,
+          "vector_rank": 1,
+          "lexical_rank": 1,
+          "fusion_score": 0.03278688524590164,
+          "attribute_supported": true
+        }
+      ],
+      "source_origins": [],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.673166
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": [
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.673166,
+            "vector_rank": 1,
+            "lexical_rank": 1
+          }
+        ]
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.673166,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.673166,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.673166,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      }
+    ],
+    "latency_ms": 23.798,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

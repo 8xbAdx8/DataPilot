@@ -1,0 +1,252 @@
+{
+  "id": "p27-12",
+  "query": "外销箱签贴何色？",
+  "kind": "synonym",
+  "relevant_ids": [
+    "labels"
+  ],
+  "A": {
+    "ids": [
+      "labels"
+    ],
+    "sources": [
+      {
+        "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+        "document_id": "a47c6e70-ee68-4603-84c6-85bbcd5a223c",
+        "chunk_index": 0,
+        "title": "标签颜色",
+        "source_type": "business_rule",
+        "excerpt": "出口果箱使用蓝色标签，内销使用黄色标签，不得互换。",
+        "similarity": 0.766953
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+        "document_id": "a47c6e70-ee68-4603-84c6-85bbcd5a223c",
+        "chunk_index": 0,
+        "title": "标签颜色",
+        "source_type": "business_rule",
+        "excerpt": "出口果箱使用蓝色标签，内销使用黄色标签，不得互换。",
+        "similarity": 0.766953
+      }
+    ],
+    "decision": {},
+    "authenticity": [
+      {
+        "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+            "document_id": "a47c6e70-ee68-4603-84c6-85bbcd5a223c",
+            "similarity": 0.766953
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+            "document_id": "a47c6e70-ee68-4603-84c6-85bbcd5a223c",
+            "similarity": 0.766953
+          }
+        ]
+      }
+    ],
+    "latency_ms": 17.308,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+        "document_id": "a47c6e70-ee68-4603-84c6-85bbcd5a223c",
+        "chunk_index": 0,
+        "title": "标签颜色",
+        "source_type": "business_rule",
+        "excerpt": "出口果箱使用蓝色标签，内销使用黄色标签，不得互换。",
+        "similarity": 0.766953
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+            "document_id": "a47c6e70-ee68-4603-84c6-85bbcd5a223c",
+            "similarity": 0.766953
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+            "document_id": "a47c6e70-ee68-4603-84c6-85bbcd5a223c",
+            "similarity": 0.766953
+          }
+        ]
+      }
+    ],
+    "latency_ms": 15.296,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [
+      "labels"
+    ],
+    "sources": [
+      {
+        "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+        "document_id": "a47c6e70-ee68-4603-84c6-85bbcd5a223c",
+        "chunk_index": 0,
+        "title": "标签颜色",
+        "source_type": "business_rule",
+        "excerpt": "出口果箱使用蓝色标签，内销使用黄色标签，不得互换。",
+        "similarity": 0.766953,
+        "vector_rank": 1,
+        "fusion_score": 0.01639344262295082
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+        "document_id": "a47c6e70-ee68-4603-84c6-85bbcd5a223c",
+        "chunk_index": 0,
+        "title": "标签颜色",
+        "source_type": "business_rule",
+        "excerpt": "出口果箱使用蓝色标签，内销使用黄色标签，不得互换。",
+        "similarity": 0.766953,
+        "vector_rank": 1,
+        "fusion_score": 0.01639344262295082
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "retrieved",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+          "lexical_char_coverage": 1.0,
+          "cosine": 0.766953,
+          "vector_rank": 1,
+          "lexical_rank": null,
+          "fusion_score": 0.01639344262295082,
+          "attribute_supported": true
+        }
+      ],
+      "source_origins": [
+        {
+          "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+          "origin": "vector_candidate",
+          "vector_rank": 1,
+          "lexical_rank": null
+        }
+      ],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+            "document_id": "a47c6e70-ee68-4603-84c6-85bbcd5a223c",
+            "similarity": 0.766953
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": []
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+            "document_id": "a47c6e70-ee68-4603-84c6-85bbcd5a223c",
+            "similarity": 0.766953,
+            "vector_rank": 1,
+            "fusion_score": 0.01639344262295082
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+            "document_id": "a47c6e70-ee68-4603-84c6-85bbcd5a223c",
+            "similarity": 0.766953,
+            "vector_rank": 1,
+            "fusion_score": 0.01639344262295082
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "72ad0611-fc17-4e9f-ab15-515ee2266e8f",
+            "document_id": "a47c6e70-ee68-4603-84c6-85bbcd5a223c",
+            "similarity": 0.766953,
+            "vector_rank": 1,
+            "fusion_score": 0.01639344262295082
+          }
+        ]
+      }
+    ],
+    "latency_ms": 18.203,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

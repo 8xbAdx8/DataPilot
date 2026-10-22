@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "staged_files_audited": 125,
+  "configured_private_values_checked": 4,
+  "exact_private_matches": 0,
+  "forbidden_paths": 0,
+  "pattern_candidate_classification": "one public synthetic Compose demo password, not private credential",
+  "historical_audit": {
+    "commits": 38,
+    "blobs": 729,
+    "current_key_matches": 0,
+    "forbidden_paths": 0
+  },
+  "original_files_unchanged": 159,
+  "archive_verified": true,
+  "old_results_modified": false
+}

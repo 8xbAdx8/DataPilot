@@ -1,0 +1,382 @@
+{
+  "id": "p27-16",
+  "query": "温度异常留样多久？",
+  "kind": "condition",
+  "relevant_ids": [
+    "samples"
+  ],
+  "A": {
+    "ids": [
+      "samples"
+    ],
+    "sources": [
+      {
+        "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+        "document_id": "dd8684f2-9498-4802-868e-93d9737f7301",
+        "chunk_index": 0,
+        "title": "留样时长",
+        "source_type": "business_rule",
+        "excerpt": "每批留样保存两天。温度异常批次保留四天，疑似污染批次不得放行。",
+        "similarity": 0.84302
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+        "document_id": "dd8684f2-9498-4802-868e-93d9737f7301",
+        "chunk_index": 0,
+        "title": "留样时长",
+        "source_type": "business_rule",
+        "excerpt": "每批留样保存两天。温度异常批次保留四天，疑似污染批次不得放行。",
+        "similarity": 0.84302
+      }
+    ],
+    "decision": {},
+    "authenticity": [
+      {
+        "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+            "document_id": "dd8684f2-9498-4802-868e-93d9737f7301",
+            "similarity": 0.84302
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+            "document_id": "dd8684f2-9498-4802-868e-93d9737f7301",
+            "similarity": 0.84302
+          }
+        ]
+      }
+    ],
+    "latency_ms": 14.34,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+        "document_id": "dd8684f2-9498-4802-868e-93d9737f7301",
+        "chunk_index": 0,
+        "title": "留样时长",
+        "source_type": "business_rule",
+        "excerpt": "每批留样保存两天。温度异常批次保留四天，疑似污染批次不得放行。",
+        "similarity": 0.84302
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+            "document_id": "dd8684f2-9498-4802-868e-93d9737f7301",
+            "similarity": 0.84302
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+            "document_id": "dd8684f2-9498-4802-868e-93d9737f7301",
+            "similarity": 0.84302
+          }
+        ]
+      }
+    ],
+    "latency_ms": 19.07,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [
+      "samples"
+    ],
+    "sources": [
+      {
+        "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+        "document_id": "dd8684f2-9498-4802-868e-93d9737f7301",
+        "chunk_index": 0,
+        "title": "留样时长",
+        "source_type": "business_rule",
+        "excerpt": "每批留样保存两天。温度异常批次保留四天，疑似污染批次不得放行。",
+        "similarity": 0.84302,
+        "vector_rank": 1,
+        "lexical_rank": 1,
+        "fusion_score": 0.03278688524590164
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+        "document_id": "dd8684f2-9498-4802-868e-93d9737f7301",
+        "chunk_index": 0,
+        "title": "留样时长",
+        "source_type": "business_rule",
+        "excerpt": "每批留样保存两天。温度异常批次保留四天，疑似污染批次不得放行。",
+        "similarity": 0.84302,
+        "vector_rank": 1,
+        "lexical_rank": 1,
+        "fusion_score": 0.03278688524590164
+      },
+      {
+        "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+        "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+        "chunk_index": 0,
+        "title": "异常复工",
+        "source_type": "business_rule",
+        "excerpt": "温控异常复工须由值班员确认。食品污染疑点必须由质检员解除。",
+        "similarity": 0.578095,
+        "vector_rank": 3,
+        "lexical_rank": 2,
+        "fusion_score": 0.03200204813108039
+      },
+      {
+        "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+        "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+        "chunk_index": 0,
+        "title": "冷藏箱作业",
+        "source_type": "business_rule",
+        "excerpt": "冷藏箱放置阴凉处。\n箱温高于8度暂停装箱，恢复合规后再开工。",
+        "similarity": 0.672708,
+        "vector_rank": 2,
+        "fusion_score": 0.016129032258064516
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "retrieved",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+          "lexical_char_coverage": 1.0,
+          "cosine": 0.84302,
+          "vector_rank": 1,
+          "lexical_rank": 1,
+          "fusion_score": 0.03278688524590164,
+          "attribute_supported": true
+        },
+        {
+          "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+          "lexical_char_coverage": 0.574675,
+          "cosine": 0.578095,
+          "vector_rank": 3,
+          "lexical_rank": 2,
+          "fusion_score": 0.03200204813108039,
+          "attribute_supported": false
+        },
+        {
+          "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+          "lexical_char_coverage": 0.251204,
+          "cosine": 0.672708,
+          "vector_rank": 2,
+          "lexical_rank": null,
+          "fusion_score": 0.016129032258064516,
+          "attribute_supported": true
+        }
+      ],
+      "source_origins": [
+        {
+          "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+          "origin": "vector_candidate",
+          "vector_rank": 1,
+          "lexical_rank": 1
+        }
+      ],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      },
+      {
+        "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      },
+      {
+        "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+            "document_id": "dd8684f2-9498-4802-868e-93d9737f7301",
+            "similarity": 0.84302
+          },
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.672708
+          },
+          {
+            "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+            "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+            "similarity": 0.578095
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": [
+          {
+            "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+            "document_id": "dd8684f2-9498-4802-868e-93d9737f7301",
+            "similarity": 0.84302,
+            "vector_rank": 1,
+            "lexical_rank": 1
+          },
+          {
+            "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+            "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+            "similarity": 0.578095,
+            "vector_rank": 3,
+            "lexical_rank": 2
+          }
+        ]
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+            "document_id": "dd8684f2-9498-4802-868e-93d9737f7301",
+            "similarity": 0.84302,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          },
+          {
+            "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+            "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+            "similarity": 0.578095,
+            "vector_rank": 3,
+            "lexical_rank": 2,
+            "fusion_score": 0.03200204813108039
+          },
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.672708,
+            "vector_rank": 2,
+            "fusion_score": 0.016129032258064516
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+            "document_id": "dd8684f2-9498-4802-868e-93d9737f7301",
+            "similarity": 0.84302,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          },
+          {
+            "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+            "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+            "similarity": 0.578095,
+            "vector_rank": 3,
+            "lexical_rank": 2,
+            "fusion_score": 0.03200204813108039
+          },
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.672708,
+            "vector_rank": 2,
+            "fusion_score": 0.016129032258064516
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "c564b5fc-923a-42ca-9a2b-dc4a318e31e4",
+            "document_id": "dd8684f2-9498-4802-868e-93d9737f7301",
+            "similarity": 0.84302,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          },
+          {
+            "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+            "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+            "similarity": 0.578095,
+            "vector_rank": 3,
+            "lexical_rank": 2,
+            "fusion_score": 0.03200204813108039
+          },
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.672708,
+            "vector_rank": 2,
+            "fusion_score": 0.016129032258064516
+          }
+        ]
+      }
+    ],
+    "latency_ms": 29.421,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}
