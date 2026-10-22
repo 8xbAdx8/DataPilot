@@ -1,0 +1,88 @@
+{
+  "status": "passed",
+  "start_head": "3e3f62fe4e73d0d8e60358d8d2b71f1215bbe52b",
+  "ordinary_ci_cloud_credentials_required": false,
+  "results": {
+    "postgres": {
+      "status": "passed",
+      "outcome": "530 passed; 6 pre-existing opt-in live tests skipped",
+      "local_log": "data/runtime/phase24-upgrade-postgres-final-full.log",
+      "sha256": "98ee2b476024d26c0a4719fd22efe540201dccea6d16a62fd362068cb2d943de"
+    },
+    "sqlite": {
+      "status": "passed",
+      "outcome": "506 passed; 30 PostgreSQL/live conditional tests skipped",
+      "local_log": "data/runtime/phase24-upgrade-sqlite-final-full.log",
+      "sha256": "d144076661076aadddb250717ddbd346e18b0242ac8010c87e94a785b239dd2d"
+    },
+    "frontend_lint": {
+      "status": "passed",
+      "outcome": "passed",
+      "local_log": "data/runtime/phase24-final-frontend-lint.log",
+      "sha256": "65d10c2da0781691adc45c185308c222c2a92911360ade0a27a4e555be91c5bb"
+    },
+    "frontend_typecheck": {
+      "status": "passed",
+      "outcome": "passed",
+      "local_log": "data/runtime/phase24-final-frontend-typecheck.log",
+      "sha256": "4bb40eef8e3c339af20950a8105947f07a8ababf21de71719193e97e2907811b"
+    },
+    "frontend_build": {
+      "status": "passed",
+      "outcome": "passed production build",
+      "local_log": "data/runtime/phase24-final-frontend-build.log",
+      "sha256": "8eef7011e7643f5566f25b71d58d59c32dba7b6096e834b249f44b6c5246599d"
+    },
+    "playwright": {
+      "status": "passed",
+      "outcome": "15 passed; 3 existing real-service opt-in tests skipped; Mock/Fake mode",
+      "local_log": "data/runtime/phase24-final-playwright.log",
+      "sha256": "b30593c6749646cad9a44ccccac75c3f4dc655dcbc70ef975c95c8a95a1fe5b7"
+    },
+    "compose_build": {
+      "status": "passed",
+      "outcome": "passed",
+      "local_log": "data/runtime/phase24-final-compose-build.log",
+      "sha256": "b7b9797d5907dd4909be5061abb93a74659dcbdf06938158470d9155f090bdbb"
+    },
+    "compose_up": {
+      "status": "passed",
+      "outcome": "postgres/backend/frontend healthy; migrate exited successfully",
+      "local_log": "data/runtime/phase24-final-compose-up.log",
+      "sha256": "d5c5dcf1165a42a57501789e8125b3ce3707fdfe02487359551f69cbcf41bf48"
+    },
+    "compose_smoke": {
+      "status": "passed",
+      "outcome": "passed health/upload/Mock real DuckDB/Fake RAG/password/session",
+      "local_log": "data/runtime/phase24-final-compose-smoke.log",
+      "sha256": "3f1a6b3f03321c26a0f171a4648c0725961e2b4d82712f11b8fb95234cbbff39"
+    },
+    "migrations": {
+      "status": "passed",
+      "outcome": "upgrade twice/check/downgrade base/reupgrade/check; head 0006",
+      "local_log": "data/runtime/phase24-final-migrations.log",
+      "sha256": "083322efe5dcfcd60c7e85d52bddba43c21051d165b7ac632574802309516fa0"
+    }
+  },
+  "static_checks": {
+    "ruff_check": "passed",
+    "ruff_format_check": "103 files already formatted",
+    "pip_check": "No broken requirements found"
+  },
+  "offline_real_artifact_audit": {
+    "status": "verified",
+    "vectors": 122,
+    "dimensions": 1536,
+    "baseline_cosine_cases": 34,
+    "label_metric_strategies": 3,
+    "new_service_calls": 0
+  },
+  "history_protection": {
+    "unchanged_original_files": 87,
+    "old_blocked_report": "original bytes retained as prefix; append-only continuation",
+    "old_report_sha256": "93dd42df251361fb6f0359b68c70c4c85934b6ce64048c9f401e15ae0ec2f8e5"
+  },
+  "freeze_sha256": "2f6a5d08e07ce6d07e8a8c14248ca47a132324c93e43c0c71213fb5f8eaa0098",
+  "remote_ci": "No new commit pushed; phase23 parent CI only, not evidence for this worktree",
+  "scope": "engineering regression separated from real retrieval score; ordinary browser/smoke uses Mock/Fake"
+}

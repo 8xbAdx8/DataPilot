@@ -1,0 +1,287 @@
+{
+  "state": "complete",
+  "strategies": {
+    "A": {
+      "metric": {
+        "cases": 9,
+        "precision_at_k": 0.08333333333333333,
+        "recall_at_k": 0.3333333333333333,
+        "mrr": 0.3333333333333333,
+        "ndcg_at_k": 0.3333333333333333,
+        "correct_no_match": 0,
+        "irrelevant_source_count": 5
+      },
+      "knowledge": {
+        "cases": 6,
+        "precision_at_k": 0.25,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "correct_no_match": 0,
+        "irrelevant_source_count": 0
+      },
+      "negative": {
+        "cases": 20,
+        "precision_at_k": null,
+        "recall_at_k": null,
+        "mrr": null,
+        "ndcg_at_k": null,
+        "correct_no_match": 15,
+        "irrelevant_source_count": 5
+      },
+      "safety": {
+        "cases": 1,
+        "precision_at_k": null,
+        "recall_at_k": null,
+        "mrr": null,
+        "ndcg_at_k": null,
+        "correct_no_match": 1,
+        "irrelevant_source_count": 0
+      },
+      "reference_checks": 19,
+      "reference_errors": 0,
+      "unauthorized_leaks": 0,
+      "malicious_sources_returned": 0,
+      "agent_selection": "NOT_RUN",
+      "sql_execution": "NOT_RUN"
+    },
+    "B": {
+      "metric": {
+        "cases": 9,
+        "precision_at_k": 0.25,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "correct_no_match": 0,
+        "irrelevant_source_count": 0
+      },
+      "knowledge": {
+        "cases": 6,
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_k": 0.0,
+        "correct_no_match": 0,
+        "irrelevant_source_count": 0
+      },
+      "negative": {
+        "cases": 20,
+        "precision_at_k": null,
+        "recall_at_k": null,
+        "mrr": null,
+        "ndcg_at_k": null,
+        "correct_no_match": 20,
+        "irrelevant_source_count": 0
+      },
+      "safety": {
+        "cases": 1,
+        "precision_at_k": null,
+        "recall_at_k": null,
+        "mrr": null,
+        "ndcg_at_k": null,
+        "correct_no_match": 1,
+        "irrelevant_source_count": 0
+      },
+      "reference_checks": 9,
+      "reference_errors": 0,
+      "unauthorized_leaks": 0,
+      "malicious_sources_returned": 0,
+      "agent_selection": "NOT_RUN",
+      "sql_execution": "NOT_RUN"
+    }
+  },
+  "rollback_counts_equal": true,
+  "ledger": {
+    "limits": {
+      "requests": 80,
+      "input_tokens": 20000
+    },
+    "http_requests_reserved": 6,
+    "known_input_tokens": 1473,
+    "usage_complete": true,
+    "stopped": null,
+    "requests": [
+      {
+        "id": "3833b53d-a74f-4b63-9347-002509bcf543",
+        "label": "development-v1-0",
+        "created": "2026-10-22T10:46:58.002976+00:00",
+        "finished": "2026-10-22T10:46:58.769183+00:00",
+        "status": "complete",
+        "estimated": 429,
+        "reserved": 1774,
+        "actual": 439,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 439,
+          "completion_tokens": null,
+          "total_tokens": 439
+        },
+        "provider_request_id": "c39341c1-a9b3-9a8e-8d77-50a894fb7ffd",
+        "duration_ms": 748.527,
+        "input_hashes": [
+          "0a449f0ccc82ae9382639facac6377a3ee52f74c90338b09b4a6200d1d31740c",
+          "0a9af6d2a3bbea9e0f2b9e6ccbae50ad372e0d23f7559f8d545e0ba337a90cc0",
+          "1ccf645aa345c3c17e20a4c1f165a2eda72ee3120d1b62fdbc9cab50ca11061e",
+          "3bb7727a54265f7bac40821401330d630a0d1c4f1fccfe21a5dc92e498544184",
+          "4b7cea288e605402ce6ee86ed57fca81a9c90e5e1b71e41486e361e7ae5bc51c",
+          "667896038c7412287cfc6da8e59e6f6515a9df001c1ea675c5b177a1e2084c5e",
+          "bd31e9fe916bffe6e7ef001db2b2536f93279c7da348c99f29224c5088c28ff8",
+          "c936cee0cac81202c8b019f0f4bd03ca2b7ac34ce9687f3849ae248dd50112a5",
+          "daac81fd6fb4e8124d41ec794aacf4ab0d5f5728d0be4b89762841bcddf60503",
+          "f6c1a7c20ed35a93ba71c0413c4f0f2ba11d1c54c52f5d804eaa27651c8c47d5"
+        ]
+      },
+      {
+        "id": "db05a4bb-04fa-4e3e-99e9-0d7c092331a2",
+        "label": "development-v1-1",
+        "created": "2026-10-22T10:46:58.777202+00:00",
+        "finished": "2026-10-22T10:46:59.338020+00:00",
+        "status": "complete",
+        "estimated": 570,
+        "reserved": 2296,
+        "actual": 580,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 580,
+          "completion_tokens": null,
+          "total_tokens": 580
+        },
+        "provider_request_id": "7f9c5348-5bfc-9bbe-a5af-a26ab40c2e5a",
+        "duration_ms": 542.696,
+        "input_hashes": [
+          "0b8e1985b98fec893137567992c5ded2a946a0ee4c07190d190f18037b56ee8e",
+          "1094231127046dc956dae26084e21fb2a0f5a2645e08a0c830a844a5b341fbb6",
+          "21a99e08712e6f911c51ed9f6a0f389cdb83cf6dab605bb50a1eceb80c743bb6",
+          "4adc6f2aff9d43b2b6bc718f9c0ca250a64f8bb6c769c4bc59e45a9a4a25175a",
+          "547f70ebe9615f85f689b9885e873fab177995d831b0f3b014d3029e7c8d45cb",
+          "566d75295f7fcbaa811a559d46624f144b5538f9d2d719cd8de4c3dbcca14bd6",
+          "68dd5755ddfee4ebd1fa46f29f3e62d5b1da326975df18147986d5beadc2d420",
+          "74939985d81b10f283f4a73f899aebf8d2b56047ca8b8343af1426b368e807c4",
+          "c80d038ac13b9093c6117e82ba4561ced9dd5e94c1bbfa562a1f5512ac7ecf55",
+          "fff2e2841969fa257bc4db05b9811e7376ffb0bd64c5568d25939b2d8dba11b5"
+        ]
+      },
+      {
+        "id": "91b340cf-2464-4c30-a43c-3a4075d6b9c3",
+        "label": "development-v1-2",
+        "created": "2026-10-22T10:46:59.343830+00:00",
+        "finished": "2026-10-22T10:46:59.863477+00:00",
+        "status": "complete",
+        "estimated": 158,
+        "reserved": 996,
+        "actual": 168,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 168,
+          "completion_tokens": null,
+          "total_tokens": 168
+        },
+        "provider_request_id": "fa8eeab1-cafc-96e4-a213-5be55f157ab9",
+        "duration_ms": 503.68,
+        "input_hashes": [
+          "19ecf2b1601a4325aa87541c2a5ca4282bfc673a7f77c180149a1389649d99fb",
+          "653c4ef95ebb7703436a57e7feae1364c63a185f50d0bc195d37b72fd4f55591",
+          "7318b098467af7c3fb31dc091757e8cd1d31c1cd378f056c0638aa8cacf704df",
+          "9b773f7bdcc47e9e7591c637120e918e28da431f3ebf7d18145d28ad82584662",
+          "a34badfd377f2f036c276ba1b8da925fa46dbf1e6c60ca014fca0def63293b51",
+          "adc2faf69895cbcc5f9034c3860cf8553ac07095f26de914206d1b4eaca5646e",
+          "c3c452c616b72ea861eaff07b2795ea6147b381af418696d4c657186fb4bb862",
+          "c4722bc0a7c77d112015dc9b0f90d1b992d8a8fa335e97623f975eac4dc7b1a8",
+          "e02731352d47a740bbe03e0af4cdd3100d334d8bb580a71f1bb7b732dcecb409",
+          "f1edc22e817698f95e699fe73b6c0e947f4423240c7987515998713ccd3a12e9"
+        ]
+      },
+      {
+        "id": "d97bb750-a32c-4bec-890d-76db30b644ae",
+        "label": "development-v1-3",
+        "created": "2026-10-22T10:46:59.868058+00:00",
+        "finished": "2026-10-22T10:47:00.390822+00:00",
+        "status": "complete",
+        "estimated": 85,
+        "reserved": 666,
+        "actual": 95,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 95,
+          "completion_tokens": null,
+          "total_tokens": 95
+        },
+        "provider_request_id": "992b306c-0073-9ad1-8f93-fbc0b687b0e0",
+        "duration_ms": 503.678,
+        "input_hashes": [
+          "02ab47f2f01b4c6625645f358cec37f4eeee9fd19f3a1193d1f010d2a32b1a46",
+          "23dd5cf51c01c5165ee2aa66e6d50d27a40a1d21265e02d7f2968584860d7b51",
+          "263bfa5dd4739b9d0f4621d222414dcee4f60c9d2a38844e2bd612ab16cc42b3",
+          "3efd27a09200306668176b6ce2128299c29a2d8c7b0dc54971586ba9b306b5b1",
+          "4163722cb3132087416dfd7102009e3afba1f1eded99c642cf237699a311212f",
+          "4a2352e3b45c244676dd8dc4715881828d509fbdb6e40754823ab98d28d04395",
+          "77682e098ca9baafe8b5b20116045ad985389dafb3386bbb5ebf4d9d3e93d702",
+          "a866eb3fec1153384c0dc476dd5d5171ada1bcfb8dd3505c008712ee8372f391",
+          "b643fc0d90df653b5a03b486fd40db0a81091cf11af56101d5dd316d1abc6985",
+          "c069dc651dabd2ada6327580a8e61d3ec9fd44eabb008f542a3f7e7091ce7a38"
+        ]
+      },
+      {
+        "id": "bcb9d4b0-5311-43ac-80f5-89c64c6005a8",
+        "label": "development-v1-4",
+        "created": "2026-10-22T10:47:00.395438+00:00",
+        "finished": "2026-10-22T10:47:00.997738+00:00",
+        "status": "complete",
+        "estimated": 79,
+        "reserved": 704,
+        "actual": 89,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 89,
+          "completion_tokens": null,
+          "total_tokens": 89
+        },
+        "provider_request_id": "1ebf028d-b35c-9468-ba25-962bc736a1c1",
+        "duration_ms": 581.25,
+        "input_hashes": [
+          "05acc59b2745403da503283dac84925e0b3bad55b8c13b2f7fc7381a9be229aa",
+          "07503be664be29138205ec8be3965883b5c01666075e5bb74ff8524e81e553fc",
+          "356a9ca5c5fe886434fb8a4d9dff4615f663e9d40ab497f6b7141106f7d1621d",
+          "36ff0d95f6cdaa65fdd04dc6ee7fef1a2e8b12eaccca4df1df4cbcd0cb9ad2ce",
+          "49838f4114817d5608734f5ab96875cf888083f0a584353ec4e996cb65a8a054",
+          "51436f251da65867409673f650c80d653dcd999256338d6849a68d73d575d302",
+          "829d9ea5f3ce9a0d28dd740bc35b57d5949db893dba983369f9b41a37583f452",
+          "ca68b44f9ae671dc5bd2e722d8f0fb57d4e93c02b050f2ad7a7b97807d9099eb",
+          "cce13ad44d71817823ba521dd1b4e3fa67f01d79f7165665e30a37521179fd2c",
+          "f5b6dddd280490ad411ae4c10fc865a3517bc4b3442cfe5c018489d4fdebc2cd"
+        ]
+      },
+      {
+        "id": "e9bd95ba-4b7f-4564-8217-50c2bff52e01",
+        "label": "development-v1-5",
+        "created": "2026-10-22T10:47:01.003738+00:00",
+        "finished": "2026-10-22T10:47:01.540405+00:00",
+        "status": "complete",
+        "estimated": 92,
+        "reserved": 755,
+        "actual": 102,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 102,
+          "completion_tokens": null,
+          "total_tokens": 102
+        },
+        "provider_request_id": "1d9e0f93-6802-9fa2-9758-3b654308c916",
+        "duration_ms": 518.985,
+        "input_hashes": [
+          "27f7504f88a3865a0c98020c8126da1496644aecd3c76d4b2b4fcb9e6f3685c9",
+          "2dff1ee49432b792a913404517b437d0b3559e7918f5cf8d3a89aa51daae1396",
+          "68b747bce5bea2ef5218ebdfb5e737ffd4d8e0848b7d999e5b06876870fd3f2f",
+          "81ee8758e5c3134f2e948e6989dabab180816d6194033761b04dc38191500d74",
+          "97a29f8155e851f303f207bf9e9a0169dcb039773efed63f8798ffcc69698157",
+          "a6f63c4214253b5ecf4cd73903e1c55295bb90a36bd6ef43cff236f0e9ec9f82",
+          "baaec342104090a5b731225d0b2b84e028fe7f10b4067abd0cb0ae6a6f3ea7bc",
+          "d6a04597422e2d398a52b5d562bb3c69739a5732410c3a62a6298f784d95cdee",
+          "d71886f8df49fba4e3de218c8fb26f353bd188ab22543351323bd208138d05ad",
+          "f03c2f51d8e8494c73144602798251fa9c6c8e5511950c50a6840e2d20a55194"
+        ]
+      }
+    ]
+  },
+  "new_http_during_retrieval": 0
+}

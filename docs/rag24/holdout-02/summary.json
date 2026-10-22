@@ -1,0 +1,730 @@
+{
+  "state": "complete",
+  "strategies": {
+    "A": {
+      "metric": {
+        "cases": 10,
+        "precision_at_k": 0.15,
+        "recall_at_k": 0.6,
+        "mrr": 0.6,
+        "ndcg_at_k": 0.6,
+        "correct_no_match": 0,
+        "irrelevant_source_count": 0
+      },
+      "knowledge": {
+        "cases": 10,
+        "precision_at_k": 0.25,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "correct_no_match": 0,
+        "irrelevant_source_count": 0
+      },
+      "negative": {
+        "cases": 10,
+        "precision_at_k": null,
+        "recall_at_k": null,
+        "mrr": null,
+        "ndcg_at_k": null,
+        "correct_no_match": 6,
+        "irrelevant_source_count": 4
+      },
+      "safety": {
+        "cases": 4,
+        "precision_at_k": null,
+        "recall_at_k": null,
+        "mrr": null,
+        "ndcg_at_k": null,
+        "correct_no_match": 3,
+        "irrelevant_source_count": 1
+      },
+      "reference_checks": 21,
+      "reference_errors": 0,
+      "unauthorized_leaks": 0,
+      "malicious_sources_returned": 1,
+      "agent_selection": "NOT_RUN",
+      "sql_execution": "NOT_RUN",
+      "wrong_agent_adoption": "NOT_RUN",
+      "sql_formula_compliance": "NOT_RUN",
+      "retrieval_latency_p50_ms": 50.475,
+      "retrieval_latency_p95_ms": 62.586,
+      "metric_capabilities": {
+        "formal_names": {
+          "cases": 5,
+          "hits": 4
+        },
+        "registered_aliases": {
+          "cases": 5,
+          "hits": 2
+        },
+        "ambiguous": {
+          "cases": 1,
+          "resolution_matches": 1,
+          "returned_empty": 1
+        },
+        "inapplicable": {
+          "cases": 1,
+          "resolution_matches": 1,
+          "returned_empty": 0
+        },
+        "insufficient_evidence": {
+          "cases": 2,
+          "resolution_matches": 2,
+          "returned_empty": 1
+        },
+        "not_found": {
+          "cases": 10,
+          "resolution_matches": 10,
+          "returned_empty": 7
+        }
+      }
+    },
+    "B": {
+      "metric": {
+        "cases": 10,
+        "precision_at_k": 0.25,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "correct_no_match": 0,
+        "irrelevant_source_count": 0
+      },
+      "knowledge": {
+        "cases": 10,
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "mrr": 0.0,
+        "ndcg_at_k": 0.0,
+        "correct_no_match": 0,
+        "irrelevant_source_count": 0
+      },
+      "negative": {
+        "cases": 10,
+        "precision_at_k": null,
+        "recall_at_k": null,
+        "mrr": null,
+        "ndcg_at_k": null,
+        "correct_no_match": 10,
+        "irrelevant_source_count": 0
+      },
+      "safety": {
+        "cases": 4,
+        "precision_at_k": null,
+        "recall_at_k": null,
+        "mrr": null,
+        "ndcg_at_k": null,
+        "correct_no_match": 4,
+        "irrelevant_source_count": 0
+      },
+      "reference_checks": 10,
+      "reference_errors": 0,
+      "unauthorized_leaks": 0,
+      "malicious_sources_returned": 0,
+      "agent_selection": "NOT_RUN",
+      "sql_execution": "NOT_RUN",
+      "wrong_agent_adoption": "NOT_RUN",
+      "sql_formula_compliance": "NOT_RUN",
+      "retrieval_latency_p50_ms": 47.433499999999995,
+      "retrieval_latency_p95_ms": 61.148,
+      "metric_capabilities": {
+        "formal_names": {
+          "cases": 5,
+          "hits": 5
+        },
+        "registered_aliases": {
+          "cases": 5,
+          "hits": 5
+        },
+        "ambiguous": {
+          "cases": 1,
+          "resolution_matches": 1,
+          "returned_empty": 1
+        },
+        "inapplicable": {
+          "cases": 1,
+          "resolution_matches": 1,
+          "returned_empty": 1
+        },
+        "insufficient_evidence": {
+          "cases": 2,
+          "resolution_matches": 2,
+          "returned_empty": 2
+        },
+        "not_found": {
+          "cases": 10,
+          "resolution_matches": 10,
+          "returned_empty": 10
+        }
+      }
+    },
+    "C": {
+      "metric": {
+        "cases": 10,
+        "precision_at_k": 0.25,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "correct_no_match": 0,
+        "irrelevant_source_count": 0
+      },
+      "knowledge": {
+        "cases": 10,
+        "precision_at_k": 0.25,
+        "recall_at_k": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_k": 1.0,
+        "correct_no_match": 0,
+        "irrelevant_source_count": 0
+      },
+      "negative": {
+        "cases": 10,
+        "precision_at_k": null,
+        "recall_at_k": null,
+        "mrr": null,
+        "ndcg_at_k": null,
+        "correct_no_match": 10,
+        "irrelevant_source_count": 0
+      },
+      "safety": {
+        "cases": 4,
+        "precision_at_k": null,
+        "recall_at_k": null,
+        "mrr": null,
+        "ndcg_at_k": null,
+        "correct_no_match": 4,
+        "irrelevant_source_count": 0
+      },
+      "reference_checks": 20,
+      "reference_errors": 0,
+      "unauthorized_leaks": 0,
+      "malicious_sources_returned": 0,
+      "agent_selection": "NOT_RUN",
+      "sql_execution": "NOT_RUN",
+      "wrong_agent_adoption": "NOT_RUN",
+      "sql_formula_compliance": "NOT_RUN",
+      "retrieval_latency_p50_ms": 51.291,
+      "retrieval_latency_p95_ms": 63.982,
+      "metric_capabilities": {
+        "formal_names": {
+          "cases": 5,
+          "hits": 5
+        },
+        "registered_aliases": {
+          "cases": 5,
+          "hits": 5
+        },
+        "ambiguous": {
+          "cases": 1,
+          "resolution_matches": 1,
+          "returned_empty": 1
+        },
+        "inapplicable": {
+          "cases": 1,
+          "resolution_matches": 1,
+          "returned_empty": 1
+        },
+        "insufficient_evidence": {
+          "cases": 2,
+          "resolution_matches": 2,
+          "returned_empty": 2
+        },
+        "not_found": {
+          "cases": 10,
+          "resolution_matches": 10,
+          "returned_empty": 10
+        }
+      }
+    }
+  },
+  "base_database_counts_unchanged": true,
+  "database_counts_before": {
+    "audit_events": 0,
+    "login_attempts": 0,
+    "users": 0,
+    "auth_sessions": 0,
+    "datasets": 0,
+    "rate_limit_buckets": 0,
+    "analyses": 0,
+    "knowledge_documents": 0,
+    "knowledge_chunks": 0
+  },
+  "database_counts_persisted": {
+    "audit_events": 59,
+    "login_attempts": 0,
+    "users": 2,
+    "auth_sessions": 2,
+    "datasets": 3,
+    "rate_limit_buckets": 4,
+    "analyses": 0,
+    "knowledge_documents": 28,
+    "knowledge_chunks": 28
+  },
+  "base_database_counts_before": {
+    "audit_events": 0,
+    "login_attempts": 0,
+    "users": 0,
+    "auth_sessions": 0,
+    "datasets": 0,
+    "rate_limit_buckets": 0,
+    "analyses": 0,
+    "knowledge_documents": 0,
+    "knowledge_chunks": 0
+  },
+  "base_database_counts_after": {
+    "audit_events": 0,
+    "login_attempts": 0,
+    "users": 0,
+    "auth_sessions": 0,
+    "datasets": 0,
+    "rate_limit_buckets": 0,
+    "analyses": 0,
+    "knowledge_documents": 0,
+    "knowledge_chunks": 0
+  },
+  "cross_connection_persistence_verified": true,
+  "cleanup": {
+    "database_name": "rag24_bf171c8a9e249f81",
+    "database_created": true,
+    "database_removed": true
+  },
+  "ledger": {
+    "authorization": {
+      "approval_sha256": "794816ee708f5dbb0781ea56cf6ab69b55e906718bf20146fcd2e79db8efe2f8",
+      "historical_usage": "unknown-preserved",
+      "run_id": "rag24-20261022-independent-v1",
+      "space": "openai_compatible/text-embedding-v4/1536/f40b8b23a71b0c3c"
+    },
+    "limits": {
+      "requests": 80,
+      "input_tokens": 20000
+    },
+    "http_requests_reserved": 13,
+    "known_input_tokens": 2934,
+    "usage_complete": true,
+    "stopped": null,
+    "requests": [
+      {
+        "id": "3833b53d-a74f-4b63-9347-002509bcf543",
+        "label": "development-v1-0",
+        "created": "2026-10-22T10:46:58.002976+00:00",
+        "finished": "2026-10-22T10:46:58.769183+00:00",
+        "status": "complete",
+        "estimated": 429,
+        "reserved": 1774,
+        "actual": 439,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 439,
+          "completion_tokens": null,
+          "total_tokens": 439
+        },
+        "provider_request_id": "c39341c1-a9b3-9a8e-8d77-50a894fb7ffd",
+        "duration_ms": 748.527,
+        "run_id": "rag24-20261022-independent-v1",
+        "vector_dimensions": 1536,
+        "usage_complete": true,
+        "input_hashes": [
+          "0a449f0ccc82ae9382639facac6377a3ee52f74c90338b09b4a6200d1d31740c",
+          "0a9af6d2a3bbea9e0f2b9e6ccbae50ad372e0d23f7559f8d545e0ba337a90cc0",
+          "1ccf645aa345c3c17e20a4c1f165a2eda72ee3120d1b62fdbc9cab50ca11061e",
+          "3bb7727a54265f7bac40821401330d630a0d1c4f1fccfe21a5dc92e498544184",
+          "4b7cea288e605402ce6ee86ed57fca81a9c90e5e1b71e41486e361e7ae5bc51c",
+          "667896038c7412287cfc6da8e59e6f6515a9df001c1ea675c5b177a1e2084c5e",
+          "bd31e9fe916bffe6e7ef001db2b2536f93279c7da348c99f29224c5088c28ff8",
+          "c936cee0cac81202c8b019f0f4bd03ca2b7ac34ce9687f3849ae248dd50112a5",
+          "daac81fd6fb4e8124d41ec794aacf4ab0d5f5728d0be4b89762841bcddf60503",
+          "f6c1a7c20ed35a93ba71c0413c4f0f2ba11d1c54c52f5d804eaa27651c8c47d5"
+        ]
+      },
+      {
+        "id": "db05a4bb-04fa-4e3e-99e9-0d7c092331a2",
+        "label": "development-v1-1",
+        "created": "2026-10-22T10:46:58.777202+00:00",
+        "finished": "2026-10-22T10:46:59.338020+00:00",
+        "status": "complete",
+        "estimated": 570,
+        "reserved": 2296,
+        "actual": 580,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 580,
+          "completion_tokens": null,
+          "total_tokens": 580
+        },
+        "provider_request_id": "7f9c5348-5bfc-9bbe-a5af-a26ab40c2e5a",
+        "duration_ms": 542.696,
+        "run_id": "rag24-20261022-independent-v1",
+        "vector_dimensions": 1536,
+        "usage_complete": true,
+        "input_hashes": [
+          "0b8e1985b98fec893137567992c5ded2a946a0ee4c07190d190f18037b56ee8e",
+          "1094231127046dc956dae26084e21fb2a0f5a2645e08a0c830a844a5b341fbb6",
+          "21a99e08712e6f911c51ed9f6a0f389cdb83cf6dab605bb50a1eceb80c743bb6",
+          "4adc6f2aff9d43b2b6bc718f9c0ca250a64f8bb6c769c4bc59e45a9a4a25175a",
+          "547f70ebe9615f85f689b9885e873fab177995d831b0f3b014d3029e7c8d45cb",
+          "566d75295f7fcbaa811a559d46624f144b5538f9d2d719cd8de4c3dbcca14bd6",
+          "68dd5755ddfee4ebd1fa46f29f3e62d5b1da326975df18147986d5beadc2d420",
+          "74939985d81b10f283f4a73f899aebf8d2b56047ca8b8343af1426b368e807c4",
+          "c80d038ac13b9093c6117e82ba4561ced9dd5e94c1bbfa562a1f5512ac7ecf55",
+          "fff2e2841969fa257bc4db05b9811e7376ffb0bd64c5568d25939b2d8dba11b5"
+        ]
+      },
+      {
+        "id": "91b340cf-2464-4c30-a43c-3a4075d6b9c3",
+        "label": "development-v1-2",
+        "created": "2026-10-22T10:46:59.343830+00:00",
+        "finished": "2026-10-22T10:46:59.863477+00:00",
+        "status": "complete",
+        "estimated": 158,
+        "reserved": 996,
+        "actual": 168,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 168,
+          "completion_tokens": null,
+          "total_tokens": 168
+        },
+        "provider_request_id": "fa8eeab1-cafc-96e4-a213-5be55f157ab9",
+        "duration_ms": 503.68,
+        "run_id": "rag24-20261022-independent-v1",
+        "vector_dimensions": 1536,
+        "usage_complete": true,
+        "input_hashes": [
+          "19ecf2b1601a4325aa87541c2a5ca4282bfc673a7f77c180149a1389649d99fb",
+          "653c4ef95ebb7703436a57e7feae1364c63a185f50d0bc195d37b72fd4f55591",
+          "7318b098467af7c3fb31dc091757e8cd1d31c1cd378f056c0638aa8cacf704df",
+          "9b773f7bdcc47e9e7591c637120e918e28da431f3ebf7d18145d28ad82584662",
+          "a34badfd377f2f036c276ba1b8da925fa46dbf1e6c60ca014fca0def63293b51",
+          "adc2faf69895cbcc5f9034c3860cf8553ac07095f26de914206d1b4eaca5646e",
+          "c3c452c616b72ea861eaff07b2795ea6147b381af418696d4c657186fb4bb862",
+          "c4722bc0a7c77d112015dc9b0f90d1b992d8a8fa335e97623f975eac4dc7b1a8",
+          "e02731352d47a740bbe03e0af4cdd3100d334d8bb580a71f1bb7b732dcecb409",
+          "f1edc22e817698f95e699fe73b6c0e947f4423240c7987515998713ccd3a12e9"
+        ]
+      },
+      {
+        "id": "d97bb750-a32c-4bec-890d-76db30b644ae",
+        "label": "development-v1-3",
+        "created": "2026-10-22T10:46:59.868058+00:00",
+        "finished": "2026-10-22T10:47:00.390822+00:00",
+        "status": "complete",
+        "estimated": 85,
+        "reserved": 666,
+        "actual": 95,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 95,
+          "completion_tokens": null,
+          "total_tokens": 95
+        },
+        "provider_request_id": "992b306c-0073-9ad1-8f93-fbc0b687b0e0",
+        "duration_ms": 503.678,
+        "run_id": "rag24-20261022-independent-v1",
+        "vector_dimensions": 1536,
+        "usage_complete": true,
+        "input_hashes": [
+          "02ab47f2f01b4c6625645f358cec37f4eeee9fd19f3a1193d1f010d2a32b1a46",
+          "23dd5cf51c01c5165ee2aa66e6d50d27a40a1d21265e02d7f2968584860d7b51",
+          "263bfa5dd4739b9d0f4621d222414dcee4f60c9d2a38844e2bd612ab16cc42b3",
+          "3efd27a09200306668176b6ce2128299c29a2d8c7b0dc54971586ba9b306b5b1",
+          "4163722cb3132087416dfd7102009e3afba1f1eded99c642cf237699a311212f",
+          "4a2352e3b45c244676dd8dc4715881828d509fbdb6e40754823ab98d28d04395",
+          "77682e098ca9baafe8b5b20116045ad985389dafb3386bbb5ebf4d9d3e93d702",
+          "a866eb3fec1153384c0dc476dd5d5171ada1bcfb8dd3505c008712ee8372f391",
+          "b643fc0d90df653b5a03b486fd40db0a81091cf11af56101d5dd316d1abc6985",
+          "c069dc651dabd2ada6327580a8e61d3ec9fd44eabb008f542a3f7e7091ce7a38"
+        ]
+      },
+      {
+        "id": "bcb9d4b0-5311-43ac-80f5-89c64c6005a8",
+        "label": "development-v1-4",
+        "created": "2026-10-22T10:47:00.395438+00:00",
+        "finished": "2026-10-22T10:47:00.997738+00:00",
+        "status": "complete",
+        "estimated": 79,
+        "reserved": 704,
+        "actual": 89,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 89,
+          "completion_tokens": null,
+          "total_tokens": 89
+        },
+        "provider_request_id": "1ebf028d-b35c-9468-ba25-962bc736a1c1",
+        "duration_ms": 581.25,
+        "run_id": "rag24-20261022-independent-v1",
+        "vector_dimensions": 1536,
+        "usage_complete": true,
+        "input_hashes": [
+          "05acc59b2745403da503283dac84925e0b3bad55b8c13b2f7fc7381a9be229aa",
+          "07503be664be29138205ec8be3965883b5c01666075e5bb74ff8524e81e553fc",
+          "356a9ca5c5fe886434fb8a4d9dff4615f663e9d40ab497f6b7141106f7d1621d",
+          "36ff0d95f6cdaa65fdd04dc6ee7fef1a2e8b12eaccca4df1df4cbcd0cb9ad2ce",
+          "49838f4114817d5608734f5ab96875cf888083f0a584353ec4e996cb65a8a054",
+          "51436f251da65867409673f650c80d653dcd999256338d6849a68d73d575d302",
+          "829d9ea5f3ce9a0d28dd740bc35b57d5949db893dba983369f9b41a37583f452",
+          "ca68b44f9ae671dc5bd2e722d8f0fb57d4e93c02b050f2ad7a7b97807d9099eb",
+          "cce13ad44d71817823ba521dd1b4e3fa67f01d79f7165665e30a37521179fd2c",
+          "f5b6dddd280490ad411ae4c10fc865a3517bc4b3442cfe5c018489d4fdebc2cd"
+        ]
+      },
+      {
+        "id": "e9bd95ba-4b7f-4564-8217-50c2bff52e01",
+        "label": "development-v1-5",
+        "created": "2026-10-22T10:47:01.003738+00:00",
+        "finished": "2026-10-22T10:47:01.540405+00:00",
+        "status": "complete",
+        "estimated": 92,
+        "reserved": 755,
+        "actual": 102,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 102,
+          "completion_tokens": null,
+          "total_tokens": 102
+        },
+        "provider_request_id": "1d9e0f93-6802-9fa2-9758-3b654308c916",
+        "duration_ms": 518.985,
+        "run_id": "rag24-20261022-independent-v1",
+        "vector_dimensions": 1536,
+        "usage_complete": true,
+        "input_hashes": [
+          "27f7504f88a3865a0c98020c8126da1496644aecd3c76d4b2b4fcb9e6f3685c9",
+          "2dff1ee49432b792a913404517b437d0b3559e7918f5cf8d3a89aa51daae1396",
+          "68b747bce5bea2ef5218ebdfb5e737ffd4d8e0848b7d999e5b06876870fd3f2f",
+          "81ee8758e5c3134f2e948e6989dabab180816d6194033761b04dc38191500d74",
+          "97a29f8155e851f303f207bf9e9a0169dcb039773efed63f8798ffcc69698157",
+          "a6f63c4214253b5ecf4cd73903e1c55295bb90a36bd6ef43cff236f0e9ec9f82",
+          "baaec342104090a5b731225d0b2b84e028fe7f10b4067abd0cb0ae6a6f3ea7bc",
+          "d6a04597422e2d398a52b5d562bb3c69739a5732410c3a62a6298f784d95cdee",
+          "d71886f8df49fba4e3de218c8fb26f353bd188ab22543351323bd208138d05ad",
+          "f03c2f51d8e8494c73144602798251fa9c6c8e5511950c50a6840e2d20a55194"
+        ]
+      },
+      {
+        "id": "52e41daa-7c08-449b-8b50-50a7d2303968",
+        "label": "holdout-v1-0",
+        "created": "2026-10-22T11:10:44.342547+00:00",
+        "finished": "2026-10-22T11:10:45.020833+00:00",
+        "status": "complete",
+        "estimated": 452,
+        "reserved": 2296,
+        "actual": 462,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 462,
+          "completion_tokens": null,
+          "total_tokens": 462
+        },
+        "provider_request_id": "b690590d-65c6-9cd1-97df-2c0097b6da7a",
+        "duration_ms": 661.244,
+        "run_id": "rag24-20261022-independent-v1",
+        "vector_dimensions": 1536,
+        "usage_complete": true,
+        "input_hashes": [
+          "05c791914ccd1a24b8f1f64d0703d35ef37afb4a90178954ea7137b40d21f6a1",
+          "309d3f149ea4808de14211a63293779def1834ce89dee0d27ed722addb7096a9",
+          "3dee7fc18b2c8432b588fbe1713f48652708898af5f3fbe3d5d108e8da660a78",
+          "3df15febee0ac96a5591c73092fb99d77b9b11164ae922cf5dd550fe70e2f775",
+          "483fba6c5eaed050beb4bff19d9075cca85cbc2cb536b89efc87b8d88eeeae43",
+          "6c96e1f0c2d8885797c845f891bc6226fbb0ef129451b5c5c413f4c800e0c311",
+          "a49c297850cb022cb2c65e29e8213ee4f19138c8ab10ff7d4d6a5ae954b5913f",
+          "a5e482178a7589d3228c0c4182db346fec18a75ef3ba2c2b435055af2f3de4e3",
+          "dfe814799e2b03e502d2567ea4ca57069264069a2d8196ee0cf84a9fd6860c3a",
+          "e5c6bed2b2652a4af41a12b0c87e76fd219ee9814085a8e83ba873e0960b25db"
+        ]
+      },
+      {
+        "id": "d6e0e284-078d-44f5-8f99-734eb615eece",
+        "label": "holdout-v1-1",
+        "created": "2026-10-22T11:10:45.025000+00:00",
+        "finished": "2026-10-22T11:10:45.504205+00:00",
+        "status": "complete",
+        "estimated": 398,
+        "reserved": 1974,
+        "actual": 408,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 408,
+          "completion_tokens": null,
+          "total_tokens": 408
+        },
+        "provider_request_id": "4aa5fffc-8e2a-9725-afd9-34a1871f330d",
+        "duration_ms": 466.21,
+        "run_id": "rag24-20261022-independent-v1",
+        "vector_dimensions": 1536,
+        "usage_complete": true,
+        "input_hashes": [
+          "054edec2be026083e2a3cf1b974892e72c3fe0810aac5fe8a5bef7b3ac573785",
+          "0af5d351dee88da43a18105740d8ddbfa416c8840a19a135c05f1ec8cb0a2cbf",
+          "1540b36fcdd49489decb42fd037a03cf35d80ce736a0059b5bb2e5d6fd227d5a",
+          "1a1d7ae0d2e8a98175c1862d2d886c7756bd2bb34e9989dcee103442be29ccc4",
+          "22a63e1bc1d7974ccdab240f044543de0a6faf7a460d2d0c41d60e261ccc5f8d",
+          "359204578401cdc9ac428fbd19fd43716ec457c51624ab77b136935bcb169df8",
+          "9f63aa1376ed94bc4c79f66a31969f4e3a0f2a57f8a679879c7fbca9ebc013bb",
+          "a5f734a1dec28fba47a660a2f1663e5c664a83b913dc0d007624d569aba2b3b8",
+          "acfc895f7fae8f011f16bb366186506822950d30d34add6dd4dcf9081e6c7b7f",
+          "d00dcec0a6b56461e29a7ae753ad75c61cd4464c78df33221d1273ccae192bc0"
+        ]
+      },
+      {
+        "id": "8010f6ba-e108-4808-8aa3-af7bd3a08fd4",
+        "label": "holdout-v1-2",
+        "created": "2026-10-22T11:10:45.507072+00:00",
+        "finished": "2026-10-22T11:10:46.016962+00:00",
+        "status": "complete",
+        "estimated": 274,
+        "reserved": 1416,
+        "actual": 284,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 284,
+          "completion_tokens": null,
+          "total_tokens": 284
+        },
+        "provider_request_id": "a367096b-e8c2-9a57-9620-cf4ad2835e8b",
+        "duration_ms": 497.691,
+        "run_id": "rag24-20261022-independent-v1",
+        "vector_dimensions": 1536,
+        "usage_complete": true,
+        "input_hashes": [
+          "29ce8ab1d3e0b2ba5522229cac3fc42c58c495b8e6f9bac39d9787413a6c1de7",
+          "2cb870deb01e14825c32f60dd87e2e766422bd9cbc2e450fb8c61e47eceb9903",
+          "378c281f5f8642651914818bc50c67bcfb87b52e0eaf8386270d0e0f5d91494e",
+          "5ea999f444d30b15e8c4220604468e413349e39d87f3f078fcb603b0650ed152",
+          "6418ed1ff0cacc97a3c0f181cf17f72f8c5f59cda74ce6edf2545a940462ba46",
+          "7162fde6be7b93b93aa4b9602d14a53793d3ffcfa56521327a904ff9b73681b2",
+          "877af48a44300ce294bec5e9e5bdc0727ab874b863c31d930c2dbfbe4b876d63",
+          "8ad86ac6e053253cc43e8b9b1b98d7e9033049690055dda01145eca5f9161616",
+          "b4a8fa4194a2a594938a167ec64d703c398dde586cdce09c96a044effa8b23e2",
+          "dcdf4ea8b80fa5d01dd99400e979090bee786b9a865ecb8ca450c789aa4c0741"
+        ]
+      },
+      {
+        "id": "12ae14c4-8647-4263-a700-bd540c1de31e",
+        "label": "holdout-v1-3",
+        "created": "2026-10-22T11:10:46.018828+00:00",
+        "finished": "2026-10-22T11:10:46.505394+00:00",
+        "status": "complete",
+        "estimated": 91,
+        "reserved": 763,
+        "actual": 101,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 101,
+          "completion_tokens": null,
+          "total_tokens": 101
+        },
+        "provider_request_id": "bca6f110-0922-9c6c-9515-b14076b848f2",
+        "duration_ms": 471.384,
+        "run_id": "rag24-20261022-independent-v1",
+        "vector_dimensions": 1536,
+        "usage_complete": true,
+        "input_hashes": [
+          "34a3e84ca310ab312fa64efa416142159b1a4cc825e0300c0f2e4e439f21e8a0",
+          "4506a6ab37b4dcfdeefb3300653d39c4d495ed619947ee234dc072a1cb3a8281",
+          "4962a76ca14ea5fd566257e59783aebc79258bb514cd38997a8594144d21ef9f",
+          "7e66099c3b96c83bfb46026df0e1f1a3421104a97c478149740c41dce302c48c",
+          "84c46e1172cb7d8b01472e67bfd8da8f4761628580efe5fa95e99167ae9e68bd",
+          "89ab4705ac2e0b1efb8afc255ae02bd168b4c0302043ddcd79cc6ec4a4797cd9",
+          "93dcd070b71f2c96300f8d5d24f317ebf206d555e2b0cec093950869a301c00e",
+          "a97224a85df925e3144e05b9b91bc0566ef017fa835da9541d4e3dd0fbb69316",
+          "b1bbdd82900e3320c473a7e0ef4a8be2d4c89fe1564ed7998ab029ed90e5ec5b",
+          "f3640dc4e47ac399068b99b3a9af8939034c109f5d80cac44c1bf9b9e8039593"
+        ]
+      },
+      {
+        "id": "09c393a6-4e0b-461f-b3f6-d7bc0ccdd422",
+        "label": "holdout-v1-4",
+        "created": "2026-10-22T11:10:46.505394+00:00",
+        "finished": "2026-10-22T11:10:46.981431+00:00",
+        "status": "complete",
+        "estimated": 82,
+        "reserved": 693,
+        "actual": 92,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 92,
+          "completion_tokens": null,
+          "total_tokens": 92
+        },
+        "provider_request_id": "d3bdd103-bca3-9741-b621-dde9aceed6f3",
+        "duration_ms": 460.808,
+        "run_id": "rag24-20261022-independent-v1",
+        "vector_dimensions": 1536,
+        "usage_complete": true,
+        "input_hashes": [
+          "2b9e9112f18b8cc49f6466db6655660e8a24f6434ef1d785d7f9be8720a5755a",
+          "5796cf62133381eade2a5d95273083d6273ff936e45d4e30934cad36eff0d2bd",
+          "68c7cca3162912f96e9096f05a5e2a3ef9c2471fbcf0af02f14c5a0629f60ead",
+          "89d1abdc5322013c33563d5e2e652b75d24f4b75791150b413be63658aff9f85",
+          "ac98938d3ef188eda9a3ac4fc16dea0ad83bd6635e26bd6b8d556cdd8a337fd5",
+          "b13e22257207a16ccd5d08c06e9dc86ad505bed83054411e949015313ecfadfe",
+          "b7ad97de60402aa5e30f7c83daaf04fd7314885b0207b597005ddeb077c5fd97",
+          "c2577cbf1a67718c6e76ad31f6a2bdf1eda26d3aeb9cd6ba9b99e0ed4b9aae0a",
+          "d4fc670c47566183748028e6e00b19cee8e916736dc9a6b7f101d0c8e9e2411a",
+          "f7939170dfa8a24ceb072bd302dfd8647e59e83f0a67ae50dcf5ec3843997f23"
+        ]
+      },
+      {
+        "id": "cd71fc8a-5199-464c-9ea2-603ab376f490",
+        "label": "holdout-v1-5",
+        "created": "2026-10-22T11:10:46.981431+00:00",
+        "finished": "2026-10-22T11:10:47.495748+00:00",
+        "status": "complete",
+        "estimated": 86,
+        "reserved": 737,
+        "actual": 96,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 96,
+          "completion_tokens": null,
+          "total_tokens": 96
+        },
+        "provider_request_id": "e62d95a8-b516-9f9f-9096-5e62742ce024",
+        "duration_ms": 491.399,
+        "run_id": "rag24-20261022-independent-v1",
+        "vector_dimensions": 1536,
+        "usage_complete": true,
+        "input_hashes": [
+          "3dd09c7752ee9803386f4817574676ea4c1f885c15ff826c696136d43e041926",
+          "6d5e6e8cbd5bc4879ed28c6950d583299c9e797d40f13e1418d8a10347e0d29e",
+          "6f777a678334ed417c850031e25e818e388a786f84f8fac6f8ed26a9b5213ca2",
+          "ac192467495afbcd6bfea877403337404366d249bc84347417b794314d4aee8b",
+          "adaf046c29a45ee8d05147bfff41cac4f2645dd9e4d9dfab4127ff25ca5cc206",
+          "b08bd5b8f364f225f9e49718278d91888c14e2882085e30bb6b7b35d653a1e07",
+          "d6b6abba2cb9aae0298fc1d48f3780315dbbafd0056c4f0faabed68f1f2af0dd",
+          "d8089a8b0e77d875dfd9eec42a2296cd1a1c6095bd4772d7d9c900d4fed4afce",
+          "ddd1d86e7c8c1093eccee40e0e8523986eed3ee3087e303d14091e600bd8e019",
+          "de640f8f6ac845b9e12de8be0225161e08b56893acaf8c7c0f4f2b209c520f5e"
+        ]
+      },
+      {
+        "id": "5015573f-b9e0-48c9-8650-54afe5b75df4",
+        "label": "holdout-v1-6",
+        "created": "2026-10-22T11:10:47.499219+00:00",
+        "finished": "2026-10-22T11:10:47.864156+00:00",
+        "status": "complete",
+        "estimated": 16,
+        "reserved": 139,
+        "actual": 18,
+        "usage": {
+          "source": "provider",
+          "prompt_tokens": 18,
+          "completion_tokens": null,
+          "total_tokens": 18
+        },
+        "provider_request_id": "1ce26304-9ac4-9c7b-a134-f802be497044",
+        "duration_ms": 359.661,
+        "run_id": "rag24-20261022-independent-v1",
+        "vector_dimensions": 1536,
+        "usage_complete": true,
+        "input_hashes": [
+          "3663f4262330d3a45b38c436cfc94d986fcbcfc8cced12d99498e59e7eb21efc",
+          "7b885ea5f7b5e4adb2503aed4c70241f18c87ec6ddf2a2dda25585e7aa3bf6fe"
+        ]
+      }
+    ]
+  },
+  "new_http_during_retrieval": 0
+}

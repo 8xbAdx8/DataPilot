@@ -1,0 +1,114 @@
+{
+  "selected": "C",
+  "selection_basis": "user pre-stated >=90% quality thresholds; record made before holdout construction",
+  "development_corpus_sha256": "1d1ea0eaec2c5bcae9e8c48aab3cf6a5e41f66680f4e4377c34dc6a6b8e7281b",
+  "development_round": "development-04",
+  "all_rounds_preserved": [
+    "development-01",
+    "development-02",
+    "development-03",
+    "development-diagnostic-01",
+    "development-04"
+  ],
+  "scores": {
+    "metric": {
+      "cases": 9,
+      "precision_at_k": 0.25,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "correct_no_match": 0,
+      "irrelevant_source_count": 0
+    },
+    "knowledge": {
+      "cases": 6,
+      "precision_at_k": 0.25,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "correct_no_match": 0,
+      "irrelevant_source_count": 0
+    },
+    "negative": {
+      "cases": 20,
+      "precision_at_k": null,
+      "recall_at_k": null,
+      "mrr": null,
+      "ndcg_at_k": null,
+      "correct_no_match": 20,
+      "irrelevant_source_count": 0
+    },
+    "safety": {
+      "cases": 1,
+      "precision_at_k": null,
+      "recall_at_k": null,
+      "mrr": null,
+      "ndcg_at_k": null,
+      "correct_no_match": 1,
+      "irrelevant_source_count": 0
+    },
+    "reference_checks": 15,
+    "reference_errors": 0,
+    "unauthorized_leaks": 0,
+    "malicious_sources_returned": 0,
+    "agent_selection": "NOT_RUN",
+    "sql_execution": "NOT_RUN",
+    "wrong_agent_adoption": "NOT_RUN",
+    "sql_formula_compliance": "NOT_RUN",
+    "retrieval_latency_p50_ms": 40.646,
+    "retrieval_latency_p95_ms": 49.956,
+    "metric_capabilities": {
+      "formal_names": {
+        "cases": 7,
+        "hits": 7
+      },
+      "registered_aliases": {
+        "cases": 2,
+        "hits": 2
+      },
+      "ambiguous": {
+        "cases": 2,
+        "resolution_matches": 2,
+        "returned_empty": 2
+      },
+      "inapplicable": {
+        "cases": 3,
+        "resolution_matches": 3,
+        "returned_empty": 3
+      },
+      "insufficient_evidence": {
+        "cases": 2,
+        "resolution_matches": 2,
+        "returned_empty": 2
+      },
+      "not_found": {
+        "cases": 13,
+        "resolution_matches": 13,
+        "returned_empty": 13
+      }
+    }
+  },
+  "configurations": [
+    {
+      "id": "A",
+      "policy": "legacy",
+      "strategy": "vector",
+      "threshold": 0.7
+    },
+    {
+      "id": "B",
+      "policy": "registered",
+      "strategy": "vector",
+      "threshold": 0.7
+    },
+    {
+      "id": "C",
+      "policy": "registered_with_facts",
+      "strategy": "vector",
+      "threshold": 0.7
+    }
+  ],
+  "production_default_changed": false,
+  "request_count_before_holdout": 6,
+  "known_tokens_before_holdout": 1473
+}

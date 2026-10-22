@@ -1,0 +1,8 @@
+[
+  {
+    "id": "nearest",
+    "policy": "legacy",
+    "strategy": "vector",
+    "threshold": 0.0
+  }
+]

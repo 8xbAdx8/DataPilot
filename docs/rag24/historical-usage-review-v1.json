@@ -1,0 +1,22 @@
+{
+  "status": "historical_usage_remains_unknown",
+  "billing_read_attempt_eligibility": {
+    "aliyun_bss_access_credentials_available": false,
+    "aliyun_cli_credentials_available": false,
+    "deepseek_documented_key_endpoint": "current_balance_only_not_historical_request_usage"
+  },
+  "queries_sent": 0,
+  "reason": "No eligible historical billing API credential; balance cannot reconcile request usage",
+  "sources": [
+    "https://www.alibabacloud.com/help/en/user-center/developer-reference/api-overview-1",
+    "https://www.alibabacloud.com/help/en/user-center/developer-reference/request-structure",
+    "https://api-docs.deepseek.com/api/get-user-balance/"
+  ],
+  "prior_report_sha256": {
+    "metric21-baseline-v1.json": "ee776f12a67dc7a4f44cd531e2f22a76a51040d8d700d683f4f409833c19f0f1",
+    "metric21-development-live-v1.json": "c7122a50e1395317b5c69f58eb212bef25189d5e85234ff8f8c2cd6af1a4d643",
+    "metric21-legacy-live-v1.json": "b4bd7fc612ce989629f7c4f80455c3931390f9efaa92c101e5ca401390f784bd"
+  },
+  "reconciliation": "NOT_AVAILABLE",
+  "cost": null
+}

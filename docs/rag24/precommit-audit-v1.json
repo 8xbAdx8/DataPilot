@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "head_before_commit": "3e3f62fe4e73d0d8e60358d8d2b71f1215bbe52b",
+  "reachable_history": {
+    "commits": 35,
+    "unique_blobs": 559,
+    "exact_configured_key_matches": 0,
+    "forbidden_paths": 0,
+    "pattern_candidates": {
+      "secret_assignment": 51,
+      "credential_url": 40,
+      "local_path": 12
+    },
+    "classification": "unchanged inherited public demo credentials, synthetic random password expressions and historical local documentation paths"
+  },
+  "pending_index": {
+    "audited_files": 63,
+    "configured_private_values_scanned": 4,
+    "exact_private_matches": 0,
+    "forbidden_paths": 0,
+    "pattern_candidates": 0,
+    "canonical_frozen_blobs_verified": 59
+  },
+  "historical_protection": {
+    "original_files_unchanged": 87,
+    "old_blocked_report_prefix_preserved": true
+  },
+  "sensitive_runtime_files": "ignored; no private .env, DB, complete terminal logs, tokenizer, session or request headers staged",
+  "intentional_numeric_artifact": "122 synthetic-text real embeddings, numeric NPZ and SHA only; no pickle",
+  "limitations": "Pattern and known-value scanning plus diff review cannot prove absolute absence of secrets."
+}

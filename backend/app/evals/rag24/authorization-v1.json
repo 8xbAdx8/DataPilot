@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "scope": "stage24-embedding-only",
+  "run_id": "rag24-20261022-independent-v1",
+  "authorization": "Explicit user instruction: independent new trial, preserve old unknown usage and unchanged old guards",
+  "instruction_sha256": "6aadeb125fe169d278928f27caaef83b5275b56399e92213d1f35b5cbe6ebe09",
+  "prior_summary_sha256": "6e2658ffb241808c25cda118e056ee227365698039edc609d5a9d5aa923221a0",
+  "historical_chat_usage": "unknown",
+  "historical_embedding_usage": "unknown",
+  "historical_cost": "unknown",
+  "limits": {
+    "requests": 80,
+    "input_tokens": 20000,
+    "chat": 0,
+    "langsmith": 0
+  },
+  "stop_on": [
+    "missing_usage",
+    "unknown_request_status",
+    "budget_exceeded",
+    "ledger_write_failure"
+  ],
+  "old_entry_points": "unchanged_and_still_blocked",
+  "replay_of_old_requests": false
+}

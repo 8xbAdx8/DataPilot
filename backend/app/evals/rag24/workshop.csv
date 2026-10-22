@@ -1,0 +1,5 @@
+charge,parts_cost,minutes,temperature,voltage,units,state,category,batch_id,delay_days
+100,30,20,60,12,2,closed,calibration,B1,0
+80,20,15,50,11,1,rework,parts,B2,2
+60,,10,40,10,3,closed,inspection,B3,
+0,0,45,30,9,0,halted,testing,,1

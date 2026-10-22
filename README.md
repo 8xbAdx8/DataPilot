@@ -4,7 +4,11 @@
 
 ## 开发状态
 
-阶段24[真实检索准入检查](docs/PHASE24_RAG_RETRIEVAL_QUALITY.md)为 **BLOCKED**：阶段21未知usage仍触发原护栏，本轮真实Embedding/聊天/LangSmith调用均为0，没有新增真实质量分数。阶段21–23已正常推送至 `0ff41fcc6899ae3cbfc250f7980d2abf59672655`，[该提交远程CI](https://github.com/8xbAdx8/DataPilot/actions/runs/39756176681)的application与compose均成功；CI不代表真实RAG质量通过。阶段24准入回执和报告仅本地提交，以下阶段文字保留当时交付状态。
+阶段24[真实检索专项](docs/PHASE24_RAG_RETRIEVAL_QUALITY.md#2026-10-22-受控独立实验续验)取得 **检索范围 PASS**：人工复核、冻结的全新34题中，实验候选 C 的指标召回10/10、非指标召回10/10、无答案拒答10/10、4条安全探测通过，引用20/20一致。百炼真实1536维向量共13次HTTP、供应商输入usage 2934 Token；聊天/LLM裁判/LangSmith均0次。实际pgvector检索、API提交和跨连接持久化均验证。[原始结果与离线复核](docs/rag24/README.md)保留A/B失败和所有开发轮次。
+
+C 是显式实验策略，非指标知识须满足结构化的“主题+属性”契约，尚未接入生产请求；默认仍 `legacy / vector / 0.70 / none`，基线误召回风险仍存在。本轮未运行真实Agent/SQL端到端，不能据此宣称全面质量或生产发布通过。阶段21历史未知用量保持unknown，旧护栏未变；新的独立Embedding-only实验由后续用户指令明确授权，原阶段24 BLOCKED报告全文保留。本机PostgreSQL530项、SQLite506项、Playwright15项通过，另有原有条件专项跳过。
+
+阶段21–23已推送至 `0ff41fcc6899ae3cbfc250f7980d2abf59672655`，[该提交远程CI](https://github.com/8xbAdx8/DataPilot/actions/runs/39756176681)的application与compose均成功；当前阶段24新增内容仅本地提交，不能借用该CI声称新提交通过远程验收。以下阶段文字保留当时交付状态。
 
 阶段23新增[证据链与历史可解释性](docs/PHASE23_EVIDENCE_OBSERVABILITY.md)：分别保存初始候选、目录补充、计划选择、SQL 上下文和执行后指标确认；前端与历史详情读取当次授权快照，旧记录显示未记录，不重新检索。LangSmith 仅完善本地白名单及隐私测试，本轮没有真实模型、Embedding 或云端追踪调用，未解决真实语义误召回。生产默认仍为 `legacy / vector / 0.70 / none`，阶段21未知用量停止规则保持有效。
 

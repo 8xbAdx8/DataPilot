@@ -1,0 +1,6 @@
+{
+  "status": "human-confirmed",
+  "confirmed_date": "2026-10-22",
+  "scope": "28 synthetic workshop sources and 34 independent holdout queries with labels/permissions/criteria",
+  "sha256": "c084d21d5703a1a09333deaeb359002aa774cc0e9f9922dabaa48b5213cff79e"
+}
