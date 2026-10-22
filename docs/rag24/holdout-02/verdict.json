@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "scope": "real retrieval plus reference/permission/budget safety; Agent adoption and SQL execution explicitly NOT_RUN",
+  "checks": {
+    "metric_case_count": true,
+    "knowledge_case_count": true,
+    "negative_case_count": true,
+    "safety_case_count": true,
+    "metric_recall": true,
+    "knowledge_recall": true,
+    "negative_refusal": true,
+    "unauthorized_leaks": true,
+    "reference_errors": true,
+    "malicious_sources_returned": true,
+    "budget": true,
+    "cross_connection_persistence": true,
+    "cleanup": true
+  },
+  "chat_requests": 0,
+  "langsmith_requests": 0,
+  "agent_adoption": "NOT_RUN",
+  "sql_execution": "NOT_RUN",
+  "unsafe_sql_execution": {
+    "calls": 0,
+    "reason": "retrieval-only runner has no analysis execute path"
+  },
+  "freeze_sha256": "2f6a5d08e07ce6d07e8a8c14248ca47a132324c93e43c0c71213fb5f8eaa0098",
+  "raw_summary_sha256": "a7a85913db0167724ba057244e4b6aea21055cdd7bfea75bff2513176ac5af33",
+  "engineering_regression": "pending_final_results_not_part_of_retrieval_scoring"
+}

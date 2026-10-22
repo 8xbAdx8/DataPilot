@@ -2,6 +2,28 @@
 
 ## Docker Compose
 
+升级后的 PG 镜像基于原 `postgres:17-alpine` 编译 pgvector 0.8.7，保留原基础发行版和卷格式。首次从 0005 升至 0006 前先备份业务库，保证迁移账号有 CREATE EXTENSION 权限；已有旧 vector 版本需管理员先显式升级扩展。`alembic downgrade 0005` 删除新知识表/索引及其数据，会保留共享 vector 扩展和既有业务表，须先备份知识内容。单元回滚只在临时测试库执行，不能随意对业务库回退。
+
+隔离的完整离线验收使用 Compose >=2.24.4（ports `!override` / env_file `!reset`）：
+
+```powershell
+$env:COMPOSE_FILE='docker-compose.yml;infra/compose.test.yml' # Linux 用冒号分隔
+$env:COMPOSE_PROJECT_NAME='datapilot-upgrade-e2e'
+$env:SMOKE_BASE_URL='http://127.0.0.1:13000/api'
+$env:SMOKE_REQUIRE_RAG='1'
+docker compose --env-file .env.example config --quiet
+docker compose --env-file .env.example up --build --wait --wait-timeout 300
+.\.venv\Scripts\python infra/compose-smoke.py
+docker compose ps
+docker compose down # 仅停止该测试项目，保留其独立卷
+```
+
+这套栈使用 15432 / 18000 / 13000 和独立命名卷，不读开发者 .env，强制 Mock/Fake、追踪关闭。冒烟验证健康、上传、Agent/Graph、实际聚合、知识索引/引用/删除，以及密码和会话撤销；配置不是 Mock 时在调用前拒绝，避免误用真实模型。
+
+本次完整隔离栈已构建并验收通过：PG vector 0.8.7 / 迁移 0006，三个服务 healthy，HTTP 冒烟通过；生产容器同源 Edge 回归 13 passed。若要复跑浏览器测试，在上述终端另设 `DATABASE_URL=postgresql+psycopg://datapilot:datapilot_local@127.0.0.1:15432/datapilot` 和 `E2E_BASE_URL=http://127.0.0.1:13000`，再 `npm --prefix frontend run test:e2e`。CLI 测试账户必须创建在对应隔离数据库，不能误写本机业务库后去容器登录。恢复日常开发时关闭该测试终端的变量或新开终端。
+
+Docker Hub 不通时可在本终端显式设置 `PYTHON_BUILD_IMAGE=public.ecr.aws/docker/library/python:3.12-slim`、`NODE_BUILD_IMAGE=public.ecr.aws/docker/library/node:24-alpine`、`POSTGRES_BUILD_IMAGE=public.ecr.aws/docker/library/postgres:17-alpine`，再构建隔离栈。这是 AWS 官方公布的 Docker Official Images 镜像源；Dockerfile 默认不变。镜像可配置不代表网络问题已解决，实际验收状态见 [升级验收](UPGRADE_ACCEPTANCE.md)。使用完测试终端变量后，新开终端恢复普通 Compose 配置。
+
 ```powershell
 if (!(Test-Path .env)) { Copy-Item .env.example .env }
 docker compose config --quiet
@@ -25,7 +47,7 @@ docker compose down # 停止，不删除命名卷
 
 不要随意执行 `down -v`，它会删除数据库与分析数据。所有发布端口仅绑定本机；平台登录账户与 PostgreSQL 连接账户彼此独立。数据库默认密码只用于本地演示。修改密码时，连接 URL 中的保留字符需 URL 编码。
 
-**实际验收状态（2026-10-19 复核）：** [GitHub Actions 首轮运行](https://github.com/8xbAdx8/DataPilot/actions/runs/39051736631) 的 `application` 与 `compose` 作业均成功。Linux runner 已完成镜像构建、PostgreSQL/后端/前端健康检查和同源真实查询冒烟。Windows 本机 Docker Desktop 在 `dockerInference` 套接字初始化时退出的问题仍未修复；本机使用原生 PostgreSQL / Python / Node。Linux 验收成功不代表 Windows 引擎恢复，也不代表真实模型 API 已验证。
+**历史验收状态（2026-10-19 复核）：** [GitHub Actions 首轮运行](https://github.com/8xbAdx8/DataPilot/actions/runs/39051736631) 的 `application` 与 `compose` 作业均成功。当时 Linux runner 已完成镜像构建、PostgreSQL/后端/前端健康检查和同源真实查询冒烟，Windows 引擎受阻。2026-10-20 本次引擎已可运行，升级后镜像和网络的实际验收单独记录在 [升级验收](UPGRADE_ACCEPTANCE.md)，不沿用历史绿色状态。
 
 ## 当前机器的原生 PostgreSQL
 
@@ -47,6 +69,8 @@ docker compose down # 停止，不删除命名卷
 | --- | --- | --- |
 | 原始上传文件 | 导入期间 | 导入后关闭上传临时文件，不保留原件 |
 | DuckDB 与数据集元信息 | 创建后 30 天 | 清理命令删除过期数据集及其历史/快照 |
+| 数据集知识与向量 | 随数据集保留，或手动删除 | 删除数据集级联清理；当前公开 API 仅创建数据集作用域知识 |
+| 结果中的知识引用快照 | 随分析历史 30 天 | 删知识后新查询不再命中，旧历史仍保留有界来源文本 |
 | 结果快照 | 分析后 7 天 | 清理后历史仍可查看，导出返回 410 |
 | 分析历史元信息 | 分析后 30 天 | 删除历史，避免 PostgreSQL 持续增长 |
 | 审计记录 | 90 天 | 独立保留事件、ID、原因；不复制整份问题和结果 |
@@ -111,3 +135,27 @@ docker compose exec backend python -m app.accounts reset-password --username ali
 0005 为会话新增独立公开 UUID 和创建时间。旧会话令牌继续有效，创建时间保留 NULL，界面显示“未知”；新会话记录真实时间。先 `alembic upgrade head`，再重启后端；就绪检查会拒绝缺少新列的旧 schema。回退仅在独立测试库验证，业务库回退前需备份并停止新版服务。
 
 登录与密码再确认共享每账户 15 分钟 / 5 次失败窗口；换接口或换会话不能增加猜测额度。改密、重置、登录和会话撤销通过 PostgreSQL 行锁串行化，等待后重新读取密码与当前会话；不能只在请求开始时认证一次。会话撤销阻止后续请求，已被接纳的分析或导出可能完成，不会强行取消已运行的 DuckDB 进程。
+
+
+## 阶段17–19验收入口
+
+普通服务继续使用 `docker compose up -d --build`；PostgreSQL健康后migrate升级到head，再启动FastAPI，最后启动Next.js。各容器承担独立职责，前端通过代理调用API，DuckDB只查询上传数据，平台PostgreSQL从不交给模型执行SQL。
+
+完整迁移演练可在仓库根运行 `.venv/Scripts/python infra/check-migrations.py --disposable --host 127.0.0.1`。脚本创建随机独立数据库，连续upgrade/check、downgrade到base后再upgrade/check；只删除自己成功创建的临时库，不回退配置中的业务库。需要本机数据库管理员允许CREATE DATABASE；不要在生产数据库使用直接downgrade做演练。
+
+真实专项默认不运行。`frontend/e2e/phase19-live.spec.ts` 要求 `RUN_PHASE19_LIVE=1`，只允许合成数据，逐案例检查预算，独占证据文件防止自动重跑；另一精确名称诊断要求 `RUN_PHASE19_DIAGNOSTIC=1`，读取已存在的主验收预算记录，且不改原4/5结论。E2E_BASE_URL与DATABASE_URL必须指向同一独立测试栈。真实Key只经后端本地env_file传入，前端和测试输出不得包含Key。结束恢复Mock/Fake、关闭云端追踪并清理自己的测试项目。阶段19原始结果及失败见[发布准备](PHASE19_RELEASE_READINESS.md)。
+
+
+阶段21注册指标可在现有“业务知识管理”中选择metric_definition，标题与JSON name一致，内容格式见[指标契约](METRIC_DEFINITIONS.md)。既有KnowledgeDocument.content存储即可，不需要迁移。复杂旧文本先转换为明确JSON；无法证明适用性时返回澄清，不能通过增加工具预算或降低检索阈值解决。真实开发CLI `app.metric21_acceptance` 显式要求RUN_LIVE_METRIC21=1；原始证据路径独占、90k停止线、下一案例70k保守预留。前次报告出现未知usage/未结束时，CLI在任何新调用前拒绝。本轮未知用量后保持停止，不重跑旧题；费用和完整Token未知。具体服务失败与已验证范围见[阶段21报告](PHASE21_METRIC_DISCOVERY.md)。
+
+## 阶段23证据快照与历史
+
+本阶段复用 `Analysis.telemetry` JSON，迁移head仍为0006，无需回填旧分析。新记录的 `workflow.rag.evidence.version=1` 保存授权知识的标题、文档/片段ID、文档版本及最多800字符的片段快照（最多96条），以及候选、来源类别、选择、上下文和校验/执行状态。该快照是业务数据，只对分析所属数据集的当前所有者开放；不要直接公开telemetry或数据库备份。
+
+历史详情只读取当次快照，不重新检索、查询指标目录或调用模型。原知识更新/删除后，分析快照继续保留以解释原结果；删除原知识不等于删除历史快照。快照随分析保留策略清理，默认历史30天、结果文件7天，数据集删除同时移除关联历史。旧记录不补造证据，界面显示“历史记录未包含该证据”。
+
+`selected_source_ids`表示计划选择；`context_source_ids`仅表示已传入SQL Provider调用；`used_source_ids`要求SQLGlot/Schema、登记指标契约、DuckDB及结果结构均通过。Schema或字段别名查询即使计算成功，也不自动确认采用指标。旧`rag.used`仅为兼容字段，不应解释为执行后已使用来源。
+
+如果最终数据库提交失败，接口返回503、结果文件移除、本地追踪决策为error；数据库中可能只有最初的running记录，无法承诺恢复未持久化的完整证据。现有maintenance会处理超过10分钟的中断记录，默认先dry-run，确认后再apply。不要通过重新RAG重建这类历史。
+
+生产默认继续 `legacy / vector / 0.70 / none`、LangSmith关闭。普通测试用独立Mock/Fake栈，不能据此宣称真实语义质量或云端追踪通过；阶段21未知用量停止规则继续生效。[阶段23完整验收](PHASE23_EVIDENCE_OBSERVABILITY.md)。

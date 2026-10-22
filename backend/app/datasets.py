@@ -13,7 +13,7 @@ from app.config import Settings, get_settings
 from app.db import get_session
 from app.errors import AppError
 from app.ingestion import import_dataset
-from app.models import Analysis, AuditEvent, Dataset
+from app.models import Analysis, AuditEvent, Dataset, KnowledgeChunk, KnowledgeDocument
 from app.rate_limits import consume
 
 router = APIRouter(prefix="/api/datasets", tags=["datasets"])
@@ -139,6 +139,11 @@ def remove_dataset(session: Session, settings: Settings, dataset: Dataset):
             target.replace(trash)
             moved = True
         session.execute(delete(Analysis).where(Analysis.dataset_id == dataset.id))
+        document_ids = select(KnowledgeDocument.id).where(
+            KnowledgeDocument.dataset_id == dataset.id
+        )
+        session.execute(delete(KnowledgeChunk).where(KnowledgeChunk.document_id.in_(document_ids)))
+        session.execute(delete(KnowledgeDocument).where(KnowledgeDocument.dataset_id == dataset.id))
         session.add(AuditEvent(event="dataset_deleted", dataset_id=dataset.id))
         session.delete(dataset)
         session.commit()

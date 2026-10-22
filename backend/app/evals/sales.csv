@@ -1,0 +1,5 @@
+date,region,revenue,cost,status
+2026-01-01,East,10,4,paid
+2026-01-10,West,20,8,paid
+2026-02-01,East,30,12,refund
+2026-02-10,North,,3,paid

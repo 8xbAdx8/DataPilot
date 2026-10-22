@@ -1,0 +1,156 @@
+{
+  "id": "h29-16",
+  "query": "成片备份保存期？",
+  "kind": "structured",
+  "relevant_ids": [
+    "backup"
+  ],
+  "A": {
+    "ids": [
+      "backup"
+    ],
+    "sources": [
+      {
+        "chunk_id": "a1a11953-7a0a-4535-99d5-482af4e4001e",
+        "document_id": "78c03ba4-4f45-4197-b747-f8f42aed8e66",
+        "chunk_index": 0,
+        "title": "成片备份",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"成片备份\",\"required_fields\":[],\"facts\":[{\"aspect\":\"保存期\",\"answer\":\"保存三十天。\"}]}",
+        "similarity": 0.889912
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "a1a11953-7a0a-4535-99d5-482af4e4001e",
+        "document_id": "78c03ba4-4f45-4197-b747-f8f42aed8e66",
+        "chunk_index": 0,
+        "title": "成片备份",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"成片备份\",\"required_fields\":[],\"facts\":[{\"aspect\":\"保存期\",\"answer\":\"保存三十天。\"}]}",
+        "similarity": 0.889912
+      }
+    ],
+    "decision": {},
+    "references": [
+      {
+        "chunk_id": "a1a11953-7a0a-4535-99d5-482af4e4001e",
+        "document_id": "78c03ba4-4f45-4197-b747-f8f42aed8e66",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "a1a11953-7a0a-4535-99d5-482af4e4001e",
+        "document_id": "78c03ba4-4f45-4197-b747-f8f42aed8e66",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "a1a11953-7a0a-4535-99d5-482af4e4001e",
+            "document_id": "78c03ba4-4f45-4197-b747-f8f42aed8e66",
+            "similarity": 0.889912
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "a1a11953-7a0a-4535-99d5-482af4e4001e",
+            "document_id": "78c03ba4-4f45-4197-b747-f8f42aed8e66",
+            "similarity": 0.889912
+          }
+        ]
+      }
+    ],
+    "latency_ms": 12.502,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [
+      "backup"
+    ],
+    "sources": [
+      {
+        "chunk_id": "a1a11953-7a0a-4535-99d5-482af4e4001e",
+        "document_id": "78c03ba4-4f45-4197-b747-f8f42aed8e66",
+        "chunk_index": 0,
+        "title": "成片备份",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"成片备份\",\"required_fields\":[],\"facts\":[{\"aspect\":\"保存期\",\"answer\":\"保存三十天。\"}]}",
+        "similarity": 0.889912
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "a1a11953-7a0a-4535-99d5-482af4e4001e",
+        "document_id": "78c03ba4-4f45-4197-b747-f8f42aed8e66",
+        "chunk_index": 0,
+        "title": "成片备份",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"成片备份\",\"required_fields\":[],\"facts\":[{\"aspect\":\"保存期\",\"answer\":\"保存三十天。\"}]}",
+        "similarity": 0.889912
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "knowledge",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [
+        {
+          "chunk_id": "a1a11953-7a0a-4535-99d5-482af4e4001e",
+          "origin": "vector_candidate"
+        }
+      ],
+      "matched_fact_count": 1,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "references": [
+      {
+        "chunk_id": "a1a11953-7a0a-4535-99d5-482af4e4001e",
+        "document_id": "78c03ba4-4f45-4197-b747-f8f42aed8e66",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "a1a11953-7a0a-4535-99d5-482af4e4001e",
+        "document_id": "78c03ba4-4f45-4197-b747-f8f42aed8e66",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "a1a11953-7a0a-4535-99d5-482af4e4001e",
+            "document_id": "78c03ba4-4f45-4197-b747-f8f42aed8e66",
+            "similarity": 0.889912
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "a1a11953-7a0a-4535-99d5-482af4e4001e",
+            "document_id": "78c03ba4-4f45-4197-b747-f8f42aed8e66",
+            "similarity": 0.889912
+          }
+        ]
+      }
+    ],
+    "latency_ms": 28.14,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

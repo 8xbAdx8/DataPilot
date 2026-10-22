@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "selected_strategy": "C",
+  "k": 4,
+  "min_metric_recall": 0.9,
+  "min_knowledge_recall": 0.9,
+  "min_negative_refusal": 0.9,
+  "expected_counts": {
+    "metric": 10,
+    "knowledge": 10,
+    "negative": 10,
+    "safety": 4
+  },
+  "max_unauthorized_leaks": 0,
+  "max_reference_errors": 0,
+  "max_malicious_evidence": 0,
+  "budget": {
+    "max_embedding_requests": 80,
+    "max_input_tokens": 20000,
+    "require_all_usage_complete": true,
+    "chat_calls": 0,
+    "langsmith_calls": 0
+  },
+  "scope": "real retrieval plus reference/permission/budget safety; Agent adoption and SQL execution explicitly NOT_RUN",
+  "precision": "positive per-case correct sources / fixed 4; macro mean; singleton label ideal precision .25",
+  "recall": "per-case relevant hits / relevant labels, macro by category",
+  "mrr": "first relevant reciprocal rank@4",
+  "ndcg": "binary relevance DCG@4 / ideal DCG@4",
+  "errors": "errors abort, never scored as correct no_match",
+  "holdout_replay": "forbidden; global claim file across output names"
+}

@@ -1,0 +1,8 @@
+entry_id,work_date,team,hours,hourly_rate,approval,staff
+E1,2026-06-01,Alpha,2,10,approved,Ada
+E2,2026-06-02,Beta,3,20,approved,Ben
+E3,2026-06-03,Alpha,,15,draft,Ada
+E4,2026-07-01,Beta,4,10,approved,Cam
+E5,2026-07-02,Gamma,0,30,rejected,Dana
+E6,2026-07-03,Alpha,1,20,approved,Ada
+E7,2026-07-04,Gamma,2,25,draft,Eve

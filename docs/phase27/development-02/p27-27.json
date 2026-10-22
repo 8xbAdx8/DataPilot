@@ -1,0 +1,372 @@
+{
+  "id": "p27-27",
+  "query": "箱温过高后复工条件和批准人？",
+  "kind": "multi",
+  "relevant_ids": [
+    "cold",
+    "restart"
+  ],
+  "A": {
+    "ids": [
+      "restart"
+    ],
+    "sources": [
+      {
+        "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+        "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+        "chunk_index": 0,
+        "title": "异常复工",
+        "source_type": "business_rule",
+        "excerpt": "温控异常复工须由值班员确认。食品污染疑点必须由质检员解除。",
+        "similarity": 0.719895
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+        "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+        "chunk_index": 0,
+        "title": "异常复工",
+        "source_type": "business_rule",
+        "excerpt": "温控异常复工须由值班员确认。食品污染疑点必须由质检员解除。",
+        "similarity": 0.719895
+      }
+    ],
+    "decision": {},
+    "authenticity": [
+      {
+        "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+            "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+            "similarity": 0.719895
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+            "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+            "similarity": 0.719895
+          }
+        ]
+      }
+    ],
+    "latency_ms": 13.813,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+        "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+        "chunk_index": 0,
+        "title": "异常复工",
+        "source_type": "business_rule",
+        "excerpt": "温控异常复工须由值班员确认。食品污染疑点必须由质检员解除。",
+        "similarity": 0.719895
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+            "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+            "similarity": 0.719895
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+            "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+            "similarity": 0.719895
+          }
+        ]
+      }
+    ],
+    "latency_ms": 18.894,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+        "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+        "chunk_index": 0,
+        "title": "异常复工",
+        "source_type": "business_rule",
+        "excerpt": "温控异常复工须由值班员确认。食品污染疑点必须由质检员解除。",
+        "similarity": 0.719895,
+        "vector_rank": 1,
+        "lexical_rank": 3,
+        "fusion_score": 0.032266458495966696
+      },
+      {
+        "chunk_id": "8c8ba4d1-6c9c-4f78-a432-434515244869",
+        "document_id": "6ab0e93d-c633-42f9-9ab8-937d01ab740f",
+        "chunk_index": 0,
+        "title": "雨后复工",
+        "source_type": "business_rule",
+        "excerpt": "雨后地面无积水方可复工。雷电预警未解除时仍须停工。",
+        "similarity": 0.600856,
+        "vector_rank": 3,
+        "lexical_rank": 1,
+        "fusion_score": 0.032266458495966696
+      },
+      {
+        "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+        "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+        "chunk_index": 0,
+        "title": "冷藏箱作业",
+        "source_type": "business_rule",
+        "excerpt": "冷藏箱放置阴凉处。\n箱温高于8度暂停装箱，恢复合规后再开工。",
+        "similarity": 0.634376,
+        "vector_rank": 2,
+        "lexical_rank": 2,
+        "fusion_score": 0.03225806451612903
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "insufficient_evidence",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+          "lexical_char_coverage": 0.824632,
+          "cosine": 0.719895,
+          "vector_rank": 1,
+          "lexical_rank": 3,
+          "fusion_score": 0.032266458495966696,
+          "attribute_supported": true
+        },
+        {
+          "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+          "lexical_char_coverage": 0.649263,
+          "cosine": 0.634376,
+          "vector_rank": 2,
+          "lexical_rank": 2,
+          "fusion_score": 0.03225806451612903,
+          "attribute_supported": true
+        },
+        {
+          "chunk_id": "8c8ba4d1-6c9c-4f78-a432-434515244869",
+          "lexical_char_coverage": 0.207151,
+          "cosine": 0.600856,
+          "vector_rank": 3,
+          "lexical_rank": 1,
+          "fusion_score": 0.032266458495966696,
+          "attribute_supported": true
+        }
+      ],
+      "source_origins": [],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      },
+      {
+        "chunk_id": "8c8ba4d1-6c9c-4f78-a432-434515244869",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      },
+      {
+        "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+            "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+            "similarity": 0.719895
+          },
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.634376
+          },
+          {
+            "chunk_id": "8c8ba4d1-6c9c-4f78-a432-434515244869",
+            "document_id": "6ab0e93d-c633-42f9-9ab8-937d01ab740f",
+            "similarity": 0.600856
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": [
+          {
+            "chunk_id": "8c8ba4d1-6c9c-4f78-a432-434515244869",
+            "document_id": "6ab0e93d-c633-42f9-9ab8-937d01ab740f",
+            "similarity": 0.600856,
+            "vector_rank": 3,
+            "lexical_rank": 1
+          },
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.634376,
+            "vector_rank": 2,
+            "lexical_rank": 2
+          },
+          {
+            "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+            "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+            "similarity": 0.719895,
+            "vector_rank": 1,
+            "lexical_rank": 3
+          }
+        ]
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+            "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+            "similarity": 0.719895,
+            "vector_rank": 1,
+            "lexical_rank": 3,
+            "fusion_score": 0.032266458495966696
+          },
+          {
+            "chunk_id": "8c8ba4d1-6c9c-4f78-a432-434515244869",
+            "document_id": "6ab0e93d-c633-42f9-9ab8-937d01ab740f",
+            "similarity": 0.600856,
+            "vector_rank": 3,
+            "lexical_rank": 1,
+            "fusion_score": 0.032266458495966696
+          },
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.634376,
+            "vector_rank": 2,
+            "lexical_rank": 2,
+            "fusion_score": 0.03225806451612903
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+            "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+            "similarity": 0.719895,
+            "vector_rank": 1,
+            "lexical_rank": 3,
+            "fusion_score": 0.032266458495966696
+          },
+          {
+            "chunk_id": "8c8ba4d1-6c9c-4f78-a432-434515244869",
+            "document_id": "6ab0e93d-c633-42f9-9ab8-937d01ab740f",
+            "similarity": 0.600856,
+            "vector_rank": 3,
+            "lexical_rank": 1,
+            "fusion_score": 0.032266458495966696
+          },
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.634376,
+            "vector_rank": 2,
+            "lexical_rank": 2,
+            "fusion_score": 0.03225806451612903
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "58695a0e-c956-47ac-97aa-41db6d9f2117",
+            "document_id": "3c5f4133-8af0-4689-8277-7e85ffa0fcfa",
+            "similarity": 0.719895,
+            "vector_rank": 1,
+            "lexical_rank": 3,
+            "fusion_score": 0.032266458495966696
+          },
+          {
+            "chunk_id": "8c8ba4d1-6c9c-4f78-a432-434515244869",
+            "document_id": "6ab0e93d-c633-42f9-9ab8-937d01ab740f",
+            "similarity": 0.600856,
+            "vector_rank": 3,
+            "lexical_rank": 1,
+            "fusion_score": 0.032266458495966696
+          },
+          {
+            "chunk_id": "05a6a480-bed7-4cb7-aea0-68b48cbd6266",
+            "document_id": "81f22764-f6f8-49be-8707-33a1b972514d",
+            "similarity": 0.634376,
+            "vector_rank": 2,
+            "lexical_rank": 2,
+            "fusion_score": 0.03225806451612903
+          }
+        ]
+      }
+    ],
+    "latency_ms": 37.787,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

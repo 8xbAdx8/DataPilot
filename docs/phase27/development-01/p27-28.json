@@ -1,0 +1,173 @@
+{
+  "id": "p27-28",
+  "query": "落地疑污染果如何隔离及谁批准放行？",
+  "kind": "multi",
+  "relevant_ids": [
+    "fallen",
+    "samples",
+    "restart"
+  ],
+  "A": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [],
+    "decision": {},
+    "authenticity": [],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": []
+      },
+      {
+        "stage": "selected",
+        "candidates": []
+      }
+    ],
+    "latency_ms": 11.929,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 0,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": []
+      },
+      {
+        "stage": "selected",
+        "candidates": []
+      }
+    ],
+    "latency_ms": 13.767,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "02c884b0-6efb-4b5b-8d92-eb912847ef05",
+        "document_id": "fd631381-fe7f-438c-b0fb-b5d7e8893a39",
+        "chunk_index": 0,
+        "title": "跌落处置",
+        "source_type": "business_rule",
+        "excerpt": "落地果只送堆肥区，不得混入商品箱。疑似受污染果须隔离。",
+        "similarity": 0.678388,
+        "vector_rank": 1,
+        "lexical_rank": 1,
+        "fusion_score": 0.03278688524590164
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "insufficient_evidence",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "02c884b0-6efb-4b5b-8d92-eb912847ef05",
+          "lexical_char_coverage": 0.541544,
+          "cosine": 0.678388,
+          "vector_rank": 1,
+          "lexical_rank": 1,
+          "fusion_score": 0.03278688524590164,
+          "attribute_supported": true
+        }
+      ],
+      "source_origins": [],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "02c884b0-6efb-4b5b-8d92-eb912847ef05",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "02c884b0-6efb-4b5b-8d92-eb912847ef05",
+            "document_id": "fd631381-fe7f-438c-b0fb-b5d7e8893a39",
+            "similarity": 0.678388
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": [
+          {
+            "chunk_id": "02c884b0-6efb-4b5b-8d92-eb912847ef05",
+            "document_id": "fd631381-fe7f-438c-b0fb-b5d7e8893a39",
+            "similarity": 0.678388,
+            "vector_rank": 1,
+            "lexical_rank": 1
+          }
+        ]
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "02c884b0-6efb-4b5b-8d92-eb912847ef05",
+            "document_id": "fd631381-fe7f-438c-b0fb-b5d7e8893a39",
+            "similarity": 0.678388,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "02c884b0-6efb-4b5b-8d92-eb912847ef05",
+            "document_id": "fd631381-fe7f-438c-b0fb-b5d7e8893a39",
+            "similarity": 0.678388,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "02c884b0-6efb-4b5b-8d92-eb912847ef05",
+            "document_id": "fd631381-fe7f-438c-b0fb-b5d7e8893a39",
+            "similarity": 0.678388,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      }
+    ],
+    "latency_ms": 41.969,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

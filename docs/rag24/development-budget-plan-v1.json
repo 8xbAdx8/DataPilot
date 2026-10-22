@@ -1,0 +1,20 @@
+{
+  "authorization_sha256": "794816ee708f5dbb0781ea56cf6ab69b55e906718bf20146fcd2e79db8efe2f8",
+  "head": "3e3f62fe4e73d0d8e60358d8d2b71f1215bbe52b",
+  "source_sha256": {
+    "rag24_budget.py": "02a21920290d7a4bfd5efbef33e142f2157baa25780ca3198172e50d8cf8ccef",
+    "rag24_evaluate.py": "81edacc04eb890b2ac4244e96bac7a5f04d138fedeaf1a824d0e6f6eefdcab08",
+    "embeddings.py": "cf47539de50bc9e2c9b9176b3c3b5f48695f6642aba4b526560c1e1af2eff21b",
+    "knowledge.py": "b19a40e803dc2e51cc9a9fd461cf195cb22532ad8929ff97e8efc144965498b3",
+    "retrieval.py": "0a23c3e9da429d51af20f9eda33592d88cf648f2ebef4d1d0bbc683186669903",
+    "retrieval_evidence.py": "50c9859a8cc8fdd1372ddd0a12f067b212dfe86cf11ecbd9e15f6ac09231c9ab",
+    "metric_resolution.py": "b79a96f1411628878c758f323f28bb29471dce6385658f22ea0b9a8e46036674"
+  },
+  "corpus_sha256": "1d1ea0eaec2c5bcae9e8c48aab3cf6a5e41f66680f4e4377c34dc6a6b8e7281b",
+  "unique_texts": 60,
+  "local_estimate": 1413,
+  "conservative_reservation": 7191,
+  "holdout_envelope": 10000,
+  "tokenizer_sha256": "def76fb086971c7867b829c23a26261e38d9d74e02139253b38aeb9df8b4b50a",
+  "max_batch": 10
+}

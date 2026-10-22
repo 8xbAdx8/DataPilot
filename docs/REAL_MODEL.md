@@ -1,5 +1,11 @@
 # 接入真实模型
 
+升级后聊天与 Embedding 是独立能力。Agent 复用聊天 Key/模型配置创建专用 LangChain 适配器；DeepSeek/OpenAI 原生工具通过 `RUN_LIVE_AGENT=1` 专项验证，通用兼容端点还需 `AGENT_NATIVE_TOOLS=true`。不能从“SQL JSON 能调用”推断“原生工具能调用”。只想使用原有单轮 SQL 接口时，可显式 `AGENT_ENABLED=false`；所有模式都执行相同 SQL 安全校验。
+
+知识索引使用独立 Embedding 配置，默认 `none`，不复用 DeepSeek 聊天 Key。[阶段 10](PHASE10_EMBEDDING_RAG.md)已实测阿里云百炼：`EMBEDDING_PROVIDER=openai_compatible`、`EMBEDDING_MODEL=text-embedding-v4`、独立 `EMBEDDING_API_KEY`、`EMBEDDING_DIMENSIONS=1536`，Base URL 使用与 Key 同地域/业务空间的兼容根地址。真实向量、语义检索和浏览器 RAG 闭环通过；OpenAI 官方 Embedding 服务尚未实际调用。`fake` 仅用于演示词项哈希检索，页面会显示测试向量提示。配置新服务后先启用对应真实专项，再为该模型空间重建索引。
+
+真实专项默认关闭，参见 [固定评估](EVALUATION.md)。[阶段 9](PHASE9_INTEGRATION.md)验证真实聊天部分链路，[阶段 10](PHASE10_EMBEDDING_RAG.md)补齐真实 Embedding、语义 RAG 和生产容器浏览器，[阶段 11](PHASE11_LIVE_EVALUATION.md)完成统一 29 题两模式真实评测，严格质量验收未通过，失败归因和原始记录完整保留。[阶段 12](PHASE12_AGENT_RELIABILITY.md)在新的明确契约题集上验证预算收敛与澄清，开发/验证增强各 6/6 通过，但不同题集不能当作旧分数的直接提升。LangSmith 云端仍未运行。下方首次单题记录属于升级前证据。常驻开发验收进程仍为 Mock/Fake；阶段 10 使用独立临时真实栈并已清理。用户 `.env` 中的真实配置保留，新启动进程可读取；已有进程的环境变量覆盖和设置缓存需要重启后核对 `/api/config`。
+
 项目已有兼容 Chat Completions 的 Provider。首次可使用 DeepSeek；这里不涉及部署模型或训练模型，而是由 FastAPI 调用提供商 API 生成 SQL，再由本地安全校验和 DuckDB 执行。
 
 ## 1. 创建 API Key
@@ -30,7 +36,7 @@ LLM_TIMEOUT_SECONDS=60
 .\.venv\Scripts\python -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000 --no-access-log
 ```
 
-配置在进程内缓存，编辑 `.env` 后必须重启。前端通常无需重启；刷新页面后确认提供商和模型已更新。使用 Docker 时需 `docker compose up -d --build --force-recreate backend`；单独 restart 不会重新加载容器的 env_file。当前机器 Windows Docker 引擎仍有问题，优先使用原生服务。
+配置在进程内缓存，编辑 `.env` 后必须重启。前端通常无需重启；刷新页面后确认提供商和模型已更新。使用 Docker 时需 `docker compose up -d --build --force-recreate backend`；单独 restart 不会重新加载容器的 env_file。当前原生服务与隔离容器验收使用不同端口，具体状态见升级验收。
 
 ## 4. 跑一次真实 API 测试
 

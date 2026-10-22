@@ -16,6 +16,10 @@
 
 ## 面试中解释设计
 
+新增 RAG 演示：显式使用 `LLM_PROVIDER=mock`、`EMBEDDING_PROVIDER=fake`、`RAG_MIN_SIMILARITY=0.05` 启动后端，登录上传 `backend/app/evals/sales.csv`。点击“管理业务知识”，添加标题“销售额”、类型“字段别名”、内容 `{"alias":"销售额","field":"revenue"}`。提问“销售额总和”，应得到 60 和真实知识引用；删除知识后，新分析不再检索它。问“分析一下”应先澄清，不执行 SQL。界面显示测试向量，不能向面试官声称它代表真实语义质量。
+
+补充设计问题：LangGraph 控制节点与有限修复，LangChain Agent 选择有权限和预算约束的工具；pgvector 先做 owner/dataset 过滤再计算距离；RAG 只补充业务语义，数值仍由 DuckDB 计算；LangSmith 默认禁用且只上传白名单元数据。展示 [评估对照](EVALUATION.md) 中调用增加与延迟代价，解释为什么 29 道受控题不能代表真实模型准确率。源代码、固定预期和实际测试结果是证据。
+
 - **为什么前后端分开？** Next.js 管理上传/提问/结果交互，FastAPI 复用 Python 数据生态，强制校验在后端；两者独立构建测试。
 - **为什么两种数据库？** PostgreSQL 负责元信息和事务；DuckDB 处理上传数据的聚合。查询进程没有平台数据库连接，模型 SQL 只能访问当前 `data` 表。
 - **为什么不能只用提示词？** 模型输出不可信。SQLGlot AST、真实 Schema 和函数白名单先检查；受限子进程再控制执行时间、内存和输出大小。

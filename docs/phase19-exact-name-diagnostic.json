@@ -1,0 +1,134 @@
+{
+  "status": "passed",
+  "preserves_initial_result": "phase19-live-browser.json 4/5",
+  "prior_chat_tokens": 16320,
+  "total_chat_tokens": 20120,
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "sql": "SELECT \"data\".\"region\" AS \"region\", SUM(\"data\".\"revenue\") - SUM(\"data\".\"cost\") AS \"net_contribution\" FROM \"data\" AS \"data\" WHERE \"data\".\"status\" = 'paid' GROUP BY \"data\".\"region\" ORDER BY \"region\" ASC",
+  "rows": [
+    {
+      "region": "East",
+      "net_contribution": 6
+    },
+    {
+      "region": "West",
+      "net_contribution": 12
+    }
+  ],
+  "chart": {
+    "kind": "bar",
+    "x": "region",
+    "y": "net_contribution",
+    "reason": "图表逐行使用本次查询结果，不补数或重算。"
+  },
+  "telemetry": {
+    "timings_ms": {
+      "provider": 2235,
+      "sql_guard": 2,
+      "query": 743,
+      "persist": 0
+    },
+    "usage": {
+      "source": "provider",
+      "prompt_tokens": 687,
+      "completion_tokens": 72,
+      "total_tokens": 759
+    },
+    "workflow": {
+      "engine": "langgraph",
+      "nodes": [
+        "prepare",
+        "retrieve",
+        "plan",
+        "generate",
+        "validate",
+        "execute",
+        "check_result"
+      ],
+      "stage_timings_ms": {
+        "prepare": 0,
+        "retrieve": 2068,
+        "plan": 3518,
+        "generate": 2235,
+        "validate": 2,
+        "execute": 743,
+        "check_result": 0
+      },
+      "repair_attempts": 0,
+      "sql_model_calls": 1,
+      "validations": [
+        {
+          "status": "approved",
+          "attempt": 0
+        }
+      ],
+      "plan": {
+        "metrics": [
+          "净贡献额 = SUM(revenue) - SUM(cost)，仅统计 status='paid'"
+        ],
+        "dimensions": [
+          "region"
+        ],
+        "filters": [
+          "status = 'paid'（退款订单不计入）"
+        ],
+        "time_range": null,
+        "ordering": [
+          "region ASC"
+        ],
+        "top_n": null,
+        "needs_clarification": false,
+        "clarification_questions": [],
+        "knowledge_chunk_ids": [
+          "c1a5cfd4-c52e-4332-a950-54466ccd91e0"
+        ]
+      },
+      "agent": {
+        "model_calls": 2,
+        "tool_calls": 2,
+        "tools_used": [
+          "inspect_dataset_schema",
+          "get_metric_definition"
+        ],
+        "reserved_token_bound": 13346,
+        "finalization_calls": 0,
+        "usage": {
+          "input_tokens": 2738,
+          "output_tokens": 303,
+          "total_tokens": 3041
+        },
+        "mode": "native_tools"
+      },
+      "rag": {
+        "status": "no_match",
+        "source": "provider",
+        "used": true,
+        "citations": [
+          {
+            "chunk_id": "c1a5cfd4-c52e-4332-a950-54466ccd91e0",
+            "document_id": "341d6a6b-498f-4d75-9699-7ee8067cd9d8",
+            "chunk_index": 0,
+            "title": "净贡献额",
+            "source_type": "metric_definition",
+            "excerpt": "净贡献额：仅统计 status='paid' 的订单，计算 SUM(revenue)-SUM(cost)。退款订单不计入。",
+            "similarity": null
+          }
+        ],
+        "error_code": null,
+        "candidate_stages": [
+          {
+            "stage": "vector",
+            "candidates": []
+          },
+          {
+            "stage": "selected",
+            "candidates": []
+          }
+        ],
+        "retrieved_count": 1
+      }
+    }
+  },
+  "history_and_csv": "passed"
+}

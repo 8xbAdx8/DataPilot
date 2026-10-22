@@ -1,0 +1,305 @@
+{
+  "id": "p27-12",
+  "query": "外销箱签贴何色？",
+  "kind": "synonym",
+  "relevant_ids": [
+    "labels"
+  ],
+  "A": {
+    "ids": [
+      "labels"
+    ],
+    "sources": [
+      {
+        "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+        "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+        "chunk_index": 0,
+        "title": "标签颜色",
+        "source_type": "business_rule",
+        "excerpt": "出口果箱使用蓝色标签，内销使用黄色标签，不得互换。",
+        "similarity": 0.766953
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+        "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+        "chunk_index": 0,
+        "title": "标签颜色",
+        "source_type": "business_rule",
+        "excerpt": "出口果箱使用蓝色标签，内销使用黄色标签，不得互换。",
+        "similarity": 0.766953
+      }
+    ],
+    "decision": {},
+    "authenticity": [
+      {
+        "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+            "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+            "similarity": 0.766953
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+            "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+            "similarity": 0.766953
+          }
+        ]
+      }
+    ],
+    "latency_ms": 21.018,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+        "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+        "chunk_index": 0,
+        "title": "标签颜色",
+        "source_type": "business_rule",
+        "excerpt": "出口果箱使用蓝色标签，内销使用黄色标签，不得互换。",
+        "similarity": 0.766953
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+            "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+            "similarity": 0.766953
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+            "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+            "similarity": 0.766953
+          }
+        ]
+      }
+    ],
+    "latency_ms": 19.71,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [
+      "labels"
+    ],
+    "sources": [
+      {
+        "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+        "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+        "chunk_index": 0,
+        "title": "标签颜色",
+        "source_type": "business_rule",
+        "excerpt": "出口果箱使用蓝色标签，内销使用黄色标签，不得互换。",
+        "similarity": 0.766953,
+        "vector_rank": 1,
+        "fusion_score": 0.01639344262295082
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+        "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+        "chunk_index": 0,
+        "title": "标签颜色",
+        "source_type": "business_rule",
+        "excerpt": "出口果箱使用蓝色标签，内销使用黄色标签，不得互换。",
+        "similarity": 0.766953,
+        "vector_rank": 1,
+        "fusion_score": 0.01639344262295082
+      },
+      {
+        "chunk_id": "d1641930-bcba-4c43-9baf-f1b1f0b6bb12",
+        "document_id": "6da20816-a822-41f3-953f-eb28b74d9eb5",
+        "chunk_index": 0,
+        "title": "装车签收",
+        "source_type": "business_rule",
+        "excerpt": "装车前点清箱数，双方签署交接单。缺少司机签字不得出车。",
+        "similarity": 0.557995,
+        "vector_rank": 2,
+        "fusion_score": 0.016129032258064516
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "retrieved",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+          "lexical_char_coverage": 1.0,
+          "cosine": 0.766953,
+          "vector_rank": 1,
+          "lexical_rank": null,
+          "fusion_score": 0.01639344262295082,
+          "attribute_supported": true
+        },
+        {
+          "chunk_id": "d1641930-bcba-4c43-9baf-f1b1f0b6bb12",
+          "lexical_char_coverage": 0.347953,
+          "cosine": 0.557995,
+          "vector_rank": 2,
+          "lexical_rank": null,
+          "fusion_score": 0.016129032258064516,
+          "attribute_supported": true
+        }
+      ],
+      "source_origins": [
+        {
+          "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+          "origin": "vector_candidate",
+          "vector_rank": 1,
+          "lexical_rank": null
+        }
+      ],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      },
+      {
+        "chunk_id": "d1641930-bcba-4c43-9baf-f1b1f0b6bb12",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+            "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+            "similarity": 0.766953
+          },
+          {
+            "chunk_id": "d1641930-bcba-4c43-9baf-f1b1f0b6bb12",
+            "document_id": "6da20816-a822-41f3-953f-eb28b74d9eb5",
+            "similarity": 0.557995
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": []
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+            "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+            "similarity": 0.766953,
+            "vector_rank": 1,
+            "fusion_score": 0.01639344262295082
+          },
+          {
+            "chunk_id": "d1641930-bcba-4c43-9baf-f1b1f0b6bb12",
+            "document_id": "6da20816-a822-41f3-953f-eb28b74d9eb5",
+            "similarity": 0.557995,
+            "vector_rank": 2,
+            "fusion_score": 0.016129032258064516
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+            "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+            "similarity": 0.766953,
+            "vector_rank": 1,
+            "fusion_score": 0.01639344262295082
+          },
+          {
+            "chunk_id": "d1641930-bcba-4c43-9baf-f1b1f0b6bb12",
+            "document_id": "6da20816-a822-41f3-953f-eb28b74d9eb5",
+            "similarity": 0.557995,
+            "vector_rank": 2,
+            "fusion_score": 0.016129032258064516
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "009d8f4e-adb4-48e6-ae6d-92debb8ae7ee",
+            "document_id": "4b7ab3dd-9297-4242-b3bf-4d9e0db5ac2f",
+            "similarity": 0.766953,
+            "vector_rank": 1,
+            "fusion_score": 0.01639344262295082
+          },
+          {
+            "chunk_id": "d1641930-bcba-4c43-9baf-f1b1f0b6bb12",
+            "document_id": "6da20816-a822-41f3-953f-eb28b74d9eb5",
+            "similarity": 0.557995,
+            "vector_rank": 2,
+            "fusion_score": 0.016129032258064516
+          }
+        ]
+      }
+    ],
+    "latency_ms": 26.885,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

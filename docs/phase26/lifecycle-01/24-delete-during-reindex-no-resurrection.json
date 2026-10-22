@@ -1,0 +1,15 @@
+{
+  "id": "delete-during-reindex-no-resurrection",
+  "http_status": 404,
+  "response": {
+    "detail": {
+      "code": "knowledge_not_found",
+      "message": "知识条目不存在。"
+    }
+  },
+  "independent_connection": {
+    "documents": [],
+    "chunks": []
+  },
+  "controlled_interleaving": true
+}

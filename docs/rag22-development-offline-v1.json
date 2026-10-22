@@ -1,0 +1,1563 @@
+{
+  "state": "complete",
+  "mode": "offline",
+  "chat_requests": 0,
+  "cloud_tracing": false,
+  "semantic_embedding_verified": false,
+  "embedding_requests": 0,
+  "embedding_tokens": 0,
+  "cost": null,
+  "head": "4db494a8141b4a9866b32540e85dd384a84eb12d",
+  "sources_sha256": {
+    "rag22_evaluate.py": "4074cd6439b67ba42505fd1e896fb57baae40befe6fb2c3567eb3853b7ab4b5a",
+    "retrieval_evidence.py": "00bb63d935c8b8e7e9c4c36fc4b8842872770a3733e18ee6920fbee804118b87",
+    "metric_resolution.py": "b79a96f1411628878c758f323f28bb29471dce6385658f22ea0b9a8e46036674",
+    "knowledge.py": "b19a40e803dc2e51cc9a9fd461cf195cb22532ad8929ff97e8efc144965498b3",
+    "retrieval.py": "0a23c3e9da429d51af20f9eda33592d88cf648f2ebef4d1d0bbc683186669903",
+    "config.py": "eb5b6140ae7c1b70e9f252c57afce50af23a19685f8dd8e37a70ffe07a7fb3ee"
+  },
+  "configuration": {
+    "strategy": "vector",
+    "similarity": 0.7,
+    "reranker": "none",
+    "k": 4
+  },
+  "records": [
+    {
+      "id": "p01",
+      "candidate_ids": [],
+      "evidence_ids": [
+        "fines"
+      ],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [
+        true
+      ],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 19.044,
+      "filter_ms": 90.73,
+      "candidate_status": "no_match",
+      "evidence_status": "resolved",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "d3b28634-9525-593b-8ada-574900ced2ee",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "p02",
+      "candidate_ids": [],
+      "evidence_ids": [
+        "fines"
+      ],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [
+        true
+      ],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 8.453,
+      "filter_ms": 35.524,
+      "candidate_status": "no_match",
+      "evidence_status": "resolved",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "d3b28634-9525-593b-8ada-574900ced2ee",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "p03",
+      "candidate_ids": [],
+      "evidence_ids": [
+        "fines"
+      ],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [
+        true
+      ],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 6.74,
+      "filter_ms": 30.792,
+      "candidate_status": "no_match",
+      "evidence_status": "resolved",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "d3b28634-9525-593b-8ada-574900ced2ee",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "p04",
+      "candidate_ids": [],
+      "evidence_ids": [
+        "net"
+      ],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [
+        true
+      ],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 7.123,
+      "filter_ms": 36.558,
+      "candidate_status": "no_match",
+      "evidence_status": "resolved",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "4a85788e-a173-5b3b-b853-d8413e62aadd",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "p05",
+      "candidate_ids": [],
+      "evidence_ids": [
+        "duration"
+      ],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [
+        true
+      ],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 6.931,
+      "filter_ms": 180.264,
+      "candidate_status": "no_match",
+      "evidence_status": "resolved",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "ba69c057-7ec2-52cd-8996-6b20ae08259b",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "p06",
+      "candidate_ids": [],
+      "evidence_ids": [
+        "late_count"
+      ],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [
+        true
+      ],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 8.875,
+      "filter_ms": 24.601,
+      "candidate_status": "no_match",
+      "evidence_status": "resolved",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "29c05402-51dd-524e-870a-f47ab400cd82",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "p07",
+      "candidate_ids": [],
+      "evidence_ids": [
+        "lost"
+      ],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [
+        true
+      ],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 7.114,
+      "filter_ms": 29.207,
+      "candidate_status": "no_match",
+      "evidence_status": "resolved",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "cc6e723a-cc07-5a64-8772-48db632cb808",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "p08",
+      "candidate_ids": [],
+      "evidence_ids": [
+        "conflict_a"
+      ],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [
+        true
+      ],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 7.496,
+      "filter_ms": 34.116,
+      "candidate_status": "no_match",
+      "evidence_status": "resolved",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "6d2ebe07-a8b5-5e28-8902-96049094ff0e",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "p09",
+      "candidate_ids": [],
+      "evidence_ids": [
+        "conflict_b"
+      ],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [
+        true
+      ],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 8.536,
+      "filter_ms": 36.697,
+      "candidate_status": "no_match",
+      "evidence_status": "resolved",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "d5dad365-2401-596a-992c-207c4285000e",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "n01",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 11.193,
+      "filter_ms": 39.13,
+      "candidate_status": "no_match",
+      "evidence_status": "not_found",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "n02",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 7.57,
+      "filter_ms": 40.753,
+      "candidate_status": "no_match",
+      "evidence_status": "not_found",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "n03",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 5.814,
+      "filter_ms": 36.289,
+      "candidate_status": "no_match",
+      "evidence_status": "inapplicable",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "inapplicable",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "n04",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 6.598,
+      "filter_ms": 40.934,
+      "candidate_status": "no_match",
+      "evidence_status": "insufficient_evidence",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "insufficient_evidence",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "n05",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 8.059,
+      "filter_ms": 35.984,
+      "candidate_status": "no_match",
+      "evidence_status": "not_found",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "n06",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 7.603,
+      "filter_ms": 34.453,
+      "candidate_status": "no_match",
+      "evidence_status": "not_found",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "n07",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 7.61,
+      "filter_ms": 33.03,
+      "candidate_status": "no_match",
+      "evidence_status": "ambiguous",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "ambiguous",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "n08",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 7.812,
+      "filter_ms": 36.79,
+      "candidate_status": "no_match",
+      "evidence_status": "ambiguous",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "ambiguous",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "n09",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 6.866,
+      "filter_ms": 33.279,
+      "candidate_status": "no_match",
+      "evidence_status": "insufficient_evidence",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "insufficient_evidence",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "n10",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 8.833,
+      "filter_ms": 32.483,
+      "candidate_status": "no_match",
+      "evidence_status": "not_found",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "n11",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 6.568,
+      "filter_ms": 39.748,
+      "candidate_status": "no_match",
+      "evidence_status": "inapplicable",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "inapplicable",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "n12",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 7.605,
+      "filter_ms": 36.908,
+      "candidate_status": "no_match",
+      "evidence_status": "not_found",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "n13",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 10.654,
+      "filter_ms": 35.387,
+      "candidate_status": "no_match",
+      "evidence_status": "not_found",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "n14",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 7.781,
+      "filter_ms": 34.851,
+      "candidate_status": "no_match",
+      "evidence_status": "inapplicable",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "inapplicable",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "n15",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 8.282,
+      "filter_ms": 39.266,
+      "candidate_status": "no_match",
+      "evidence_status": "not_found",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "n16",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [
+        "fines",
+        "net",
+        "duration",
+        "late_count",
+        "lost",
+        "conflict_a",
+        "conflict_b",
+        "missing",
+        "prose",
+        "topic",
+        "unrelated",
+        "inject_json",
+        "inject_text",
+        "inject_formula",
+        "personal",
+        "alias"
+      ],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 7.722,
+      "filter_ms": 32.846,
+      "candidate_status": "no_match",
+      "evidence_status": "not_found",
+      "stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      }
+    },
+    {
+      "id": "u01",
+      "candidate_ids": [],
+      "evidence_ids": [],
+      "candidate_ids_authenticity": [],
+      "evidence_ids_authenticity": [],
+      "authorized_ids": [],
+      "malicious_ids": [
+        "inject_json",
+        "inject_text",
+        "inject_formula"
+      ],
+      "retrieval_ms": 0,
+      "filter_ms": 0,
+      "candidate_status": "denied",
+      "evidence_status": "denied"
+    }
+  ],
+  "freeze": {
+    "version": 1,
+    "status": "authored-frozen-awaiting-human-review",
+    "sha256": {
+      "contract-v1.json": "150ec05c219c03ab3a32a7b8dd03900adf3331a89fdbfa27f8ea560b6667a222",
+      "corpus-v1.json": "3edc6b4e9a076e7469be9e2803cd93dc59eb0582f3c377156f8bd5b9f482e7c7",
+      "library.csv": "d28ab58e875bfd1149a1f71384fada7768ae39c2f29ad8e9fff727a1ae6e8191"
+    }
+  },
+  "vector_backend": "PostgreSQL/pgvector",
+  "embedding": "fake-lexical-hash-v1",
+  "vector_dimensions": 1536,
+  "postgres_version": "17.10",
+  "vector_version": "0.8.7",
+  "baseline": {
+    "cases": 26,
+    "positive_denominator": 9,
+    "ranking": {
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "ndcg_at_k": 0.0
+    },
+    "negative_denominator": 16,
+    "no_match_recall": 1,
+    "false_retrieval_rate": 0,
+    "applicability_denominator": 25,
+    "applicability_accuracy": 0.36,
+    "citation_denominator": 0,
+    "citation_authenticity": null,
+    "permission_denials": 1,
+    "cross_permission_leaks": 0,
+    "malicious_source_occurrences": 0,
+    "agent_selected_sources": null,
+    "agent_used_sources": null,
+    "latency_p50_ms": 7.61,
+    "latency_p95_ms": 11.193
+  },
+  "registered": {
+    "cases": 26,
+    "positive_denominator": 9,
+    "ranking": {
+      "precision_at_k": 0.25,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0
+    },
+    "negative_denominator": 16,
+    "no_match_recall": 1,
+    "false_retrieval_rate": 0,
+    "applicability_denominator": 25,
+    "applicability_accuracy": 1,
+    "citation_denominator": 9,
+    "citation_authenticity": 1,
+    "permission_denials": 1,
+    "cross_permission_leaks": 0,
+    "malicious_source_occurrences": 0,
+    "agent_selected_sources": null,
+    "agent_used_sources": null,
+    "latency_p50_ms": 43.977000000000004,
+    "latency_p95_ms": 109.774
+  },
+  "rollback_counts_equal": true
+}

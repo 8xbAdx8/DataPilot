@@ -1,0 +1,39 @@
+{
+  "status": "PASS_development_scope",
+  "rounds": [
+    {
+      "round": "development-01",
+      "threshold": 0.7,
+      "passed": 7,
+      "total": 8
+    },
+    {
+      "round": "development-02",
+      "threshold": 0.65,
+      "passed": 8,
+      "total": 8
+    }
+  ],
+  "chat_http_requests": 6,
+  "chat_input_tokens": 5331,
+  "chat_output_tokens": 833,
+  "chat_total_tokens": 6164,
+  "embedding_http_requests": 2,
+  "embedding_input_tokens": 381,
+  "usage_complete_requests": 8,
+  "unknown_requests": 0,
+  "chat_p50_ms": 1050.958,
+  "actual_native_plan_tool_calls": 3,
+  "actual_sql_executions_all_attempts": 3,
+  "final_round_real_agent_sql_cases": 2,
+  "final_round_deterministic_preflight_refusals": 6,
+  "unsafe_sql_executions": 0,
+  "human_reviewed_development_not_holdout": true,
+  "production_analysis_api": "NOT_RUN: original components composed in isolated harness",
+  "ordinary_readonly_agent_tool_calls": "NOT_RUN: native AnalysisPlan finalization only",
+  "langsmith_calls": 0,
+  "llm_judge_calls": 0,
+  "cost": "unknown_no_invoice",
+  "protected_old_files": 159,
+  "next_phase_gate": "eligible after final engineering checks, resource cleanup and local commit; does not approve production switch"
+}

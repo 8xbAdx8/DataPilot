@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "scope": "human-reviewed frozen 34-case structured retrieval benchmark plus reference/permission/budget safety and local engineering regression; not general RAG or production release approval",
+  "selected_strategy": "C",
+  "production_defaults": "legacy/vector/0.70/none unchanged; experimental C not wired to production requests",
+  "start_head": "3e3f62fe4e73d0d8e60358d8d2b71f1215bbe52b",
+  "code_identity": "backend/app/evals/rag24/holdout-v1.freeze-v3.json canonical-LF per-file hashes; containing Git commit provides final delivery identity",
+  "holdout_scoring_runs": 1,
+  "real_embedding_http": 13,
+  "actual_input_tokens": 2934,
+  "usage_complete_requests": 13,
+  "real_chat_calls": 0,
+  "judge_calls": 0,
+  "langsmith_calls": 0,
+  "historical_usage": "unknown preserved; old entry points unchanged and still blocked",
+  "cost": "unknown; no verified invoice",
+  "agent_adoption": "NOT_RUN",
+  "sql_execution": "NOT_RUN",
+  "real_sql_formula_compliance": "NOT_RUN",
+  "real_clarification_accuracy": "NOT_RUN",
+  "evidence": {
+    "holdout-02/verdict.json": "b5fc24822b2273321cc1b00c5aa9b8c4c3c4eeb803c84e1cb862468ca7c0f9a0",
+    "holdout-02/summary.json": "a7a85913db0167724ba057244e4b6aea21055cdd7bfea75bff2513176ac5af33",
+    "complete-ledger-v1.json": "9b0218fc62591d598e9a4d4b1dfa090b7770fbdf1d4d2ecd28cde5c84c012c91",
+    "engineering-regression-v1.json": "45dceb6a751cb2a15330efe1fd5d62a81f26541ccc1f023fa0d5ec857735aca0",
+    "resource-cleanup-v1.json": "6ecb0b19640e546ec47fca1fd6f79865b3d9b6fb4485988b6659655e7207290e",
+    "precommit-audit-v1.json": "04125b092090f0eb3989f2bc7555e649e0041456c06087483d182b85ba97ad0f",
+    "real-vector-cache-v1.npz": "459908a72d0765270c8bc99c152380365d7313d148bf58bf1c45f48662e2d2c8"
+  },
+  "publication": "local commit only; no push, merge, tag, release or public deployment; no CI run for new commit",
+  "unresolved": [
+    "historical unknown usage/cost",
+    "general unstructured knowledge validation",
+    "production integration of experimental C",
+    "real Agent/SQL end-to-end for this corpus",
+    "larger independent generalization samples",
+    "new real update/delete/reindex lifecycle acceptance"
+  ]
+}

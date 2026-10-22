@@ -1,0 +1,12 @@
+{
+  "status": "human-confirmed",
+  "reviewer": "human-user",
+  "confirmation": "已复核，确认标签与意图分组",
+  "confirmed_at": "2026-10-20T17:53:41.678100+00:00",
+  "file_sha256": {
+    "sql-correctness-v1.json": "3ec6c2b0623c42c52a07188eb9cfd4d9df07196eee014fc4e29cf5e16127ef80",
+    "sql16-orders.csv": "ce293c170aa12b3ee457ac15ceb2148e777d4e18ff539a134b81a8c75744178f",
+    "sql16-hours.csv": "ad6f1232dc9bc509d9777e87d991d4c25a438108b37a39920edec4e353daa60a"
+  },
+  "known_capability_boundary": "h03 HAVING is outside current SQL whitelist; retain reviewed semantic label and score any rejection as failure. No guard expansion."
+}

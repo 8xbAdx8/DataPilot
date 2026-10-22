@@ -1,0 +1,130 @@
+{
+  "state": "complete",
+  "mode": "legacy-development",
+  "records": [
+    {
+      "id": "legacy-official",
+      "question": "按division统计已结服务净额，仅输出division和service_net两列，按division升序。请使用已登记定义。",
+      "http_status": 502,
+      "status": "error",
+      "sql": null,
+      "rows": null,
+      "error_code": "agent_failed",
+      "summary": {},
+      "workflow": {
+        "engine": "langgraph",
+        "nodes": [
+          "prepare",
+          "retrieve",
+          "plan"
+        ],
+        "stage_timings_ms": {
+          "prepare": 0,
+          "retrieve": 5062,
+          "plan": 5168
+        },
+        "repair_attempts": 0,
+        "sql_model_calls": 0,
+        "validations": [],
+        "plan": {},
+        "agent": {
+          "model_calls": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_diagnostics": [],
+          "reserved_token_bound": 5742,
+          "finalization_calls": 0,
+          "usage": {},
+          "mode": "native_tools"
+        },
+        "rag": {
+          "status": "error",
+          "source": "provider",
+          "used": false,
+          "citations": [],
+          "error_code": "embedding_unavailable"
+        },
+        "metric_resolution": {
+          "status": "resolved",
+          "document_ids": [
+            "2c0f1d74-ccec-4dcf-b86f-0fd6a2f52f1a"
+          ],
+          "chunk_ids": [
+            "0272f14c-308a-4491-a2f3-7cd332a4f715"
+          ]
+        }
+      },
+      "tool_calls": [],
+      "sql_usage": {
+        "source": "unavailable",
+        "prompt_tokens": null,
+        "completion_tokens": null,
+        "total_tokens": null
+      },
+      "agent_usage": {},
+      "chat_requests": 1,
+      "contract_passed": false,
+      "duration_ms": 10408.71
+    }
+  ],
+  "prior_chat_tokens": 17230,
+  "total_chat_tokens": 17230,
+  "unknown_usage": true,
+  "token_stopline": 90000,
+  "case_conservative_reservation": 70000,
+  "dataset_sha256": "f35e7d61cb8106449f348f6bbd392b3845fb0d3bca3d94bd4983da27d15dec8f",
+  "head": "d8063cf7480941239f71b187a824bdaffc152086",
+  "sources_sha256": {
+    "analysis_agent.py": "f22c8a3885a5f0c3a1def9fc74a50c49456e96df914ad1ce5e5bf984ebc9578b",
+    "knowledge.py": "51405825481d9532e3ff447fdf9e36888e64d14c0167c16c3db2e5779d714f23",
+    "analyses.py": "b8a6cd1ff3fcbbb6265ab1b6cc7e6d3f7827603379aff779b6d33a9d19bde72d",
+    "analysis_graph.py": "113e5ce20cdbbd1e9857337c33635e74b71e72b28b90198f172e9ad3eb739c6c"
+  },
+  "model": "deepseek-flash",
+  "embedding_model": "text-embedding-v4",
+  "cost": "unknown",
+  "direct_lookup": {
+    "已结服务净额": {
+      "status": "retrieved",
+      "resolution_status": "resolved",
+      "source": "provider",
+      "citations": [
+        {
+          "chunk_id": "0272f14c-308a-4491-a2f3-7cd332a4f715",
+          "document_id": "2c0f1d74-ccec-4dcf-b86f-0fd6a2f52f1a",
+          "chunk_index": 0,
+          "title": "已结服务净额",
+          "source_type": "metric_definition",
+          "excerpt": "已结服务净额：只统计 state='closed' 的服务，按 SUM(fee)-SUM(labor) 计算。",
+          "similarity": null
+        }
+      ]
+    },
+    "服务实收": {
+      "status": "no_match",
+      "resolution_status": "not_found",
+      "source": "provider",
+      "citations": []
+    }
+  },
+  "database_rollback_verified": true,
+  "embedding_requests": [
+    {
+      "inputs": 1,
+      "status": "success",
+      "usage": {
+        "source": "provider",
+        "prompt_tokens": 29,
+        "completion_tokens": null,
+        "total_tokens": 29
+      },
+      "duration_ms": 2988.623
+    },
+    {
+      "inputs": 1,
+      "status": "error",
+      "code": "embedding_unavailable",
+      "duration_ms": 5056.648
+    }
+  ]
+}

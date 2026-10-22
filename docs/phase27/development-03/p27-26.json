@@ -1,0 +1,330 @@
+{
+  "id": "p27-26",
+  "query": "出车签字及封条有哪些要求？",
+  "kind": "multi",
+  "relevant_ids": [
+    "load",
+    "dispatch"
+  ],
+  "A": {
+    "ids": [
+      "dispatch"
+    ],
+    "sources": [
+      {
+        "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+        "document_id": "9a981f8a-00c7-4834-88c6-0787d8f4ad9c",
+        "chunk_index": 0,
+        "title": "出车复核",
+        "source_type": "business_rule",
+        "excerpt": "交接单由仓管存档。\n司机签字后还须由门岗确认封条完好。",
+        "similarity": 0.746658
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+        "document_id": "9a981f8a-00c7-4834-88c6-0787d8f4ad9c",
+        "chunk_index": 0,
+        "title": "出车复核",
+        "source_type": "business_rule",
+        "excerpt": "交接单由仓管存档。\n司机签字后还须由门岗确认封条完好。",
+        "similarity": 0.746658
+      }
+    ],
+    "decision": {},
+    "authenticity": [
+      {
+        "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+        "version": 1,
+        "valid": true,
+        "owner_id": "99406fa0-43d8-4113-ab61-92c2f3d82716",
+        "dataset_id": "435e0aba-dede-452a-b023-00214b6341bb"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+            "document_id": "9a981f8a-00c7-4834-88c6-0787d8f4ad9c",
+            "similarity": 0.746658
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+            "document_id": "9a981f8a-00c7-4834-88c6-0787d8f4ad9c",
+            "similarity": 0.746658
+          }
+        ]
+      }
+    ],
+    "latency_ms": 15.886,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+        "document_id": "9a981f8a-00c7-4834-88c6-0787d8f4ad9c",
+        "chunk_index": 0,
+        "title": "出车复核",
+        "source_type": "business_rule",
+        "excerpt": "交接单由仓管存档。\n司机签字后还须由门岗确认封条完好。",
+        "similarity": 0.746658
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+        "version": 1,
+        "valid": true,
+        "owner_id": "99406fa0-43d8-4113-ab61-92c2f3d82716",
+        "dataset_id": "435e0aba-dede-452a-b023-00214b6341bb"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+            "document_id": "9a981f8a-00c7-4834-88c6-0787d8f4ad9c",
+            "similarity": 0.746658
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+            "document_id": "9a981f8a-00c7-4834-88c6-0787d8f4ad9c",
+            "similarity": 0.746658
+          }
+        ]
+      }
+    ],
+    "latency_ms": 20.939,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [
+      "dispatch"
+    ],
+    "sources": [
+      {
+        "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+        "document_id": "9a981f8a-00c7-4834-88c6-0787d8f4ad9c",
+        "chunk_index": 0,
+        "title": "出车复核",
+        "source_type": "business_rule",
+        "excerpt": "交接单由仓管存档。\n司机签字后还须由门岗确认封条完好。",
+        "similarity": 0.746658,
+        "vector_rank": 1,
+        "lexical_rank": 2,
+        "fusion_score": 0.03252247488101534
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "278a959b-f4cb-41c0-8d65-a216c33ad353",
+        "document_id": "0b8b45e1-71d3-4ec7-8b60-bf024f2b6db2",
+        "chunk_index": 0,
+        "title": "装车签收",
+        "source_type": "business_rule",
+        "excerpt": "装车前点清箱数，双方签署交接单。缺少司机签字不得出车。",
+        "similarity": 0.688867,
+        "vector_rank": 2,
+        "lexical_rank": 1,
+        "fusion_score": 0.03252247488101534
+      },
+      {
+        "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+        "document_id": "9a981f8a-00c7-4834-88c6-0787d8f4ad9c",
+        "chunk_index": 0,
+        "title": "出车复核",
+        "source_type": "business_rule",
+        "excerpt": "交接单由仓管存档。\n司机签字后还须由门岗确认封条完好。",
+        "similarity": 0.746658,
+        "vector_rank": 1,
+        "lexical_rank": 2,
+        "fusion_score": 0.03252247488101534
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "retrieved",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+          "lexical_char_coverage": 1.0,
+          "cosine": 0.746658,
+          "vector_rank": 1,
+          "lexical_rank": 2,
+          "fusion_score": 0.03252247488101534,
+          "attribute_supported": true
+        },
+        {
+          "chunk_id": "278a959b-f4cb-41c0-8d65-a216c33ad353",
+          "lexical_char_coverage": 0.587291,
+          "cosine": 0.688867,
+          "vector_rank": 2,
+          "lexical_rank": 1,
+          "fusion_score": 0.03252247488101534,
+          "attribute_supported": true
+        }
+      ],
+      "source_origins": [
+        {
+          "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+          "origin": "vector_candidate",
+          "vector_rank": 1,
+          "lexical_rank": 2
+        }
+      ],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "278a959b-f4cb-41c0-8d65-a216c33ad353",
+        "version": 1,
+        "valid": true,
+        "owner_id": "99406fa0-43d8-4113-ab61-92c2f3d82716",
+        "dataset_id": "435e0aba-dede-452a-b023-00214b6341bb"
+      },
+      {
+        "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+        "version": 1,
+        "valid": true,
+        "owner_id": "99406fa0-43d8-4113-ab61-92c2f3d82716",
+        "dataset_id": "435e0aba-dede-452a-b023-00214b6341bb"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+            "document_id": "9a981f8a-00c7-4834-88c6-0787d8f4ad9c",
+            "similarity": 0.746658
+          },
+          {
+            "chunk_id": "278a959b-f4cb-41c0-8d65-a216c33ad353",
+            "document_id": "0b8b45e1-71d3-4ec7-8b60-bf024f2b6db2",
+            "similarity": 0.688867
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": [
+          {
+            "chunk_id": "278a959b-f4cb-41c0-8d65-a216c33ad353",
+            "document_id": "0b8b45e1-71d3-4ec7-8b60-bf024f2b6db2",
+            "similarity": 0.688867,
+            "vector_rank": 2,
+            "lexical_rank": 1
+          },
+          {
+            "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+            "document_id": "9a981f8a-00c7-4834-88c6-0787d8f4ad9c",
+            "similarity": 0.746658,
+            "vector_rank": 1,
+            "lexical_rank": 2
+          }
+        ]
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "278a959b-f4cb-41c0-8d65-a216c33ad353",
+            "document_id": "0b8b45e1-71d3-4ec7-8b60-bf024f2b6db2",
+            "similarity": 0.688867,
+            "vector_rank": 2,
+            "lexical_rank": 1,
+            "fusion_score": 0.03252247488101534
+          },
+          {
+            "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+            "document_id": "9a981f8a-00c7-4834-88c6-0787d8f4ad9c",
+            "similarity": 0.746658,
+            "vector_rank": 1,
+            "lexical_rank": 2,
+            "fusion_score": 0.03252247488101534
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "278a959b-f4cb-41c0-8d65-a216c33ad353",
+            "document_id": "0b8b45e1-71d3-4ec7-8b60-bf024f2b6db2",
+            "similarity": 0.688867,
+            "vector_rank": 2,
+            "lexical_rank": 1,
+            "fusion_score": 0.03252247488101534
+          },
+          {
+            "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+            "document_id": "9a981f8a-00c7-4834-88c6-0787d8f4ad9c",
+            "similarity": 0.746658,
+            "vector_rank": 1,
+            "lexical_rank": 2,
+            "fusion_score": 0.03252247488101534
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "278a959b-f4cb-41c0-8d65-a216c33ad353",
+            "document_id": "0b8b45e1-71d3-4ec7-8b60-bf024f2b6db2",
+            "similarity": 0.688867,
+            "vector_rank": 2,
+            "lexical_rank": 1,
+            "fusion_score": 0.03252247488101534
+          },
+          {
+            "chunk_id": "e96d8b8b-a2ad-4ecc-8304-4326b4790716",
+            "document_id": "9a981f8a-00c7-4834-88c6-0787d8f4ad9c",
+            "similarity": 0.746658,
+            "vector_rank": 1,
+            "lexical_rank": 2,
+            "fusion_score": 0.03252247488101534
+          }
+        ]
+      }
+    ],
+    "latency_ms": 33.056,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

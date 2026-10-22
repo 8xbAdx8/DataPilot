@@ -1,0 +1,85 @@
+{
+  "version": "rag24-admission-v1",
+  "artifact_type": "read_only_preflight_not_live_evaluation",
+  "checked_at": "2026-10-22T09:38:49.930311+00:00",
+  "code_head": "0ff41fcc6899ae3cbfc250f7980d2abf59672655",
+  "status": "BLOCKED",
+  "live_permitted": false,
+  "reason_code": "prior_uncertain_usage",
+  "guard_message": "Prior uncertain usage blocks additional live calls",
+  "prior_reports": [
+    {
+      "path": "docs/metric21-baseline-v1.json",
+      "sha256": "ee776f12a67dc7a4f44cd531e2f22a76a51040d8d700d683f4f409833c19f0f1",
+      "state": "complete",
+      "unknown_usage": false
+    },
+    {
+      "path": "docs/metric21-development-live-v1.json",
+      "sha256": "c7122a50e1395317b5c69f58eb212bef25189d5e85234ff8f8c2cd6af1a4d643",
+      "state": "complete",
+      "unknown_usage": false
+    },
+    {
+      "path": "docs/metric21-legacy-live-v1.json",
+      "sha256": "b4bd7fc612ce989629f7c4f80455c3931390f9efaa92c101e5ca401390f784bd",
+      "state": "complete",
+      "unknown_usage": true
+    }
+  ],
+  "historical_usage": {
+    "known_chat_tokens": 17230,
+    "total_chat_tokens": null,
+    "chat_attempts": 13,
+    "known_usage_chat_attempts": 12,
+    "unknown_usage_chat_attempts": 1,
+    "embedding_attempts": 9,
+    "successful_embedding_requests": 8,
+    "known_embedding_tokens": 344,
+    "unknown_embedding_requests": 1,
+    "total_embedding_tokens": null,
+    "currency_cost": null
+  },
+  "public_config": {
+    "embedding_provider": "openai_compatible",
+    "embedding_model": "text-embedding-v4",
+    "embedding_dimensions": 1536,
+    "embedding_key_present": true,
+    "evidence_policy": "legacy",
+    "strategy": "vector",
+    "threshold": 0.7,
+    "reranker": "none",
+    "langsmith_enabled": false
+  },
+  "public_config_sha256": "6e8f951ded0ed5b622093daf4780fd8dd214e3a026708ae9116203930f2b48e7",
+  "code_sha256": {
+    "backend/app/metric21_acceptance.py": "2ca153eec30a68e5f770bfa308aeecd8bf71ad8bb6f1d0a1108059ff7fb10dd4",
+    "backend/app/rag22_evaluate.py": "7f9e23d217e560b3b5826fcc0c7b754495173a969774d0408c71f26d2c892fd5",
+    "backend/app/embeddings.py": "cf47539de50bc9e2c9b9176b3c3b5f48695f6642aba4b526560c1e1af2eff21b",
+    "backend/app/retrieval.py": "0a23c3e9da429d51af20f9eda33592d88cf648f2ebef4d1d0bbc683186669903",
+    "backend/app/retrieval_evidence.py": "50c9859a8cc8fdd1372ddd0a12f067b212dfe86cf11ecbd9e15f6ac09231c9ab",
+    "backend/app/metric_resolution.py": "b79a96f1411628878c758f323f28bb29471dce6385658f22ea0b9a8e46036674",
+    "backend/app/knowledge.py": "b19a40e803dc2e51cc9a9fd461cf195cb22532ad8929ff97e8efc144965498b3",
+    "backend/app/config.py": "eb5b6140ae7c1b70e9f252c57afce50af23a19685f8dd8e37a70ffe07a7fb3ee"
+  },
+  "current_run": {
+    "chat_requests": 0,
+    "embedding_requests": 0,
+    "langsmith_writes": 0,
+    "langsmith_reads": 0,
+    "new_external_tokens": 0,
+    "live_run_started": false,
+    "billing_evidence_available": false,
+    "retrieval_metrics": null,
+    "holdout_reviewed": false,
+    "holdout_frozen": false
+  },
+  "proposed_ceiling_not_release_authorization": {
+    "embedding_requests": 80,
+    "input_tokens": 20000,
+    "reservation_calculated": false,
+    "requests_authorized_under_current_guard": 0
+  },
+  "protected_files": 86,
+  "protected_changes": 0
+}

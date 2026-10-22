@@ -1,0 +1,17 @@
+# Dedicated lifecycle acceptance, not a business database.
+services:
+  postgres:
+    image: datapilot-postgres-vector:0.8.7-pg17-alpine
+    environment:
+      POSTGRES_USER: datapilot
+      POSTGRES_PASSWORD: datapilot_local
+      POSTGRES_DB: datapilot
+    ports: ["127.0.0.1:15636:5432"]
+    volumes: ["phase26_postgres:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U datapilot -d datapilot"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+volumes:
+  phase26_postgres:

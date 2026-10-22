@@ -1,0 +1,87 @@
+{
+  "question": "验收规则未知价格",
+  "provider": "controlled Mock; not real model evidence",
+  "baseline": {
+    "status": "success",
+    "sql": "SELECT COUNT(*) AS \"count\" FROM \"data\" AS \"data\" WHERE \"data\".\"state\" = 'closed'",
+    "result": {
+      "columns": [
+        {
+          "name": "count",
+          "type": "BIGINT"
+        }
+      ],
+      "rows": [
+        {
+          "count": 1
+        }
+      ],
+      "truncated": false,
+      "chart": {
+        "kind": "table",
+        "reason": "结果为空、行数不足或字段不适合图表。"
+      },
+      "summary": {
+        "facts": [
+          "实际查询返回 1 行、1 列。",
+          "结果首行示例：{\"count\": 1}"
+        ],
+        "hypotheses": [],
+        "limitations": [
+          "统计口径由 SQL 定义；本次结果不提供因果推断或未来预测。",
+          "当前为确定性 Mock 模板，仅用于验证数据执行流程。"
+        ]
+      }
+    }
+  },
+  "shadow": {
+    "mode": "shadow",
+    "candidate": "C_registered_and_structured_facts",
+    "D": "disabled_development_gate_not_met",
+    "baseline_count": 1,
+    "candidate_count": 0,
+    "baseline_source_hashes": [
+      "9de31e1c7335add2"
+    ],
+    "candidate_source_hashes": [],
+    "changed": true,
+    "candidate_decision": "not_found",
+    "latency_ms": 0.151,
+    "extra_embedding_http": 0
+  },
+  "rollback_equal": true,
+  "selected_used_snapshots": {
+    "version": 1,
+    "policy": "legacy",
+    "status": "not_found",
+    "source_origins": [
+      {
+        "chunk_id": "01faef94-b505-4ed7-9e79-54e0cefce883",
+        "origin": "vector_candidate"
+      }
+    ],
+    "source_snapshots": [
+      {
+        "chunk_id": "01faef94-b505-4ed7-9e79-54e0cefce883",
+        "document_id": "401414ed-01fc-4355-b55a-32f634a0dfe6",
+        "chunk_index": 0,
+        "title": "验收规则",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\": 1, \"subject\": \"\\u9a8c\\u6536\\u89c4\\u5219\", \"required_fields\": [\"state\"], \"facts\": [{\"aspect\": \"\\u6709\\u6548\\u72b6\\u6001\", \"answer\": \"state\\u4e3aclosed\"}]}",
+        "similarity": 0.8,
+        "document_version": 1
+      }
+    ],
+    "eligible_source_ids": [],
+    "selected_source_ids": [],
+    "context_source_ids": [
+      "01faef94-b505-4ed7-9e79-54e0cefce883"
+    ],
+    "used_source_ids": [],
+    "sql_validation": "approved",
+    "metric_validation": "not_requested",
+    "execution": "success",
+    "final_decision": "answer",
+    "live_source_validation": "approved"
+  }
+}

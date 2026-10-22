@@ -1,0 +1,134 @@
+{
+  "id": "h29-48",
+  "query": "影棚饮水和候场容量？",
+  "kind": "complex",
+  "relevant_ids": [
+    "food",
+    "waiting"
+  ],
+  "A": {
+    "ids": [
+      "food"
+    ],
+    "sources": [
+      {
+        "chunk_id": "3ca8d64f-f54e-4dba-840f-ec1af9a207c2",
+        "document_id": "d82f5f61-e4b5-4baa-a423-7064b22398bf",
+        "chunk_index": 0,
+        "title": "饮食区域",
+        "source_type": "business_rule",
+        "excerpt": "影棚内禁止饮食，候场室可饮水。",
+        "similarity": 0.782157
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "3ca8d64f-f54e-4dba-840f-ec1af9a207c2",
+        "document_id": "d82f5f61-e4b5-4baa-a423-7064b22398bf",
+        "chunk_index": 0,
+        "title": "饮食区域",
+        "source_type": "business_rule",
+        "excerpt": "影棚内禁止饮食，候场室可饮水。",
+        "similarity": 0.782157
+      }
+    ],
+    "decision": {},
+    "references": [
+      {
+        "chunk_id": "3ca8d64f-f54e-4dba-840f-ec1af9a207c2",
+        "document_id": "d82f5f61-e4b5-4baa-a423-7064b22398bf",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "3ca8d64f-f54e-4dba-840f-ec1af9a207c2",
+        "document_id": "d82f5f61-e4b5-4baa-a423-7064b22398bf",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "3ca8d64f-f54e-4dba-840f-ec1af9a207c2",
+            "document_id": "d82f5f61-e4b5-4baa-a423-7064b22398bf",
+            "similarity": 0.782157
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "3ca8d64f-f54e-4dba-840f-ec1af9a207c2",
+            "document_id": "d82f5f61-e4b5-4baa-a423-7064b22398bf",
+            "similarity": 0.782157
+          }
+        ]
+      }
+    ],
+    "latency_ms": 15.064,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "3ca8d64f-f54e-4dba-840f-ec1af9a207c2",
+        "document_id": "d82f5f61-e4b5-4baa-a423-7064b22398bf",
+        "chunk_index": 0,
+        "title": "饮食区域",
+        "source_type": "business_rule",
+        "excerpt": "影棚内禁止饮食，候场室可饮水。",
+        "similarity": 0.782157
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "references": [
+      {
+        "chunk_id": "3ca8d64f-f54e-4dba-840f-ec1af9a207c2",
+        "document_id": "d82f5f61-e4b5-4baa-a423-7064b22398bf",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "3ca8d64f-f54e-4dba-840f-ec1af9a207c2",
+            "document_id": "d82f5f61-e4b5-4baa-a423-7064b22398bf",
+            "similarity": 0.782157
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "3ca8d64f-f54e-4dba-840f-ec1af9a207c2",
+            "document_id": "d82f5f61-e4b5-4baa-a423-7064b22398bf",
+            "similarity": 0.782157
+          }
+        ]
+      }
+    ],
+    "latency_ms": 27.397,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "A",
+    "policy": "legacy",
+    "strategy": "vector",
+    "threshold": 0.7
+  },
+  {
+    "id": "B",
+    "policy": "registered",
+    "strategy": "vector",
+    "threshold": 0.7
+  },
+  {
+    "id": "C",
+    "policy": "registered_with_facts",
+    "strategy": "vector",
+    "threshold": 0.7
+  }
+]

@@ -1,0 +1,56 @@
+{
+  "status": "passed",
+  "postgres": "557 passed, 6 live opt-in skipped;221.30s",
+  "sqlite": "526 passed,37 PostgreSQL/live conditional skipped;158.14s",
+  "frontend": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "build": "passed"
+  },
+  "ruff": "check and format passed;111 files",
+  "pip_check": "passed",
+  "migration_head": "0006;no new migration",
+  "source_stale_regression": "before:3 failed (unsafe stale success);after:3 passed;execute denied",
+  "real_lifecycle_rounds": [
+    24,
+    25
+  ],
+  "real_embedding_requests": 6,
+  "real_embedding_input_tokens": 68,
+  "all_usage_complete": true,
+  "chat_new_requests": 0,
+  "cloud_trace_requests": 0,
+  "global_totals": {
+    "chat": {
+      "requests": 6,
+      "known_input_tokens": 5331,
+      "unknown_requests": 0
+    },
+    "embedding": {
+      "requests": 8,
+      "known_input_tokens": 449,
+      "unknown_requests": 0
+    }
+  },
+  "cost": "unknown",
+  "logs_sha256": {
+    "phase26-postgres-final-full.log": "1beacca00507cc6c3210cb5a6ac0350bdb2143fe3df0f44a9ceaaa40153316b0",
+    "phase26-sqlite-final-full.log": "8454bedbb2a48754ece5aff968301d1fc4abdcda9a69d69ed0aa55805497acfc",
+    "phase26-frontend-lint.log": "65d10c2da0781691adc45c185308c222c2a92911360ade0a27a4e555be91c5bb",
+    "phase26-frontend-typecheck.log": "4bb40eef8e3c339af20950a8105947f07a8ababf21de71719193e97e2907811b",
+    "phase26-frontend-build.log": "9f58d5ecc6fbdc4ce4de51c968f462a64360fa5b152a79f7d77f00293f7811f0",
+    "phase26-postgres-target-a.log": "47b3e6d91e974936dca5298d0d3a42c01ad227a0dabe175c9bfe58afdf0157e9",
+    "phase26-source-before.log": "7e30ef518b3a46bd755634faaae846972acdb61b450060242104bef43191ebbe",
+    "phase26-source-after-c.log": "fa02b1d6c470ea262f107cc64bdb13860b2ab58e9077922cc015fe5f7e62cc22"
+  },
+  "resource_cleanup": {
+    "project": "datapilot-phase26",
+    "volume_removed": "datapilot-phase26_phase26_postgres",
+    "owned_containers_remaining": 0,
+    "temporary_databases_remaining": 0,
+    "other_resources": "untouched",
+    "shared_ledger": "preserved"
+  },
+  "protected_old_files": 159,
+  "full_application_compose_playwright": "NOT_RERUN at stage26; dedicated API/PG lifecycle real; full UI stack required at28/29"
+}

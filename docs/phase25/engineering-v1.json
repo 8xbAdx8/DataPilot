@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "postgres": "551 passed, 6 pre-existing live opt-in skipped; 219.56s",
+  "sqlite": "520 passed, 37 PostgreSQL/live conditional skipped; 165.16s",
+  "frontend": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "build": "passed"
+  },
+  "ruff": "check and format passed;107 files",
+  "pip_check": "passed",
+  "pg_head": "0006",
+  "compose": "dedicated pgvector healthy; full application smoke not rerun at stage25",
+  "playwright": "not rerun; application/frontend code unchanged; phase24 exact-SHA CI evidence only",
+  "source": "current final local run, not inherited CI",
+  "logs_sha256": {
+    "phase25-postgres-final-full.log": "4fe43e48968d4943a3d5673aae33fc139419759def0b285d513cf827b996c3c1",
+    "phase25-sqlite-final-full.log": "c5bfadbc8e0a04bea1a77ece2f0750983d43948e2bda31c466867df67482910c",
+    "phase25-frontend-lint.log": "65d10c2da0781691adc45c185308c222c2a92911360ade0a27a4e555be91c5bb",
+    "phase25-frontend-typecheck.log": "4bb40eef8e3c339af20950a8105947f07a8ababf21de71719193e97e2907811b",
+    "phase25-frontend-build.log": "2f7504a9a8284c74144371dcde6397c114ede7a5328e606f29bf555ebf60ffc9",
+    "phase25-postgres-target-c.log": "22767cce64c13d3a73763edcb58531c7f3facf677493a89e7f52d22683893115",
+    "phase25-postgres-variant-preflight.log": "42a69d22aa1258d9dbbd5e76eba554a524e17dbe40cccb6d7a4a64b81a1fc893",
+    "phase25-budget-d.log": "9cc4259142f37ffd974d15360ff39137d23b1549d4e2b09a5790def624fd8133"
+  },
+  "resource_cleanup": {
+    "owned_project": "datapilot-phase25",
+    "owned_volume_removed": "datapilot-phase25_phase25_postgres",
+    "containers_remaining": 0,
+    "temporary_databases_remaining": 0,
+    "other_resources": "not touched",
+    "local_ledger_and_old_evidence": "preserved"
+  },
+  "old_files_protected": 159
+}

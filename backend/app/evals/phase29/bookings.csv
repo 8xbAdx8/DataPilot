@@ -1,0 +1,6 @@
+day,zone,state,quoted,collected,minutes
+2026-04-01,A,done,120,60,30
+2026-04-02,A,done,80,20,60
+2026-04-03,B,done,0,,
+2026-04-04,B,cancelled,50,50,100
+2026-05-01,B,done,100,100,90

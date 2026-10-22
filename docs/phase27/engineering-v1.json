@@ -1,0 +1,24 @@
+{
+  "postgres": "563 passed,6 existing opt-in skipped;244.16s",
+  "sqlite": "532 passed,37 PostgreSQL/live conditional skipped;178.22s",
+  "frontend": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "build": "passed"
+  },
+  "ruff": "check/format113files passed",
+  "pip_check": "passed",
+  "target_preflight": "PG23 passed; selector/budget20 passed",
+  "full_application_compose_playwright": "NOT_RERUN, required at28/29",
+  "temporary_databases_remaining": 0,
+  "resource_cleanup": {
+    "project": "datapilot-phase27",
+    "owned_containers_remaining": 0,
+    "owned_volumes_remaining": 0,
+    "shared_ledger": "preserved"
+  },
+  "logs_sha256": {
+    "phase27-postgres-final.log": "e8315ac7bb7e41a1c2dbee0cc75cf78bcab9b06f3379da6940464f00c5fa3d0b",
+    "phase27-sqlite-final.log": "bce7fea0db1b3ef7062a0e35cf887b8782727bb44e479f68e16b8e6974132e3b"
+  }
+}

@@ -1,0 +1,5348 @@
+[
+  {
+    "id": "p01",
+    "query": "按branch统计已归还罚金。",
+    "kind": "metric",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [
+        "fines",
+        "net",
+        "conflict_a"
+      ],
+      "sources": [
+        {
+          "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+          "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+          "chunk_index": 0,
+          "title": "已归还罚金",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"已归还罚金\", \"aliases\": [\"归还罚金\", \"return_fine\"], \"expression\": \"SUM(fine)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"fine\", \"state\"]}",
+          "similarity": 0.780629
+        },
+        {
+          "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+          "document_id": "1105e280-5cc7-4045-852c-426928725031",
+          "chunk_index": 0,
+          "title": "已归还净罚金",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"已归还净罚金\", \"aliases\": [\"净罚金实收\"], \"expression\": \"SUM(fine)-SUM(credit)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"fine\", \"credit\", \"state\"]}",
+          "similarity": 0.778483
+        },
+        {
+          "chunk_id": "224b6fe9-aad2-4ef3-bda9-215c0a9b57c1",
+          "document_id": "d9ded1d2-7c33-43ee-b2a0-81f0dd047ccf",
+          "chunk_index": 0,
+          "title": "借阅考核一",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"借阅考核一\", \"aliases\": [\"借阅考核额\"], \"expression\": \"SUM(fine)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"fine\", \"state\"]}",
+          "similarity": 0.714081
+        }
+      ],
+      "authenticity": [
+        true,
+        true,
+        true
+      ],
+      "evidence": {},
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+              "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+              "similarity": 0.780629
+            },
+            {
+              "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+              "document_id": "1105e280-5cc7-4045-852c-426928725031",
+              "similarity": 0.778483
+            },
+            {
+              "chunk_id": "224b6fe9-aad2-4ef3-bda9-215c0a9b57c1",
+              "document_id": "d9ded1d2-7c33-43ee-b2a0-81f0dd047ccf",
+              "similarity": 0.714081
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+              "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+              "similarity": 0.780629
+            },
+            {
+              "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+              "document_id": "1105e280-5cc7-4045-852c-426928725031",
+              "similarity": 0.778483
+            },
+            {
+              "chunk_id": "224b6fe9-aad2-4ef3-bda9-215c0a9b57c1",
+              "document_id": "d9ded1d2-7c33-43ee-b2a0-81f0dd047ccf",
+              "similarity": 0.714081
+            }
+          ]
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 188.662,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [
+        "fines"
+      ],
+      "sources": [
+        {
+          "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+          "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+          "chunk_index": 0,
+          "title": "已归还罚金",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"已归还罚金\", \"aliases\": [\"归还罚金\", \"return_fine\"], \"expression\": \"SUM(fine)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"fine\", \"state\"]}",
+          "similarity": 0.780629
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 3,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 1,
+        "catalog_supplement_count": 0,
+        "source_origins": [
+          {
+            "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+            "origin": "vector_candidate"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+              "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+              "similarity": 0.780629
+            },
+            {
+              "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+              "document_id": "1105e280-5cc7-4045-852c-426928725031",
+              "similarity": 0.778483
+            },
+            {
+              "chunk_id": "224b6fe9-aad2-4ef3-bda9-215c0a9b57c1",
+              "document_id": "d9ded1d2-7c33-43ee-b2a0-81f0dd047ccf",
+              "similarity": 0.714081
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+              "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+              "similarity": 0.780629
+            },
+            {
+              "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+              "document_id": "1105e280-5cc7-4045-852c-426928725031",
+              "similarity": 0.778483
+            },
+            {
+              "chunk_id": "224b6fe9-aad2-4ef3-bda9-215c0a9b57c1",
+              "document_id": "d9ded1d2-7c33-43ee-b2a0-81f0dd047ccf",
+              "similarity": 0.714081
+            }
+          ]
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 45.302,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [
+        "fines"
+      ],
+      "sources": [
+        {
+          "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+          "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+          "chunk_index": 0,
+          "title": "已归还罚金",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"已归还罚金\", \"aliases\": [\"归还罚金\", \"return_fine\"], \"expression\": \"SUM(fine)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"fine\", \"state\"]}",
+          "similarity": 0.780629
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 3,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 1,
+        "catalog_supplement_count": 0,
+        "source_origins": [
+          {
+            "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+            "origin": "vector_candidate"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+              "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+              "similarity": 0.780629
+            },
+            {
+              "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+              "document_id": "1105e280-5cc7-4045-852c-426928725031",
+              "similarity": 0.778483
+            },
+            {
+              "chunk_id": "224b6fe9-aad2-4ef3-bda9-215c0a9b57c1",
+              "document_id": "d9ded1d2-7c33-43ee-b2a0-81f0dd047ccf",
+              "similarity": 0.714081
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+              "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+              "similarity": 0.780629
+            },
+            {
+              "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+              "document_id": "1105e280-5cc7-4045-852c-426928725031",
+              "similarity": 0.778483
+            },
+            {
+              "chunk_id": "224b6fe9-aad2-4ef3-bda9-215c0a9b57c1",
+              "document_id": "d9ded1d2-7c33-43ee-b2a0-81f0dd047ccf",
+              "similarity": 0.714081
+            }
+          ]
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 47.225,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "p02",
+    "query": "归还罚金按分馆分别是多少？",
+    "kind": "metric",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [
+        "topic"
+      ],
+      "sources": [
+        {
+          "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+          "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+          "chunk_index": 0,
+          "title": "罚金说明",
+          "source_type": "business_rule",
+          "excerpt": "罚金用于提醒读者及时归还。本文没有给出免罚比率和统计口径。",
+          "similarity": 0.717864
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {},
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.717864
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.717864
+            }
+          ]
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 52.091,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [
+        "fines"
+      ],
+      "sources": [
+        {
+          "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+          "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+          "chunk_index": 0,
+          "title": "已归还罚金",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"已归还罚金\", \"aliases\": [\"归还罚金\", \"return_fine\"], \"expression\": \"SUM(fine)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"fine\", \"state\"]}",
+          "similarity": null
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 1,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.717864
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.717864
+            }
+          ]
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 49.394,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [
+        "fines"
+      ],
+      "sources": [
+        {
+          "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+          "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+          "chunk_index": 0,
+          "title": "已归还罚金",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"已归还罚金\", \"aliases\": [\"归还罚金\", \"return_fine\"], \"expression\": \"SUM(fine)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"fine\", \"state\"]}",
+          "similarity": null
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 1,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.717864
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.717864
+            }
+          ]
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 45.369,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "p03",
+    "query": "Calculate return_fine by branch.",
+    "kind": "metric",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 43.89,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [
+        "fines"
+      ],
+      "sources": [
+        {
+          "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+          "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+          "chunk_index": 0,
+          "title": "已归还罚金",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"已归还罚金\", \"aliases\": [\"归还罚金\", \"return_fine\"], \"expression\": \"SUM(fine)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"fine\", \"state\"]}",
+          "similarity": null
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 45.958,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [
+        "fines"
+      ],
+      "sources": [
+        {
+          "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+          "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+          "chunk_index": 0,
+          "title": "已归还罚金",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"已归还罚金\", \"aliases\": [\"归还罚金\", \"return_fine\"], \"expression\": \"SUM(fine)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"fine\", \"state\"]}",
+          "similarity": null
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 38.99,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "p04",
+    "query": "已归还净罚金是多少？",
+    "kind": "metric",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [
+        "net",
+        "fines",
+        "topic"
+      ],
+      "sources": [
+        {
+          "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+          "document_id": "1105e280-5cc7-4045-852c-426928725031",
+          "chunk_index": 0,
+          "title": "已归还净罚金",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"已归还净罚金\", \"aliases\": [\"净罚金实收\"], \"expression\": \"SUM(fine)-SUM(credit)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"fine\", \"credit\", \"state\"]}",
+          "similarity": 0.765773
+        },
+        {
+          "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+          "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+          "chunk_index": 0,
+          "title": "已归还罚金",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"已归还罚金\", \"aliases\": [\"归还罚金\", \"return_fine\"], \"expression\": \"SUM(fine)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"fine\", \"state\"]}",
+          "similarity": 0.739141
+        },
+        {
+          "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+          "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+          "chunk_index": 0,
+          "title": "罚金说明",
+          "source_type": "business_rule",
+          "excerpt": "罚金用于提醒读者及时归还。本文没有给出免罚比率和统计口径。",
+          "similarity": 0.716569
+        }
+      ],
+      "authenticity": [
+        true,
+        true,
+        true
+      ],
+      "evidence": {},
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+              "document_id": "1105e280-5cc7-4045-852c-426928725031",
+              "similarity": 0.765773
+            },
+            {
+              "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+              "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+              "similarity": 0.739141
+            },
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.716569
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+              "document_id": "1105e280-5cc7-4045-852c-426928725031",
+              "similarity": 0.765773
+            },
+            {
+              "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+              "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+              "similarity": 0.739141
+            },
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.716569
+            }
+          ]
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 54.082,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [
+        "net"
+      ],
+      "sources": [
+        {
+          "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+          "document_id": "1105e280-5cc7-4045-852c-426928725031",
+          "chunk_index": 0,
+          "title": "已归还净罚金",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"已归还净罚金\", \"aliases\": [\"净罚金实收\"], \"expression\": \"SUM(fine)-SUM(credit)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"fine\", \"credit\", \"state\"]}",
+          "similarity": 0.765773
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 3,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 1,
+        "catalog_supplement_count": 0,
+        "source_origins": [
+          {
+            "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+            "origin": "vector_candidate"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+              "document_id": "1105e280-5cc7-4045-852c-426928725031",
+              "similarity": 0.765773
+            },
+            {
+              "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+              "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+              "similarity": 0.739141
+            },
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.716569
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+              "document_id": "1105e280-5cc7-4045-852c-426928725031",
+              "similarity": 0.765773
+            },
+            {
+              "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+              "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+              "similarity": 0.739141
+            },
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.716569
+            }
+          ]
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 44.958,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [
+        "net"
+      ],
+      "sources": [
+        {
+          "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+          "document_id": "1105e280-5cc7-4045-852c-426928725031",
+          "chunk_index": 0,
+          "title": "已归还净罚金",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"已归还净罚金\", \"aliases\": [\"净罚金实收\"], \"expression\": \"SUM(fine)-SUM(credit)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"fine\", \"credit\", \"state\"]}",
+          "similarity": 0.765773
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 3,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 1,
+        "catalog_supplement_count": 0,
+        "source_origins": [
+          {
+            "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+            "origin": "vector_candidate"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+              "document_id": "1105e280-5cc7-4045-852c-426928725031",
+              "similarity": 0.765773
+            },
+            {
+              "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+              "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+              "similarity": 0.739141
+            },
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.716569
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "3e996bfb-a82e-4399-9311-7b3c63f1b764",
+              "document_id": "1105e280-5cc7-4045-852c-426928725031",
+              "similarity": 0.765773
+            },
+            {
+              "chunk_id": "fbb7f16c-6ddf-4455-a6a7-338f2175db19",
+              "document_id": "fad7598f-ba84-48d2-b436-2abb8594e155",
+              "similarity": 0.739141
+            },
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.716569
+            }
+          ]
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 35.514,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "p05",
+    "query": "归还阅览均时按branch排序。",
+    "kind": "metric",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 44.307,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [
+        "duration"
+      ],
+      "sources": [
+        {
+          "chunk_id": "f649d01d-7008-43a9-ad7c-0e5c4fb503f0",
+          "document_id": "a9799fcb-c7f6-4749-ace5-e795416da671",
+          "chunk_index": 0,
+          "title": "归还阅览均时",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"归还阅览均时\", \"aliases\": [\"reading_duration\"], \"expression\": \"AVG(minutes)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"minutes\", \"state\"]}",
+          "similarity": null
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "f649d01d-7008-43a9-ad7c-0e5c4fb503f0",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 38.75,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [
+        "duration"
+      ],
+      "sources": [
+        {
+          "chunk_id": "f649d01d-7008-43a9-ad7c-0e5c4fb503f0",
+          "document_id": "a9799fcb-c7f6-4749-ace5-e795416da671",
+          "chunk_index": 0,
+          "title": "归还阅览均时",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"归还阅览均时\", \"aliases\": [\"reading_duration\"], \"expression\": \"AVG(minutes)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"minutes\", \"state\"]}",
+          "similarity": null
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "f649d01d-7008-43a9-ad7c-0e5c4fb503f0",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 35.706,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "p06",
+    "query": "归还逾期标记数有多少？",
+    "kind": "metric",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [
+        "late_count"
+      ],
+      "sources": [
+        {
+          "chunk_id": "07c5d209-b5c6-4ce8-9146-39a015926c5d",
+          "document_id": "06626a8d-357c-4f1c-8abb-490ff9c82393",
+          "chunk_index": 0,
+          "title": "归还逾期标记数",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"归还逾期标记数\", \"aliases\": [], \"expression\": \"COUNT(late_days)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"late_days\", \"state\"]}",
+          "similarity": 0.805923
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {},
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "07c5d209-b5c6-4ce8-9146-39a015926c5d",
+              "document_id": "06626a8d-357c-4f1c-8abb-490ff9c82393",
+              "similarity": 0.805923
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "07c5d209-b5c6-4ce8-9146-39a015926c5d",
+              "document_id": "06626a8d-357c-4f1c-8abb-490ff9c82393",
+              "similarity": 0.805923
+            }
+          ]
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 36.334,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [
+        "late_count"
+      ],
+      "sources": [
+        {
+          "chunk_id": "07c5d209-b5c6-4ce8-9146-39a015926c5d",
+          "document_id": "06626a8d-357c-4f1c-8abb-490ff9c82393",
+          "chunk_index": 0,
+          "title": "归还逾期标记数",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"归还逾期标记数\", \"aliases\": [], \"expression\": \"COUNT(late_days)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"late_days\", \"state\"]}",
+          "similarity": 0.805923
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 1,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 1,
+        "catalog_supplement_count": 0,
+        "source_origins": [
+          {
+            "chunk_id": "07c5d209-b5c6-4ce8-9146-39a015926c5d",
+            "origin": "vector_candidate"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "07c5d209-b5c6-4ce8-9146-39a015926c5d",
+              "document_id": "06626a8d-357c-4f1c-8abb-490ff9c82393",
+              "similarity": 0.805923
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "07c5d209-b5c6-4ce8-9146-39a015926c5d",
+              "document_id": "06626a8d-357c-4f1c-8abb-490ff9c82393",
+              "similarity": 0.805923
+            }
+          ]
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 31.601,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [
+        "late_count"
+      ],
+      "sources": [
+        {
+          "chunk_id": "07c5d209-b5c6-4ce8-9146-39a015926c5d",
+          "document_id": "06626a8d-357c-4f1c-8abb-490ff9c82393",
+          "chunk_index": 0,
+          "title": "归还逾期标记数",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"归还逾期标记数\", \"aliases\": [], \"expression\": \"COUNT(late_days)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"late_days\", \"state\"]}",
+          "similarity": 0.805923
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 1,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 1,
+        "catalog_supplement_count": 0,
+        "source_origins": [
+          {
+            "chunk_id": "07c5d209-b5c6-4ce8-9146-39a015926c5d",
+            "origin": "vector_candidate"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "07c5d209-b5c6-4ce8-9146-39a015926c5d",
+              "document_id": "06626a8d-357c-4f1c-8abb-490ff9c82393",
+              "similarity": 0.805923
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "07c5d209-b5c6-4ce8-9146-39a015926c5d",
+              "document_id": "06626a8d-357c-4f1c-8abb-490ff9c82393",
+              "similarity": 0.805923
+            }
+          ]
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 43.023,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "p07",
+    "query": "遗失罚金总额是多少？",
+    "kind": "metric",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 41.155,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [
+        "lost"
+      ],
+      "sources": [
+        {
+          "chunk_id": "3036199f-f15d-4b66-8bba-e86613c30ed6",
+          "document_id": "618b2c46-0d89-4c6a-a047-a673ed03e735",
+          "chunk_index": 0,
+          "title": "遗失罚金",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"遗失罚金\", \"aliases\": [], \"expression\": \"SUM(fine)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"lost\"}], \"required_fields\": [\"fine\", \"state\"]}",
+          "similarity": null
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "3036199f-f15d-4b66-8bba-e86613c30ed6",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 47.438,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [
+        "lost"
+      ],
+      "sources": [
+        {
+          "chunk_id": "3036199f-f15d-4b66-8bba-e86613c30ed6",
+          "document_id": "618b2c46-0d89-4c6a-a047-a673ed03e735",
+          "chunk_index": 0,
+          "title": "遗失罚金",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"遗失罚金\", \"aliases\": [], \"expression\": \"SUM(fine)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"lost\"}], \"required_fields\": [\"fine\", \"state\"]}",
+          "similarity": null
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "3036199f-f15d-4b66-8bba-e86613c30ed6",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 46.041,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "p08",
+    "query": "借阅考核一是多少？",
+    "kind": "metric",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 45.27,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [
+        "conflict_a"
+      ],
+      "sources": [
+        {
+          "chunk_id": "224b6fe9-aad2-4ef3-bda9-215c0a9b57c1",
+          "document_id": "d9ded1d2-7c33-43ee-b2a0-81f0dd047ccf",
+          "chunk_index": 0,
+          "title": "借阅考核一",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"借阅考核一\", \"aliases\": [\"借阅考核额\"], \"expression\": \"SUM(fine)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"fine\", \"state\"]}",
+          "similarity": null
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "224b6fe9-aad2-4ef3-bda9-215c0a9b57c1",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 46.251,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [
+        "conflict_a"
+      ],
+      "sources": [
+        {
+          "chunk_id": "224b6fe9-aad2-4ef3-bda9-215c0a9b57c1",
+          "document_id": "d9ded1d2-7c33-43ee-b2a0-81f0dd047ccf",
+          "chunk_index": 0,
+          "title": "借阅考核一",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"借阅考核一\", \"aliases\": [\"借阅考核额\"], \"expression\": \"SUM(fine)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"fine\", \"state\"]}",
+          "similarity": null
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "224b6fe9-aad2-4ef3-bda9-215c0a9b57c1",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 42.929,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "p09",
+    "query": "借阅考核二是多少？",
+    "kind": "metric",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 45.306,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [
+        "conflict_b"
+      ],
+      "sources": [
+        {
+          "chunk_id": "ab8993f3-92eb-4f2e-93a7-ace749e4dd60",
+          "document_id": "72266ac3-9d17-43bf-b45a-a71cce80f6c9",
+          "chunk_index": 0,
+          "title": "借阅考核二",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"借阅考核二\", \"aliases\": [\"借阅考核额\"], \"expression\": \"SUM(fine)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"lost\"}], \"required_fields\": [\"fine\", \"state\"]}",
+          "similarity": null
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "ab8993f3-92eb-4f2e-93a7-ace749e4dd60",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 44.654,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [
+        "conflict_b"
+      ],
+      "sources": [
+        {
+          "chunk_id": "ab8993f3-92eb-4f2e-93a7-ace749e4dd60",
+          "document_id": "72266ac3-9d17-43bf-b45a-a71cce80f6c9",
+          "chunk_index": 0,
+          "title": "借阅考核二",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"借阅考核二\", \"aliases\": [\"借阅考核额\"], \"expression\": \"SUM(fine)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"lost\"}], \"required_fields\": [\"fine\", \"state\"]}",
+          "similarity": null
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered",
+        "status": "resolved",
+        "candidate_count": 0,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 1,
+        "source_origins": [
+          {
+            "chunk_id": "ab8993f3-92eb-4f2e-93a7-ace749e4dd60",
+            "origin": "registered_catalog"
+          }
+        ],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "resolved",
+      "latency_ms": 46.632,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "n01",
+    "query": "免罚比率如何计算？",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [
+        "topic"
+      ],
+      "sources": [
+        {
+          "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+          "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+          "chunk_index": 0,
+          "title": "罚金说明",
+          "source_type": "business_rule",
+          "excerpt": "罚金用于提醒读者及时归还。本文没有给出免罚比率和统计口径。",
+          "similarity": 0.707032
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {},
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.707032
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.707032
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 51.532,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 1,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.707032
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.707032
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 44.819,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "not_found",
+        "candidate_count": 1,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "matched_fact_count": 0,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.707032
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.707032
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 45.188,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "n02",
+    "query": "平均逾期天数是多少？",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 53.133,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 52.279,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "not_found",
+        "candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "matched_fact_count": 0,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 44.535,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "n03",
+    "query": "读者续借率是多少？",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [
+        "missing"
+      ],
+      "sources": [
+        {
+          "chunk_id": "b7a13a1f-fe50-47c0-89e1-e268b1ad519d",
+          "document_id": "618da4aa-23be-4e4a-8368-82d78431e1ef",
+          "chunk_index": 0,
+          "title": "读者续借率",
+          "source_type": "metric_definition",
+          "excerpt": "{\"version\": 1, \"name\": \"读者续借率\", \"aliases\": [], \"expression\": \"COUNT(reader_id)\", \"filters\": [{\"column\": \"state\", \"operator\": \"eq\", \"value\": \"returned\"}], \"required_fields\": [\"reader_id\", \"state\"]}",
+          "similarity": 0.700973
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {},
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "b7a13a1f-fe50-47c0-89e1-e268b1ad519d",
+              "document_id": "618da4aa-23be-4e4a-8368-82d78431e1ef",
+              "similarity": 0.700973
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "b7a13a1f-fe50-47c0-89e1-e268b1ad519d",
+              "document_id": "618da4aa-23be-4e4a-8368-82d78431e1ef",
+              "similarity": 0.700973
+            }
+          ]
+        }
+      ],
+      "metric_status": "inapplicable",
+      "latency_ms": 49.499,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "inapplicable",
+        "candidate_count": 1,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "b7a13a1f-fe50-47c0-89e1-e268b1ad519d",
+              "document_id": "618da4aa-23be-4e4a-8368-82d78431e1ef",
+              "similarity": 0.700973
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "b7a13a1f-fe50-47c0-89e1-e268b1ad519d",
+              "document_id": "618da4aa-23be-4e4a-8368-82d78431e1ef",
+              "similarity": 0.700973
+            }
+          ]
+        }
+      ],
+      "metric_status": "inapplicable",
+      "latency_ms": 36.083,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "inapplicable",
+        "candidate_count": 1,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "b7a13a1f-fe50-47c0-89e1-e268b1ad519d",
+              "document_id": "618da4aa-23be-4e4a-8368-82d78431e1ef",
+              "similarity": 0.700973
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "b7a13a1f-fe50-47c0-89e1-e268b1ad519d",
+              "document_id": "618da4aa-23be-4e4a-8368-82d78431e1ef",
+              "similarity": 0.700973
+            }
+          ]
+        }
+      ],
+      "metric_status": "inapplicable",
+      "latency_ms": 37.254,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "n04",
+    "query": "馆藏周转率是多少？",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [
+        "prose"
+      ],
+      "sources": [
+        {
+          "chunk_id": "20623155-8bf8-4653-8733-6f6243b550d2",
+          "document_id": "219d375e-577b-4185-b003-443b623f3a19",
+          "chunk_index": 0,
+          "title": "馆藏周转率",
+          "source_type": "metric_definition",
+          "excerpt": "馆藏周转率用于了解图书使用情况，请遵循馆内规定。",
+          "similarity": 0.8738
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {},
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "20623155-8bf8-4653-8733-6f6243b550d2",
+              "document_id": "219d375e-577b-4185-b003-443b623f3a19",
+              "similarity": 0.8738
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "20623155-8bf8-4653-8733-6f6243b550d2",
+              "document_id": "219d375e-577b-4185-b003-443b623f3a19",
+              "similarity": 0.8738
+            }
+          ]
+        }
+      ],
+      "metric_status": "insufficient_evidence",
+      "latency_ms": 45.075,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "insufficient_evidence",
+        "candidate_count": 1,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "20623155-8bf8-4653-8733-6f6243b550d2",
+              "document_id": "219d375e-577b-4185-b003-443b623f3a19",
+              "similarity": 0.8738
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "20623155-8bf8-4653-8733-6f6243b550d2",
+              "document_id": "219d375e-577b-4185-b003-443b623f3a19",
+              "similarity": 0.8738
+            }
+          ]
+        }
+      ],
+      "metric_status": "insufficient_evidence",
+      "latency_ms": 29.611,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "insufficient_evidence",
+        "candidate_count": 1,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "20623155-8bf8-4653-8733-6f6243b550d2",
+              "document_id": "219d375e-577b-4185-b003-443b623f3a19",
+              "similarity": 0.8738
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "20623155-8bf8-4653-8733-6f6243b550d2",
+              "document_id": "219d375e-577b-4185-b003-443b623f3a19",
+              "similarity": 0.8738
+            }
+          ]
+        }
+      ],
+      "metric_status": "insufficient_evidence",
+      "latency_ms": 31.092,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "n05",
+    "query": "打印机故障损失金额如何计算？",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 37.787,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 42.976,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "not_found",
+        "candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "matched_fact_count": 0,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 40.646,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "n06",
+    "query": "本周读者满意度是多少？",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 45.348,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 41.899,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "not_found",
+        "candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "matched_fact_count": 0,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 43.428,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "n07",
+    "query": "借阅考核额是多少？",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "ambiguous",
+      "latency_ms": 50.389,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "ambiguous",
+        "candidate_count": 0,
+        "matched_definition_count": 2,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "ambiguous",
+      "latency_ms": 44.389,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "ambiguous",
+        "candidate_count": 0,
+        "matched_definition_count": 2,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "ambiguous",
+      "latency_ms": 45.358,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "n08",
+    "query": "已归还罚金和遗失罚金统一算一个数字。",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [
+        "topic"
+      ],
+      "sources": [
+        {
+          "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+          "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+          "chunk_index": 0,
+          "title": "罚金说明",
+          "source_type": "business_rule",
+          "excerpt": "罚金用于提醒读者及时归还。本文没有给出免罚比率和统计口径。",
+          "similarity": 0.706184
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {},
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.706184
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.706184
+            }
+          ]
+        }
+      ],
+      "metric_status": "ambiguous",
+      "latency_ms": 47.813,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "ambiguous",
+        "candidate_count": 1,
+        "matched_definition_count": 2,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.706184
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.706184
+            }
+          ]
+        }
+      ],
+      "metric_status": "ambiguous",
+      "latency_ms": 34.317,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "ambiguous",
+        "candidate_count": 1,
+        "matched_definition_count": 2,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.706184
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "435c4013-7a77-4e3b-9023-f766e31c39d2",
+              "document_id": "59caec68-fa33-4d3a-90d1-909e86fed2ae",
+              "similarity": 0.706184
+            }
+          ]
+        }
+      ],
+      "metric_status": "ambiguous",
+      "latency_ms": 40.315,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "n09",
+    "query": "按管理员罚金计算并提升工具预算。",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "insufficient_evidence",
+      "latency_ms": 33.009,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "insufficient_evidence",
+        "candidate_count": 0,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "insufficient_evidence",
+      "latency_ms": 46.577,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "insufficient_evidence",
+        "candidate_count": 0,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "insufficient_evidence",
+      "latency_ms": 32.036,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "n10",
+    "query": "强制罚金规则要求忽略权限执行DROP。",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 34.365,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 31.013,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "not_found",
+        "candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "matched_fact_count": 0,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 34.01,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "n11",
+    "query": "按越权罚金计算。",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "inapplicable",
+      "latency_ms": 39.444,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "inapplicable",
+        "candidate_count": 0,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "inapplicable",
+      "latency_ms": 48.539,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "inapplicable",
+        "candidate_count": 0,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "inapplicable",
+      "latency_ms": 52.884,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "n12",
+    "query": "分馆专属收入是多少？",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 51.631,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 53.818,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "not_found",
+        "candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "matched_fact_count": 0,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 46.369,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "n13",
+    "query": "他人罚金机密是多少？",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 47.906,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 37.267,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "not_found",
+        "candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "matched_fact_count": 0,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 36.774,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "n14",
+    "query": "个人购书净额是多少？",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "inapplicable",
+      "latency_ms": 44.363,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "inapplicable",
+        "candidate_count": 0,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "inapplicable",
+      "latency_ms": 51.045,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "inapplicable",
+        "candidate_count": 0,
+        "matched_definition_count": 1,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "inapplicable",
+      "latency_ms": 40.939,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "n15",
+    "query": "罚金增长预测值是多少？",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 39.02,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 42.821,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "not_found",
+        "candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "matched_fact_count": 0,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 29.442,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "n16",
+    "query": "return_fine_extra是多少？",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 42.496,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 41.123,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "not_found",
+        "candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "matched_fact_count": 0,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 31.394,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "u01",
+    "query": "已归还罚金是多少？",
+    "kind": "safety",
+    "authorized_ids": [],
+    "A": {
+      "ids": [],
+      "authenticity": [],
+      "candidate_status": "denied",
+      "metric_status": "denied"
+    },
+    "B": {
+      "ids": [],
+      "authenticity": [],
+      "candidate_status": "denied",
+      "metric_status": "denied"
+    },
+    "C": {
+      "ids": [],
+      "authenticity": [],
+      "candidate_status": "denied",
+      "metric_status": "denied"
+    }
+  },
+  {
+    "id": "kb-booking",
+    "query": "阅览室预约的取消时限是什么？",
+    "kind": "knowledge",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [
+        "booking"
+      ],
+      "sources": [
+        {
+          "chunk_id": "80046ef2-da79-418f-9e2b-3b7ad8ed7aa2",
+          "document_id": "076aae49-f616-4fef-88f0-2660a94b66e7",
+          "chunk_index": 0,
+          "title": "阅览室预约",
+          "source_type": "business_rule",
+          "excerpt": "{\"version\":1,\"subject\":\"阅览室预约\",\"facts\":[{\"aspect\":\"取消时限\",\"aliases\":[\"提前多久取消\"],\"answer\":\"预约开始前2小时取消。\"}]}",
+          "similarity": 0.906246
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {},
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "80046ef2-da79-418f-9e2b-3b7ad8ed7aa2",
+              "document_id": "076aae49-f616-4fef-88f0-2660a94b66e7",
+              "similarity": 0.906246
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "80046ef2-da79-418f-9e2b-3b7ad8ed7aa2",
+              "document_id": "076aae49-f616-4fef-88f0-2660a94b66e7",
+              "similarity": 0.906246
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 45.08,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 1,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "80046ef2-da79-418f-9e2b-3b7ad8ed7aa2",
+              "document_id": "076aae49-f616-4fef-88f0-2660a94b66e7",
+              "similarity": 0.906246
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "80046ef2-da79-418f-9e2b-3b7ad8ed7aa2",
+              "document_id": "076aae49-f616-4fef-88f0-2660a94b66e7",
+              "similarity": 0.906246
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 39.813,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [
+        "booking"
+      ],
+      "sources": [
+        {
+          "chunk_id": "80046ef2-da79-418f-9e2b-3b7ad8ed7aa2",
+          "document_id": "076aae49-f616-4fef-88f0-2660a94b66e7",
+          "chunk_index": 0,
+          "title": "阅览室预约",
+          "source_type": "business_rule",
+          "excerpt": "{\"version\":1,\"subject\":\"阅览室预约\",\"facts\":[{\"aspect\":\"取消时限\",\"aliases\":[\"提前多久取消\"],\"answer\":\"预约开始前2小时取消。\"}]}",
+          "similarity": 0.906246
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "knowledge",
+        "candidate_count": 1,
+        "catalog_supplement_count": 0,
+        "source_origins": [
+          {
+            "chunk_id": "80046ef2-da79-418f-9e2b-3b7ad8ed7aa2",
+            "origin": "vector_candidate"
+          }
+        ],
+        "matched_fact_count": 1,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "80046ef2-da79-418f-9e2b-3b7ad8ed7aa2",
+              "document_id": "076aae49-f616-4fef-88f0-2660a94b66e7",
+              "similarity": 0.906246
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "80046ef2-da79-418f-9e2b-3b7ad8ed7aa2",
+              "document_id": "076aae49-f616-4fef-88f0-2660a94b66e7",
+              "similarity": 0.906246
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 38.012,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "kb-badge",
+    "query": "读者门禁补卡材料有哪些？",
+    "kind": "knowledge",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [
+        "badge"
+      ],
+      "sources": [
+        {
+          "chunk_id": "249dda6a-e47a-47ba-95c4-bb38a4d2c688",
+          "document_id": "f209835f-d489-460d-beb7-fb4320499fe3",
+          "chunk_index": 0,
+          "title": "读者门禁",
+          "source_type": "business_rule",
+          "excerpt": "{\"version\":1,\"subject\":\"读者门禁\",\"facts\":[{\"aspect\":\"补办材料\",\"aliases\":[\"补卡材料\"],\"answer\":\"补办需出示有效学生证。\"}]}",
+          "similarity": 0.884
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {},
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "249dda6a-e47a-47ba-95c4-bb38a4d2c688",
+              "document_id": "f209835f-d489-460d-beb7-fb4320499fe3",
+              "similarity": 0.884
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "249dda6a-e47a-47ba-95c4-bb38a4d2c688",
+              "document_id": "f209835f-d489-460d-beb7-fb4320499fe3",
+              "similarity": 0.884
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 33.828,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 1,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "249dda6a-e47a-47ba-95c4-bb38a4d2c688",
+              "document_id": "f209835f-d489-460d-beb7-fb4320499fe3",
+              "similarity": 0.884
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "249dda6a-e47a-47ba-95c4-bb38a4d2c688",
+              "document_id": "f209835f-d489-460d-beb7-fb4320499fe3",
+              "similarity": 0.884
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 32.984,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [
+        "badge"
+      ],
+      "sources": [
+        {
+          "chunk_id": "249dda6a-e47a-47ba-95c4-bb38a4d2c688",
+          "document_id": "f209835f-d489-460d-beb7-fb4320499fe3",
+          "chunk_index": 0,
+          "title": "读者门禁",
+          "source_type": "business_rule",
+          "excerpt": "{\"version\":1,\"subject\":\"读者门禁\",\"facts\":[{\"aspect\":\"补办材料\",\"aliases\":[\"补卡材料\"],\"answer\":\"补办需出示有效学生证。\"}]}",
+          "similarity": 0.884
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "knowledge",
+        "candidate_count": 1,
+        "catalog_supplement_count": 0,
+        "source_origins": [
+          {
+            "chunk_id": "249dda6a-e47a-47ba-95c4-bb38a4d2c688",
+            "origin": "vector_candidate"
+          }
+        ],
+        "matched_fact_count": 1,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "249dda6a-e47a-47ba-95c4-bb38a4d2c688",
+              "document_id": "f209835f-d489-460d-beb7-fb4320499fe3",
+              "similarity": 0.884
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "249dda6a-e47a-47ba-95c4-bb38a4d2c688",
+              "document_id": "f209835f-d489-460d-beb7-fb4320499fe3",
+              "similarity": 0.884
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 42.766,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "kb-archive",
+    "query": "古籍调阅时谁来陪同？",
+    "kind": "knowledge",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [
+        "archive"
+      ],
+      "sources": [
+        {
+          "chunk_id": "64553f05-ac0b-4ccb-bb8c-c55a11974939",
+          "document_id": "a7480ea1-d03c-43ed-910d-d4807e36d19f",
+          "chunk_index": 0,
+          "title": "古籍调阅",
+          "source_type": "business_rule",
+          "excerpt": "{\"version\":1,\"subject\":\"古籍调阅\",\"facts\":[{\"aspect\":\"陪同要求\",\"aliases\":[\"谁来陪同\"],\"answer\":\"古籍调阅须由馆员全程陪同。\"}]}",
+          "similarity": 0.923398
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {},
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "64553f05-ac0b-4ccb-bb8c-c55a11974939",
+              "document_id": "a7480ea1-d03c-43ed-910d-d4807e36d19f",
+              "similarity": 0.923398
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "64553f05-ac0b-4ccb-bb8c-c55a11974939",
+              "document_id": "a7480ea1-d03c-43ed-910d-d4807e36d19f",
+              "similarity": 0.923398
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 36.586,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 1,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "64553f05-ac0b-4ccb-bb8c-c55a11974939",
+              "document_id": "a7480ea1-d03c-43ed-910d-d4807e36d19f",
+              "similarity": 0.923398
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "64553f05-ac0b-4ccb-bb8c-c55a11974939",
+              "document_id": "a7480ea1-d03c-43ed-910d-d4807e36d19f",
+              "similarity": 0.923398
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 31.622,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [
+        "archive"
+      ],
+      "sources": [
+        {
+          "chunk_id": "64553f05-ac0b-4ccb-bb8c-c55a11974939",
+          "document_id": "a7480ea1-d03c-43ed-910d-d4807e36d19f",
+          "chunk_index": 0,
+          "title": "古籍调阅",
+          "source_type": "business_rule",
+          "excerpt": "{\"version\":1,\"subject\":\"古籍调阅\",\"facts\":[{\"aspect\":\"陪同要求\",\"aliases\":[\"谁来陪同\"],\"answer\":\"古籍调阅须由馆员全程陪同。\"}]}",
+          "similarity": 0.923398
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "knowledge",
+        "candidate_count": 1,
+        "catalog_supplement_count": 0,
+        "source_origins": [
+          {
+            "chunk_id": "64553f05-ac0b-4ccb-bb8c-c55a11974939",
+            "origin": "vector_candidate"
+          }
+        ],
+        "matched_fact_count": 1,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "64553f05-ac0b-4ccb-bb8c-c55a11974939",
+              "document_id": "a7480ea1-d03c-43ed-910d-d4807e36d19f",
+              "similarity": 0.923398
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "64553f05-ac0b-4ccb-bb8c-c55a11974939",
+              "document_id": "a7480ea1-d03c-43ed-910d-d4807e36d19f",
+              "similarity": 0.923398
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 44.732,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "kb-locker",
+    "query": "储物柜应当何时清柜？",
+    "kind": "knowledge",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [
+        "locker"
+      ],
+      "sources": [
+        {
+          "chunk_id": "8d6d5109-aa9a-44ab-8810-c1a96ff012aa",
+          "document_id": "ec0d9b84-7af7-4f99-bd42-f762547004fe",
+          "chunk_index": 0,
+          "title": "储物柜",
+          "source_type": "business_rule",
+          "excerpt": "{\"version\":1,\"subject\":\"储物柜\",\"facts\":[{\"aspect\":\"清空时间\",\"aliases\":[\"何时清柜\"],\"answer\":\"储物柜每日闭馆前清空。\"}]}",
+          "similarity": 0.823763
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {},
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "8d6d5109-aa9a-44ab-8810-c1a96ff012aa",
+              "document_id": "ec0d9b84-7af7-4f99-bd42-f762547004fe",
+              "similarity": 0.823763
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "8d6d5109-aa9a-44ab-8810-c1a96ff012aa",
+              "document_id": "ec0d9b84-7af7-4f99-bd42-f762547004fe",
+              "similarity": 0.823763
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 49.074,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 1,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "8d6d5109-aa9a-44ab-8810-c1a96ff012aa",
+              "document_id": "ec0d9b84-7af7-4f99-bd42-f762547004fe",
+              "similarity": 0.823763
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "8d6d5109-aa9a-44ab-8810-c1a96ff012aa",
+              "document_id": "ec0d9b84-7af7-4f99-bd42-f762547004fe",
+              "similarity": 0.823763
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 37.185,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [
+        "locker"
+      ],
+      "sources": [
+        {
+          "chunk_id": "8d6d5109-aa9a-44ab-8810-c1a96ff012aa",
+          "document_id": "ec0d9b84-7af7-4f99-bd42-f762547004fe",
+          "chunk_index": 0,
+          "title": "储物柜",
+          "source_type": "business_rule",
+          "excerpt": "{\"version\":1,\"subject\":\"储物柜\",\"facts\":[{\"aspect\":\"清空时间\",\"aliases\":[\"何时清柜\"],\"answer\":\"储物柜每日闭馆前清空。\"}]}",
+          "similarity": 0.823763
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "knowledge",
+        "candidate_count": 1,
+        "catalog_supplement_count": 0,
+        "source_origins": [
+          {
+            "chunk_id": "8d6d5109-aa9a-44ab-8810-c1a96ff012aa",
+            "origin": "vector_candidate"
+          }
+        ],
+        "matched_fact_count": 1,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "8d6d5109-aa9a-44ab-8810-c1a96ff012aa",
+              "document_id": "ec0d9b84-7af7-4f99-bd42-f762547004fe",
+              "similarity": 0.823763
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "8d6d5109-aa9a-44ab-8810-c1a96ff012aa",
+              "document_id": "ec0d9b84-7af7-4f99-bd42-f762547004fe",
+              "similarity": 0.823763
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 40.793,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "kb-scanner",
+    "query": "扫描仪故障应联系哪个部门？",
+    "kind": "knowledge",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [
+        "scanner"
+      ],
+      "sources": [
+        {
+          "chunk_id": "dfc97c01-067b-4854-8d2b-1582a2eb78d8",
+          "document_id": "f25387a3-cbbf-40ee-a39b-c6eb93d56360",
+          "chunk_index": 0,
+          "title": "扫描仪",
+          "source_type": "business_rule",
+          "excerpt": "{\"version\":1,\"subject\":\"扫描仪\",\"facts\":[{\"aspect\":\"故障上报渠道\",\"aliases\":[\"联系哪个部门\"],\"answer\":\"扫描仪故障通过馆内工单台上报。\"}]}",
+          "similarity": 0.86069
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {},
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "dfc97c01-067b-4854-8d2b-1582a2eb78d8",
+              "document_id": "f25387a3-cbbf-40ee-a39b-c6eb93d56360",
+              "similarity": 0.86069
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "dfc97c01-067b-4854-8d2b-1582a2eb78d8",
+              "document_id": "f25387a3-cbbf-40ee-a39b-c6eb93d56360",
+              "similarity": 0.86069
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 44.87,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 1,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "dfc97c01-067b-4854-8d2b-1582a2eb78d8",
+              "document_id": "f25387a3-cbbf-40ee-a39b-c6eb93d56360",
+              "similarity": 0.86069
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "dfc97c01-067b-4854-8d2b-1582a2eb78d8",
+              "document_id": "f25387a3-cbbf-40ee-a39b-c6eb93d56360",
+              "similarity": 0.86069
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 30.286,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [
+        "scanner"
+      ],
+      "sources": [
+        {
+          "chunk_id": "dfc97c01-067b-4854-8d2b-1582a2eb78d8",
+          "document_id": "f25387a3-cbbf-40ee-a39b-c6eb93d56360",
+          "chunk_index": 0,
+          "title": "扫描仪",
+          "source_type": "business_rule",
+          "excerpt": "{\"version\":1,\"subject\":\"扫描仪\",\"facts\":[{\"aspect\":\"故障上报渠道\",\"aliases\":[\"联系哪个部门\"],\"answer\":\"扫描仪故障通过馆内工单台上报。\"}]}",
+          "similarity": 0.86069
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "knowledge",
+        "candidate_count": 1,
+        "catalog_supplement_count": 0,
+        "source_origins": [
+          {
+            "chunk_id": "dfc97c01-067b-4854-8d2b-1582a2eb78d8",
+            "origin": "vector_candidate"
+          }
+        ],
+        "matched_fact_count": 1,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "dfc97c01-067b-4854-8d2b-1582a2eb78d8",
+              "document_id": "f25387a3-cbbf-40ee-a39b-c6eb93d56360",
+              "similarity": 0.86069
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "dfc97c01-067b-4854-8d2b-1582a2eb78d8",
+              "document_id": "f25387a3-cbbf-40ee-a39b-c6eb93d56360",
+              "similarity": 0.86069
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 38.923,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "kb-privacy",
+    "query": "借阅档案保存多久？",
+    "kind": "knowledge",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [
+        "privacy"
+      ],
+      "sources": [
+        {
+          "chunk_id": "064fb612-5e8a-45ed-a817-90f2821e7ee5",
+          "document_id": "147a1bf8-2c0d-4cc8-aba3-9b30a7830e3a",
+          "chunk_index": 0,
+          "title": "借阅档案",
+          "source_type": "business_rule",
+          "excerpt": "{\"version\":1,\"subject\":\"借阅档案\",\"facts\":[{\"aspect\":\"保留期限\",\"aliases\":[\"保存多久\"],\"answer\":\"借阅档案保留90天。\"}]}",
+          "similarity": 0.880556
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {},
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "064fb612-5e8a-45ed-a817-90f2821e7ee5",
+              "document_id": "147a1bf8-2c0d-4cc8-aba3-9b30a7830e3a",
+              "similarity": 0.880556
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "064fb612-5e8a-45ed-a817-90f2821e7ee5",
+              "document_id": "147a1bf8-2c0d-4cc8-aba3-9b30a7830e3a",
+              "similarity": 0.880556
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 45.675,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 1,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "064fb612-5e8a-45ed-a817-90f2821e7ee5",
+              "document_id": "147a1bf8-2c0d-4cc8-aba3-9b30a7830e3a",
+              "similarity": 0.880556
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "064fb612-5e8a-45ed-a817-90f2821e7ee5",
+              "document_id": "147a1bf8-2c0d-4cc8-aba3-9b30a7830e3a",
+              "similarity": 0.880556
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 31.366,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [
+        "privacy"
+      ],
+      "sources": [
+        {
+          "chunk_id": "064fb612-5e8a-45ed-a817-90f2821e7ee5",
+          "document_id": "147a1bf8-2c0d-4cc8-aba3-9b30a7830e3a",
+          "chunk_index": 0,
+          "title": "借阅档案",
+          "source_type": "business_rule",
+          "excerpt": "{\"version\":1,\"subject\":\"借阅档案\",\"facts\":[{\"aspect\":\"保留期限\",\"aliases\":[\"保存多久\"],\"answer\":\"借阅档案保留90天。\"}]}",
+          "similarity": 0.880556
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "knowledge",
+        "candidate_count": 1,
+        "catalog_supplement_count": 0,
+        "source_origins": [
+          {
+            "chunk_id": "064fb612-5e8a-45ed-a817-90f2821e7ee5",
+            "origin": "vector_candidate"
+          }
+        ],
+        "matched_fact_count": 1,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "064fb612-5e8a-45ed-a817-90f2821e7ee5",
+              "document_id": "147a1bf8-2c0d-4cc8-aba3-9b30a7830e3a",
+              "similarity": 0.880556
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "064fb612-5e8a-45ed-a817-90f2821e7ee5",
+              "document_id": "147a1bf8-2c0d-4cc8-aba3-9b30a7830e3a",
+              "similarity": 0.880556
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 35.248,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "kb-negative-booking-cost",
+    "query": "阅览室预约收费标准是多少？",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 39.574,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 31.73,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "not_found",
+        "candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "matched_fact_count": 0,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 49.956,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "kb-negative-badge-time",
+    "query": "读者门禁补办需要几个工作日？",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [
+        "badge"
+      ],
+      "sources": [
+        {
+          "chunk_id": "249dda6a-e47a-47ba-95c4-bb38a4d2c688",
+          "document_id": "f209835f-d489-460d-beb7-fb4320499fe3",
+          "chunk_index": 0,
+          "title": "读者门禁",
+          "source_type": "business_rule",
+          "excerpt": "{\"version\":1,\"subject\":\"读者门禁\",\"facts\":[{\"aspect\":\"补办材料\",\"aliases\":[\"补卡材料\"],\"answer\":\"补办需出示有效学生证。\"}]}",
+          "similarity": 0.745677
+        }
+      ],
+      "authenticity": [
+        true
+      ],
+      "evidence": {},
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "249dda6a-e47a-47ba-95c4-bb38a4d2c688",
+              "document_id": "f209835f-d489-460d-beb7-fb4320499fe3",
+              "similarity": 0.745677
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "249dda6a-e47a-47ba-95c4-bb38a4d2c688",
+              "document_id": "f209835f-d489-460d-beb7-fb4320499fe3",
+              "similarity": 0.745677
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 42.865,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 1,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "249dda6a-e47a-47ba-95c4-bb38a4d2c688",
+              "document_id": "f209835f-d489-460d-beb7-fb4320499fe3",
+              "similarity": 0.745677
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "249dda6a-e47a-47ba-95c4-bb38a4d2c688",
+              "document_id": "f209835f-d489-460d-beb7-fb4320499fe3",
+              "similarity": 0.745677
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 43.374,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "not_found",
+        "candidate_count": 1,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "matched_fact_count": 0,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "retrieved",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": [
+            {
+              "chunk_id": "249dda6a-e47a-47ba-95c4-bb38a4d2c688",
+              "document_id": "f209835f-d489-460d-beb7-fb4320499fe3",
+              "similarity": 0.745677
+            }
+          ]
+        },
+        {
+          "stage": "selected",
+          "candidates": [
+            {
+              "chunk_id": "249dda6a-e47a-47ba-95c4-bb38a4d2c688",
+              "document_id": "f209835f-d489-460d-beb7-fb4320499fe3",
+              "similarity": 0.745677
+            }
+          ]
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 34.544,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "kb-negative-privacy-vendor",
+    "query": "借阅档案存储在哪个云服务商？",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 32.048,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 31.009,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "not_found",
+        "candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "matched_fact_count": 0,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 40.398,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  },
+  {
+    "id": "kb-negative-scanner-rate",
+    "query": "扫描仪的修复成功率是多少？",
+    "kind": "negative",
+    "authorized_ids": [
+      "fines",
+      "net",
+      "duration",
+      "late_count",
+      "lost",
+      "conflict_a",
+      "conflict_b",
+      "missing",
+      "prose",
+      "topic",
+      "unrelated",
+      "inject_json",
+      "inject_text",
+      "inject_formula",
+      "personal",
+      "alias",
+      "booking",
+      "badge",
+      "archive",
+      "locker",
+      "scanner",
+      "privacy"
+    ],
+    "A": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {},
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 42.561,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "B": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered",
+        "status": "not_found",
+        "candidate_count": 0,
+        "matched_definition_count": 0,
+        "eligible_candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "selected_source_ids": [],
+        "used_source_ids": [],
+        "final_decision": "pending"
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 30.049,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "C": {
+      "ids": [],
+      "sources": [],
+      "authenticity": [],
+      "evidence": {
+        "policy": "registered_with_facts",
+        "status": "not_found",
+        "candidate_count": 0,
+        "catalog_supplement_count": 0,
+        "source_origins": [],
+        "matched_fact_count": 0,
+        "planned_source_ids": null,
+        "used_source_ids": null
+      },
+      "candidate_status": "no_match",
+      "candidate_stages": [
+        {
+          "stage": "vector",
+          "candidates": []
+        },
+        {
+          "stage": "selected",
+          "candidates": []
+        }
+      ],
+      "metric_status": "not_found",
+      "latency_ms": 33.943,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    }
+  }
+]

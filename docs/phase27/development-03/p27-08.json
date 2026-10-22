@@ -1,0 +1,193 @@
+{
+  "id": "p27-08",
+  "query": "秤开工前如何处理？",
+  "kind": "synonym",
+  "relevant_ids": [
+    "scale"
+  ],
+  "A": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [],
+    "decision": {},
+    "authenticity": [],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": []
+      },
+      {
+        "stage": "selected",
+        "candidates": []
+      }
+    ],
+    "latency_ms": 12.545,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 0,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": []
+      },
+      {
+        "stage": "selected",
+        "candidates": []
+      }
+    ],
+    "latency_ms": 11.756,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [
+      "scale"
+    ],
+    "sources": [
+      {
+        "chunk_id": "55069729-3590-4170-a1bc-6751350769b2",
+        "document_id": "85816812-389f-48a6-b2f9-614f6da938aa",
+        "chunk_index": 0,
+        "title": "天平检查",
+        "source_type": "business_rule",
+        "excerpt": "天平开工前归零，偏差超过2克停用。校验只能由值班员签字。",
+        "similarity": 0.585697,
+        "vector_rank": 1,
+        "lexical_rank": 1,
+        "fusion_score": 0.03278688524590164
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "55069729-3590-4170-a1bc-6751350769b2",
+        "document_id": "85816812-389f-48a6-b2f9-614f6da938aa",
+        "chunk_index": 0,
+        "title": "天平检查",
+        "source_type": "business_rule",
+        "excerpt": "天平开工前归零，偏差超过2克停用。校验只能由值班员签字。",
+        "similarity": 0.585697,
+        "vector_rank": 1,
+        "lexical_rank": 1,
+        "fusion_score": 0.03278688524590164
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "retrieved",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "55069729-3590-4170-a1bc-6751350769b2",
+          "lexical_char_coverage": 1.0,
+          "cosine": 0.585697,
+          "vector_rank": 1,
+          "lexical_rank": 1,
+          "fusion_score": 0.03278688524590164,
+          "attribute_supported": true
+        }
+      ],
+      "source_origins": [
+        {
+          "chunk_id": "55069729-3590-4170-a1bc-6751350769b2",
+          "origin": "vector_candidate",
+          "vector_rank": 1,
+          "lexical_rank": 1
+        }
+      ],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "55069729-3590-4170-a1bc-6751350769b2",
+        "version": 1,
+        "valid": true,
+        "owner_id": "99406fa0-43d8-4113-ab61-92c2f3d82716",
+        "dataset_id": "435e0aba-dede-452a-b023-00214b6341bb"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "55069729-3590-4170-a1bc-6751350769b2",
+            "document_id": "85816812-389f-48a6-b2f9-614f6da938aa",
+            "similarity": 0.585697
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": [
+          {
+            "chunk_id": "55069729-3590-4170-a1bc-6751350769b2",
+            "document_id": "85816812-389f-48a6-b2f9-614f6da938aa",
+            "similarity": 0.585697,
+            "vector_rank": 1,
+            "lexical_rank": 1
+          }
+        ]
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "55069729-3590-4170-a1bc-6751350769b2",
+            "document_id": "85816812-389f-48a6-b2f9-614f6da938aa",
+            "similarity": 0.585697,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "55069729-3590-4170-a1bc-6751350769b2",
+            "document_id": "85816812-389f-48a6-b2f9-614f6da938aa",
+            "similarity": 0.585697,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "55069729-3590-4170-a1bc-6751350769b2",
+            "document_id": "85816812-389f-48a6-b2f9-614f6da938aa",
+            "similarity": 0.585697,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      }
+    ],
+    "latency_ms": 26.427,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

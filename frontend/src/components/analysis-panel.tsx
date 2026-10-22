@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/data-table";
 import { ResultChart } from "@/components/result-chart";
 import { AnalysisDiagnostics } from "@/components/analysis-diagnostics";
+import { AnalysisWorkflow } from "@/components/analysis-workflow";
 import {
   AnalysisHistory,
   analysisStatuses,
@@ -176,6 +177,23 @@ export function AnalysisPanel({ dataset }: { dataset: Dataset }) {
           </CardHeader>
           <CardContent className="space-y-5">
             <AnalysisDiagnostics analysis={active} />
+            <AnalysisWorkflow analysis={active} />
+            {active.status === "clarification" && (
+              <div
+                role="status"
+                className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950"
+              >
+                <p className="mb-2 font-medium">
+                  需要补充信息，本次尚未生成或执行 SQL。
+                </p>
+                <ul className="list-inside list-disc">
+                  {active.summary.clarification_questions?.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                <p className="mt-2">请在上方问题中补充后重新提交。</p>
+              </div>
+            )}
             {active.sql && (
               <div>
                 <p className="mb-2 text-xs font-medium text-slate-500">

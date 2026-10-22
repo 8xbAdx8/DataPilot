@@ -1,0 +1,265 @@
+{
+  "id": "p27-03",
+  "query": "采摘手套什么颜色？",
+  "kind": "direct",
+  "relevant_ids": [
+    "gloves"
+  ],
+  "A": {
+    "ids": [
+      "gloves"
+    ],
+    "sources": [
+      {
+        "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+        "document_id": "7f0865ae-f824-45a3-8549-c7c32c6e32fd",
+        "chunk_index": 0,
+        "title": "手套标准",
+        "source_type": "business_rule",
+        "excerpt": "采摘手套须为白色。破损立即更换，雨天禁止使用棉手套。",
+        "similarity": 0.805553
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+        "document_id": "7f0865ae-f824-45a3-8549-c7c32c6e32fd",
+        "chunk_index": 0,
+        "title": "手套标准",
+        "source_type": "business_rule",
+        "excerpt": "采摘手套须为白色。破损立即更换，雨天禁止使用棉手套。",
+        "similarity": 0.805553
+      }
+    ],
+    "decision": {},
+    "authenticity": [
+      {
+        "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+            "document_id": "7f0865ae-f824-45a3-8549-c7c32c6e32fd",
+            "similarity": 0.805553
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+            "document_id": "7f0865ae-f824-45a3-8549-c7c32c6e32fd",
+            "similarity": 0.805553
+          }
+        ]
+      }
+    ],
+    "latency_ms": 19.261,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+        "document_id": "7f0865ae-f824-45a3-8549-c7c32c6e32fd",
+        "chunk_index": 0,
+        "title": "手套标准",
+        "source_type": "business_rule",
+        "excerpt": "采摘手套须为白色。破损立即更换，雨天禁止使用棉手套。",
+        "similarity": 0.805553
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+            "document_id": "7f0865ae-f824-45a3-8549-c7c32c6e32fd",
+            "similarity": 0.805553
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+            "document_id": "7f0865ae-f824-45a3-8549-c7c32c6e32fd",
+            "similarity": 0.805553
+          }
+        ]
+      }
+    ],
+    "latency_ms": 19.436,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [
+      "gloves"
+    ],
+    "sources": [
+      {
+        "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+        "document_id": "7f0865ae-f824-45a3-8549-c7c32c6e32fd",
+        "chunk_index": 0,
+        "title": "手套标准",
+        "source_type": "business_rule",
+        "excerpt": "采摘手套须为白色。破损立即更换，雨天禁止使用棉手套。",
+        "similarity": 0.805553,
+        "vector_rank": 1,
+        "lexical_rank": 1,
+        "fusion_score": 0.03278688524590164
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+        "document_id": "7f0865ae-f824-45a3-8549-c7c32c6e32fd",
+        "chunk_index": 0,
+        "title": "手套标准",
+        "source_type": "business_rule",
+        "excerpt": "采摘手套须为白色。破损立即更换，雨天禁止使用棉手套。",
+        "similarity": 0.805553,
+        "vector_rank": 1,
+        "lexical_rank": 1,
+        "fusion_score": 0.03278688524590164
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "retrieved",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+          "lexical_char_coverage": 1.0,
+          "cosine": 0.805553,
+          "vector_rank": 1,
+          "lexical_rank": 1,
+          "fusion_score": 0.03278688524590164,
+          "attribute_supported": true
+        }
+      ],
+      "source_origins": [
+        {
+          "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+          "origin": "vector_candidate",
+          "vector_rank": 1,
+          "lexical_rank": 1
+        }
+      ],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+        "version": 1,
+        "valid": true,
+        "owner_id": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+        "dataset_id": "07dfdc27-f05d-4844-85c1-dd002d51addc"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+            "document_id": "7f0865ae-f824-45a3-8549-c7c32c6e32fd",
+            "similarity": 0.805553
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": [
+          {
+            "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+            "document_id": "7f0865ae-f824-45a3-8549-c7c32c6e32fd",
+            "similarity": 0.805553,
+            "vector_rank": 1,
+            "lexical_rank": 1
+          }
+        ]
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+            "document_id": "7f0865ae-f824-45a3-8549-c7c32c6e32fd",
+            "similarity": 0.805553,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+            "document_id": "7f0865ae-f824-45a3-8549-c7c32c6e32fd",
+            "similarity": 0.805553,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "987d2b94-592c-4a48-81ca-b5fd182a94cf",
+            "document_id": "7f0865ae-f824-45a3-8549-c7c32c6e32fd",
+            "similarity": 0.805553,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      }
+    ],
+    "latency_ms": 28.259,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

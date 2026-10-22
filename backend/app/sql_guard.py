@@ -4,6 +4,7 @@ from sqlglot.errors import OptimizeError, ParseError
 from sqlglot.optimizer.qualify import qualify
 
 from app.errors import AppError
+from app.having_guard import check_aliases, validate_having
 
 # Deliberately small MVP grammar: one SELECT over the uploaded table, no joins/CTEs/subqueries.
 STRUCTURAL_NODES = {
@@ -17,6 +18,7 @@ STRUCTURAL_NODES = {
     "alias",
     "where",
     "group",
+    "having",
     "order",
     "ordered",
     "limit",
@@ -110,14 +112,19 @@ def validate_sql(sql: str, fields: list[dict]) -> str:
         node.pop_comments()  # Emit canonical SQL without retaining untrusted SQL comments.
         if isinstance(node, exp.Star) and any(node.args.values()):
             raise unsafe("MVP 不支持星号的 EXCLUDE、REPLACE 或 RENAME 修饰。")
-        if isinstance(node, exp.Func):
+        if node.key in STRUCTURAL_NODES:
+            # SQLGlot also models logical AND/OR as Func subclasses. Admit only
+            # these already-whitelisted structural nodes before checking functions.
+            pass
+        elif isinstance(node, exp.Func):
             # Anonymous/user-defined functions are never admitted, even if their text looks safe.
             if isinstance(node, exp.Anonymous) or node.sql_name() not in SAFE_FUNCTIONS:
                 raise unsafe("SQL 使用了未经授权的函数。")
-        elif node.key not in STRUCTURAL_NODES:
+        else:
             raise unsafe("SQL 使用了当前不支持的语法。")
         if isinstance(node, exp.Select) and node is not tree:
             raise unsafe("MVP 暂不支持子查询。")
+    check_aliases(tree, fields)
     try:
         qualified = qualify(
             tree,
@@ -127,6 +134,13 @@ def validate_sql(sql: str, fields: list[dict]) -> str:
             quote_identifiers=True,
         )
     except (OptimizeError, ValueError, TypeError, RecursionError) as exc:
-        raise unsafe("SQL 引用了未知或有歧义的字段。") from exc
+        error = unsafe("SQL 引用了未知或有歧义的字段。")
+        # Only schema binding after every structural/authorization check is recoverable.
+        # Parse failures cannot reliably establish the intended grammar, so stay terminal.
+        error.repairable = isinstance(exc, OptimizeError)
+        raise error from exc
+    if len(list(qualified.walk())) > 512:
+        raise unsafe("SQL 展开后复杂度超过限制。")
+    validate_having(qualified, fields)
     # Bind-time validation is backed by real DuckDB; schema scope cannot be expanded by the model.
     return qualified.sql(dialect="duckdb")

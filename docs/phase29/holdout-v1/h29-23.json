@@ -1,0 +1,133 @@
+{
+  "id": "h29-23",
+  "query": "镜头能直接喷清洁液吗？",
+  "kind": "prose",
+  "relevant_ids": [
+    "lens"
+  ],
+  "A": {
+    "ids": [
+      "lens"
+    ],
+    "sources": [
+      {
+        "chunk_id": "3052b74e-e224-4bcc-a934-9ca83fc785fe",
+        "document_id": "c2a136a1-604a-4a12-83d4-6fa6d12d819a",
+        "chunk_index": 0,
+        "title": "镜头清洁",
+        "source_type": "business_rule",
+        "excerpt": "用无尘布擦镜片，禁止直接喷清洁液。",
+        "similarity": 0.771733
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "3052b74e-e224-4bcc-a934-9ca83fc785fe",
+        "document_id": "c2a136a1-604a-4a12-83d4-6fa6d12d819a",
+        "chunk_index": 0,
+        "title": "镜头清洁",
+        "source_type": "business_rule",
+        "excerpt": "用无尘布擦镜片，禁止直接喷清洁液。",
+        "similarity": 0.771733
+      }
+    ],
+    "decision": {},
+    "references": [
+      {
+        "chunk_id": "3052b74e-e224-4bcc-a934-9ca83fc785fe",
+        "document_id": "c2a136a1-604a-4a12-83d4-6fa6d12d819a",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "3052b74e-e224-4bcc-a934-9ca83fc785fe",
+        "document_id": "c2a136a1-604a-4a12-83d4-6fa6d12d819a",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "3052b74e-e224-4bcc-a934-9ca83fc785fe",
+            "document_id": "c2a136a1-604a-4a12-83d4-6fa6d12d819a",
+            "similarity": 0.771733
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "3052b74e-e224-4bcc-a934-9ca83fc785fe",
+            "document_id": "c2a136a1-604a-4a12-83d4-6fa6d12d819a",
+            "similarity": 0.771733
+          }
+        ]
+      }
+    ],
+    "latency_ms": 12.463,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "3052b74e-e224-4bcc-a934-9ca83fc785fe",
+        "document_id": "c2a136a1-604a-4a12-83d4-6fa6d12d819a",
+        "chunk_index": 0,
+        "title": "镜头清洁",
+        "source_type": "business_rule",
+        "excerpt": "用无尘布擦镜片，禁止直接喷清洁液。",
+        "similarity": 0.771733
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "references": [
+      {
+        "chunk_id": "3052b74e-e224-4bcc-a934-9ca83fc785fe",
+        "document_id": "c2a136a1-604a-4a12-83d4-6fa6d12d819a",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "3052b74e-e224-4bcc-a934-9ca83fc785fe",
+            "document_id": "c2a136a1-604a-4a12-83d4-6fa6d12d819a",
+            "similarity": 0.771733
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "3052b74e-e224-4bcc-a934-9ca83fc785fe",
+            "document_id": "c2a136a1-604a-4a12-83d4-6fa6d12d819a",
+            "similarity": 0.771733
+          }
+        ]
+      }
+    ],
+    "latency_ms": 26.934,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "artifact": "real-vector-cache-v1.npz",
+  "sha256": "459908a72d0765270c8bc99c152380365d7313d148bf58bf1c45f48662e2d2c8",
+  "rows": 122,
+  "dimensions": 1536,
+  "dtype": "float64",
+  "bytes": 1043966,
+  "format": "numpy savez_compressed; load only with allow_pickle=False",
+  "source": "actual complete stage24 ledger vectors, not generated Fake vectors",
+  "contents": "only synthetic text SHA256 and numeric vectors; no plaintext question, endpoint, headers or credential",
+  "purpose": "offline verification without new model calls or vendor model revision drift"
+}

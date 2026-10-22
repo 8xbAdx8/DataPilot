@@ -4,7 +4,40 @@
 
 ## 开发状态
 
-已跑通完整 Mock 闭环：账户登录 → CSV/XLSX → DuckDB → 字段画像 → 自然语言生成 SQL → AST 安全校验 → 真实查询 → 表格/ECharts/事实总结 → 历史搜索与 CSV 导出。PostgreSQL 保存账户、会话和业务元信息，后端强制数据集所有权校验，提供删除与保留清理。GitHub Actions 已验证应用检查与 Linux Compose 冒烟；新提交按对应 Actions 结果验收。2026-10-20 已通过 DeepSeek `deepseek-flash` 真实 API 专项：生成 SQL → AST 校验 → DuckDB 执行，合成数据行数为 3；该单用例不代表整体模型准确率或真实模型浏览器全套验收。
+阶段29[五阶段综合终验](docs/PHASE29_COMPREHENSIVE_ACCEPTANCE.md)：新人审冻结50题只运行一次，C指标9/10、非指标7/15、无答案10/10、安全检索10/10，结论 **PARTIAL**。11个API案例严格9/11；两次真实Agent/SQL均算对，但仅一题完整确认来源采用。分组指标解析和普通事实used证据失败保留，不调参重跑。新增真实Embedding8次/1083输入、聊天4次/3568输入，usage完整。生产默认不变，五阶段仅本地提交、未推送或发布。
+
+阶段28[实验接入与影子模式](docs/PHASE28_SHADOW_INTEGRATION.md)：新增默认off、合成隔离库限定的C实验开关，影子计算复用候选且不改变实际SQL/结果；D保持不可接入。未知证据与候选异常失败关闭，保留指标与SQL安全门禁。工程验证和逐题差异单独记录，零新增真实模型调用，不代表生产切换或独立质量通过。
+
+阶段27[普通文档开发比较](docs/PHASE27_PROSE_RAG.md)：人工确认36题、真实Embedding6次/627输入Token，D开发平均Recall@4为85.42%、无答案拒答12/12，多证据充分覆盖3/6，低于预设接入门槛，结论为DEVELOPMENT_LIMITED。三轮及全部失败保留；D不得接入后续应用路径，生产默认不变，尚无新独立留出或Agent证据。
+
+阶段26[知识生命周期验收](docs/PHASE26_KNOWLEDGE_LIFECYCLE.md)：实际API/pgvector两轮24及25检查点通过，6次真实Embedding/68输入Token，重验复用缓存。新增来源当前版本门禁，在校验与执行前拒绝规划后失效的知识；补齐个人知识创建API，验证权限、更新、失败恢复、并发旧索引丢弃及删除不复活。无聊天或云端追踪，生产策略默认未变，完整应用影子接入与独立终验仍待后续阶段。
+
+阶段25[真实Agent/SQL开发验收](docs/PHASE25_AGENT_SQL_E2E.md)：0.70首轮7/8失败保留；显式0.65开发变体8/8，其中两题真实原生Agent采用来源、SQL校验及DuckDB结果为25和3，其余六题提前拒绝。累计6次聊天/5331输入Token、2次Embedding/381输入Token，usage完整。生产默认不变，普通Agent工具与生产分析API整合尚未在此专项运行；开发通过不等于独立终验。[25–29顺序计划](docs/PHASE25_29_PLAN.md)要求各阶段独立验证和本地提交，不自动推送。
+
+阶段24[真实检索专项](docs/PHASE24_RAG_RETRIEVAL_QUALITY.md#2026-10-22-受控独立实验续验)取得 **检索范围 PASS**：人工复核、冻结的全新34题中，实验候选 C 的指标召回10/10、非指标召回10/10、无答案拒答10/10、4条安全探测通过，引用20/20一致。百炼真实1536维向量共13次HTTP、供应商输入usage 2934 Token；聊天/LLM裁判/LangSmith均0次。实际pgvector检索、API提交和跨连接持久化均验证。[原始结果与离线复核](docs/rag24/README.md)保留A/B失败和所有开发轮次。
+
+C 是显式实验策略，非指标知识须满足结构化的“主题+属性”契约，尚未接入生产请求；默认仍 `legacy / vector / 0.70 / none`，基线误召回风险仍存在。本轮未运行真实Agent/SQL端到端，不能据此宣称全面质量或生产发布通过。阶段21历史未知用量保持unknown，旧护栏未变；新的独立Embedding-only实验由后续用户指令明确授权，原阶段24 BLOCKED报告全文保留。本机PostgreSQL530项、SQLite506项、Playwright15项通过，另有原有条件专项跳过。
+
+阶段21–23已推送至 `0ff41fcc6899ae3cbfc250f7980d2abf59672655`，[该提交远程CI](https://github.com/8xbAdx8/DataPilot/actions/runs/39756176681)的application与compose均成功；当前阶段24新增内容仅本地提交，不能借用该CI声称新提交通过远程验收。以下阶段文字保留当时交付状态。
+
+阶段23新增[证据链与历史可解释性](docs/PHASE23_EVIDENCE_OBSERVABILITY.md)：分别保存初始候选、目录补充、计划选择、SQL 上下文和执行后指标确认；前端与历史详情读取当次授权快照，旧记录显示未记录，不重新检索。LangSmith 仅完善本地白名单及隐私测试，本轮没有真实模型、Embedding 或云端追踪调用，未解决真实语义误召回。生产默认仍为 `legacy / vector / 0.70 / none`，阶段21未知用量停止规则保持有效。
+
+阶段22新增[登记证据筛选与开发评测](docs/PHASE22_RAG_QUALITY.md)，仅本地提交：26条人工复核查询、候选/目录补充/采用来源分开记录，`RAG_EVIDENCE_POLICY=registered`显式启用。默认仍legacy、vector/0.70/none；新模式尚未通过真实语义检索验收。阶段21未知用量护栏继续阻塞新真实调用，本轮只有Fake向量+真实pgvector和受控安全证据，不能宣称真实RAG质量通过。阶段21及以下为保留记录。
+
+阶段21交付记录**（仅本地，未推送）**：[指标登记与证据契约](docs/METRIC_DEFINITIONS.md)、[阶段21真实开发与回归报告](docs/PHASE21_METRIC_DISCOVERY.md)。阶段17–19已正常推送至 `d8063cf`，其[远程CI](https://github.com/8xbAdx8/DataPilot/actions/runs/39625387950)两个Job成功；这不是阶段21的CI。新结构化指标开发4/4通过，但旧格式补充真实调用失败且usage未知，不能宣称全部真实质量通过。历史阶段18留出正例8/8、误召回3/8，阶段19真实五案例4/5与独立诊断保持原样；生产检索仍vector/0.70/none，FlashRank关闭。以下阶段10–19条目为历史证据。
+
+
+AI 升级已实现：**LangGraph** 编排检索/规划/生成/校验/执行与最多一次字段修复；**LangChain Agent** 在限定的只读工具中选择 Schema、画像、业务知识、指标口径与澄清；**pgvector + 独立 Embedding** 保存并按用户/数据集过滤知识；**RAG** 将实际来源提供给 SQL 生成并在界面展示引用；**LangSmith** 默认关闭，只在显式启用后导出白名单性能元数据。详细交付和当前验证状态见 [升级验收](docs/UPGRADE_ACCEPTANCE.md)、[阶段记录](docs/AI_UPGRADE.md)、[评估报告](docs/EVALUATION.md) 和 [追踪隐私](docs/LANGSMITH.md)。
+
+升级分支 `codex/agent-rag-upgrade` 已推送至阶段 11 提交 `702c48e`，[对应 GitHub Actions](https://github.com/8xbAdx8/DataPilot/actions/runs/39439653579) 成功。[阶段 10 真实验收](docs/PHASE10_EMBEDDING_RAG.md)跑通百炼 1536 维向量 → pgvector → DeepSeek 原生 Agent → LangGraph → SQL 安全校验 → DuckDB → 生产容器浏览器图表、来源、历史和导出；合成净贡献额为 18，分组 East=6、West=12。
+
+[阶段 11 固定真实评测](docs/PHASE11_LIVE_EVALUATION.md)已实际执行基础/增强各 29 题，保留[逐题证据](docs/evaluation-live.json)。严格结果符合率为 1/13 与 0/13，包含列别名/排序契约差异，也发现 Agent 工具预算、无关召回与澄清问题；不能宣称真实质量验收通过。
+
+[阶段 12](docs/PHASE12_AGENT_RELIABILITY.md)增加 Agent 预算内收敛、工具批次预检和澄清 Token 分项，新增明确输出契约的 v2 开发/验证题集。真实增强模式开发 6/6、验证 6/6 规则通过，验证中 5 道计算题严格匹配，另 1 道正确澄清；[原始记录](docs/evaluation-contracts-v2-live.json)保留基础模式失败。新题集与旧 29 题不直接可比，不能宣称从 0% 提升至 100% 或泛化质量通过。检索阈值未调整、旧误召回风险保留；LangSmith 云端未验证。本阶段新增内容仅本地提交。
+
+无需付费服务即可运行 Mock 分析；`EMBEDDING_PROVIDER=none` 默认禁用知识索引，演示 RAG 须显式使用 `fake`，真实专项与浏览器专项默认关闭。阶段 10 的固定案例不代表自然语言泛化准确率或大规模语义召回率。
+
+已跑通完整 Mock 闭环：账户登录 → CSV/XLSX → DuckDB → 字段画像 → 自然语言生成 SQL → AST 安全校验 → 真实查询 → 表格/ECharts/事实总结 → 历史搜索与 CSV 导出。PostgreSQL 保存账户、会话和业务元信息，后端强制数据集所有权校验，提供删除与保留清理。阶段 10 另外使用真实聊天和 Embedding 服务验证同一执行边界，只发送合成 Schema/问题和人工合成知识。GitHub Actions 的普通回归使用 Mock/Fake，真实专项结果单独记录。
 
 文档：[实施计划](docs/PLAN.md) · [架构与学习入口](docs/ARCHITECTURE.md) · [安全策略](docs/SECURITY.md) · [运行与保留策略](docs/OPERATIONS.md) · [真实模型接入](docs/REAL_MODEL.md) · [配额与执行诊断](docs/OBSERVABILITY.md) · [演示与验收](docs/DEMO.md) · [实际开发记录](docs/DEVELOPMENT.md)。
 
@@ -63,7 +96,7 @@ npm run test:e2e # 先启动后端；本机使用 Edge，CI 使用 Playwright Ch
 
 `GET /api/analyses?dataset_id={id}` 返回历史元信息；`GET /api/analyses/{id}` 读取有界结果快照；`GET /api/analyses/{id}/export` 导出相同结果的 CSV。超限、失败和安全拒绝都不会生成虚假的成功结果。
 
-历史列表支持组合参数：`q` 搜索问题或 SQL（去除首尾空格、最多 200 字符、英文不区分大小写，`%` / `_` 按文字匹配），`status` 为 `running` / `success` / `rejected` / `error`，`limit` 为 1–100（默认 20），`offset` 为非负整数。界面每页 20 条，可搜索、筛选、翻页和重置；只请求元信息，不批量加载结果快照。
+历史列表支持组合参数：`q` 搜索问题或 SQL（去除首尾空格、最多 200 字符、英文不区分大小写，`%` / `_` 按文字匹配），`status` 为 `running` / `success` / `clarification` / `rejected` / `error`，`limit` 为 1–100（默认 20），`offset` 为非负整数。界面每页 20 条，可搜索、筛选、翻页和重置；只请求元信息，不批量加载结果快照。
 
 真实模型：在根目录 `.env` 设置 `LLM_PROVIDER=deepseek`（也支持 `openai`、`openai_compatible`）、`LLM_MODEL`、`LLM_BASE_URL` 和 `LLM_API_KEY` 后重启后端。DeepSeek 的 Base URL 使用 `https://api.deepseek.com`，OpenAI 使用 `https://api.openai.com/v1`。后端会追加 `/chat/completions`。真实模式缺 Key 返回 503，不会降级 Mock。
 
@@ -73,9 +106,17 @@ DeepSeek 当前示例模型为 `deepseek-flash`，适配器显式关闭其默认
 
 PostgreSQL 专项：设置 `$env:TEST_DATABASE_URL` 和 `$env:TEST_POSTGRES_URL` 指向已迁移的开发测试数据库，再运行同一套 pytest。测试事务回滚，但不要把这些变量指向生产数据库。
 
-Docker 一键启动命令、当前 Windows 引擎阻塞、保留清理、原生 PostgreSQL 启停与端口说明见 [运行文档](docs/OPERATIONS.md)。[首轮 CI 验收记录](https://github.com/8xbAdx8/DataPilot/actions/runs/39051736631) 包含应用检查和独立 Compose 冒烟成功结果；[后续运行](https://github.com/8xbAdx8/DataPilot/actions) 按提交分别查看。
+Docker 一键启动命令、隔离验收、软件源网络、保留清理、原生 PostgreSQL 启停与端口说明见 [运行文档](docs/OPERATIONS.md)。[首轮 CI 验收记录](https://github.com/8xbAdx8/DataPilot/actions/runs/39051736631) 包含当时的应用检查和独立 Compose 冒烟成功结果；[后续运行](https://github.com/8xbAdx8/DataPilot/actions) 按提交分别查看，本升级本地结果见验收文档。
 
 ## 上传约定
+
+RAG 专项使用已人工复核的 44 条合成查询，开发/留出分开。原始向量开发基线的误召回与严格 SQL 格式失败如实保留，见[阶段 13 报告](docs/PHASE13_RAG_BASELINE.md)；普通测试不调用外部模型。
+
+[阶段 14 对照](docs/PHASE14_RAG_CALIBRATION.md) 将默认语义阈值改为 0.70，保留 vector/none；混合检索、FlashRank 和 Ragas 均可选。留出误召回下降，但漏召回、错误知识采用及严格 SQL 超时仍有失败，不能称为全面通过。安装、锁文件、真实评测与回滚见[评测说明](docs/RAG_EVALUATION.md)。
+
+[阶段 15 验收](docs/PHASE15_LIVE_ACCEPTANCE.md) 已完成真实模型浏览器流程（East=6、West=12），并从 LangSmith 读回成功/受控拒绝追踪及 22 条评测运行。云端只接收白名单元数据，普通运行仍默认关闭，配置见[追踪隐私说明](docs/LANGSMITH_PRIVACY.md)。这条独立流程成功不改变阶段 14 留出 SQL 0/2 的失败结论；新增阶段提交只保留本地，尚未推送。
+
+[阶段 16 SQL 专项](docs/PHASE16_SQL_CORRECTNESS.md) 逐题定位旧超时与别名缺陷，DuckDB 改用轻量隔离子进程，保留包含启动的 5 秒限制。新题集按意图分组、经人工确认，并严格检查空结果列描述、列顺序与行顺序；旧题与历史分数不改。新开发/冻结留出结果、命令和限制均在阶段报告中，本阶段不推送。
 
 - 打开 <http://localhost:3000>，选择 `data/examples/sales.csv` 体验真实导入。
 - CSV 使用 UTF-8（支持 BOM），支持逗号、分号、制表符、竖线分隔；表头必填且不重复，数据行字段数须一致。保留完整字段的全空记录，跳过空白行；仅有表头不接受。

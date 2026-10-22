@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/data-table";
 import { AnalysisPanel } from "@/components/analysis-panel";
+import { KnowledgePanel } from "@/components/knowledge-panel";
 import { api, ApiError, Dataset, DatasetSummary, display } from "@/lib/api";
 
 export function Workbench() {
@@ -276,6 +277,7 @@ export function Workbench() {
                 </div>
               ))}
             </section>
+            <KnowledgePanel key={`knowledge-${selected.id}`} datasetId={selected.id} />
             <AnalysisPanel key={selected.id} dataset={selected} />
             <div className="mb-5 flex flex-wrap items-center justify-end gap-3 text-xs text-slate-500">
               {confirmDelete ? (

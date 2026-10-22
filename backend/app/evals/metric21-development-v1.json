@@ -1,0 +1,77 @@
+{
+  "version": "metric21-development-v1",
+  "kind": "development only; not a frozen holdout",
+  "metric": {
+    "version": 1,
+    "name": "已结服务净额",
+    "aliases": [
+      "服务实收",
+      "service_net",
+      "扣除人工成本后的已结服务收入"
+    ],
+    "expression": "SUM(fee)-SUM(labor)",
+    "filters": [
+      {
+        "column": "state",
+        "operator": "eq",
+        "value": "closed"
+      }
+    ],
+    "required_fields": [
+      "fee",
+      "labor",
+      "state"
+    ]
+  },
+  "data_fixture": "metric21-services.csv",
+  "expected_independent_calculation": "North=70-20=50; South=40-(10+8)=22. Cancelled row excluded; SUM terms ignore NULL independently.",
+  "cases": [
+    {
+      "id": "official",
+      "question": "按division统计已结服务净额，仅输出division和service_net两列，按division升序。请使用已登记定义。",
+      "rows": [
+        {
+          "division": "North",
+          "service_net": 50
+        },
+        {
+          "division": "South",
+          "service_net": 22
+        }
+      ]
+    },
+    {
+      "id": "alias",
+      "question": "各division的服务实收是多少？请使用已登记业务口径，仅输出division和service_net两列，按division升序。",
+      "rows": [
+        {
+          "division": "North",
+          "service_net": 50
+        },
+        {
+          "division": "South",
+          "service_net": 22
+        }
+      ]
+    },
+    {
+      "id": "natural-alias",
+      "question": "按division展示扣除人工成本后的已结服务收入，仅输出division和service_net两列，按division升序。请按登记定义分析。",
+      "rows": [
+        {
+          "division": "North",
+          "service_net": 50
+        },
+        {
+          "division": "South",
+          "service_net": 22
+        }
+      ]
+    },
+    {
+      "id": "missing",
+      "question": "请按已登记定义计算续约留存率，没有定义必须澄清，不得猜公式。",
+      "behavior": "clarification"
+    }
+  ]
+}

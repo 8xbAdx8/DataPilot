@@ -1,0 +1,8 @@
+{
+  "status": "blocked",
+  "actual_service_runs": [],
+  "project": "datapilot-rag-acceptance",
+  "raw_content_exported": false,
+  "failure_class": "ValueError",
+  "rate_hints": []
+}

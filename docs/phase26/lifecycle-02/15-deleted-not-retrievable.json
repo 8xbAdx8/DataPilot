@@ -1,0 +1,15 @@
+{
+  "id": "deleted-not-retrievable",
+  "http_status": 200,
+  "response": {
+    "status": "no_documents",
+    "source": "provider",
+    "used": false,
+    "citations": [],
+    "error_code": null
+  },
+  "independent_connection": {
+    "documents": [],
+    "chunks": []
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "id": "deleted-no-vectors",
+  "http_status": 204,
+  "response": null,
+  "independent_connection": {
+    "documents": [],
+    "chunks": []
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "case": "p25-01",
+  "channel": "sql",
+  "tool_calls": [],
+  "provider_response_id": "bde65824-9d3c-436c-95d2-5d47c45d825b",
+  "usage": {
+    "prompt_tokens": 772,
+    "completion_tokens": 63,
+    "total_tokens": 835,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 644
+  },
+  "request_body_sha256": "fc80316b0d11abf82f374fae6f8082f3ad258148c7e0b333f632f3824bbe322b"
+}

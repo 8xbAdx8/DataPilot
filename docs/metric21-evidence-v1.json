@@ -1,0 +1,46 @@
+{
+  "version": "metric21-evidence-v1",
+  "completed_date": "2026-10-22",
+  "head_before_stage21": "d8063cf7480941239f71b187a824bdaffc152086",
+  "new_development_result": {
+    "cases": 4,
+    "passed": 4,
+    "strict_computation_cases": 3,
+    "strict_computation_passed": 3,
+    "clarification_cases": 1,
+    "clarification_passed": 1
+  },
+  "independent_legacy_supplement": {
+    "cases": 1,
+    "passed": 0,
+    "error": "agent_failed",
+    "initial_embedding_error": "embedding_unavailable",
+    "model_attempts": 1,
+    "sql_executions": 0,
+    "usage_unknown": true
+  },
+  "known_chat_tokens": 17230,
+  "total_chat_tokens": null,
+  "chat_attempts": 13,
+  "known_usage_chat_attempts": 12,
+  "unknown_usage_chat_attempts": 1,
+  "embedding_attempts": 9,
+  "successful_embedding_requests": 8,
+  "known_embedding_tokens": 344,
+  "unknown_embedding_requests": 1,
+  "total_embedding_tokens": null,
+  "currency_cost": null,
+  "further_live_calls_stopped": true,
+  "langsmith_enabled": false,
+  "report_sha256": {
+    "metric21-baseline-v1.json": "ee776f12a67dc7a4f44cd531e2f22a76a51040d8d700d683f4f409833c19f0f1",
+    "metric21-development-live-v1.json": "c7122a50e1395317b5c69f58eb212bef25189d5e85234ff8f8c2cd6af1a4d643",
+    "metric21-legacy-live-v1.json": "b4bd7fc612ce989629f7c4f80455c3931390f9efaa92c101e5ca401390f784bd"
+  },
+  "remaining": [
+    "Only registered names/aliases are resolved; unseen ambiguous natural language asks clarification",
+    "Legacy grammar is intentionally narrow; structured registration recommended",
+    "No history/holdout score rewrites or old real-model reruns",
+    "RAG false retrieval and unified UI evidence state are not addressed in this stage"
+  ]
+}

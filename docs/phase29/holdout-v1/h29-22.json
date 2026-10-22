@@ -1,0 +1,133 @@
+{
+  "id": "h29-22",
+  "query": "红灯亮起时能交谈吗？",
+  "kind": "prose",
+  "relevant_ids": [
+    "noise"
+  ],
+  "A": {
+    "ids": [
+      "noise"
+    ],
+    "sources": [
+      {
+        "chunk_id": "32cf439b-4714-4827-9a35-cc0dd8605086",
+        "document_id": "71db65f8-fa47-4fed-a71e-7df4d41a8a31",
+        "chunk_index": 0,
+        "title": "录音时段",
+        "source_type": "business_rule",
+        "excerpt": "红灯亮起后停止交谈，剪辑室不适用。",
+        "similarity": 0.735282
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "32cf439b-4714-4827-9a35-cc0dd8605086",
+        "document_id": "71db65f8-fa47-4fed-a71e-7df4d41a8a31",
+        "chunk_index": 0,
+        "title": "录音时段",
+        "source_type": "business_rule",
+        "excerpt": "红灯亮起后停止交谈，剪辑室不适用。",
+        "similarity": 0.735282
+      }
+    ],
+    "decision": {},
+    "references": [
+      {
+        "chunk_id": "32cf439b-4714-4827-9a35-cc0dd8605086",
+        "document_id": "71db65f8-fa47-4fed-a71e-7df4d41a8a31",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "32cf439b-4714-4827-9a35-cc0dd8605086",
+        "document_id": "71db65f8-fa47-4fed-a71e-7df4d41a8a31",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "32cf439b-4714-4827-9a35-cc0dd8605086",
+            "document_id": "71db65f8-fa47-4fed-a71e-7df4d41a8a31",
+            "similarity": 0.735282
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "32cf439b-4714-4827-9a35-cc0dd8605086",
+            "document_id": "71db65f8-fa47-4fed-a71e-7df4d41a8a31",
+            "similarity": 0.735282
+          }
+        ]
+      }
+    ],
+    "latency_ms": 12.343,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "32cf439b-4714-4827-9a35-cc0dd8605086",
+        "document_id": "71db65f8-fa47-4fed-a71e-7df4d41a8a31",
+        "chunk_index": 0,
+        "title": "录音时段",
+        "source_type": "business_rule",
+        "excerpt": "红灯亮起后停止交谈，剪辑室不适用。",
+        "similarity": 0.735282
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "references": [
+      {
+        "chunk_id": "32cf439b-4714-4827-9a35-cc0dd8605086",
+        "document_id": "71db65f8-fa47-4fed-a71e-7df4d41a8a31",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "32cf439b-4714-4827-9a35-cc0dd8605086",
+            "document_id": "71db65f8-fa47-4fed-a71e-7df4d41a8a31",
+            "similarity": 0.735282
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "32cf439b-4714-4827-9a35-cc0dd8605086",
+            "document_id": "71db65f8-fa47-4fed-a71e-7df4d41a8a31",
+            "similarity": 0.735282
+          }
+        ]
+      }
+    ],
+    "latency_ms": 27.291,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

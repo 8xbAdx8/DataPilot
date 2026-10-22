@@ -1,0 +1,134 @@
+{
+  "id": "h29-47",
+  "query": "儿童拍摄用灯及陪同要求？",
+  "kind": "complex",
+  "relevant_ids": [
+    "child",
+    "flash"
+  ],
+  "A": {
+    "ids": [
+      "child"
+    ],
+    "sources": [
+      {
+        "chunk_id": "c031cccf-0a7d-40f8-9275-b02690286275",
+        "document_id": "fb1252e7-8b3e-4fa5-9d41-f541c64f854e",
+        "chunk_index": 0,
+        "title": "儿童拍摄",
+        "source_type": "business_rule",
+        "excerpt": "儿童拍摄须监护人在场，不得使用爆闪。",
+        "similarity": 0.819654
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "c031cccf-0a7d-40f8-9275-b02690286275",
+        "document_id": "fb1252e7-8b3e-4fa5-9d41-f541c64f854e",
+        "chunk_index": 0,
+        "title": "儿童拍摄",
+        "source_type": "business_rule",
+        "excerpt": "儿童拍摄须监护人在场，不得使用爆闪。",
+        "similarity": 0.819654
+      }
+    ],
+    "decision": {},
+    "references": [
+      {
+        "chunk_id": "c031cccf-0a7d-40f8-9275-b02690286275",
+        "document_id": "fb1252e7-8b3e-4fa5-9d41-f541c64f854e",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "c031cccf-0a7d-40f8-9275-b02690286275",
+        "document_id": "fb1252e7-8b3e-4fa5-9d41-f541c64f854e",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "c031cccf-0a7d-40f8-9275-b02690286275",
+            "document_id": "fb1252e7-8b3e-4fa5-9d41-f541c64f854e",
+            "similarity": 0.819654
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "c031cccf-0a7d-40f8-9275-b02690286275",
+            "document_id": "fb1252e7-8b3e-4fa5-9d41-f541c64f854e",
+            "similarity": 0.819654
+          }
+        ]
+      }
+    ],
+    "latency_ms": 13.811,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "c031cccf-0a7d-40f8-9275-b02690286275",
+        "document_id": "fb1252e7-8b3e-4fa5-9d41-f541c64f854e",
+        "chunk_index": 0,
+        "title": "儿童拍摄",
+        "source_type": "business_rule",
+        "excerpt": "儿童拍摄须监护人在场，不得使用爆闪。",
+        "similarity": 0.819654
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "references": [
+      {
+        "chunk_id": "c031cccf-0a7d-40f8-9275-b02690286275",
+        "document_id": "fb1252e7-8b3e-4fa5-9d41-f541c64f854e",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "c031cccf-0a7d-40f8-9275-b02690286275",
+            "document_id": "fb1252e7-8b3e-4fa5-9d41-f541c64f854e",
+            "similarity": 0.819654
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "c031cccf-0a7d-40f8-9275-b02690286275",
+            "document_id": "fb1252e7-8b3e-4fa5-9d41-f541c64f854e",
+            "similarity": 0.819654
+          }
+        ]
+      }
+    ],
+    "latency_ms": 27.854,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

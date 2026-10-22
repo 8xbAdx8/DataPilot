@@ -1,0 +1,324 @@
+{
+  "head": "f6aaea83a1fe640c7d89a67a18eb10660222d9fb",
+  "branch": "codex/agent-rag-upgrade",
+  "worktree_clean_before_work": true,
+  "known_remote_head": "f6aaea83a1fe640c7d89a67a18eb10660222d9fb",
+  "last_remote_ci": {
+    "id": 39598210685,
+    "status": "previously-verified-success-not-this-stage"
+  },
+  "git_objects": {
+    "backend/app/evals/cases.json": {
+      "blob_sha": "2439e97f5ecd06af319725337c673a8b61eb0cf3",
+      "git_sha256": "c231102ad38de5dd76549bc955e8c79ee30bc52558dd8b90f6bc45e160be6d11",
+      "working_copy_sha256": "c231102ad38de5dd76549bc955e8c79ee30bc52558dd8b90f6bc45e160be6d11"
+    },
+    "backend/app/evals/contracts-v2.json": {
+      "blob_sha": "ff995a830db89c4f3a29ed7330dc3db271628bef",
+      "git_sha256": "df217f146d66731d2912b132ea18e0ff1976d970b074901daf8e13f540508bd0",
+      "working_copy_sha256": "df217f146d66731d2912b132ea18e0ff1976d970b074901daf8e13f540508bd0"
+    },
+    "backend/app/evals/inventory.csv": {
+      "blob_sha": "f4e30a0b9994f17f13ff238481bffb3eec69968e",
+      "git_sha256": "eeed4bb065a53de9aedf146303d7cc3298e8485d430214a11d37a6b332de5d08",
+      "working_copy_sha256": "eeed4bb065a53de9aedf146303d7cc3298e8485d430214a11d37a6b332de5d08"
+    },
+    "backend/app/evals/rag-quality-v1.json": {
+      "blob_sha": "1f9937b79064eaeaada839465457f983674a8f48",
+      "git_sha256": "de5a8ee25f3320082d94a6efcce75b253e2d30ee0caf477bddfbf4cd45dbcd48",
+      "working_copy_sha256": "de5a8ee25f3320082d94a6efcce75b253e2d30ee0caf477bddfbf4cd45dbcd48"
+    },
+    "backend/app/evals/rag-quality-v1.review.json": {
+      "blob_sha": "8052c6499dd064334f461eaa7e4fece0935e45c5",
+      "git_sha256": "cc6fc4066a0ff4bb0d1260074269c78fca49d0dc1ba5c6473378cc8de3cf2c6b",
+      "working_copy_sha256": "cc6fc4066a0ff4bb0d1260074269c78fca49d0dc1ba5c6473378cc8de3cf2c6b"
+    },
+    "backend/app/evals/sales.csv": {
+      "blob_sha": "14cdf34be2c9cf2aed2812606e38eeec8b47e485",
+      "git_sha256": "d6cd37e4ecc92d27b826c824aa7fe4750662efc3c84ed5c97a0eed0dbeafe70f",
+      "working_copy_sha256": "d6cd37e4ecc92d27b826c824aa7fe4750662efc3c84ed5c97a0eed0dbeafe70f"
+    },
+    "backend/app/evals/sql-correctness-v1.json": {
+      "blob_sha": "fb098f367d16604dd6800b55dcc54da24633f325",
+      "git_sha256": "3ec6c2b0623c42c52a07188eb9cfd4d9df07196eee014fc4e29cf5e16127ef80",
+      "working_copy_sha256": "3ec6c2b0623c42c52a07188eb9cfd4d9df07196eee014fc4e29cf5e16127ef80"
+    },
+    "backend/app/evals/sql-correctness-v1.review.json": {
+      "blob_sha": "130f1d65715ffac15be22befc1000651b1a0ccbd",
+      "git_sha256": "f7af1228817407fa0b25066828170769ae7f706c4c3c68bb51a82a0bdf0ab01c",
+      "working_copy_sha256": "f7af1228817407fa0b25066828170769ae7f706c4c3c68bb51a82a0bdf0ab01c"
+    },
+    "backend/app/evals/sql-correctness-v2.json": {
+      "blob_sha": "26406cc94d1164b7c2695e59cc005a11f17f4e3c",
+      "git_sha256": "05d246fe13ab4135f01c47c992b8436261b52dee8831d71439b31e41cb39e1fd",
+      "working_copy_sha256": "05d246fe13ab4135f01c47c992b8436261b52dee8831d71439b31e41cb39e1fd"
+    },
+    "backend/app/evals/sql-correctness-v2.review.json": {
+      "blob_sha": "a4e26ff95d1dc2f0334313a3029054a9bde0d7f8",
+      "git_sha256": "1dc4bbbb32ea803678692f8eed6b7eff8c9c807d1fc448d8ce77fcedd36a619c",
+      "working_copy_sha256": "1dc4bbbb32ea803678692f8eed6b7eff8c9c807d1fc448d8ce77fcedd36a619c"
+    },
+    "backend/app/evals/sql16-hours.csv": {
+      "blob_sha": "04e7744accb8a9660c958509a3dedf9553fcc448",
+      "git_sha256": "ad6f1232dc9bc509d9777e87d991d4c25a438108b37a39920edec4e353daa60a",
+      "working_copy_sha256": "ad6f1232dc9bc509d9777e87d991d4c25a438108b37a39920edec4e353daa60a"
+    },
+    "backend/app/evals/sql16-orders.csv": {
+      "blob_sha": "a3fa06fa01e9fc9c158df67e2feb14ccdc688802",
+      "git_sha256": "ce293c170aa12b3ee457ac15ceb2148e777d4e18ff539a134b81a8c75744178f",
+      "working_copy_sha256": "ce293c170aa12b3ee457ac15ceb2148e777d4e18ff539a134b81a8c75744178f"
+    },
+    "docs/PHASE11_LIVE_EVALUATION.md": {
+      "blob_sha": "454a58f694479fbbc932d6b46682d5590fc100c7",
+      "git_sha256": "528fafc84628fabd8bf162f2793a7f77fae7a7c197d080df8f248a673aea6d36",
+      "working_copy_sha256": "528fafc84628fabd8bf162f2793a7f77fae7a7c197d080df8f248a673aea6d36"
+    },
+    "docs/PHASE12_AGENT_RELIABILITY.md": {
+      "blob_sha": "2eb10ba543ac76bc8a36a08a73ba008a0ca50b5a",
+      "git_sha256": "145dcc3036d7061dd9539d05a974c65bb621a10450bb89d366f04349c3acc1ba",
+      "working_copy_sha256": "145dcc3036d7061dd9539d05a974c65bb621a10450bb89d366f04349c3acc1ba"
+    },
+    "docs/PHASE13_RAG_BASELINE.md": {
+      "blob_sha": "7c35d3ca033199459e7e72726b0381d6936daa89",
+      "git_sha256": "7523e7cb55f57214b32c20c483e4e9a1bdf605fb592801034d9e656ff8e56b02",
+      "working_copy_sha256": "7523e7cb55f57214b32c20c483e4e9a1bdf605fb592801034d9e656ff8e56b02"
+    },
+    "docs/PHASE14_RAG_CALIBRATION.md": {
+      "blob_sha": "e09218f34311cb4e5b24e319bb81e4fc17610cb5",
+      "git_sha256": "6c2566117078e6bd86d89ee5d7aaf76b5465fc3a5d7e8f6dec0d0fbbacfa5629",
+      "working_copy_sha256": "8887327511fc3e7e1ca51e889d739dd6fca4b5f390c94ac7ac3c4a10a0237daa"
+    },
+    "docs/PHASE15_LIVE_ACCEPTANCE.md": {
+      "blob_sha": "e3c2543cf9692166efac78b5f06d8e08689dbf01",
+      "git_sha256": "88de7d92a4419608d7d2af65cab0e6c7c49759410359072b0d40aa8d6cb4c01d",
+      "working_copy_sha256": "affb29ca7f575b7b8d9490c4bc6bf372ef9f7cf1abef1121f37dbbfee66718a1"
+    },
+    "docs/PHASE16_SQL_CORRECTNESS.md": {
+      "blob_sha": "e3ee71a2998d8e619ab31e09f3efcdd744418077",
+      "git_sha256": "60fada2dd428f206190682989d0fb3f20012768b3820f12cd627bb41f01b1ba7",
+      "working_copy_sha256": "e2dde1ee760eaae1c8c35e78f6e8b859c27735681545407a27aeae76294070bd"
+    },
+    "docs/browser-real-acceptance.json": {
+      "blob_sha": "faaa1a89047944eade46695498856a0ee14b3ba8",
+      "git_sha256": "1775b7a8f075a1bc1d006fd92ee9ca433351b9b43f98220917d583a78eee83d9",
+      "working_copy_sha256": "71dfde391a97de19ac2f55deb2e2f26141227ff632e3fb6b928cbe73541c492d"
+    },
+    "docs/evaluation-contracts-v2-live.json": {
+      "blob_sha": "cd2f1e7171ae7c97f5f5ef90b7a1a58f19b960f8",
+      "git_sha256": "7c9f8a4f7adc294e1d20ea5039f5c89410252e8d9c6ade0bda31ea9b1097c599",
+      "working_copy_sha256": "c4077526016a02ed9f63946c09948db2250db5eb89be797d1de8105a6b307ed0"
+    },
+    "docs/evaluation-live.json": {
+      "blob_sha": "c882b913eefe45da202cb18b4bb45bfde11eecdd",
+      "git_sha256": "896d830f9af1cc6c834150aae64e7c23ffde4af295c2620b6412d5325be5dcff",
+      "working_copy_sha256": "7aa94e4a068c521bcf6fd3b2d7247b73415fb19c63617d1c24164437da4972fa"
+    },
+    "docs/evaluation-offline.json": {
+      "blob_sha": "87daba397071d060201dc3d04a5d8e57275372ab",
+      "git_sha256": "1ce4a4394e3e73fe199d898a7a98cd41b11b1901773c2c8b065bf9e58c86a617",
+      "working_copy_sha256": "67ef03dcef01df5151571ed6bc26031bbb429d2924fc1a5efdc952cd9a1b9869"
+    },
+    "docs/langsmith-real-acceptance.json": {
+      "blob_sha": "8b96fe021335101ebe45ddea4995e856c366cb8f",
+      "git_sha256": "e1918a754ce329e9ab9d09b2aebe6332bbef71a23776800c77a14c7f4af0ae3d",
+      "working_copy_sha256": "ed105ce416b0378f9f5a532aa76f478a15d2a94695dddbd510d19d0a682d7cee"
+    },
+    "docs/phase16-root-cause.json": {
+      "blob_sha": "f7cd5d7e583844d38915723e5523489c8f3c1480",
+      "git_sha256": "87f756c7826147c0a4ac8cff8174844a9f32212af33934400f3810a6f2a47de2",
+      "working_copy_sha256": "b3b0bb22d743df34477a0256aa0b877371d886e6fbadb6bc860d49d23824d55b"
+    },
+    "docs/rag-baseline-development.json": {
+      "blob_sha": "ff66abeb8e318f128d8d8bb3884d9f28f45b1774",
+      "git_sha256": "56a5c4e2e748db41180db3d3130b4bfd8d0b82799850a6fc865731fadb02c19d",
+      "working_copy_sha256": "4c69475a1d1e54182333bff604ec4f7a9cb7a042091da458ac9ce401b0078437"
+    },
+    "docs/rag-comparison-summary.json": {
+      "blob_sha": "7231cea9970cf5c18735b5d8e3321f036a0f26a5",
+      "git_sha256": "252775137847a0667a173f525ec9702ea4c764a92be3a159521fb6891d39dde9",
+      "working_copy_sha256": "5464a02829b3bd17c72bfb5e63aefe7343a3ea901bde1fcd44a1f16cc2d07ec0"
+    },
+    "docs/rag-development-flashrank.json": {
+      "blob_sha": "4f81ecb07d692d5c99138dbcc0742508fcb30da0",
+      "git_sha256": "64f09b08a0e811197737ead9194808abce6d0ec931e0ce0d6a58cd5b09de7b4c",
+      "working_copy_sha256": "6ab9476f8ef020fbfc6cfcf898e8c08c68447f6ed594659a0c961ca31f56c15a"
+    },
+    "docs/rag-development-hybrid.json": {
+      "blob_sha": "c3a1b8e86b8c1647f4cccace80d4aebcb034933b",
+      "git_sha256": "2e4a2595da43c235a2222abf7d95201adc5c801e02089d485c7be4bd656fb349",
+      "working_copy_sha256": "a38614ccdcbc199285c3b6069abe335cd56e20d2b6eae0c3fd5cef0121650bf6"
+    },
+    "docs/rag-development-matrix.json": {
+      "blob_sha": "134960498e4ff48d60479dc1a46ac125f0558a31",
+      "git_sha256": "4886440376f288bb4f884c352b2bc1d350b2ed314c326049ace3ea3dfc396dd3",
+      "working_copy_sha256": "f71a9550421cf590fa528a702e6253ca8185ff75ac2db642c7a8d888bfa8c002"
+    },
+    "docs/rag-development-selected.json": {
+      "blob_sha": "093bb92a4bb97162e9ebbe9b62dbbc104a921286",
+      "git_sha256": "41870426566f0e6406514bb62b10e216148534652cb9807a3903509fc2db9b5c",
+      "working_copy_sha256": "43071eba34041517cf9185c0d8719ad9bced092a68fe4af1d8f959cb4bcb8030"
+    },
+    "docs/rag-freeze-v1.json": {
+      "blob_sha": "d21283d2fb673f9371fdbb83f0beed34350e5d3d",
+      "git_sha256": "2d570a0a2cf7967ffec6883806ffd5e07b4d5adef328bf2354ca72b6ec675679",
+      "working_copy_sha256": "eda5adf0dd4138fd1b53a8e5aa354e0a38c5957c07fd26674e2a1ee7523e9321"
+    },
+    "docs/rag-holdout-baseline.json": {
+      "blob_sha": "5df0263be22522c600843adb54cee411fc00da9f",
+      "git_sha256": "8f50aabe86f275b923f2dfe247f444cf1d02d4aeb4ad46ca9dd648dc588de41d",
+      "working_copy_sha256": "06727e3ccf86fcf221aad13d4f9c5bfe02d8ce2df1e4d9db882238299e0d46c4"
+    },
+    "docs/rag-holdout-selected.json": {
+      "blob_sha": "80c3a602807bb9090d734b8bc574ada27193a0bc",
+      "git_sha256": "4c2da992d26e10a575b97cb0a3a629b5a9551af8f21a183b7236f99bdda47596",
+      "working_copy_sha256": "6b9b1b1cfb82fbc4388518d897a121b75739ef9b8f454bdb1d705d54ebe89c06"
+    },
+    "docs/ragas-development-real.json": {
+      "blob_sha": "53252ff58ea9c25c8e77e29b338b265b174dbf1a",
+      "git_sha256": "7bf7acae0d1b147fcb0678c509cfdefc3c2d1d4460df6a0a0ed45156e896148f",
+      "working_copy_sha256": "a767d103b7fa122e87a281417428fb0829e25b4d64fd4ea8b7540605e956775f"
+    },
+    "docs/sql16-comparison-summary.json": {
+      "blob_sha": "f778c249acd8a82e691fd09697ceac71235f1be6",
+      "git_sha256": "4b7cf4d3553908c736c3529c338b3cbf433ff41f39117069a4c69e7412e9852e",
+      "working_copy_sha256": "ff699d54fe1dcbcd32bbb5933159aa7cdea206ed54ebc41d77c0214f917d324b"
+    },
+    "docs/sql16-development-real.json": {
+      "blob_sha": "1b5066ad0d9f424931f7191f428c6900f8891737",
+      "git_sha256": "f411e7db46d0d7c7250b55707c8378b76b1fa32b8ad4cd2d3c1afa6f3fdf4b68",
+      "working_copy_sha256": "d76783f833408b937afe85bbb4fdeeb74b6d491749c7c32bdb54ed52514368ed"
+    },
+    "docs/sql16-freeze-v2.json": {
+      "blob_sha": "7c6efec8190cc39f55068ec7f7dce4aabe4d95e7",
+      "git_sha256": "021e905ff89f595a094b05cfedcb8f24e69054b809a9e5d338575a0e28f536dc",
+      "working_copy_sha256": "e7eb97cd07f32d1a2289f637816ac543b1b3366e19fe175978f4c89c828037d8"
+    },
+    "docs/sql16-holdout-real.json": {
+      "blob_sha": "69a48589c598f5af5e8037df59c4900fdceec1de",
+      "git_sha256": "d1fee19ebbb184a134099bdd5810ed06dcfb79121a421393e6cd12aacd2fbf4b",
+      "working_copy_sha256": "a29f898c9fd0b1d8227b2ccc818fa09ba3b0fda0bfc79eeb52c8ec647adca185"
+    },
+    "docs/sql16-source-format.json": {
+      "blob_sha": "1e29fd2fbba72ddefcf56f9375a98b012180c979",
+      "git_sha256": "52b29c7d73d55a38e4d8f31b13d8ac9275df0e37740b685e7a0b677d40e11990",
+      "working_copy_sha256": "d3f72266bfcfbf8d9e9c246d0ab41322bfd5adc53ae52ff6fdedfa2ce6a47373"
+    }
+  },
+  "original_policy": {
+    "query_timeout_seconds": 5.0,
+    "agent_max_model_calls": 3,
+    "agent_max_tool_calls": 4,
+    "agent_token_budget": 64000,
+    "rag_min_similarity": 0.7,
+    "rag_top_k": 4,
+    "rag_strategy": "vector",
+    "rag_reranker": "none",
+    "datapilot_langsmith_enabled": false
+  },
+  "stage16_failure": {
+    "id": "h03",
+    "http_status": 422,
+    "status": "rejected",
+    "error_code": "unsafe_sql",
+    "columns": null,
+    "evidence": {
+      "sql": "SELECT team, SUM(hours) AS total_hours FROM data GROUP BY team HAVING SUM(hours) >= 3 ORDER BY total_hours DESC, team ASC",
+      "rows": null,
+      "nodes": [
+        "prepare",
+        "retrieve",
+        "plan",
+        "generate",
+        "validate"
+      ],
+      "validations": [
+        {
+          "status": "rejected",
+          "attempt": 0,
+          "code": "unsafe_sql",
+          "sql_sha256": "b051e66080b36ddab6c532b83d7ea0a70dfdc5d1864865478de65d6b72301e8f"
+        }
+      ],
+      "plan": {
+        "metrics": [
+          "SUM(hours) AS total_hours"
+        ],
+        "dimensions": [
+          "team"
+        ],
+        "filters": [
+          "HAVING SUM(hours) >= 3"
+        ],
+        "time_range": null,
+        "ordering": [
+          "total_hours DESC",
+          "team ASC"
+        ],
+        "top_n": null,
+        "needs_clarification": false,
+        "clarification_questions": [],
+        "knowledge_chunk_ids": []
+      },
+      "agent_mode": "native_tools",
+      "tools_used": [
+        "inspect_dataset_schema",
+        "get_profile_summary"
+      ],
+      "finalization_calls": 0,
+      "usage": {
+        "sql": {
+          "source": "provider",
+          "prompt_tokens": 550,
+          "completion_tokens": 71,
+          "total_tokens": 621
+        },
+        "agent": {
+          "input_tokens": 2692,
+          "output_tokens": 198,
+          "total_tokens": 2890
+        }
+      },
+      "citations": []
+    },
+    "initial_retrieval": {
+      "status": "no_match",
+      "source": "provider",
+      "used": false,
+      "citations": [],
+      "error_code": null,
+      "retrieved_count": 0
+    },
+    "agent": {
+      "model_calls": 2,
+      "tool_calls": 2,
+      "tools_used": [
+        "inspect_dataset_schema",
+        "get_profile_summary"
+      ],
+      "reserved_token_bound": 13144,
+      "finalization_calls": 0,
+      "usage": {
+        "input_tokens": 2692,
+        "output_tokens": 198,
+        "total_tokens": 2890
+      },
+      "mode": "native_tools"
+    },
+    "sql_model_calls": 1,
+    "chat_total_tokens": 3511,
+    "latency_ms": 3486.817,
+    "scores": {
+      "strict_sql_correct": false,
+      "query_success": false,
+      "column_set_pass": false,
+      "column_order_pass": false,
+      "ordered_rows_pass": false,
+      "behavior_pass": false,
+      "clarification_pass": null,
+      "rag_sources_pass": true,
+      "safety_zero_execution": null,
+      "dangerous_execution": false,
+      "overall_pass": false
+    }
+  }
+}

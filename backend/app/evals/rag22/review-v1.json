@@ -1,0 +1,11 @@
+{
+  "status": "human-confirmed",
+  "confirmation": "已复核 RAG22 标签",
+  "date": "2026-10-22",
+  "sha256": {
+    "contract-v1.json": "150ec05c219c03ab3a32a7b8dd03900adf3331a89fdbfa27f8ea560b6667a222",
+    "corpus-v1.json": "3edc6b4e9a076e7469be9e2803cd93dc59eb0582f3c377156f8bd5b9f482e7c7",
+    "library.csv": "d28ab58e875bfd1149a1f71384fada7768ae39c2f29ad8e9fff727a1ae6e8191"
+  },
+  "scope": "18 synthetic documents, 26 development queries, relevance/applicability/permission and scoring contract; no holdout"
+}

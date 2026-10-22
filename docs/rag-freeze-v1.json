@@ -1,0 +1,49 @@
+{
+  "corpus_sha256": "de5a8ee25f3320082d94a6efcce75b253e2d30ee0caf477bddfbf4cd45dbcd48",
+  "selected": {
+    "rag_strategy": "vector",
+    "rag_reranker": "none",
+    "rag_min_similarity": 0.7,
+    "reranker_min_score": 0.5
+  },
+  "baseline": {
+    "rag_strategy": "vector",
+    "rag_reranker": "none",
+    "rag_min_similarity": 0.2,
+    "reranker_min_score": 0.5
+  },
+  "agent_source_sha256": "126f6ec62bee701c8f48cc8c1a0635e0bee309fa69a4f61300b81b087deaf1da",
+  "matrix_sha256": "f71a9550421cf590fa528a702e6253ca8185ff75ac2db642c7a8d888bfa8c002",
+  "frozen_at": "2026-10-20T16:14:17.457187+00:00",
+  "implementation_sha256": {
+    "knowledge.py": "f114b8fc0ef3dbbf140ae4f95776b8026e0478f728c9117acbb6693696bb3627",
+    "embeddings.py": "cf47539de50bc9e2c9b9176b3c3b5f48695f6642aba4b526560c1e1af2eff21b",
+    "analysis_agent.py": "126f6ec62bee701c8f48cc8c1a0635e0bee309fa69a4f61300b81b087deaf1da",
+    "analysis_graph.py": "59b532612aff35a9930b10a3aa8221dc5cfc1adf07d2f9c403155536f9604290",
+    "providers.py": "9fd1b088f5b04484ffe0871dbb61cb24faa7d77d1f769107b52b05486094f755",
+    "retrieval.py": "bce29bfdb4a1e67f8df5de1cf3c7a29bdad190b69509ed48f303a8024c09eec9",
+    "reranking.py": "a576fef95181d981aac968c822a005fa818500b0d14d4dc39e8b519770d26521",
+    "config.py": "9d8f83e5743df7f7e514f77f8c8c0ddad78bc0d85d4f127760d2b475ccb22d23"
+  },
+  "model_artifacts": {
+    "archive_sha256": "2c8ae5542f1538e355e9f295d349fc030b5cf7d398c8728c362f0e5129776971",
+    "files": {
+      "ms-marco-MultiBERT-L-12\\.DS_Store": "09b8c39ecd0e3839cf12f3afae2cf566d04909bf2ad5c8cca4d5ce55c2afadfb",
+      "ms-marco-MultiBERT-L-12\\config.json": "b32201ee1c654b59f4c97b2139286edcae9cce525217c6d2131425fa50161946",
+      "ms-marco-MultiBERT-L-12\\flashrank-MultiBERT-L12_Q.onnx": "ff24c4abf96a982ce24b021bab80d9d8a1c3c2ba6926fb41e372a9be1d8cba9b",
+      "ms-marco-MultiBERT-L-12\\special_tokens_map.json": "303df45a03609e4ead04bc3dc1536d0ab19b5358db685b6f3da123d05ec200e3",
+      "ms-marco-MultiBERT-L-12\\tokenizer.json": "ce64fce797c24f68df90b40a3f74f579b336a493db14bd583fd520ea0d8c9a98",
+      "ms-marco-MultiBERT-L-12\\tokenizer_config.json": "eaf913a687e8eed3010b6479d0d84631038212aa50c14d9b812e08cbc891d925",
+      "ms-marco-MultiBERT-L-12\\vocab.txt": "87b44292b452f6c05afa49b2e488e7eedf79ea4f4c39db6f2f4b37764228ef3f",
+      "__MACOSX\\._ms-marco-MultiBERT-L-12": "2f1bdc9ebab5349fe8011c0ac0da76fc0bb7f307add1d67c03ee7f160e0898c1",
+      "__MACOSX\\ms-marco-MultiBERT-L-12\\._.DS_Store": "2f380f4a3d05a8d90c2106f50da75064e9ce57a598599dc5404f8f69a0223aa9",
+      "__MACOSX\\ms-marco-MultiBERT-L-12\\._config.json": "6d9313da5abdc5192e731f927477f3ab2a82240cb050850618c31111d7b8ec75",
+      "__MACOSX\\ms-marco-MultiBERT-L-12\\._flashrank-MultiBERT-L12_Q.onnx": "ef956da50ddd498fee71b354af9dac4d1a46dc4e3108f591b7bc8bf3983dc344",
+      "__MACOSX\\ms-marco-MultiBERT-L-12\\._special_tokens_map.json": "5ecf2333fcb627f8224dfdcbaf6e91dde27d8d9b79e14bb9f072299cb4c93a9e",
+      "__MACOSX\\ms-marco-MultiBERT-L-12\\._tokenizer.json": "a7b69c7a4c4007c92add112512e4ec83f254ff1e4b7feaca4a5126fed7b5c4a8",
+      "__MACOSX\\ms-marco-MultiBERT-L-12\\._tokenizer_config.json": "dca3f4aa9034114b69f34f9c033c6cbbe56237f23c6e37589eb2d7325cb800d3",
+      "__MACOSX\\ms-marco-MultiBERT-L-12\\._vocab.txt": "57733999bea98d8f7da0747ac6fed3be130ff7abbc76306bcc4927281ab27243"
+    }
+  },
+  "holdout_protocol": "One baseline and one selected configuration run; never used for selection."
+}

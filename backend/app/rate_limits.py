@@ -13,13 +13,15 @@ from app.errors import AppError
 from app.models import RateLimitBucket
 
 
-def consume(session, user_id: str, scope: Literal["analysis", "upload"], settings, *, now=None):
+def consume(
+    session, user_id: str, scope: Literal["analysis", "upload", "knowledge"], settings, *, now=None
+):
     now = now or utc(session.scalar(select(func.current_timestamp())))
-    limit = (
-        settings.analysis_requests_per_window
-        if scope == "analysis"
-        else settings.upload_requests_per_window
-    )
+    limit = {
+        "analysis": settings.analysis_requests_per_window,
+        "upload": settings.upload_requests_per_window,
+        "knowledge": settings.knowledge_requests_per_window,
+    }[scope]
     dialect = session.get_bind().dialect.name
     if dialect not in {"postgresql", "sqlite"}:
         raise AppError(503, "rate_limit_unavailable", "请求配额服务暂不可用。")

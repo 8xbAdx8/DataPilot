@@ -1,0 +1,10 @@
+{
+  "status": "ADMISSION_REJECTED_BEFORE_SCORING",
+  "reason": "duplicate_raw_byte_check_against_canonical_LF_freeze",
+  "cases_scored": 0,
+  "database_created": false,
+  "global_holdout_claim_created": false,
+  "real_requests_total": 13,
+  "known_input_tokens": 2934,
+  "same_corpus_sha256": "c084d21d5703a1a09333deaeb359002aa774cc0e9f9922dabaa48b5213cff79e"
+}

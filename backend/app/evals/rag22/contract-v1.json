@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "k": 4,
+  "positive": "authorized queries with nonempty relevant_ids",
+  "precision": "mean positive |relevant intersect top4|/4, including empty candidates",
+  "recall": "mean positive hits/number of relevant IDs",
+  "mrr": "mean positive reciprocal rank of first relevant in top4",
+  "ndcg": "binary DCG/ideal DCG over positive queries only",
+  "no_match": "authorized negatives only; errors not counted as correct empty",
+  "false_retrieval": "authorized negatives with nonempty list / authorized negatives",
+  "applicability": "mean authorized exact expected_evidence match; separate candidate and final evidence metrics",
+  "citation": "all returned candidate/evidence IDs and excerpts checked against persisted records; denominator number of citations",
+  "permissions": "unauthorized queries excluded from ranking/no-match; leaks counted separately",
+  "malicious": "candidate occurrence separate from eligible evidence and selected/used sources; no Agent calls in retrieval evaluator",
+  "latency": "P50 median, P95 nearest-rank; retrieval timings exclude vector generation, explicitly separate evidence filter timing",
+  "selection": "no automatic production change; development comparison only",
+  "strategies": [
+    "vector-0.70-none",
+    "same-vector-plus-registered-evidence"
+  ],
+  "embedding": "same model, corpus and vectors; synthetic Fake explicitly labeled offline only"
+}

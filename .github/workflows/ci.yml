@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:17-alpine
+        image: pgvector/pgvector:0.8.7-pg17
         env:
           POSTGRES_USER: datapilot
           POSTGRES_PASSWORD: test_local
@@ -41,12 +41,17 @@ jobs:
       - run: npx playwright install --with-deps chromium
         working-directory: frontend
       - run: |
-          uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000 --no-access-log > /tmp/datapilot-api.log 2>&1 &
+          EMBEDDING_PROVIDER=fake RAG_MIN_SIMILARITY=0.05 uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000 --no-access-log > /tmp/datapilot-api.log 2>&1 &
           python infra/wait-for-api.py
           npm --prefix frontend run test:e2e
 
   compose:
     runs-on: ubuntu-latest
+    env:
+      COMPOSE_FILE: docker-compose.yml:infra/compose.test.yml
+      COMPOSE_PROJECT_NAME: datapilot-ci
+      SMOKE_BASE_URL: http://127.0.0.1:13000/api
+      SMOKE_REQUIRE_RAG: "1"
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
       - run: docker compose config --quiet

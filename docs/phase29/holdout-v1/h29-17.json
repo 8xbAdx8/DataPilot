@@ -1,0 +1,156 @@
+{
+  "id": "h29-17",
+  "query": "预约签到有效状态？",
+  "kind": "structured",
+  "relevant_ids": [
+    "checkin"
+  ],
+  "A": {
+    "ids": [
+      "checkin"
+    ],
+    "sources": [
+      {
+        "chunk_id": "8f5f82b6-f1d7-4496-86d0-9f4e7e8019c6",
+        "document_id": "ad57fb9a-9e7f-4746-be03-db824a0b723d",
+        "chunk_index": 0,
+        "title": "预约签到",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"预约签到\",\"required_fields\":[\"state\"],\"facts\":[{\"aspect\":\"有效状态\",\"answer\":\"仅state='done'计为完成签到。\"}]}",
+        "similarity": 0.864058
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "8f5f82b6-f1d7-4496-86d0-9f4e7e8019c6",
+        "document_id": "ad57fb9a-9e7f-4746-be03-db824a0b723d",
+        "chunk_index": 0,
+        "title": "预约签到",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"预约签到\",\"required_fields\":[\"state\"],\"facts\":[{\"aspect\":\"有效状态\",\"answer\":\"仅state='done'计为完成签到。\"}]}",
+        "similarity": 0.864058
+      }
+    ],
+    "decision": {},
+    "references": [
+      {
+        "chunk_id": "8f5f82b6-f1d7-4496-86d0-9f4e7e8019c6",
+        "document_id": "ad57fb9a-9e7f-4746-be03-db824a0b723d",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "8f5f82b6-f1d7-4496-86d0-9f4e7e8019c6",
+        "document_id": "ad57fb9a-9e7f-4746-be03-db824a0b723d",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "8f5f82b6-f1d7-4496-86d0-9f4e7e8019c6",
+            "document_id": "ad57fb9a-9e7f-4746-be03-db824a0b723d",
+            "similarity": 0.864058
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "8f5f82b6-f1d7-4496-86d0-9f4e7e8019c6",
+            "document_id": "ad57fb9a-9e7f-4746-be03-db824a0b723d",
+            "similarity": 0.864058
+          }
+        ]
+      }
+    ],
+    "latency_ms": 13.22,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [
+      "checkin"
+    ],
+    "sources": [
+      {
+        "chunk_id": "8f5f82b6-f1d7-4496-86d0-9f4e7e8019c6",
+        "document_id": "ad57fb9a-9e7f-4746-be03-db824a0b723d",
+        "chunk_index": 0,
+        "title": "预约签到",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"预约签到\",\"required_fields\":[\"state\"],\"facts\":[{\"aspect\":\"有效状态\",\"answer\":\"仅state='done'计为完成签到。\"}]}",
+        "similarity": 0.864058
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "8f5f82b6-f1d7-4496-86d0-9f4e7e8019c6",
+        "document_id": "ad57fb9a-9e7f-4746-be03-db824a0b723d",
+        "chunk_index": 0,
+        "title": "预约签到",
+        "source_type": "business_rule",
+        "excerpt": "{\"version\":1,\"subject\":\"预约签到\",\"required_fields\":[\"state\"],\"facts\":[{\"aspect\":\"有效状态\",\"answer\":\"仅state='done'计为完成签到。\"}]}",
+        "similarity": 0.864058
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "knowledge",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [
+        {
+          "chunk_id": "8f5f82b6-f1d7-4496-86d0-9f4e7e8019c6",
+          "origin": "vector_candidate"
+        }
+      ],
+      "matched_fact_count": 1,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "references": [
+      {
+        "chunk_id": "8f5f82b6-f1d7-4496-86d0-9f4e7e8019c6",
+        "document_id": "ad57fb9a-9e7f-4746-be03-db824a0b723d",
+        "document_version": 1,
+        "valid": true
+      },
+      {
+        "chunk_id": "8f5f82b6-f1d7-4496-86d0-9f4e7e8019c6",
+        "document_id": "ad57fb9a-9e7f-4746-be03-db824a0b723d",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "8f5f82b6-f1d7-4496-86d0-9f4e7e8019c6",
+            "document_id": "ad57fb9a-9e7f-4746-be03-db824a0b723d",
+            "similarity": 0.864058
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "8f5f82b6-f1d7-4496-86d0-9f4e7e8019c6",
+            "document_id": "ad57fb9a-9e7f-4746-be03-db824a0b723d",
+            "similarity": 0.864058
+          }
+        ]
+      }
+    ],
+    "latency_ms": 27.614,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

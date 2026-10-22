@@ -10,6 +10,7 @@ export const analysisStatuses = {
   success: "成功",
   rejected: "安全拒绝",
   error: "失败",
+  clarification: "待澄清",
 };
 
 const pageSize = 20;

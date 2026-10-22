@@ -1,0 +1,27 @@
+{
+  "attempts": [
+    {
+      "mode": "initial all-roots read",
+      "result": "local association KeyError; no completed receipt",
+      "cause": "Service logs intentionally omit workflow; corrected to analysis_id join with actual browser evidence"
+    },
+    {
+      "mode": "all-roots read with browser join",
+      "result": "LangSmithRateLimitError; no completed receipt"
+    },
+    {
+      "mode": "paced read and attempted metadata update",
+      "result": "ValueError: contract annotation not observed",
+      "preserved_receipt": "phase19-cloud-readback.json",
+      "cause": "SDK update may buffer and defaults end_time; final helper removes all run updates"
+    },
+    {
+      "mode": "paced read-only",
+      "result": "six server readbacks confirmed",
+      "receipt": "phase19-cloud-readback-v2.json",
+      "node_timings_checked_against_actual_service_duration": true
+    }
+  ],
+  "no_model_rerun_for_cloud_attempts": true,
+  "no_private_exception_body_persisted": true
+}

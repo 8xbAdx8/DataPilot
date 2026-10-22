@@ -1,0 +1,83 @@
+{
+  "id": "h29-10",
+  "query": "按zone的预约实收率最高一组，列zone、rate，rate降序",
+  "kind": "metric",
+  "relevant_ids": [
+    "rate"
+  ],
+  "A": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [],
+    "decision": {},
+    "references": [],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": []
+      },
+      {
+        "stage": "selected",
+        "candidates": []
+      }
+    ],
+    "latency_ms": 8.578,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [
+      "rate"
+    ],
+    "sources": [
+      {
+        "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+        "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+        "chunk_index": 0,
+        "title": "预约实收率",
+        "source_type": "metric_definition",
+        "excerpt": "{\"version\":1,\"name\":\"预约实收率\",\"aliases\":[\"实收率\"],\"expression\":\"ROUND(SUM(collected)/NULLIF(SUM(quoted),0),3)\",\"filters\":[{\"column\":\"state\",\"operator\":\"eq\",\"value\":\"done\"}],\"required_fields\":[\"state\",\"collected\",\"quoted\"]}",
+        "similarity": null
+      }
+    ],
+    "raw_candidates": [],
+    "decision": {
+      "policy": "registered",
+      "status": "resolved",
+      "candidate_count": 0,
+      "matched_definition_count": 1,
+      "eligible_candidate_count": 0,
+      "catalog_supplement_count": 1,
+      "source_origins": [
+        {
+          "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+          "origin": "registered_catalog"
+        }
+      ],
+      "selected_source_ids": [],
+      "used_source_ids": [],
+      "final_decision": "pending"
+    },
+    "references": [
+      {
+        "chunk_id": "03917880-9ce2-4dd1-8b0e-17fce700ef33",
+        "document_id": "12511938-be38-452f-88ea-7038b98b0e38",
+        "document_version": 1,
+        "valid": true
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": []
+      },
+      {
+        "stage": "selected",
+        "candidates": []
+      }
+    ],
+    "latency_ms": 25.297,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

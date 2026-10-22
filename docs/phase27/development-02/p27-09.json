@@ -1,0 +1,243 @@
+{
+  "id": "p27-09",
+  "query": "断电后输送带怎么处理？",
+  "kind": "direct",
+  "relevant_ids": [
+    "power"
+  ],
+  "A": {
+    "ids": [
+      "power"
+    ],
+    "sources": [
+      {
+        "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+        "document_id": "ef4cae20-c27a-44a5-b75a-80b4445a14db",
+        "chunk_index": 0,
+        "title": "停电处置",
+        "source_type": "business_rule",
+        "excerpt": "停电后关闭输送带，复电先试空载三分钟再上果。",
+        "similarity": 0.766955
+      }
+    ],
+    "raw_candidates": [
+      {
+        "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+        "document_id": "ef4cae20-c27a-44a5-b75a-80b4445a14db",
+        "chunk_index": 0,
+        "title": "停电处置",
+        "source_type": "business_rule",
+        "excerpt": "停电后关闭输送带，复电先试空载三分钟再上果。",
+        "similarity": 0.766955
+      }
+    ],
+    "decision": {},
+    "authenticity": [
+      {
+        "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+            "document_id": "ef4cae20-c27a-44a5-b75a-80b4445a14db",
+            "similarity": 0.766955
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+            "document_id": "ef4cae20-c27a-44a5-b75a-80b4445a14db",
+            "similarity": 0.766955
+          }
+        ]
+      }
+    ],
+    "latency_ms": 16.96,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "C": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+        "document_id": "ef4cae20-c27a-44a5-b75a-80b4445a14db",
+        "chunk_index": 0,
+        "title": "停电处置",
+        "source_type": "business_rule",
+        "excerpt": "停电后关闭输送带，复电先试空载三分钟再上果。",
+        "similarity": 0.766955
+      }
+    ],
+    "decision": {
+      "policy": "registered_with_facts",
+      "status": "not_found",
+      "candidate_count": 1,
+      "catalog_supplement_count": 0,
+      "source_origins": [],
+      "matched_fact_count": 0,
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+            "document_id": "ef4cae20-c27a-44a5-b75a-80b4445a14db",
+            "similarity": 0.766955
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+            "document_id": "ef4cae20-c27a-44a5-b75a-80b4445a14db",
+            "similarity": 0.766955
+          }
+        ]
+      }
+    ],
+    "latency_ms": 24.251,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  },
+  "D": {
+    "ids": [],
+    "sources": [],
+    "raw_candidates": [
+      {
+        "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+        "document_id": "ef4cae20-c27a-44a5-b75a-80b4445a14db",
+        "chunk_index": 0,
+        "title": "停电处置",
+        "source_type": "business_rule",
+        "excerpt": "停电后关闭输送带，复电先试空载三分钟再上果。",
+        "similarity": 0.766955,
+        "vector_rank": 1,
+        "lexical_rank": 1,
+        "fusion_score": 0.03278688524590164
+      }
+    ],
+    "decision": {
+      "policy": "experimental_prose_D",
+      "status": "insufficient_evidence",
+      "method": "IDF-weighted lexical character/identifier coverage; not probability or semantic entailment",
+      "threshold": 0.86,
+      "multi_threshold": 0.94,
+      "scores": [
+        {
+          "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+          "lexical_char_coverage": 0.596211,
+          "cosine": 0.766955,
+          "vector_rank": 1,
+          "lexical_rank": 1,
+          "fusion_score": 0.03278688524590164,
+          "attribute_supported": true
+        }
+      ],
+      "source_origins": [],
+      "planned_source_ids": null,
+      "used_source_ids": null
+    },
+    "authenticity": [
+      {
+        "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+        "version": 1,
+        "valid": true,
+        "owner_id": "1a8147c5-7fcc-4c81-adda-3b40553660a2",
+        "dataset_id": "79182dc9-780a-4ab9-8251-a7b78fec52b9"
+      }
+    ],
+    "stages": [
+      {
+        "stage": "vector",
+        "candidates": [
+          {
+            "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+            "document_id": "ef4cae20-c27a-44a5-b75a-80b4445a14db",
+            "similarity": 0.766955
+          }
+        ]
+      },
+      {
+        "stage": "lexical",
+        "candidates": [
+          {
+            "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+            "document_id": "ef4cae20-c27a-44a5-b75a-80b4445a14db",
+            "similarity": 0.766955,
+            "vector_rank": 1,
+            "lexical_rank": 1
+          }
+        ]
+      },
+      {
+        "stage": "fused",
+        "candidates": [
+          {
+            "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+            "document_id": "ef4cae20-c27a-44a5-b75a-80b4445a14db",
+            "similarity": 0.766955,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      },
+      {
+        "stage": "reranked",
+        "candidates": [
+          {
+            "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+            "document_id": "ef4cae20-c27a-44a5-b75a-80b4445a14db",
+            "similarity": 0.766955,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      },
+      {
+        "stage": "selected",
+        "candidates": [
+          {
+            "chunk_id": "200ac0ae-82c2-479b-b8e9-9ff4ca695ba4",
+            "document_id": "ef4cae20-c27a-44a5-b75a-80b4445a14db",
+            "similarity": 0.766955,
+            "vector_rank": 1,
+            "lexical_rank": 1,
+            "fusion_score": 0.03278688524590164
+          }
+        ]
+      }
+    ],
+    "latency_ms": 33.617,
+    "planned_source_ids": null,
+    "used_source_ids": null
+  }
+}

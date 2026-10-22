@@ -1,0 +1,32 @@
+# Isolated offline acceptance stack. Never loads the developer's real .env keys.
+services:
+  postgres:
+    build:
+      args:
+        POSTGRES_IMAGE: ${POSTGRES_BUILD_IMAGE:-postgres:17-alpine}
+    ports: !override ["127.0.0.1:15639:5432"]
+  migrate:
+    build:
+      args:
+        PYTHON_IMAGE: ${PYTHON_BUILD_IMAGE:-python:3.12-slim}
+  backend:
+    build:
+      args:
+        PYTHON_IMAGE: ${PYTHON_BUILD_IMAGE:-python:3.12-slim}
+    env_file: !reset []
+    environment:
+      LLM_PROVIDER: mock
+      EMBEDDING_PROVIDER: fake
+      RAG_MIN_SIMILARITY: "0.05"
+      DATAPILOT_LANGSMITH_ENABLED: "false"
+      AUTH_TRUSTED_ORIGINS: '["http://localhost:13029","http://127.0.0.1:13029"]'
+      CORS_ORIGINS: '["http://localhost:13029","http://127.0.0.1:13029"]'
+      RUN_LIVE_LLM: "0"
+      RUN_LIVE_AGENT: "0"
+      RUN_LIVE_EMBEDDING: "0"
+    ports: !override ["127.0.0.1:18029:8000"]
+  frontend:
+    build:
+      args:
+        NODE_IMAGE: ${NODE_BUILD_IMAGE:-node:24-alpine}
+    ports: !override ["127.0.0.1:13029:3000"]

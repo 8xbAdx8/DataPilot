@@ -1,0 +1,9 @@
+order_id,ordered_at,region,channel,amount,cost,status
+O1,2026-04-01,East,web,12,5,paid
+O2,2026-04-02,West,store,20,8,paid
+O3,2026-04-03,East,web,8,3,refunded
+O4,2026-04-04,North,store,,4,paid
+O5,2026-05-01,West,web,15,6,paid
+O6,2026-05-02,East,store,5,2,pending
+O7,2026-05-03,North,web,0,0,paid
+O8,2026-05-04,East,web,20,7,paid

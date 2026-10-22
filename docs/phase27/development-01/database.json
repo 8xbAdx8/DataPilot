@@ -1,0 +1,30 @@
+{
+  "documents": 18,
+  "owner": "3c3e8246-6b90-4d57-bd55-674d94fe6479",
+  "targets": {
+    "target": "07dfdc27-f05d-4844-85c1-dd002d51addc",
+    "sibling": "44aa38dc-7df7-4cb5-9c81-b9670d168004",
+    "other": "0727c3eb-6662-49b7-9fdc-149fd9241e57"
+  },
+  "mapping": {
+    "c87e70a8-7fc9-4b63-a987-567098b3fd3d": "cold",
+    "7f0865ae-f824-45a3-8549-c7c32c6e32fd": "gloves",
+    "6f7a38ef-635f-4da3-9861-3dc626e7a8f8": "bins",
+    "89534283-5eb7-4ef9-9467-9a64195e4741": "scale",
+    "8d80f5d5-a59e-4310-8dbf-ff8caa53869b": "gate",
+    "3f14757b-eded-4c78-a6d8-81dab725b474": "power",
+    "a47c6e70-ee68-4603-84c6-85bbcd5a223c": "labels",
+    "01ce5ca0-86ab-45c1-ae16-875a3c535702": "samples",
+    "6dc451fa-0bbf-41bf-83c7-daaabf6d4cda": "rain",
+    "2c74c1cf-c30b-43ca-a6aa-ce39c29936ae": "load",
+    "fd631381-fe7f-438c-b0fb-b5d7e8893a39": "fallen",
+    "0452bfe4-f8bf-4073-9918-136afd10e44f": "spill",
+    "9bf75532-8235-448e-89c9-ce252b6cf94e": "battery",
+    "0f52c533-3cbe-481a-9b2a-b2151272e76b": "access",
+    "a8d8600a-bc56-4d19-868d-6ad102b0da5f": "dispatch",
+    "622352c9-1a61-4b38-bada-367396d9c2e9": "restart",
+    "b74233ee-a2f8-452d-839f-f554a15d97a0": "foreign-gloves",
+    "b814e63c-b481-4388-9cb1-74a229390f42": "sibling-gloves"
+  },
+  "independent_committed_reference_checks": true
+}

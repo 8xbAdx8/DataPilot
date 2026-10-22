@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "project": "datapilot-rag24",
+  "source_files_matching": 50,
+  "migration_head": "0006",
+  "leftover_temporary_databases": [],
+  "removed_owned_volumes": [
+    "datapilot-rag24_analytics_data",
+    "datapilot-rag24_postgres_data"
+  ],
+  "owned_containers_remaining": 0,
+  "owned_volumes_remaining": 0,
+  "other_resources": "not_modified",
+  "real_api_keys_in_container": false
+}

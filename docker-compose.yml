@@ -1,6 +1,9 @@
 services:
   postgres:
-    image: postgres:17-alpine
+    build:
+      context: ./infra
+      dockerfile: Dockerfile.postgres
+    image: datapilot-postgres-vector:0.8.7-pg17-alpine
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-datapilot}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-datapilot_local}

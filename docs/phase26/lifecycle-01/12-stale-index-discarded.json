@@ -1,0 +1,33 @@
+{
+  "id": "stale-index-discarded",
+  "http_status": 409,
+  "response": {
+    "detail": {
+      "code": "knowledge_index_superseded",
+      "message": "知识已更新，旧索引结果已丢弃。"
+    }
+  },
+  "independent_connection": {
+    "documents": [
+      {
+        "id": "87295077-46d0-4208-b5dc-e4c67fcf8eae",
+        "owner_id": "60bdf334-c5fb-4365-a089-549c4108afba",
+        "dataset_id": "4fcf6c73-94d1-4be4-8345-2028e9f44504",
+        "version": 8,
+        "status": "ready",
+        "content": "冷库签收规则：温度必须低于1度。",
+        "space": "openai_compatible/text-embedding-v4/1536/f40b8b23a71b0c3c"
+      }
+    ],
+    "chunks": [
+      {
+        "id": "c78b4d44-0121-4fd9-970b-68781ed5bc08",
+        "document_id": "87295077-46d0-4208-b5dc-e4c67fcf8eae",
+        "content": "冷库签收规则：温度必须低于1度。",
+        "dimensions": 1536,
+        "space": "openai_compatible/text-embedding-v4/1536/f40b8b23a71b0c3c",
+        "model": "text-embedding-v4"
+      }
+    ]
+  }
+}
