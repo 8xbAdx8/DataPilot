@@ -51,6 +51,8 @@ class Settings(BaseSettings):
     rag_reranker: Literal["none", "flashrank"] = "none"
     # Candidate compatibility remains default until independent semantic acceptance.
     rag_evidence_policy: Literal["legacy", "registered"] = "legacy"
+    rag_experiment_mode: Literal["off", "shadow", "enabled"] = "off"
+    rag_experiment_synthetic: bool = False
     reranker_min_score: float = Field(default=0.5, ge=0, le=1)
     reranker_timeout_seconds: float = Field(default=15, gt=0, le=60)
     reranker_cache_dir: Path = ROOT / "data/runtime/flashrank"
@@ -65,6 +67,10 @@ class Settings(BaseSettings):
     def compatible_ranking(self):
         if self.rag_reranker == "flashrank" and self.rag_strategy != "hybrid":
             raise ValueError("FlashRank requires RAG_STRATEGY=hybrid")
+        if self.rag_experiment_mode != "off" and (
+            not self.rag_experiment_synthetic or self.datapilot_langsmith_enabled
+        ):
+            raise ValueError("Experimental retrieval requires synthetic isolation and tracing off")
         return self
 
     knowledge_requests_per_window: int = Field(default=10, ge=1, le=120)

@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "postgres": "576 passed,6 original live opt-in skipped;283.51s",
+  "sqlite": "534 passed,48 conditional skipped;199.85s",
+  "target": "initial1failed/40passed;fixed44passed;finalexperiment13passed",
+  "frontend": [
+    "lint passed",
+    "typecheck passed",
+    "production build passed"
+  ],
+  "playwright": "final exit0:15 passed,3 original cloud opt-in skipped;1.3m",
+  "compose": "current source built via public ECR bases; healthy + real HTTP smoke passed",
+  "migration": "0006 upgrade twice/base rollback/reupgrade/alembic check passed in new disposable DB",
+  "ruff": "115 files check/format passed",
+  "pip_check": "passed",
+  "true_external_model_http": 0,
+  "langsmith_http": 0,
+  "shared_ledger": "unchanged14embedding/1076input,6chat/5331input/833output;complete",
+  "cost": "unknown",
+  "cleanup": {
+    "project": "datapilot-phase28",
+    "temporary_databases_remaining": 0,
+    "owned_containers_remaining": 0,
+    "owned_volumes_remaining": 0,
+    "other_resources": "untouched",
+    "ledger": "preserved"
+  },
+  "logs_sha256": {
+    "phase28-postgres-final.log": "ba24a2bf1480d3275250f38556e0a24c84a1a8101fd867dd3e326c39e335b028",
+    "phase28-sqlite-final.log": "cf64c87054c9f1815a9b658d290aca2ffdbe5887ff9a97cf63a165eba579bb28",
+    "phase28-postgres-target.log": "bf4b7ab0b0e4e4e40a28e18181d701f8a1ef0cb374b107d2aa10535c26616bd2",
+    "phase28-postgres-target-b.log": "dadc2ddb181a28c7032e95be578e78879f875ac616801425ea2f90a6baebb054",
+    "phase28-postgres-shadow-record.log": "cbdca73565b6fbadd23bc3cc37427aacb9ee86979ee1e690a94e4b8e53b56ee6",
+    "phase28-playwright.log": "04c2d681ddbd149802b0946a44ee2b72db030fc2502849e05e4a0bd7c296c0ec",
+    "phase28-playwright-final.log": "4d4f6eee76d2bd50fa8219cb0b314f911ce7b05e502ece7194bd9fa40fcd9135",
+    "phase28-migrations.log": "916d6b52069a7bdac53a369b93d3ca9aa54a07174cfe8fdfcf551994e3d9b6f4",
+    "phase28-migrations-b.log": "083322efe5dcfcd60c7e85d52bddba43c21051d165b7ac632574802309516fa0",
+    "phase28-compose-build.log": "88b63871ae10366e766dbeea7b3b451bb670a0544167eca0f88e03c1b9fd7520",
+    "phase28-compose-ecr-build.log": "f507343499b6a64cf5d9bd825e18c84d00258137d14e9ad4dcafe9a9c2c3917e",
+    "phase28-compose-final-build.log": "a861a05a2d46d3c1ac6ea601faac78b39d9498dbfc5574785a829d2a08a89903",
+    "phase28-compose-final-up.log": "9129b9b551027cad42a5b55ea1b46c51481837bbbae3f238adeb9fd26a51994b",
+    "phase28-compose-final-smoke.log": "3f1a6b3f03321c26a0f171a4648c0725961e2b4d82712f11b8fb95234cbbff39",
+    "phase28-cleanup.log": "5b80fffa40b351cd98876bd67b9c820fe0854eeb7679ee71dea690d91dd5d2d8"
+  }
+}

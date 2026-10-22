@@ -33,6 +33,17 @@ FIELDS = {
     "local_trace_id",
     "timings_ms",
     "usage",
+    "mode",
+    "candidate",
+    "D",
+    "baseline_count",
+    "candidate_count",
+    "baseline_source_hashes",
+    "candidate_source_hashes",
+    "changed",
+    "candidate_decision",
+    "latency_ms",
+    "extra_embedding_http",
 }
 
 

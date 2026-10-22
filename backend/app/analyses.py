@@ -166,7 +166,8 @@ def analyze(
 
     def configure_evidence():
         registry = MetricRegistry(session, user.id, str(dataset_id), settings)
-        strict_evidence = settings.rag_evidence_policy == "registered"
+        experiment_enabled = settings.rag_experiment_mode == "enabled"
+        strict_evidence = settings.rag_evidence_policy == "registered" or experiment_enabled
         resolution = registry.resolve(body.question, question=True)
         run.metric_resolution = registry.summary(resolution)
         requires_metric = (registry.enabled or strict_evidence) and (
@@ -192,6 +193,9 @@ def analyze(
             rag = retrieve_knowledge(
                 session, user.id, str(dataset_id), body.question, settings, deadline=run.deadline
             )
+            from app.retrieval_experiment import apply_experiment
+
+            rag = apply_experiment(session, registry, body.question, settings, rag)
             begin_snapshot(
                 rag,
                 settings.rag_evidence_policy,
@@ -277,10 +281,21 @@ def analyze(
 
             def make_plan():
                 try:
-                    if requires_metric and resolution["status"] != "resolved":
+                    fact_supported = (
+                        experiment_enabled
+                        and bool(run.rag.get("citations"))
+                        and (run.rag.get("experiment_decision", {}).get("status") == "knowledge")
+                    )
+                    if experiment_enabled and not run.rag.get("citations"):
+                        return evidence_clarification()
+                    if (
+                        requires_metric
+                        and resolution["status"] != "resolved"
+                        and not fact_supported
+                    ):
                         return evidence_clarification()
                     planner.knowledge = run.rag.get("citations", []).copy()
-                    if requires_metric:
+                    if requires_metric and not fact_supported:
                         required = [i["source"] for i in resolution["items"]]
                         required_ids = {i["chunk_id"] for i in required}
                         planner.knowledge = (
@@ -308,7 +323,7 @@ def analyze(
                             plan.clarification_questions = [
                                 "没有可验证的已登记指标，请明确计算字段与业务口径。"
                             ]
-                    if requires_metric and not plan.needs_clarification:
+                    if requires_metric and not fact_supported and not plan.needs_clarification:
                         expected = {i["source"]["chunk_id"] for i in resolution["items"]}
                         if not expected <= set(plan.knowledge_chunk_ids):
                             plan.needs_clarification = True
@@ -345,6 +360,41 @@ def analyze(
                 }
 
             run.planner = plan_without_agent
+
+        if experiment_enabled:
+            from app.retrieval_experiment import candidate
+
+            # Tool queries cannot widen the original question's applicable evidence.
+            if settings.agent_enabled:
+
+                def scoped_candidate(result):
+                    selected, _ = candidate(registry, body.question, result.get("citations", []))
+                    returned = {s["chunk_id"] for s in result.get("citations", [])}
+                    return {
+                        **result,
+                        "citations": [s for s in selected if s["chunk_id"] in returned],
+                    }
+
+                planner.search = lambda query: scoped_candidate(
+                    retrieve_knowledge(
+                        session, user.id, str(dataset_id), query, settings, deadline=run.deadline
+                    )
+                )
+                planner.metric_lookup = lambda name: scoped_candidate(
+                    metric_definition(session, user.id, str(dataset_id), name, settings)
+                )
+            else:
+
+                def experiment_plan_without_agent():
+                    sources = run.rag.get("citations", [])
+                    if not sources:
+                        return evidence_clarification()
+                    return {
+                        "needs_clarification": False,
+                        "knowledge_chunk_ids": [s["chunk_id"] for s in sources],
+                    }
+
+                run.planner = experiment_plan_without_agent
 
     identifiers = {
         "request_id": analysis.request_id,
