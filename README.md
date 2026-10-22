@@ -4,6 +4,8 @@
 
 ## 开发状态
 
+阶段23新增[证据链与历史可解释性](docs/PHASE23_EVIDENCE_OBSERVABILITY.md)：分别保存初始候选、目录补充、计划选择、SQL 上下文和执行后指标确认；前端与历史详情读取当次授权快照，旧记录显示未记录，不重新检索。LangSmith 仅完善本地白名单及隐私测试，本轮没有真实模型、Embedding 或云端追踪调用，未解决真实语义误召回。生产默认仍为 `legacy / vector / 0.70 / none`，阶段21未知用量停止规则保持有效。
+
 阶段22新增[登记证据筛选与开发评测](docs/PHASE22_RAG_QUALITY.md)，仅本地提交：26条人工复核查询、候选/目录补充/采用来源分开记录，`RAG_EVIDENCE_POLICY=registered`显式启用。默认仍legacy、vector/0.70/none；新模式尚未通过真实语义检索验收。阶段21未知用量护栏继续阻塞新真实调用，本轮只有Fake向量+真实pgvector和受控安全证据，不能宣称真实RAG质量通过。阶段21及以下为保留记录。
 
 阶段21交付记录**（仅本地，未推送）**：[指标登记与证据契约](docs/METRIC_DEFINITIONS.md)、[阶段21真实开发与回归报告](docs/PHASE21_METRIC_DISCOVERY.md)。阶段17–19已正常推送至 `d8063cf`，其[远程CI](https://github.com/8xbAdx8/DataPilot/actions/runs/39625387950)两个Job成功；这不是阶段21的CI。新结构化指标开发4/4通过，但旧格式补充真实调用失败且usage未知，不能宣称全部真实质量通过。历史阶段18留出正例8/8、误召回3/8，阶段19真实五案例4/5与独立诊断保持原样；生产检索仍vector/0.70/none，FlashRank关闭。以下阶段10–19条目为历史证据。

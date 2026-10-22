@@ -65,3 +65,26 @@ input[type="file"]::file-selector-button {
 button:disabled {
   cursor: not-allowed;
 }
+
+/* Scope evidence readability without redesigning the workbench theme. */
+.evidence-panel {
+  --evidence-bg: #ffffff;
+  --evidence-text: #17212f;
+  --evidence-muted: #475569;
+  --evidence-border: #cbd5e1;
+  --evidence-source: #f8fafc;
+  background: var(--evidence-bg);
+  color: var(--evidence-text);
+  border-color: var(--evidence-border);
+}
+.evidence-panel .evidence-muted { color: var(--evidence-muted); }
+.evidence-panel .evidence-source { background: var(--evidence-source); border-color: var(--evidence-border); }
+@media (prefers-color-scheme: dark) {
+  .evidence-panel {
+    --evidence-bg: #0f172a;
+    --evidence-text: #f1f5f9;
+    --evidence-muted: #cbd5e1;
+    --evidence-border: #475569;
+    --evidence-source: #1e293b;
+  }
+}

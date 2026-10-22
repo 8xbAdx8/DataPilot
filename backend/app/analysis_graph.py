@@ -13,6 +13,7 @@ from langsmith import tracing_context
 
 from app.config import Settings
 from app.errors import AppError
+from app.evidence_snapshot import confirm_usage, record_context, snapshot
 from app.observability import timed
 from app.providers import LLMProvider, SqlProposal, TokenUsage
 from app.sql_guard import validate_sql
@@ -144,11 +145,14 @@ def build_graph(run: AnalysisRun):
                 contextual = getattr(run.provider, "generate_with_context", None)
                 run.rag["used"] = bool(run.rag.get("citations") and callable(contextual))
                 if "evidence" in run.rag:
-                    run.rag["evidence"]["context_source_ids"] = (
-                        [i["chunk_id"] for i in run.rag.get("citations", [])]
-                        if run.rag["used"]
-                        else []
-                    )
+                    if snapshot(run) is not None:
+                        record_context(run, run.rag["used"])
+                    else:
+                        run.rag["evidence"]["context_source_ids"] = (
+                            [i["chunk_id"] for i in run.rag.get("citations", [])]
+                            if run.rag["used"]
+                            else []
+                        )
                 proposal = (
                     contextual(state["question"], state["schema"], run.generation_context())
                     if (run.plan or run.rag.get("citations")) and callable(contextual)
@@ -162,11 +166,22 @@ def build_graph(run: AnalysisRun):
         return {"proposal": proposal.model_dump()}
 
     def guard(state):
+        evidence = snapshot(run)
+        if evidence is not None:
+            evidence.update(
+                sql_validation="not_requested",
+                metric_validation="not_requested",
+                used_source_ids=[],
+            )
         try:
             with run.measure("sql_guard"):
                 sql = validate_sql(state["proposal"]["sql"], state["schema"])
+                if evidence is not None:
+                    evidence["sql_validation"] = "approved"
                 if run.evidence_guard:
                     run.evidence_guard(sql)
+                    if evidence is not None:
+                        evidence["metric_validation"] = "approved"
             run.validations.append({"status": "approved", "attempt": run.repairs})
             run.sql = sql
             run.failure = None
@@ -175,6 +190,13 @@ def build_graph(run: AnalysisRun):
             run.failure = error
             if "evidence" in run.rag:
                 run.rag["evidence"]["final_decision"] = "reject"
+            if evidence is not None:
+                key = (
+                    "metric_validation"
+                    if error.detail["code"] == "metric_contract_violation"
+                    else "sql_validation"
+                )
+                evidence[key] = "rejected"
             run.validations.append(
                 {
                     "status": "rejected",
@@ -207,6 +229,7 @@ def build_graph(run: AnalysisRun):
         try:
             with run.measure("provider"):
                 contextual = getattr(run.provider, "repair_with_context", None)
+                record_context(run, callable(contextual) and bool(run.rag.get("citations")))
                 proposal = (
                     contextual(
                         state["question"],
@@ -227,9 +250,19 @@ def build_graph(run: AnalysisRun):
         return {"proposal": proposal.model_dump(), "repair_attempts": run.repairs}
 
     def execute(state):
-        with run.measure("query"):
-            run.result = run.execute(state["sql"])
-        if "evidence" in run.rag:
+        evidence = snapshot(run)
+        if evidence is not None:
+            evidence["execution"] = "started"
+        try:
+            with run.measure("query"):
+                run.result = run.execute(state["sql"])
+        except Exception:
+            if evidence is not None:
+                evidence.update(execution="error", used_source_ids=[])
+            raise
+        if evidence is not None:
+            evidence["execution"] = "success"
+        elif "evidence" in run.rag:
             run.rag["evidence"]["used_source_ids"] = run.rag["evidence"].get(
                 "context_source_ids", []
             )
@@ -239,7 +272,10 @@ def build_graph(run: AnalysisRun):
         if not isinstance(run.result, dict) or not all(
             key in run.result for key in ("columns", "rows", "truncated")
         ):
+            if snapshot(run) is not None:
+                run.rag["evidence"].update(execution="error", used_source_ids=[])
             raise AppError(422, "query_failed", "查询结果结构不符合约定。")
+        confirm_usage(run)
         if "evidence" in run.rag:
             run.rag["evidence"]["final_decision"] = "answer"
         return {"status": "success"}

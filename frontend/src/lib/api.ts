@@ -123,6 +123,21 @@ export type KnowledgeDocument = {
   created_at: string;
   updated_at: string;
 };
+export type EvidenceSnapshot = {
+  version?: number;
+  policy?: "legacy" | "registered";
+  status?: string;
+  source_snapshots?: (KnowledgeCitation & { document_version?: number })[];
+  source_origins?: { chunk_id: string; origin: string }[];
+  eligible_source_ids?: string[];
+  selected_source_ids?: string[];
+  context_source_ids?: string[];
+  used_source_ids?: string[];
+  sql_validation?: string;
+  metric_validation?: string;
+  execution?: string;
+  final_decision?: string;
+};
 export type QueryResult = {
   columns: { name: string; type: string }[];
   rows: Record<string, Cell>[];
@@ -172,6 +187,16 @@ export type Analysis = {
         error_code?: string | null;
         retrieved_count?: number;
         citations: KnowledgeCitation[];
+        candidate_status?: string;
+        candidate_stages?: {
+          stage: string;
+          candidates: {
+            chunk_id: string;
+            document_id?: string;
+            similarity?: number;
+          }[];
+        }[];
+        evidence?: EvidenceSnapshot;
       };
     };
     timings_ms?: Record<string, number>;

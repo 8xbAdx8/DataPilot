@@ -147,3 +147,15 @@ docker compose exec backend python -m app.accounts reset-password --username ali
 
 
 阶段21注册指标可在现有“业务知识管理”中选择metric_definition，标题与JSON name一致，内容格式见[指标契约](METRIC_DEFINITIONS.md)。既有KnowledgeDocument.content存储即可，不需要迁移。复杂旧文本先转换为明确JSON；无法证明适用性时返回澄清，不能通过增加工具预算或降低检索阈值解决。真实开发CLI `app.metric21_acceptance` 显式要求RUN_LIVE_METRIC21=1；原始证据路径独占、90k停止线、下一案例70k保守预留。前次报告出现未知usage/未结束时，CLI在任何新调用前拒绝。本轮未知用量后保持停止，不重跑旧题；费用和完整Token未知。具体服务失败与已验证范围见[阶段21报告](PHASE21_METRIC_DISCOVERY.md)。
+
+## 阶段23证据快照与历史
+
+本阶段复用 `Analysis.telemetry` JSON，迁移head仍为0006，无需回填旧分析。新记录的 `workflow.rag.evidence.version=1` 保存授权知识的标题、文档/片段ID、文档版本及最多800字符的片段快照（最多96条），以及候选、来源类别、选择、上下文和校验/执行状态。该快照是业务数据，只对分析所属数据集的当前所有者开放；不要直接公开telemetry或数据库备份。
+
+历史详情只读取当次快照，不重新检索、查询指标目录或调用模型。原知识更新/删除后，分析快照继续保留以解释原结果；删除原知识不等于删除历史快照。快照随分析保留策略清理，默认历史30天、结果文件7天，数据集删除同时移除关联历史。旧记录不补造证据，界面显示“历史记录未包含该证据”。
+
+`selected_source_ids`表示计划选择；`context_source_ids`仅表示已传入SQL Provider调用；`used_source_ids`要求SQLGlot/Schema、登记指标契约、DuckDB及结果结构均通过。Schema或字段别名查询即使计算成功，也不自动确认采用指标。旧`rag.used`仅为兼容字段，不应解释为执行后已使用来源。
+
+如果最终数据库提交失败，接口返回503、结果文件移除、本地追踪决策为error；数据库中可能只有最初的running记录，无法承诺恢复未持久化的完整证据。现有maintenance会处理超过10分钟的中断记录，默认先dry-run，确认后再apply。不要通过重新RAG重建这类历史。
+
+生产默认继续 `legacy / vector / 0.70 / none`、LangSmith关闭。普通测试用独立Mock/Fake栈，不能据此宣称真实语义质量或云端追踪通过；阶段21未知用量停止规则继续生效。[阶段23完整验收](PHASE23_EVIDENCE_OBSERVABILITY.md)。

@@ -20,6 +20,7 @@ from app.analysis_graph import AnalysisRun, execute_analysis_graph
 from app.auth import UserDep
 from app.datasets import SessionDep, SettingsDep, dataset_path, find_dataset
 from app.errors import AppError
+from app.evidence_snapshot import audit_summary, begin_snapshot, capture_sources
 from app.execution import execute_query
 from app.knowledge import metric_definition, retrieve_knowledge
 from app.metric_resolution import MetricRegistry
@@ -153,6 +154,7 @@ def analyze(
         question=body.question,
         fields=dataset.profile["fields"],
     )
+    begin_snapshot(run.rag, settings.rag_evidence_policy)
 
     def configure_evidence():
         registry = MetricRegistry(session, user.id, str(dataset_id), settings)
@@ -169,6 +171,48 @@ def analyze(
         if requires_metric and resolution["status"] == "resolved":
             run.registered_metrics = [i["contract"].model_dump() for i in resolution["items"]]
             run.evidence_guard = lambda sql: registry.check_sql(sql, resolution)
+
+        metric_sources = [i["source"] for i in resolution["items"]] if run.evidence_guard else []
+        catalog_candidates = [i["source"] for i in resolution["items"]]
+
+        def observe(sources, *, origin_hint="unrecorded"):
+            return capture_sources(
+                session, user.id, str(dataset_id), run.rag, sources, origin_hint=origin_hint
+            )
+
+        def retrieve_snapshot():
+            rag = retrieve_knowledge(
+                session, user.id, str(dataset_id), body.question, settings, deadline=run.deadline
+            )
+            begin_snapshot(
+                rag,
+                settings.rag_evidence_policy,
+                resolution["status"] if registry.enabled else "not_configured",
+                [s["chunk_id"] for s in metric_sources],
+            )
+            initial = {
+                c["chunk_id"]
+                for stage in rag.get("candidate_stages", [])
+                for c in stage.get("candidates", [])
+            }
+            origins = {s["chunk_id"]: s for s in rag["evidence"]["source_origins"]}
+            for source in catalog_candidates:
+                key = source["chunk_id"]
+                origins.setdefault(
+                    key,
+                    {
+                        "chunk_id": key,
+                        "origin": "vector_candidate" if key in initial else "registered_catalog",
+                    },
+                )
+            rag["evidence"]["source_origins"] = list(origins.values())
+            run.rag = rag
+            raw_ids = {s["chunk_id"] for s in rag.get("citations", [])}
+            captured = observe(rag.get("citations", []) + catalog_candidates)
+            rag["citations"] = [s for s in captured if s["chunk_id"] in raw_ids]
+            return rag
+
+        run.retriever = retrieve_snapshot
 
         def evidence_clarification():
             if strict_evidence:
@@ -237,7 +281,15 @@ def analyze(
                                 : 4 - len(required)
                             ]
                         )
+                    planner.knowledge = observe(planner.knowledge)
                     plan = plan_analysis(planner, body.question)
+                    planner.knowledge = observe(planner.knowledge, origin_hint="agent_tool")
+                    if not set(plan.knowledge_chunk_ids) <= {
+                        s["chunk_id"] for s in planner.knowledge
+                    }:
+                        raise AppError(
+                            403, "evidence_source_denied", "规划来源未通过当次所有权校验。"
+                        )
                     if (
                         registry.enabled
                         and not requires_metric
@@ -267,6 +319,7 @@ def analyze(
                         ]
                     return plan.model_dump()
                 finally:
+                    observe(planner.knowledge, origin_hint="agent_tool")
                     run.agent_metrics = planner.metadata()
                     run.agent_spans = planner.spans.copy()
 
@@ -285,9 +338,6 @@ def analyze(
 
             run.planner = plan_without_agent
 
-    run.retriever = lambda: retrieve_knowledge(
-        session, user.id, str(dataset_id), body.question, settings, deadline=run.deadline
-    )
     identifiers = {
         "request_id": analysis.request_id,
         "analysis_id": analysis.id,
@@ -326,6 +376,7 @@ def analyze(
                     event="analysis_clarification",
                     dataset_id=str(dataset_id),
                     analysis_id=analysis.id,
+                    details=audit_summary(run),
                 )
             )
             session.commit()
@@ -350,7 +401,11 @@ def analyze(
                 event="analysis_succeeded",
                 dataset_id=str(dataset_id),
                 analysis_id=analysis.id,
-                details={"returned_rows": analysis.returned_rows, "truncated": analysis.truncated},
+                details={
+                    "returned_rows": analysis.returned_rows,
+                    "truncated": analysis.truncated,
+                    **audit_summary(run),
+                },
             )
         )
         session.commit()
@@ -359,6 +414,8 @@ def analyze(
     except SQLAlchemyError:
         session.rollback()
         path.unlink(missing_ok=True)
+        run.failure = AppError(503, "storage_unavailable", "无法保存分析历史。")
+        run.rag["evidence"]["final_decision"] = "error"
         log_completion("error", "storage_unavailable", int((time.perf_counter() - started) * 1000))
         raise
     except Exception as error:
@@ -371,6 +428,7 @@ def analyze(
             failure = AppError(503, "result_storage_failed", "无法保存查询结果，未标记为成功。")
         else:
             failure = AppError(500, "analysis_failed", "分析过程异常，未产生成功结果。")
+        run.failure = failure
         analysis.status = "rejected" if failure.detail["code"] == "unsafe_sql" else "error"
         analysis.error_code, analysis.error_message = (
             failure.detail["code"],
@@ -392,6 +450,7 @@ def analyze(
                 details={
                     "reason": analysis.error_code,
                     "sql_sha256": hashlib.sha256((analysis.sql or "").encode()).hexdigest(),
+                    **audit_summary(run),
                 },
             )
         )

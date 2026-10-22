@@ -1,9 +1,11 @@
 """Opt-in LangSmith export. Only newly constructed, bounded metadata leaves the app."""
 
 import hashlib
+import hmac
 import json
 import logging
 import re
+import secrets
 from datetime import UTC, datetime
 from queue import Full, Queue
 from threading import Lock, Thread
@@ -12,6 +14,7 @@ from uuid import uuid4
 from langsmith import Client
 from urllib3.util.retry import Retry
 
+from app.evidence_snapshot import CHECKS, DECISIONS, EVIDENCE_STATUSES, EXECUTIONS
 from app.observability import emit
 
 NODES = {"prepare", "retrieve", "plan", "generate", "validate", "repair", "execute", "check_result"}
@@ -46,6 +49,19 @@ COUNTS = {
     "output_tokens",
     "agent_total_tokens",
 }
+EVIDENCE_COUNTS = {
+    "vector_count",
+    "lexical_count",
+    "fused_count",
+    "reranked_count",
+    "selected_candidate_count",
+    "catalog_source_count",
+    "tool_source_count",
+    "eligible_source_count",
+    "planned_source_count",
+    "context_source_count",
+    "confirmed_source_count",
+}
 LABELS = {
     "provider": {"deepseek", "openai", "openai_compatible", "mock", "custom"},
     "model": {"deepseek-flash", "deepseek-chat", "gpt-4o-mini", "mock", "custom"},
@@ -53,6 +69,13 @@ LABELS = {
     "retrieval_strategy": {"vector", "hybrid"},
     "reranker": {"none", "flashrank"},
     "sql_validation": {"approved", "rejected", "not_requested"},
+    "evidence_version": {"v1", "unrecorded"},
+    "evidence_policy": {"legacy", "registered"},
+    "evidence_status": EVIDENCE_STATUSES,
+    "candidate_status": RAG_STATUSES,
+    "metric_validation": CHECKS,
+    "execution_status": EXECUTIONS,
+    "final_decision": DECISIONS,
     "failure_code": {
         "unsafe_sql",
         "unknown_column",
@@ -62,6 +85,8 @@ LABELS = {
         "reranker_timeout",
         "reranker_failed",
         "contract_failed",
+        "metric_contract_violation",
+        "evidence_source_denied",
         "other",
     },
 }
@@ -70,6 +95,13 @@ LABELS = {
 def safe_metadata(values):
     """Only enumerated labels/counts and per-trace salted source hashes; no bodies."""
     safe = {k: v for k, v in values.items() if k in COUNTS and type(v) is int and 0 <= v <= 10**9}
+    safe.update(
+        {
+            k: v
+            for k, v in values.items()
+            if k in EVIDENCE_COUNTS and type(v) is int and 0 <= v <= 96
+        }
+    )
     for key, allowed in (("status", STATUSES), ("rag_status", RAG_STATUSES)):
         value = values.get(key)
         if isinstance(value, str) and value in allowed:
@@ -113,7 +145,74 @@ def safe_metadata(values):
         and all(isinstance(value, str) and re.fullmatch(r"[0-9a-f]{16}", value) for value in hashes)
     ):
         safe["source_hashes"] = hashes
+    phases = values.get("evidence_sources")
+    if isinstance(phases, list) and len(phases) <= 48:
+        safe["evidence_sources"] = [
+            row
+            for row in phases
+            if isinstance(row, dict)
+            and set(row) == {"phase", "source_hash"}
+            and isinstance(row["phase"], str)
+            and row["phase"] in {"catalog", "tool", "eligible", "planned", "context", "confirmed"}
+            and isinstance(row["source_hash"], str)
+            and re.fullmatch(r"[0-9a-f]{16}", row["source_hash"])
+        ]
     return safe
+
+
+def source_hash(key, salt):
+    secret = salt if isinstance(salt, bytes) else str(salt).encode()
+    return hmac.new(secret, key.encode(), hashlib.sha256).hexdigest()[:16]
+
+
+def evidence_metadata(rag, salt):
+    evidence = rag.get("evidence", {})
+    if evidence.get("version") != 1:
+        return {"evidence_version": "unrecorded"}
+    phases = {
+        phase: evidence[key]
+        for phase, key in (
+            ("eligible", "eligible_source_ids"),
+            ("planned", "selected_source_ids"),
+            ("context", "context_source_ids"),
+            ("confirmed", "used_source_ids"),
+        )
+        if isinstance(evidence.get(key), list)
+    }
+    origins = evidence.get("source_origins")
+    if isinstance(origins, list):
+        for phase, name in (("catalog", "registered_catalog"), ("tool", "agent_tool")):
+            phases[phase] = [
+                s["chunk_id"]
+                for s in origins
+                if isinstance(s, dict)
+                and s.get("origin") == name
+                and isinstance(s.get("chunk_id"), str)
+            ]
+    values = {
+        "evidence_version": "v1",
+        "evidence_policy": evidence.get("policy"),
+        "evidence_status": evidence.get("status"),
+        "candidate_status": rag.get("candidate_status"),
+        "metric_validation": evidence.get("metric_validation"),
+        "sql_validation": evidence.get("sql_validation"),
+        "execution_status": evidence.get("execution"),
+        "final_decision": evidence.get("final_decision"),
+        **{f"{name}_source_count": len(ids) for name, ids in phases.items()},
+        "evidence_sources": [
+            {"phase": phase, "source_hash": source_hash(key, salt)}
+            for phase, keys in phases.items()
+            for key in keys[:8]
+            if isinstance(key, str)
+        ],
+    }
+    for stage in rag.get("candidate_stages", [])[:5]:
+        name = stage.get("stage")
+        if name in {"vector", "lexical", "fused", "reranked", "selected"}:
+            values["selected_candidate_count" if name == "selected" else f"{name}_count"] = len(
+                stage.get("candidates", [])[:16]
+            )
+    return safe_metadata(values)
 
 
 def retrieval_metadata(settings, rag, salt):
@@ -139,9 +238,7 @@ def retrieval_metadata(settings, rag, salt):
                     {
                         "stage": stage.get("stage"),
                         "rank": rank,
-                        "source_hash": hashlib.sha256((str(salt) + "|" + key).encode()).hexdigest()[
-                            :16
-                        ],
+                        "source_hash": source_hash(key, salt),
                         "score_ppm": round(score * 10**6),
                     }
                 )
@@ -190,6 +287,8 @@ def client_for(settings, on_error, *, timeout_ms=(5000, 5000)):
 def trace_payload(run, status, duration_ms):
     """Build a fresh snapshot; graph state and business telemetry are never serialized."""
     root_id = uuid4()
+    # Not exported, unlike the public trace UUID. Prevent low-entropy ID guessing.
+    trace_salt = secrets.token_bytes(32)
     start = run.started_at
     order = start.strftime("%Y%m%dT%H%M%S%fZ") + str(root_id)
     metadata = safe_metadata(
@@ -221,12 +320,13 @@ def trace_payload(run, status, duration_ms):
             "agent_total_tokens": run.agent_metrics.get("usage", {}).get("total_tokens"),
             "sql_validation": run.validations[-1]["status"] if run.validations else "not_requested",
             "source_hashes": [
-                hashlib.sha256((str(root_id) + "|" + source["chunk_id"]).encode()).hexdigest()[:16]
+                source_hash(source["chunk_id"], trace_salt)
                 for source in run.rag.get("citations", [])[:8]
                 if isinstance(source.get("chunk_id"), str)
             ],
             **run.usage().model_dump(exclude={"source"}),
-            **retrieval_metadata(run.settings, run.rag, root_id),
+            **retrieval_metadata(run.settings, run.rag, trace_salt),
+            **evidence_metadata(run.rag, trace_salt),
             "failure_code": (
                 run.failure.detail.get("code")
                 if run.failure and run.failure.detail.get("code") in LABELS["failure_code"]
